@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.9819, 45.8150]
+      },
+      "properties": {
+        "name": "Zagreb Cathedral",
+        "category": "historical",
+        "rating": 4.8,
+        "description": "The most monumental sacral building in Gothic style southeast of the Alps.",
+        "image_url": "https://example.com/images/zagreb_cathedral.jpg",
+        "website": "https://www.zupa-katedrala.hr/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3638, 45.3271]
+      },
+      "properties": {
+        "name": "Plitvice Lakes National Park",
+        "category": "natural",
+        "rating": 4.9,
+        "description": "A UNESCO World Heritage site, famous for its cascading lakes.",
+        "image_url": "https://example.com/images/plitvice_lakes.jpg",
+        "website": "https://np-plitvicka-jezera.hr/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.7487, 44.8683]
+      },
+      "properties": {
+        "name": "Pula Arena",
+        "category": "historical",
+        "rating": 4.7,
+        "description": "A well-preserved Roman amphitheatre in Pula, Istria.",
+        "image_url": "https://example.com/images/pula_arena.jpg",
+        "website": "https://www.ami-pula.hr/en/collections-on-display/pula-arena/"
+      }
+    }
+  ]
+}
