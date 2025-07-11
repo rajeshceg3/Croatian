@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+
+#sidebar {
+    width: 300px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+
+#search-input {
+    width: calc(100% - 10px); /* Adjust for padding */
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#category-filters h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#category-filters label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#map {
+    flex-grow: 1; /* Takes the remaining width */
+    height: 100%;
+}
