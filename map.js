@@ -1,9 +1,9 @@
 // Initialize the map
 const map = L.map('map').setView([45.1, 15.2], 7); // Centered on Croatia
 
-// Add a tile layer (OpenStreetMap)
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+// Add a tile layer (Stamen Watercolor)
+L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', {
+    attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
 // Create a marker cluster group
@@ -135,3 +135,7 @@ function updateSearchResults(features) {
 }
 
 console.log("Map initialized and data loading initiated with custom icons logic.");
+
+document.getElementById('toggle-btn').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('hidden');
+});
