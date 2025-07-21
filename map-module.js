@@ -47,7 +47,7 @@ export function updateMarkers(map, features) {
         let popupContent = `
             <div class="custom-popup">
                 <div class="popup-image">
-                    <img src="${image_url}" alt="${name}">
+                    <img src="${image_url}" alt="${name}" onerror="this.onerror=null;this.src='icons/default.svg';">
                 </div>
                 <div class="popup-info">
                     <h4>${name}</h4>

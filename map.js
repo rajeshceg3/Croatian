@@ -12,7 +12,8 @@ function filterSites() {
     const filteredFeatures = allFeatures.filter(feature => {
         const name = feature.properties.name.toLowerCase();
         const category = feature.properties.category.toLowerCase();
-        return name.includes(searchText) && selectedCategories.includes(category);
+        const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(category);
+        return name.includes(searchText) && categoryMatch;
     });
 
     updateMarkers(map, filteredFeatures);
@@ -27,7 +28,10 @@ fetchData()
         updateMarkers(map, allFeatures);
         updateSearchResults(map, allFeatures);
         addSearchListener(filterSites);
-        addClearFiltersListener(filterSites);
+        addClearFiltersListener(filterSites, () => {
+            updateMarkers(map, allFeatures);
+            updateSearchResults(map, allFeatures);
+        });
         console.log("Map initialized and data loading initiated with custom icons logic.");
     })
     .catch(error => {
