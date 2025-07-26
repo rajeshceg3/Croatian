@@ -144,3 +144,8 @@ body {
 .custom-popup .popup-footer a:hover {
     color: #4a148c; /* Darker Purple */
 }
+
+.marker-hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+}
