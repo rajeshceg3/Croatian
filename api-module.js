@@ -7,8 +7,5 @@ export function fetchData() {
             }
             return response.json();
         })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
-            throw error; // Re-throw the error to be caught by the caller
-        });
+        // No .catch here, errors will be propagated to the caller
 }
