@@ -36,6 +36,7 @@ fetchData()
         createCategoryFilters(categories, filterSites);
         addSearchListener(filterSites);
         addClearFiltersListener(filterSites);
+        filterSites(); // Populate map and results on initial load
         console.log("Map initialized and data loading initiated with custom icons logic.");
     })
     .catch(error => {

@@ -52,7 +52,10 @@ export function updateMarkers(map, features) {
         const img = document.createElement('img');
         img.src = image_url;
         img.alt = name;
-        img.onerror = () => { img.src = 'icons/default.svg'; };
+        img.onerror = () => {
+            img.onerror = null; // Prevent infinite loop if the fallback image is also missing
+            img.src = 'icons/default.svg';
+        };
         imageContainer.appendChild(img);
 
         const infoContainer = document.createElement('div');

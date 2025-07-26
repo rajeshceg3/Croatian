@@ -25,26 +25,29 @@ let displayedFeatures = [];
 
 export function updateSearchResults(map, features) {
     const searchResultsContainer = document.getElementById('search-results');
-    let resultsHtml = '';
+    searchResultsContainer.innerHTML = ''; // Clear previous results
+    const fragment = document.createDocumentFragment();
 
     features.forEach(feature => {
         const { name } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
-        resultsHtml += `<div class="search-result-item" data-lat="${lat}" data-lng="${lng}">${name}</div>`;
-    });
 
-    searchResultsContainer.innerHTML = resultsHtml;
+        const resultItem = document.createElement('div');
+        resultItem.className = 'search-result-item';
+        resultItem.textContent = name; // Use textContent to prevent XSS
+        resultItem.dataset.lat = lat;
+        resultItem.dataset.lng = lng;
 
-    // Add event listeners to the new search result items
-    searchResultsContainer.querySelectorAll('.search-result-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const lat = parseFloat(item.dataset.lat);
-            const lng = parseFloat(item.dataset.lng);
+        resultItem.addEventListener('click', () => {
             if (!isNaN(lat) && !isNaN(lng)) {
                 map.flyTo([lat, lng], 14);
             }
         });
+
+        fragment.appendChild(resultItem);
     });
+
+    searchResultsContainer.appendChild(fragment);
 }
 
 export function addSearchListener(filterCallback) {
