@@ -6,7 +6,7 @@ export function createCategoryFilters(categories, filterCallback) {
         checkbox.type = 'checkbox';
         checkbox.id = category.toLowerCase();
         checkbox.value = category.toLowerCase();
-        checkbox.checked = true;
+        checkbox.checked = false;
         checkbox.addEventListener('change', filterCallback);
 
         const label = document.createElement('label');
@@ -25,43 +25,33 @@ let displayedFeatures = [];
 
 export function updateSearchResults(map, features) {
     const searchResultsContainer = document.getElementById('search-results');
-    const newFeatureNames = new Set(features.map(f => f.properties.name));
-    const oldFeatureNames = new Set(displayedFeatures.map(f => f.properties.name));
+    let resultsHtml = '';
 
-    // Remove old results that are not in the new list
-    displayedFeatures.forEach(feature => {
-        if (!newFeatureNames.has(feature.properties.name)) {
-            const elementToRemove = document.getElementById(`result-${feature.properties.name.replace(/\s+/g, '-')}`);
-            if (elementToRemove) {
-                searchResultsContainer.removeChild(elementToRemove);
-            }
-        }
-    });
-
-    // Add new results that are not in the old list
     features.forEach(feature => {
-        if (!oldFeatureNames.has(feature.properties.name)) {
-            const { name } = feature.properties;
-            const [lng, lat] = feature.geometry.coordinates;
-            const resultItem = document.createElement('div');
-            resultItem.className = 'search-result-item';
-            resultItem.textContent = name;
-            resultItem.id = `result-${name.replace(/\s+/g, '-')}`;
-            resultItem.addEventListener('click', () => {
-                map.flyTo([lat, lng], 14);
-            });
-            searchResultsContainer.appendChild(resultItem);
-        }
+        const { name } = feature.properties;
+        const [lng, lat] = feature.geometry.coordinates;
+        resultsHtml += `<div class="search-result-item" data-lat="${lat}" data-lng="${lng}">${name}</div>`;
     });
 
-    displayedFeatures = features;
+    searchResultsContainer.innerHTML = resultsHtml;
+
+    // Add event listeners to the new search result items
+    searchResultsContainer.querySelectorAll('.search-result-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const lat = parseFloat(item.dataset.lat);
+            const lng = parseFloat(item.dataset.lng);
+            if (!isNaN(lat) && !isNaN(lng)) {
+                map.flyTo([lat, lng], 14);
+            }
+        });
+    });
 }
 
 export function addSearchListener(filterCallback) {
     document.getElementById('search-input').addEventListener('input', filterCallback);
 }
 
-export function addClearFiltersListener(filterCallback, clearCallback) {
+export function addClearFiltersListener(filterCallback) {
     document.getElementById('clear-filters').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         const checkboxes = document.querySelectorAll('#category-filters input[type="checkbox"]');
@@ -69,8 +59,5 @@ export function addClearFiltersListener(filterCallback, clearCallback) {
             checkbox.checked = false;
         });
         filterCallback();
-        if (clearCallback) {
-            clearCallback();
-        }
     });
 }

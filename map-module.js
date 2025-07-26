@@ -38,27 +38,53 @@ export function updateMarkers(map, features) {
         const marker = L.marker([lat, lng], { icon: customIcon });
 
         marker.on('mouseover', function (e) {
-            this.setOpacity(0.7);
+            this.getElement().classList.add('marker-hover');
         });
         marker.on('mouseout', function (e) {
-            this.setOpacity(1.0);
+            this.getElement().classList.remove('marker-hover');
         });
 
-        let popupContent = `
-            <div class="custom-popup">
-                <div class="popup-image">
-                    <img src="${image_url}" alt="${name}" onerror="this.onerror=null;this.src='icons/default.svg';">
-                </div>
-                <div class="popup-info">
-                    <h4>${name}</h4>
-                    <p>${description}</p>
-                    <div class="popup-footer">
-                        <span>Rating: ${rating} / 5</span>
-                        <a href="${website}" target="_blank">Website</a>
-                    </div>
-                </div>
-            </div>
-        `;
+        const popupContent = document.createElement('div');
+        popupContent.className = 'custom-popup';
+
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'popup-image';
+        const img = document.createElement('img');
+        img.src = image_url;
+        img.alt = name;
+        img.onerror = () => { img.src = 'icons/default.svg'; };
+        imageContainer.appendChild(img);
+
+        const infoContainer = document.createElement('div');
+        infoContainer.className = 'popup-info';
+
+        const title = document.createElement('h4');
+        title.textContent = name;
+
+        const desc = document.createElement('p');
+        desc.textContent = description;
+
+        const footer = document.createElement('div');
+        footer.className = 'popup-footer';
+
+        const ratingSpan = document.createElement('span');
+        ratingSpan.textContent = `Rating: ${rating} / 5`;
+
+        const websiteLink = document.createElement('a');
+        websiteLink.href = website;
+        websiteLink.target = '_blank';
+        websiteLink.textContent = 'Website';
+
+        footer.appendChild(ratingSpan);
+        footer.appendChild(websiteLink);
+
+        infoContainer.appendChild(title);
+        infoContainer.appendChild(desc);
+        infoContainer.appendChild(footer);
+
+        popupContent.appendChild(imageContainer);
+        popupContent.appendChild(infoContainer);
+
         marker.bindPopup(popupContent);
         markers.addLayer(marker);
     });

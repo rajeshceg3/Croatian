@@ -6,5 +6,9 @@ export function fetchData() {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
             return response.json();
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            throw error; // Re-throw the error to be caught by the caller
         });
 }
