@@ -40,5 +40,11 @@ fetchData()
         console.log("Map initialized and data loading initiated with custom icons logic.");
     })
     .catch(error => {
-        console.error('Error fetching or processing GeoJSON data:', error);
+        console.error('Failed to load site data. See details below.');
+        if (error instanceof SyntaxError) {
+            console.error('JSON Parsing Error:', error.message);
+            console.error('This is likely due to a syntax error in data.geojson.');
+        } else {
+            console.error('Network or other error:', error);
+        }
     });
