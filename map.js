@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -7,7 +7,8 @@ let allFeatures = [];
 
 function filterSites() {
     const searchText = document.getElementById('search-input').value.toLowerCase();
-    const selectedCategories = Array.from(document.querySelectorAll('#category-filters input:checked')).map(cb => cb.value);
+    // Updated to query active chips
+    const selectedCategories = Array.from(document.querySelectorAll('.filter-chip.active')).map(chip => chip.dataset.value);
 
     let filteredFeatures = allFeatures;
 
@@ -36,6 +37,7 @@ fetchData()
         createCategoryFilters(categories, filterSites);
         addSearchListener(filterSites);
         addClearFiltersListener(filterSites);
+        setupMobileInteractions();
         filterSites(); // Populate map and results on initial load
         console.log("Map initialized and data loading initiated with custom icons logic.");
     })
