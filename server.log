@@ -1,0 +1,10 @@
+127.0.0.1 - - [09/Jan/2026 18:29:27] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jan/2026 18:29:27] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jan/2026 18:29:27] "GET /map.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jan/2026 18:29:28] "GET /ui-module.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jan/2026 18:29:28] "GET /map-module.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jan/2026 18:29:28] "GET /api-module.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jan/2026 18:29:28] "GET /data.geojson HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jan/2026 18:29:28] "GET /icons/historical.svg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jan/2026 18:29:28] "GET /icons/natural.svg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jan/2026 18:29:28] "GET /icons/default.svg HTTP/1.1" 200 -
