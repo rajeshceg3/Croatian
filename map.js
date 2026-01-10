@@ -30,6 +30,9 @@ function filterSites() {
     updateSearchResults(map, filteredFeatures);
 }
 
+// Show loading
+const loader = document.getElementById('loading-overlay');
+
 fetchData()
     .then(data => {
         allFeatures = data.features;
@@ -39,14 +42,16 @@ fetchData()
         addClearFiltersListener(filterSites);
         setupMobileInteractions();
         filterSites(); // Populate map and results on initial load
-        console.log("Map initialized and data loading initiated with custom icons logic.");
+
+        // Hide loading
+        loader.classList.add('hidden');
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 300);
+
+        console.log("Map initialized and data loaded.");
     })
     .catch(error => {
-        console.error('Failed to load site data. See details below.');
-        if (error instanceof SyntaxError) {
-            console.error('JSON Parsing Error:', error.message);
-            console.error('This is likely due to a syntax error in data.geojson.');
-        } else {
-            console.error('Network or other error:', error);
-        }
+        console.error('Failed to load site data.', error);
+        loader.innerHTML = '<div style="text-align:center; padding: 20px;">Failed to load data.<br>Please try refreshing the page.</div>';
     });
