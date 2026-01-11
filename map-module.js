@@ -29,15 +29,15 @@ export const markers = L.markerClusterGroup({
     // We can use CSS to style .marker-cluster-small etc.
 });
 
-// Define category to icon mapping
-const iconMap = {
-    "historical": "icons/historical.svg",
-    "natural": "icons/natural.svg",
-    "cultural": "icons/cultural.svg",
-    "coastal": "icons/coastal.svg"
+// SVG Paths for icons (extracted from previous SVG files, stripped of transforms)
+// We assume a standard viewBox="0 0 24 24" for these paths.
+const iconPaths = {
+    "historical": `<path fill="currentColor" d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm19-12h-2V7h-3v3h-2V7h-3v3H9V7H6v3H4V7H2l10-5 10 5v3z"/>`,
+    "natural": `<path fill="currentColor" d="M10 21v-4.83l-7 5.96L4.82 20 12 14l7.18 6L21 22.13l-7-5.96V21h-4zm2-19L2 12h5v2h10v-2h5L12 2z"/>`,
+    "cultural": `<path fill="currentColor" d="M12 3a9 9 0 0 0 0 18c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>`,
+    "coastal": `<path fill="currentColor" d="M12 6c4.42 0 8 3.58 8 8h-2c0-3.31-2.69-6-6-6s-6 2.69-6 6H4c0-4.42 3.58-8 8-8z M11 14v6h2v-6h-2z"/>`,
+    "default": `<path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>`
 };
-
-const defaultIconPath = 'icons/default.svg';
 
 export function updateMarkers(map, features) {
     markers.clearLayers();
@@ -45,24 +45,32 @@ export function updateMarkers(map, features) {
         const { name, category, description, rating, image_url, website } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
 
-        const iconUrl = iconMap[category.toLowerCase()] || defaultIconPath;
+        const catKey = category.toLowerCase();
+        const svgPath = iconPaths[catKey] || iconPaths['default'];
 
-        // Slightly larger icons for better touch targets
-        const customIcon = L.icon({
-            iconUrl: iconUrl,
-            iconSize: [36, 36],
-            iconAnchor: [18, 36],
-            popupAnchor: [0, -34]
+        // Use DivIcon for CSS styling
+        const customIcon = L.divIcon({
+            className: 'custom-marker-icon', // Defined in CSS
+            html: `
+                <div class="marker-pin ${catKey}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        ${svgPath}
+                    </svg>
+                </div>
+            `,
+            iconSize: [36, 36], // Size of the .marker-pin
+            iconAnchor: [18, 42], // Tip of the arrow (36px height + 6px arrow extension)
+            popupAnchor: [0, -42]
         });
 
         const marker = L.marker([lat, lng], { icon: customIcon });
 
+        // Add class to elevate z-index on hover
         marker.on('mouseover', function (e) {
-            // CSS transition handles the hover effect
-            this.getElement().classList.add('marker-hover');
+            this.setZIndexOffset(1000);
         });
         marker.on('mouseout', function (e) {
-            this.getElement().classList.remove('marker-hover');
+            this.setZIndexOffset(0);
         });
 
         const popupContent = document.createElement('div');
@@ -75,14 +83,17 @@ export function updateMarkers(map, features) {
         const img = document.createElement('img');
         img.src = image_url;
         img.alt = name;
-        img.loading = "lazy"; // Native lazy loading
+        img.loading = "lazy";
 
         img.onerror = () => {
             img.onerror = null;
-            img.src = 'icons/default.svg'; // Fallback
-            img.style.objectFit = "contain";
-            img.style.padding = "20px";
-            img.style.backgroundColor = "#f0f2f5";
+            // Use a nice placeholder gradient or pattern
+            img.style.display = 'none';
+            imageContainer.style.background = `linear-gradient(135deg, var(--accent-color), #8792a2)`;
+            imageContainer.style.display = 'flex';
+            imageContainer.style.alignItems = 'center';
+            imageContainer.style.justifyContent = 'center';
+            imageContainer.innerHTML = `<span style="color:white; font-weight:600; font-size:24px;">${name.charAt(0)}</span>`;
         };
         imageContainer.appendChild(img);
 
@@ -125,9 +136,9 @@ export function updateMarkers(map, features) {
         popupContent.appendChild(infoContainer);
 
         marker.bindPopup(popupContent, {
-            maxWidth: 300,
-            minWidth: 300,
-            className: 'polished-popup' // We can target this class if needed
+            maxWidth: 320,
+            minWidth: 320,
+            className: 'polished-popup'
         });
         markers.addLayer(marker);
     });
