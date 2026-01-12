@@ -25,8 +25,24 @@ export const markers = L.markerClusterGroup({
     zoomToBoundsOnClick: true,
     spiderfyOnMaxZoom: true,
     removeOutsideVisibleBounds: true,
-    // Customizing the cluster icon could be a next step, but default is okay for now.
-    // We can use CSS to style .marker-cluster-small etc.
+    iconCreateFunction: function (cluster) {
+        var childCount = cluster.getChildCount();
+        var c = ' marker-cluster-';
+        if (childCount < 10) {
+            c += 'small';
+        } else if (childCount < 100) {
+            c += 'medium';
+        } else {
+            c += 'large';
+        }
+
+        return new L.DivIcon({
+            html: '<div><span>' + childCount + '</span></div>',
+            className: 'marker-cluster' + c,
+            iconSize: new L.Point(40, 40),
+            iconAnchor: [20, 20]
+        });
+    }
 });
 
 // SVG Paths for icons (extracted from previous SVG files, stripped of transforms)
@@ -71,6 +87,23 @@ export function updateMarkers(map, features) {
         });
         marker.on('mouseout', function (e) {
             this.setZIndexOffset(0);
+        });
+
+        // Add active state to marker pin when popup is open
+        marker.on('popupopen', () => {
+            const icon = marker.getElement();
+            if (icon) {
+                const pin = icon.querySelector('.marker-pin');
+                if (pin) pin.classList.add('active');
+            }
+        });
+
+        marker.on('popupclose', () => {
+            const icon = marker.getElement();
+            if (icon) {
+                const pin = icon.querySelector('.marker-pin');
+                if (pin) pin.classList.remove('active');
+            }
         });
 
         const popupContent = document.createElement('div');
@@ -138,7 +171,7 @@ export function updateMarkers(map, features) {
         marker.bindPopup(popupContent, {
             maxWidth: 320,
             minWidth: 320,
-            className: 'polished-popup'
+            className: 'polished-popup' // We used general CSS for leaflet-popup-content-wrapper, but this is fine to keep
         });
         markers.addLayer(marker);
     });
