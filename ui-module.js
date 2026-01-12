@@ -114,7 +114,7 @@ export function setupMobileInteractions() {
     // Helper to get current transform Y value
     const getTranslateY = (element) => {
         const style = window.getComputedStyle(element);
-        const matrix = new WebKitCSSMatrix(style.transform);
+        const matrix = new DOMMatrix(style.transform);
         return matrix.m42;
     };
 
