@@ -37,11 +37,27 @@ export function updateSearchResults(map, features) {
     const fragment = document.createDocumentFragment();
 
     features.forEach(feature => {
-        const { name, category, description } = feature.properties;
+        const { name, category, description, image_url } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
 
         const resultItem = document.createElement('div');
         resultItem.className = 'search-result-item';
+
+        // Thumbnail
+        if (image_url) {
+            const thumbnailDiv = document.createElement('div');
+            thumbnailDiv.className = 'result-thumbnail';
+            const img = document.createElement('img');
+            img.src = image_url;
+            img.alt = name;
+            img.loading = "lazy";
+            thumbnailDiv.appendChild(img);
+            resultItem.appendChild(thumbnailDiv);
+        }
+
+        // Content Wrapper
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'result-content';
 
         // Add content
         const title = document.createElement('div');
@@ -52,15 +68,17 @@ export function updateSearchResults(map, features) {
         meta.className = 'result-meta';
         meta.textContent = category;
 
-        resultItem.appendChild(title);
-        resultItem.appendChild(meta);
+        contentDiv.appendChild(title);
+        contentDiv.appendChild(meta);
 
         if (description) {
             const desc = document.createElement('div');
             desc.className = 'result-desc';
             desc.textContent = description;
-            resultItem.appendChild(desc);
+            contentDiv.appendChild(desc);
         }
+
+        resultItem.appendChild(contentDiv);
 
         resultItem.addEventListener('click', () => {
             if (!isNaN(lat) && !isNaN(lng)) {
