@@ -10,7 +10,8 @@ export function createCategoryFilters(categories, filterCallback) {
         chip.className = 'filter-chip';
         chip.type = 'button';
         chip.dataset.value = category.toLowerCase();
-        chip.textContent = category;
+        // Capitalize first letter
+        chip.textContent = category.charAt(0).toUpperCase() + category.slice(1);
 
         chip.addEventListener('click', () => {
             chip.classList.toggle('active');
@@ -44,16 +45,25 @@ export function updateSearchResults(map, features) {
         resultItem.className = 'search-result-item';
 
         // Thumbnail
+        const thumbnailDiv = document.createElement('div');
+        thumbnailDiv.className = 'result-thumbnail';
+
         if (image_url) {
-            const thumbnailDiv = document.createElement('div');
-            thumbnailDiv.className = 'result-thumbnail';
             const img = document.createElement('img');
             img.src = image_url;
             img.alt = name;
             img.loading = "lazy";
+            img.onerror = () => {
+                img.style.display = 'none';
+                thumbnailDiv.style.background = '#e6ebf1'; // Fallback color
+                thumbnailDiv.innerHTML = `<span style="display:flex;justify-content:center;align-items:center;height:100%;color:#8792a2;font-weight:600;">${name.charAt(0)}</span>`;
+            };
             thumbnailDiv.appendChild(img);
-            resultItem.appendChild(thumbnailDiv);
+        } else {
+             thumbnailDiv.style.background = '#e6ebf1';
+             thumbnailDiv.innerHTML = `<span style="display:flex;justify-content:center;align-items:center;height:100%;color:#8792a2;font-weight:600;">${name.charAt(0)}</span>`;
         }
+        resultItem.appendChild(thumbnailDiv);
 
         // Content Wrapper
         const contentDiv = document.createElement('div');
@@ -95,6 +105,8 @@ export function updateSearchResults(map, features) {
                 }
             }
         });
+
+        // Hover effect on map marker could be added here if we had a reference to the markers
 
         fragment.appendChild(resultItem);
     });
@@ -164,6 +176,10 @@ export function setupMobileInteractions() {
         // Constraint: Don't drag above 0 (fully expanded)
         if (newTranslateY < 0) newTranslateY = 0;
 
+        // Resistance when pulling up past expansion
+        if (newTranslateY < -20) newTranslateY = -20 + (newTranslateY + 20) * 0.2;
+
+
         sidebar.style.transform = `translateY(${newTranslateY}px)`;
     }, { passive: true });
 
@@ -173,7 +189,7 @@ export function setupMobileInteractions() {
 
         const endY = e.changedTouches[0].clientY;
         const deltaY = endY - startY;
-        const threshold = 50; // pixels to snap
+        const threshold = 40; // pixels to snap
 
         // If dragged significantly
         if (Math.abs(deltaY) > threshold) {
@@ -185,8 +201,18 @@ export function setupMobileInteractions() {
                 sidebar.classList.add('expanded');
             }
         } else {
-            // Revert to closest state based on current class
-            // (The removal of 'dragging' class restores the transition)
+            // Check current position to decide where to snap
+            const currentTransform = getTranslateY(sidebar);
+            const windowHeight = window.innerHeight;
+            // If it's closer to the top (0), expand. If closer to bottom, collapse.
+            // Collapsed state transform is approx windowHeight - 150
+            const collapsedTransform = windowHeight - 150;
+
+            if (currentTransform < collapsedTransform / 2) {
+                 sidebar.classList.add('expanded');
+            } else {
+                 sidebar.classList.remove('expanded');
+            }
         }
 
         sidebar.style.transform = ''; // Clear inline styles so CSS classes take over
