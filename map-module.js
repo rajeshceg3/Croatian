@@ -53,14 +53,14 @@ export function updateMarkers(map, features) {
             className: 'custom-marker-icon', // Defined in CSS
             html: `
                 <div class="marker-pin ${catKey}">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         ${svgPath}
                     </svg>
                 </div>
             `,
             iconSize: [40, 40], // Match CSS width/height
-            iconAnchor: [20, 46], // Center (20) and Bottom Tip (40 height + 6 arrow)
-            popupAnchor: [0, -46]
+            iconAnchor: [20, 48], // Center (20) and Bottom Tip (40 height + 8 arrow)
+            popupAnchor: [0, -48]
         });
 
         const marker = L.marker([lat, lng], { icon: customIcon });

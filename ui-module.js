@@ -139,6 +139,7 @@ export function setupMobileInteractions() {
     let startY = 0;
     let currentY = 0;
     let isDragging = false;
+    let hasMoved = false; // Track if a move occurred to distinguish tap from drag
     let startTransform = 0;
 
     // Helper to get current transform Y value
@@ -148,29 +149,35 @@ export function setupMobileInteractions() {
         return matrix.m42;
     };
 
-    handle.addEventListener('click', () => {
-        if (!isDragging) {
+    handle.addEventListener('click', (e) => {
+        // Only toggle if we didn't just finish a drag
+        if (!hasMoved) {
             sidebar.classList.toggle('expanded');
-            sidebar.style.transform = ''; // Clear inline style to let CSS take over
+            sidebar.style.transform = '';
         }
+        // Reset hasMoved for next interaction
+        hasMoved = false;
     });
 
     handle.addEventListener('touchstart', (e) => {
         startY = e.touches[0].clientY;
         isDragging = true;
+        hasMoved = false;
         sidebar.classList.add('dragging');
         startTransform = getTranslateY(sidebar);
     }, { passive: true });
 
     handle.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
+
         currentY = e.touches[0].clientY;
         const deltaY = currentY - startY;
 
-        // Calculate new position
-        // If we are starting from expanded (0), deltaY > 0 means dragging down (positive)
-        // If we are starting from collapsed (large positive), deltaY < 0 means dragging up (negative)
+        if (Math.abs(deltaY) > 5) {
+            hasMoved = true;
+        }
 
+        // Calculate new position
         let newTranslateY = startTransform + deltaY;
 
         // Constraint: Don't drag above 0 (fully expanded)
@@ -178,7 +185,6 @@ export function setupMobileInteractions() {
 
         // Resistance when pulling up past expansion
         if (newTranslateY < -20) newTranslateY = -20 + (newTranslateY + 20) * 0.2;
-
 
         sidebar.style.transform = `translateY(${newTranslateY}px)`;
     }, { passive: true });
@@ -192,7 +198,7 @@ export function setupMobileInteractions() {
         const threshold = 40; // pixels to snap
 
         // If dragged significantly
-        if (Math.abs(deltaY) > threshold) {
+        if (hasMoved && Math.abs(deltaY) > threshold) {
             if (deltaY > 0) {
                 // Dragged down -> Collapse
                 sidebar.classList.remove('expanded');
@@ -200,12 +206,10 @@ export function setupMobileInteractions() {
                 // Dragged up -> Expand
                 sidebar.classList.add('expanded');
             }
-        } else {
-            // Check current position to decide where to snap
+        } else if (hasMoved) {
+            // Check current position to decide where to snap if moved but not enough to trigger directional snap
             const currentTransform = getTranslateY(sidebar);
             const windowHeight = window.innerHeight;
-            // If it's closer to the top (0), expand. If closer to bottom, collapse.
-            // Collapsed state transform is approx windowHeight - 150
             const collapsedTransform = windowHeight - 150;
 
             if (currentTransform < collapsedTransform / 2) {
@@ -214,6 +218,7 @@ export function setupMobileInteractions() {
                  sidebar.classList.remove('expanded');
             }
         }
+        // If !hasMoved, it was a tap, handled by 'click' listener
 
         sidebar.style.transform = ''; // Clear inline styles so CSS classes take over
     });
@@ -223,6 +228,19 @@ export function setupMobileInteractions() {
             // Auto expand when searching on mobile
             if (window.innerWidth <= 768) {
                 sidebar.classList.add('expanded');
+            }
+        });
+    }
+}
+
+export function setupScrollEffects() {
+    const sidebarContent = document.querySelector('.sidebar-content');
+    if (sidebarContent) {
+        sidebarContent.addEventListener('scroll', () => {
+            if (sidebarContent.scrollTop > 10) {
+                sidebarContent.classList.add('scrolled');
+            } else {
+                sidebarContent.classList.remove('scrolled');
             }
         });
     }
