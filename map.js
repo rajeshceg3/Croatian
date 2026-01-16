@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -41,6 +41,7 @@ fetchData()
         addSearchListener(filterSites);
         addClearFiltersListener(filterSites);
         setupMobileInteractions();
+        setupScrollEffects();
         filterSites(); // Populate map and results on initial load
 
         // Hide loading
