@@ -12,7 +12,7 @@
         "category": "historical",
         "rating": 4.8,
         "description": "A magnificent example of Gothic architecture, the Zagreb Cathedral is a must-see for its stunning spires and rich history. It is the tallest building in Croatia.",
-        "image_url": "https://images.unsplash.com/photo-1572688323630-6f03524b6e5a?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Zagreb_Cathedral_01.jpg/800px-Zagreb_Cathedral_01.jpg",
         "website": "https://www.zupa-katedrala.hr/"
       }
     },
@@ -27,7 +27,7 @@
         "category": "natural",
         "rating": 4.9,
         "description": "A UNESCO World Heritage site, Plitvice Lakes National Park is renowned for its 16 terraced lakes, interconnected by a series of stunning waterfalls, set in deep woodland.",
-        "image_url": "https://images.unsplash.com/photo-1586612389323-b09b0a158b4d?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Plitvice_Lakes_National_Park_%282%29.jpg/800px-Plitvice_Lakes_National_Park_%282%29.jpg",
         "website": "https://np-plitvicka-jezera.hr/"
       }
     },
@@ -42,7 +42,7 @@
         "category": "historical",
         "rating": 4.7,
         "description": "The Pula Arena is a remarkably well-preserved Roman amphitheater in the heart of Pula. It is one of the six largest surviving Roman arenas in the World.",
-        "image_url": "https://plus.unsplash.com/premium_photo-1697730309995-33366315201c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Pula_Arena.JPG/800px-Pula_Arena.JPG",
         "website": "https://www.ami-pula.hr/en/collections-on-display/pula-arena/"
       }
     },
@@ -57,7 +57,7 @@
         "category": "historical",
         "rating": 4.7,
         "description": "An ancient palace built for the Roman Emperor Diocletian, this vast complex in Split is a UNESCO World Heritage site and forms the historic core of the city.",
-        "image_url": "https://images.unsplash.com/photo-1567602692237-06d9ab2483f1?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/View_of_Diocletian%27s_Palace%2C_Split_01.jpg/800px-View_of_Diocletian%27s_Palace%2C_Split_01.jpg",
         "website": "https://whc.unesco.org/en/list/97/"
       }
     },
@@ -72,7 +72,7 @@
         "category": "coastal",
         "rating": 4.6,
         "description": "Famous for its distinctive shape, Zlatni Rat (Golden Horn) is a stunning pebble beach that extends into the Adriatic Sea, its tip changing shape with the tides and currents.",
-        "image_url": "https://images.unsplash.com/photo-1628628994996-f13354b9d32d?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Zlatni_rat_Croatia.JPG/800px-Zlatni_rat_Croatia.JPG",
         "website": "https://www.bol.hr/en/attractions/beaches/zlatni-rat-beach"
       }
     },
@@ -87,7 +87,7 @@
         "category": "historical",
         "rating": 4.8,
         "description": "Walking the ancient city walls of Dubrovnik offers breathtaking views of the Adriatic Sea and the city's stunning architecture. It is a must-do experience for any visitor.",
-        "image_url": "https://images.unsplash.com/photo-1562207520-19c0ebd8264f?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Dubrovnik_Walls.jpg/800px-Dubrovnik_Walls.jpg",
         "website": "https://www.wallsofdubrovnik.com/"
       }
     },
@@ -102,7 +102,7 @@
         "category": "natural",
         "rating": 4.7,
         "description": "Famous for its seven stunning waterfalls and rich biodiversity, Krka National Park offers a memorable experience of Croatia's natural beauty, with boat trips and swimming areas.",
-        "image_url": "https://images.unsplash.com/photo-1569062215398-c1042a348981?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Krka_waterfalls.jpg/800px-Krka_waterfalls.jpg",
         "website": "http://www.np-krka.hr/en/"
       }
     },
@@ -117,7 +117,7 @@
         "category": "cultural",
         "rating": 4.5,
         "description": "A unique and poignant museum in Zagreb, it displays personal objects left over from former lovers, accompanied by brief descriptions. A testament to love's fragility.",
-        "image_url": "https://images.unsplash.com/photo-1596901410421-e91a27e7a464?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Museum_of_broken_relationships.jpg/800px-Museum_of_broken_relationships.jpg",
         "website": "https://brokenships.com/"
       }
     }

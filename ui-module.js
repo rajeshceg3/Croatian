@@ -92,7 +92,7 @@ export function updateSearchResults(map, features) {
 
         resultItem.addEventListener('click', () => {
             if (!isNaN(lat) && !isNaN(lng)) {
-                map.flyTo([lat, lng], 14, {
+                map.flyTo([lat, lng], 16, {
                     animate: true,
                     duration: 1.5
                 });
