@@ -1,9 +1,49 @@
 // This module will handle UI-related functionalities.
+
+export function getFavorites() {
+    try {
+        const favorites = localStorage.getItem('croatia_favorites');
+        return favorites ? JSON.parse(favorites) : [];
+    } catch (e) {
+        console.error("Error reading favorites", e);
+        return [];
+    }
+}
+
+export function toggleFavorite(name, callback) {
+    const favorites = getFavorites();
+    const index = favorites.indexOf(name);
+    if (index === -1) {
+        favorites.push(name);
+    } else {
+        favorites.splice(index, 1);
+    }
+    localStorage.setItem('croatia_favorites', JSON.stringify(favorites));
+    if (callback) callback();
+}
+
 export function createCategoryFilters(categories, filterCallback) {
     const filtersContainer = document.getElementById('category-filters');
     filtersContainer.innerHTML = '<h4>Filter by Category:</h4>'; // Reset and add header
     const filtersList = document.createElement('div');
     filtersList.className = 'filters-list';
+
+    // Favorites Filter
+    const favChip = document.createElement('button');
+    favChip.className = 'filter-chip favorites-filter';
+    favChip.type = 'button';
+    favChip.dataset.value = 'favorites';
+    favChip.innerHTML = `
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: inherit;">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+        Favorites
+    `;
+    favChip.addEventListener('click', () => {
+        favChip.classList.toggle('active');
+        filterCallback();
+    });
+    filtersList.appendChild(favChip);
 
     categories.forEach(category => {
         const chip = document.createElement('button');
@@ -35,10 +75,11 @@ export function updateSearchResults(map, features) {
         return;
     }
 
+    const favorites = getFavorites();
     const fragment = document.createDocumentFragment();
 
     features.forEach(feature => {
-        const { name, category, description, image_url } = feature.properties;
+        const { name, category, description, image_url, price_level, best_time } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
 
         const resultItem = document.createElement('div');
@@ -69,17 +110,66 @@ export function updateSearchResults(map, features) {
         const contentDiv = document.createElement('div');
         contentDiv.className = 'result-content';
 
+        // Header (Title + Favorite)
+        const headerDiv = document.createElement('div');
+        headerDiv.style.display = 'flex';
+        headerDiv.style.justifyContent = 'space-between';
+        headerDiv.style.alignItems = 'flex-start';
+
         // Add content
         const title = document.createElement('div');
         title.className = 'result-title';
         title.textContent = name;
+        headerDiv.appendChild(title);
+
+        // Favorite Button
+        const isFav = favorites.includes(name);
+        const favBtn = document.createElement('button');
+        favBtn.className = `favorite-btn ${isFav ? 'active' : ''}`;
+        favBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+        favBtn.title = isFav ? "Remove from Favorites" : "Add to Favorites";
+        favBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card click
+            toggleFavorite(name, () => {
+                const newFavs = getFavorites();
+                const nowFav = newFavs.includes(name);
+                favBtn.classList.toggle('active', nowFav);
+                favBtn.querySelector('svg').setAttribute('fill', nowFav ? 'currentColor' : 'none');
+
+                // Dispatch event so map.js or main controller can listen and refresh if needed
+                document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+            });
+        });
+        headerDiv.appendChild(favBtn);
+
+        contentDiv.appendChild(headerDiv);
 
         const meta = document.createElement('div');
         meta.className = 'result-meta';
         meta.textContent = category;
-
-        contentDiv.appendChild(title);
         contentDiv.appendChild(meta);
+
+        // Badge Container
+        const badgeContainer = document.createElement('div');
+        badgeContainer.style.display = 'flex';
+        badgeContainer.style.gap = '8px';
+        badgeContainer.style.marginBottom = '6px';
+
+        if (price_level) {
+            const priceBadge = document.createElement('span');
+            priceBadge.className = 'info-badge price-badge';
+            priceBadge.textContent = '$'.repeat(price_level);
+            badgeContainer.appendChild(priceBadge);
+        }
+
+        if (best_time) {
+            const timeBadge = document.createElement('span');
+            timeBadge.className = 'info-badge time-badge';
+            timeBadge.textContent = best_time;
+            badgeContainer.appendChild(timeBadge);
+        }
+
+        contentDiv.appendChild(badgeContainer);
 
         if (description) {
             const desc = document.createElement('div');

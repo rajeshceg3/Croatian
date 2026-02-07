@@ -11,6 +11,8 @@
         "name": "Zagreb Cathedral",
         "category": "historical",
         "rating": 4.8,
+        "price_level": 1,
+        "best_time": "Year-round",
         "description": "A magnificent example of Gothic architecture, the Zagreb Cathedral is a must-see for its stunning spires and rich history. It is the tallest building in Croatia.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Zagreb_Cathedral_01.jpg/800px-Zagreb_Cathedral_01.jpg",
         "website": "https://www.zupa-katedrala.hr/"
@@ -26,6 +28,8 @@
         "name": "Plitvice Lakes National Park",
         "category": "natural",
         "rating": 4.9,
+        "price_level": 3,
+        "best_time": "Apr-Oct",
         "description": "A UNESCO World Heritage site, Plitvice Lakes National Park is renowned for its 16 terraced lakes, interconnected by a series of stunning waterfalls, set in deep woodland.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Plitvice_Lakes_National_Park_%282%29.jpg/800px-Plitvice_Lakes_National_Park_%282%29.jpg",
         "website": "https://np-plitvicka-jezera.hr/"
@@ -41,6 +45,8 @@
         "name": "Pula Arena",
         "category": "historical",
         "rating": 4.7,
+        "price_level": 2,
+        "best_time": "May-Sept",
         "description": "The Pula Arena is a remarkably well-preserved Roman amphitheater in the heart of Pula. It is one of the six largest surviving Roman arenas in the World.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Pula_Arena.JPG/800px-Pula_Arena.JPG",
         "website": "https://www.ami-pula.hr/en/collections-on-display/pula-arena/"
@@ -56,6 +62,8 @@
         "name": "Diocletian's Palace",
         "category": "historical",
         "rating": 4.7,
+        "price_level": 1,
+        "best_time": "Year-round",
         "description": "An ancient palace built for the Roman Emperor Diocletian, this vast complex in Split is a UNESCO World Heritage site and forms the historic core of the city.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/View_of_Diocletian%27s_Palace%2C_Split_01.jpg/800px-View_of_Diocletian%27s_Palace%2C_Split_01.jpg",
         "website": "https://whc.unesco.org/en/list/97/"
@@ -71,6 +79,8 @@
         "name": "Zlatni Rat Beach",
         "category": "coastal",
         "rating": 4.6,
+        "price_level": 1,
+        "best_time": "Jun-Sept",
         "description": "Famous for its distinctive shape, Zlatni Rat (Golden Horn) is a stunning pebble beach that extends into the Adriatic Sea, its tip changing shape with the tides and currents.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Zlatni_rat_Croatia.JPG/800px-Zlatni_rat_Croatia.JPG",
         "website": "https://www.bol.hr/en/attractions/beaches/zlatni-rat-beach"
@@ -86,6 +96,8 @@
         "name": "Dubrovnik City Walls",
         "category": "historical",
         "rating": 4.8,
+        "price_level": 3,
+        "best_time": "Apr-Oct",
         "description": "Walking the ancient city walls of Dubrovnik offers breathtaking views of the Adriatic Sea and the city's stunning architecture. It is a must-do experience for any visitor.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Dubrovnik_Walls.jpg/800px-Dubrovnik_Walls.jpg",
         "website": "https://www.wallsofdubrovnik.com/"
@@ -101,6 +113,8 @@
         "name": "Krka National Park",
         "category": "natural",
         "rating": 4.7,
+        "price_level": 3,
+        "best_time": "May-Oct",
         "description": "Famous for its seven stunning waterfalls and rich biodiversity, Krka National Park offers a memorable experience of Croatia's natural beauty, with boat trips and swimming areas.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Krka_waterfalls.jpg/800px-Krka_waterfalls.jpg",
         "website": "http://www.np-krka.hr/en/"
@@ -116,9 +130,215 @@
         "name": "Museum of Broken Relationships",
         "category": "cultural",
         "rating": 4.5,
+        "price_level": 2,
+        "best_time": "Year-round",
         "description": "A unique and poignant museum in Zagreb, it displays personal objects left over from former lovers, accompanied by brief descriptions. A testament to love's fragility.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Museum_of_broken_relationships.jpg/800px-Museum_of_broken_relationships.jpg",
         "website": "https://brokenships.com/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.6387, 45.0805]
+      },
+      "properties": {
+        "name": "Rovinj Old Town",
+        "category": "coastal",
+        "rating": 4.8,
+        "price_level": 2,
+        "best_time": "May-Oct",
+        "description": "The old town of Rovinj is a romantic labyrinth of cobblestone streets, pastel-colored houses, and Venetian architecture, dominated by the hilltop Church of St. Euphemia.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Rovinj_Croatia.jpg/800px-Rovinj_Croatia.jpg",
+        "website": "https://www.rovinj-tourism.com/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.4421, 43.1725]
+      },
+      "properties": {
+        "name": "Hvar Town",
+        "category": "coastal",
+        "rating": 4.7,
+        "price_level": 4,
+        "best_time": "Jun-Sept",
+        "description": "Hvar is a luxurious island destination known for its vibrant nightlife, yacht-filled harbor, and stunning Pakleni Islands nearby. It offers a mix of history and modern glamour.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Hvar_Town_Harbour.jpg/800px-Hvar_Town_Harbour.jpg",
+        "website": "https://visithvar.hr/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.3475, 43.8341]
+      },
+      "properties": {
+        "name": "Kornati National Park",
+        "category": "natural",
+        "rating": 4.8,
+        "price_level": 3,
+        "best_time": "May-Sept",
+        "description": "A nautical paradise, the Kornati archipelago consists of 89 islands, islets, and reefs. Its stark, lunar landscape contrasts beautifully with the deep blue Adriatic Sea.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Kornati_National_Park.jpg/800px-Kornati_National_Park.jpg",
+        "website": "http://www.np-kornati.hr/en/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [17.5367, 42.7766]
+      },
+      "properties": {
+        "name": "Mljet National Park",
+        "category": "natural",
+        "rating": 4.9,
+        "price_level": 2,
+        "best_time": "May-Oct",
+        "description": "Mljet is Croatia's greenest island, featuring two saltwater lakes and a 12th-century Benedictine monastery on a small islet. Ideal for cycling, kayaking, and peaceful retreats.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Mljet_National_Park.jpg/800px-Mljet_National_Park.jpg",
+        "website": "http://np-mljet.hr/en/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.9461, 46.2575]
+      },
+      "properties": {
+        "name": "Trakošćan Castle",
+        "category": "historical",
+        "rating": 4.8,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "description": "Perched on a hill overlooking a lake, Trakošćan is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg/800px-Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg",
+        "website": "https://trakoscan.hr/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.2209, 44.1172]
+      },
+      "properties": {
+        "name": "Sea Organ (Zadar)",
+        "category": "cultural",
+        "rating": 4.7,
+        "price_level": 1,
+        "best_time": "Year-round",
+        "description": "An architectural sound art object located in Zadar, the Sea Organ plays music by way of sea waves and tubes located underneath a set of large marble steps.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Sea_organ_Zadar.jpg/800px-Sea_organ_Zadar.jpg",
+        "website": "https://zadar.travel/attractions/attractions/sea-organ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.0211, 42.9819]
+      },
+      "properties": {
+        "name": "Blue Cave (Biševo)",
+        "category": "natural",
+        "rating": 4.6,
+        "price_level": 3,
+        "best_time": "Jun-Sept",
+        "description": "Accessible only by small boat, this water-logged sea cave is world-famous for the glowing blue light that appears at certain times of day due to sunlight reflecting off the seabed.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Blue_Cave_Bisevo.jpg/800px-Blue_Cave_Bisevo.jpg",
+        "website": "https://www.croatia.hr/en-GB/Destinations/Islands/Island/Bisevo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [17.6966, 42.8398]
+      },
+      "properties": {
+        "name": "Walls of Ston",
+        "category": "historical",
+        "rating": 4.6,
+        "price_level": 2,
+        "best_time": "Spring/Autumn",
+        "description": "Known as the 'European Wall of China', these defensive walls stretch over 5.5 kilometers, connecting Ston and Mali Ston. They are the longest preserved fortification system in Europe.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Walls_of_Ston.jpg/800px-Walls_of_Ston.jpg",
+        "website": "https://ston.hr/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.8290, 45.3361]
+      },
+      "properties": {
+        "name": "Truffle Hunting (Motovun)",
+        "category": "gastronomy",
+        "rating": 4.9,
+        "price_level": 4,
+        "best_time": "Sept-Dec",
+        "description": "Explore the mystical Motovun forest with trained dogs to hunt for the prized white and black truffles, followed by a gourmet tasting of truffle delicacies.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Motovun_Istria_Croatia.jpg/800px-Motovun_Istria_Croatia.jpg",
+        "website": "https://www.istra.hr/en/gourmet/truffles"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [17.7032, 42.8469]
+      },
+      "properties": {
+        "name": "Oyster Tasting (Mali Ston)",
+        "category": "gastronomy",
+        "rating": 4.8,
+        "price_level": 3,
+        "best_time": "Mar-Nov",
+        "description": "Take a boat ride to the oyster beds in Mali Ston Bay and taste the freshest oysters directly from the sea, paired with local wine and olive oil.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Mali_Ston.jpg/800px-Mali_Ston.jpg",
+        "website": "https://ston.hr/gastronomy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.6925, 43.4419]
+      },
+      "properties": {
+        "name": "Cetina River Rafting",
+        "category": "adventure",
+        "rating": 4.8,
+        "price_level": 2,
+        "best_time": "May-Sept",
+        "description": "Experience the thrill of navigating the rapids of the Cetina River while surrounded by lush green canyons and waterfalls. A perfect mix of adrenaline and nature.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Cetina_Canyon.jpg/800px-Cetina_Canyon.jpg",
+        "website": "https://www.omis-croatia.com/active-holidays/rafting/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.6896, 43.4443]
+      },
+      "properties": {
+        "name": "Zipline Omiš",
+        "category": "adventure",
+        "rating": 4.9,
+        "price_level": 3,
+        "best_time": "Apr-Oct",
+        "description": "Soar 150 meters above the Cetina River canyon on a series of 8 ziplines, totaling over 2 kilometers in length. Offers spectacular views and an unforgettable rush.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Omis_Cetina.jpg/800px-Omis_Cetina.jpg",
+        "website": "https://zipline-omis.com/"
       }
     }
   ]

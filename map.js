@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -7,10 +7,22 @@ let allFeatures = [];
 
 function filterSites() {
     const searchText = document.getElementById('search-input').value.toLowerCase();
+
     // Updated to query active chips
-    const selectedCategories = Array.from(document.querySelectorAll('.filter-chip.active')).map(chip => chip.dataset.value);
+    const activeChips = Array.from(document.querySelectorAll('.filter-chip.active'));
+    const showFavoritesOnly = activeChips.some(chip => chip.dataset.value === 'favorites');
+
+    // Filter out 'favorites' from category list
+    const selectedCategories = activeChips
+        .map(chip => chip.dataset.value)
+        .filter(val => val !== 'favorites');
 
     let filteredFeatures = allFeatures;
+
+    if (showFavoritesOnly) {
+        const favorites = getFavorites();
+        filteredFeatures = filteredFeatures.filter(feature => favorites.includes(feature.properties.name));
+    }
 
     if (selectedCategories.length > 0) {
         filteredFeatures = filteredFeatures.filter(feature => {
@@ -29,6 +41,11 @@ function filterSites() {
     updateMarkers(map, filteredFeatures);
     updateSearchResults(map, filteredFeatures);
 }
+
+// Listen for favorites updates
+document.addEventListener('favoritesUpdated', () => {
+    filterSites();
+});
 
 // Show loading
 const loader = document.getElementById('loading-overlay');
