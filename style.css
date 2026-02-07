@@ -236,6 +236,20 @@ body {
     transform: translateY(-1px);
 }
 
+/* Favorites Filter Special Style */
+.filter-chip.favorites-filter {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background: rgba(99, 91, 255, 0.05);
+}
+.filter-chip.favorites-filter.active {
+    background: var(--accent-color);
+    color: white;
+}
+.filter-chip.favorites-filter svg {
+    margin-right: 4px;
+}
+
 .filters-actions {
     display: flex;
     justify-content: flex-end;
@@ -331,6 +345,32 @@ body {
     line-height: 1.3;
 }
 
+/* Favorite Button (Sidebar) */
+.favorite-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #cbd5e1; /* Inactive color */
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-right: -8px; /* Pull right slightly */
+}
+.favorite-btn:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+.favorite-btn.active {
+    color: #ef4444;
+    fill: #ef4444;
+}
+.favorite-btn.active svg {
+    fill: currentColor;
+}
+
 .result-meta {
     font-size: 11px;
     color: var(--accent-color);
@@ -338,6 +378,28 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 6px;
+}
+
+/* Badges */
+.info-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.price-badge {
+    background: #e0f2f1;
+    color: #00695c;
+    border: 1px solid #b2dfdb;
+}
+.time-badge {
+    background: #f3e5f5;
+    color: #7b1fa2;
+    border: 1px solid #e1bee7;
 }
 
 .result-desc {
@@ -417,6 +479,36 @@ body {
     width: 100%;
     height: 180px;
     background: #f0f2f5;
+}
+
+/* Popup Favorite Button */
+.popup-fav-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px; /* Close button is on right */
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+    z-index: 10;
+}
+.popup-fav-btn:hover {
+    transform: scale(1.1);
+    color: #ef4444;
+}
+.popup-fav-btn.active {
+    color: #ef4444;
+}
+.popup-fav-btn.active svg {
+    fill: currentColor;
 }
 
 .custom-popup .popup-image img {
@@ -600,7 +692,14 @@ body {
 .marker-pin.coastal { color: #11cdef; }
 .marker-pin.coastal svg { color: #11cdef; }
 
+.marker-pin.gastronomy { color: #f5365c; }
+.marker-pin.gastronomy svg { color: #f5365c; }
+
+.marker-pin.adventure { color: #ff9f43; }
+.marker-pin.adventure svg { color: #ff9f43; }
+
 /* Cluster Styling */
+/* Default override */
 .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
     background-color: rgba(99, 91, 255, 0.15) !important;
 }
@@ -621,6 +720,7 @@ body {
     justify-content: center;
     font-size: 14px;
     transition: transform 0.2s;
+    border: 2px solid white; /* Polished look */
 }
 
 .marker-cluster div:hover {
