@@ -37,12 +37,13 @@ export function updateSearchResults(map, features) {
 
     const fragment = document.createDocumentFragment();
 
-    features.forEach(feature => {
+    features.forEach((feature, index) => {
         const { name, category, description, image_url } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
 
         const resultItem = document.createElement('div');
-        resultItem.className = 'search-result-item';
+        resultItem.className = 'search-result-item animate-in';
+        resultItem.style.animationDelay = `${index * 0.05}s`;
 
         // Thumbnail
         const thumbnailDiv = document.createElement('div');
@@ -114,8 +115,17 @@ export function updateSearchResults(map, features) {
     searchResultsContainer.appendChild(fragment);
 }
 
+export function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
 export function addSearchListener(filterCallback) {
-    document.getElementById('search-input').addEventListener('input', filterCallback);
+    document.getElementById('search-input').addEventListener('input', debounce(filterCallback, 250));
 }
 
 export function addClearFiltersListener(filterCallback) {
@@ -139,8 +149,8 @@ export function setupMobileInteractions() {
     let startY = 0;
     let currentY = 0;
     let isDragging = false;
-    let hasMoved = false; // Track if a move occurred to distinguish tap from drag
     let startTransform = 0;
+    let rafId = null;
 
     // Helper to get current transform Y value
     const getTranslateY = (element) => {
@@ -150,21 +160,24 @@ export function setupMobileInteractions() {
     };
 
     handle.addEventListener('click', (e) => {
-        // Only toggle if we didn't just finish a drag
-        if (!hasMoved) {
-            sidebar.classList.toggle('expanded');
-            sidebar.style.transform = '';
+        // Simple toggle if not dragging (logic handled by touch events mostly,
+        // but this catches mouse clicks or quick taps if touch logic misses)
+        // We rely on touch end for taps usually, but let's keep this as fallback/desktop
+        if (!isDragging) {
+             // Logic to determine if it was a drag is handled in touchend
         }
-        // Reset hasMoved for next interaction
-        hasMoved = false;
     });
 
     handle.addEventListener('touchstart', (e) => {
         startY = e.touches[0].clientY;
         isDragging = true;
-        hasMoved = false;
-        sidebar.classList.add('dragging');
+        sidebar.classList.add('dragging'); // Removes transition
         startTransform = getTranslateY(sidebar);
+
+        if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+        }
     }, { passive: true });
 
     handle.addEventListener('touchmove', (e) => {
@@ -173,54 +186,62 @@ export function setupMobileInteractions() {
         currentY = e.touches[0].clientY;
         const deltaY = currentY - startY;
 
-        if (Math.abs(deltaY) > 5) {
-            hasMoved = true;
-        }
-
         // Calculate new position
         let newTranslateY = startTransform + deltaY;
 
-        // Constraint: Don't drag above 0 (fully expanded)
-        if (newTranslateY < 0) newTranslateY = 0;
+        // Resistance logic
+        // If pulling up past 0 (expanded limit)
+        if (newTranslateY < 0) {
+             // Apply log resistance or square root resistance
+             newTranslateY = -1 * Math.sqrt(Math.abs(newTranslateY) * 5);
+        }
 
-        // Resistance when pulling up past expansion
-        if (newTranslateY < -20) newTranslateY = -20 + (newTranslateY + 20) * 0.2;
-
-        sidebar.style.transform = `translateY(${newTranslateY}px)`;
+        rafId = requestAnimationFrame(() => {
+            sidebar.style.transform = `translateY(${newTranslateY}px)`;
+        });
     }, { passive: true });
 
     handle.addEventListener('touchend', (e) => {
         isDragging = false;
-        sidebar.classList.remove('dragging');
+        if (rafId) cancelAnimationFrame(rafId);
+
+        sidebar.classList.remove('dragging'); // Restores transition
 
         const endY = e.changedTouches[0].clientY;
         const deltaY = endY - startY;
-        const threshold = 40; // pixels to snap
+        const threshold = 50; // pixels to snap
 
-        // If dragged significantly
-        if (hasMoved && Math.abs(deltaY) > threshold) {
-            if (deltaY > 0) {
-                // Dragged down -> Collapse
+        // Determine if it was a tap (minimal movement)
+        if (Math.abs(deltaY) < 5) {
+            sidebar.classList.toggle('expanded');
+        } else {
+            // It was a drag
+            // Directional snap
+            if (deltaY < -threshold) {
+                // Dragged up
+                sidebar.classList.add('expanded');
+            } else if (deltaY > threshold) {
+                // Dragged down
                 sidebar.classList.remove('expanded');
             } else {
-                // Dragged up -> Expand
-                sidebar.classList.add('expanded');
-            }
-        } else if (hasMoved) {
-            // Check current position to decide where to snap if moved but not enough to trigger directional snap
-            const currentTransform = getTranslateY(sidebar);
-            const windowHeight = window.innerHeight;
-            const collapsedTransform = windowHeight - 150;
+                // Snap to nearest
+                 const currentTransform = getTranslateY(sidebar);
+                 const windowHeight = window.innerHeight;
+                 // Expanded is 0, Collapsed is ~ windowHeight - 150
+                 const collapsedTransform = windowHeight - 150;
 
-            if (currentTransform < collapsedTransform / 2) {
-                 sidebar.classList.add('expanded');
-            } else {
-                 sidebar.classList.remove('expanded');
+                 if (currentTransform < collapsedTransform / 2) {
+                     sidebar.classList.add('expanded');
+                 } else {
+                     sidebar.classList.remove('expanded');
+                 }
             }
         }
-        // If !hasMoved, it was a tap, handled by 'click' listener
 
-        sidebar.style.transform = ''; // Clear inline styles so CSS classes take over
+        // Clear inline style to let CSS class take over
+        // Since we removed .dragging, the transition is back.
+        // Changing from inline pixel value to CSS class value will trigger the transition.
+        sidebar.style.transform = '';
     });
 
     if (searchInput) {
