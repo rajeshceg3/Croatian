@@ -46,6 +46,9 @@ export const markers = L.markerClusterGroup({
     }
 });
 
+// Marker lookup for highlighting
+let markerLookup = {};
+
 // SVG Paths for icons (extracted from previous SVG files, stripped of transforms)
 // We assume a standard viewBox="0 0 24 24" for these paths.
 const iconPaths = {
@@ -60,6 +63,8 @@ const iconPaths = {
 
 export function updateMarkers(map, features) {
     markers.clearLayers();
+    markerLookup = {}; // Clear lookup
+
     features.forEach(feature => {
         const { name, category, description, rating, image_url, website, price_level, best_time } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
@@ -83,6 +88,9 @@ export function updateMarkers(map, features) {
         });
 
         const marker = L.marker([lat, lng], { icon: customIcon });
+
+        // Add to lookup
+        markerLookup[name] = marker;
 
         // Add class to elevate z-index on hover
         marker.on('mouseover', function (e) {
@@ -227,4 +235,37 @@ export function updateMarkers(map, features) {
         markers.addLayer(marker);
     });
     map.addLayer(markers);
+}
+
+export function highlightMarker(name) {
+    const marker = markerLookup[name];
+    if (marker) {
+        // Check if marker is in a cluster or visible on the map
+        const visibleParent = markers.getVisibleParent(marker);
+
+        if (visibleParent && visibleParent === marker) {
+             // It's visible and not clustered
+             const el = marker.getElement();
+             if (el) {
+                 const pin = el.querySelector('.marker-pin');
+                 if (pin) pin.classList.add('highlighted');
+             }
+             marker.setZIndexOffset(10000);
+        }
+    }
+}
+
+export function unhighlightMarker(name) {
+    const marker = markerLookup[name];
+    if (marker) {
+         const visibleParent = markers.getVisibleParent(marker);
+         if (visibleParent && visibleParent === marker) {
+             const el = marker.getElement();
+             if (el) {
+                 const pin = el.querySelector('.marker-pin');
+                 if (pin) pin.classList.remove('highlighted');
+             }
+             marker.setZIndexOffset(0);
+         }
+    }
 }
