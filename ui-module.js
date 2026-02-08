@@ -22,6 +22,16 @@ export function toggleFavorite(name, callback) {
     if (callback) callback();
 }
 
+const categoryIcons = {
+    "historical": `<path fill="currentColor" d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm19-12h-2V7h-3v3h-2V7h-3v3H9V7H6v3H4V7H2l10-5 10 5v3z"/>`,
+    "natural": `<path fill="currentColor" d="M10 21v-4.83l-7 5.96L4.82 20 12 14l7.18 6L21 22.13l-7-5.96V21h-4zm2-19L2 12h5v2h10v-2h5L12 2z"/>`,
+    "cultural": `<path fill="currentColor" d="M12 3a9 9 0 0 0 0 18c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>`,
+    "coastal": `<path fill="currentColor" d="M12 6c4.42 0 8 3.58 8 8h-2c0-3.31-2.69-6-6-6s-6 2.69-6 6H4c0-4.42 3.58-8 8-8z M11 14v6h2v-6h-2z"/>`,
+    "gastronomy": `<path fill="currentColor" d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>`,
+    "adventure": `<path fill="currentColor" d="M14 6l-4.22 5.63 1.25 1.67L14 9.33 19 16h-8.46l-4.01-5.37L1 18h22L14 6zM5 16l1.52-2.03L8.04 16H5z"/>`,
+    "default": `<path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5 2.5z"/>`
+};
+
 export function createCategoryFilters(categories, filterCallback) {
     const filtersContainer = document.getElementById('category-filters');
     filtersContainer.innerHTML = '<h4>Filter by Category:</h4>'; // Reset and add header
@@ -50,8 +60,17 @@ export function createCategoryFilters(categories, filterCallback) {
         chip.className = 'filter-chip';
         chip.type = 'button';
         chip.dataset.value = category.toLowerCase();
-        // Capitalize first letter
-        chip.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+
+        const catKey = category.toLowerCase();
+        const iconPath = categoryIcons[catKey] || categoryIcons['default'];
+
+        // Capitalize first letter and add icon
+        chip.innerHTML = `
+            <svg class="category-icon" viewBox="0 0 24 24">
+                ${iconPath}
+            </svg>
+            ${category.charAt(0).toUpperCase() + category.slice(1)}
+        `;
 
         chip.addEventListener('click', () => {
             chip.classList.toggle('active');
@@ -63,7 +82,7 @@ export function createCategoryFilters(categories, filterCallback) {
     filtersContainer.appendChild(filtersList);
 }
 
-export function updateSearchResults(map, features) {
+export function updateSearchResults(map, features, highlightMarker, unhighlightMarker) {
     const searchResultsContainer = document.getElementById('search-results');
     searchResultsContainer.innerHTML = ''; // Clear previous results
 
@@ -79,12 +98,28 @@ export function updateSearchResults(map, features) {
     const fragment = document.createDocumentFragment();
 
     features.forEach((feature, index) => {
-        const { name, category, description, image_url, price_level, best_time } = feature.properties;
+        const { name, category, description, image_url, price_level, best_time, rating, duration, tags } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
 
         const resultItem = document.createElement('div');
         resultItem.className = 'search-result-item animate-in';
         resultItem.style.animationDelay = `${index * 0.05}s`;
+
+        // Highlight map marker on hover
+        resultItem.addEventListener('mouseenter', () => {
+            if (highlightMarker) highlightMarker(name);
+        });
+        resultItem.addEventListener('mouseleave', () => {
+            if (unhighlightMarker) unhighlightMarker(name);
+        });
+
+        // Must Visit Badge
+        if (rating && rating >= 4.8) {
+            const mustVisit = document.createElement('span');
+            mustVisit.className = 'must-visit-badge';
+            mustVisit.textContent = 'Must Visit';
+            resultItem.appendChild(mustVisit);
+        }
 
         // Thumbnail
         const thumbnailDiv = document.createElement('div');
@@ -155,6 +190,7 @@ export function updateSearchResults(map, features) {
         badgeContainer.style.display = 'flex';
         badgeContainer.style.gap = '8px';
         badgeContainer.style.marginBottom = '6px';
+        badgeContainer.style.flexWrap = 'wrap'; // Allow wrapping
 
         if (price_level) {
             const priceBadge = document.createElement('span');
@@ -170,13 +206,35 @@ export function updateSearchResults(map, features) {
             badgeContainer.appendChild(timeBadge);
         }
 
+        // Duration Badge
+        if (duration) {
+            const durationBadge = document.createElement('span');
+            durationBadge.className = 'duration-badge';
+            durationBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ${duration}`;
+            badgeContainer.appendChild(durationBadge);
+        }
+
         contentDiv.appendChild(badgeContainer);
 
+        // Description
         if (description) {
             const desc = document.createElement('div');
             desc.className = 'result-desc';
             desc.textContent = description;
             contentDiv.appendChild(desc);
+        }
+
+        // Tags
+        if (tags && tags.length > 0) {
+            const tagsDiv = document.createElement('div');
+            tagsDiv.className = 'result-tags';
+            tags.slice(0, 3).forEach(tag => { // Limit to 3 tags
+                const tagSpan = document.createElement('span');
+                tagSpan.className = 'tag-chip';
+                tagSpan.textContent = tag;
+                tagsDiv.appendChild(tagSpan);
+            });
+            contentDiv.appendChild(tagsDiv);
         }
 
         resultItem.appendChild(contentDiv);
@@ -196,8 +254,6 @@ export function updateSearchResults(map, features) {
                 }
             }
         });
-
-        // Hover effect on map marker could be added here if we had a reference to the markers
 
         fragment.appendChild(resultItem);
     });

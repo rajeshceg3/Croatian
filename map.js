@@ -1,4 +1,4 @@
-import { initializeMap, updateMarkers } from './map-module.js';
+import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker } from './map-module.js';
 import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
@@ -39,7 +39,7 @@ function filterSites() {
     }
 
     updateMarkers(map, filteredFeatures);
-    updateSearchResults(map, filteredFeatures);
+    updateSearchResults(map, filteredFeatures, highlightMarker, unhighlightMarker);
 }
 
 // Listen for favorites updates
