@@ -89,8 +89,35 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
     if (features.length === 0) {
         const noResults = document.createElement('div');
         noResults.className = 'no-results';
-        noResults.textContent = 'No sites found matching your criteria.';
+        noResults.innerHTML = `
+            <div style="margin-bottom:12px; font-weight:600;">No sites found matching your criteria.</div>
+            <div style="font-size:13px; color:var(--text-tertiary);">Try exploring these popular categories:</div>
+            <div style="display:flex; justify-content:center; gap:8px; margin-top:12px; flex-wrap:wrap;">
+                <button class="filter-chip no-result-chip" data-cat="natural">Natural</button>
+                <button class="filter-chip no-result-chip" data-cat="historical">Historical</button>
+                <button class="filter-chip no-result-chip" data-cat="coastal">Coastal</button>
+            </div>
+        `;
+
         searchResultsContainer.appendChild(noResults);
+
+        // Add listeners
+        noResults.querySelectorAll('.no-result-chip').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const cat = btn.dataset.cat;
+                // Clear search
+                const searchInput = document.getElementById('search-input');
+                if (searchInput) searchInput.value = '';
+
+                // Clear current filters
+                document.querySelectorAll('#category-filters .filter-chip').forEach(c => c.classList.remove('active'));
+
+                // Activate selected
+                const targetChip = document.querySelector(`#category-filters .filter-chip[data-value="${cat}"]`);
+                if (targetChip) targetChip.click();
+            });
+        });
         return;
     }
 
@@ -98,7 +125,7 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
     const fragment = document.createDocumentFragment();
 
     features.forEach((feature, index) => {
-        const { name, category, description, image_url, price_level, best_time, rating, duration, tags } = feature.properties;
+        const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
 
         const resultItem = document.createElement('div');
@@ -222,6 +249,14 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
             desc.className = 'result-desc';
             desc.textContent = description;
             contentDiv.appendChild(desc);
+        }
+
+        // Local Tip
+        if (local_tip) {
+            const tipDiv = document.createElement('div');
+            tipDiv.className = 'result-tip';
+            tipDiv.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="min-width:12px;"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2v1"></path><path d="M12 7v5"></path><path d="M12 13v.01"></path><path d="M18.36 6.64a9 9 0 0 1 1.63 7.64"></path><path d="M4.01 7.64a9 9 0 0 1 1.63-1"></path></svg> <span>${local_tip}</span>`;
+            contentDiv.appendChild(tipDiv);
         }
 
         // Tags
@@ -398,6 +433,37 @@ export function setupMobileInteractions() {
             }
         });
     }
+}
+
+export function setupSurpriseMe(map, getFilteredFeatures, openPopupCallback) {
+    const btn = document.getElementById('surprise-me');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+        const features = getFilteredFeatures();
+        if (!features || features.length === 0) return;
+
+        const randomFeature = features[Math.floor(Math.random() * features.length)];
+        const { name } = randomFeature.properties;
+        const [lng, lat] = randomFeature.geometry.coordinates;
+
+        map.flyTo([lat, lng], 16, {
+            animate: true,
+            duration: 1.5
+        });
+
+        // Close sidebar on mobile
+        if (window.innerWidth <= 768) {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.remove('expanded');
+            sidebar.style.transform = '';
+        }
+
+        // Open popup after flight
+        if (openPopupCallback) {
+            openPopupCallback(name);
+        }
+    });
 }
 
 export function setupScrollEffects() {

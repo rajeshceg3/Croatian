@@ -252,7 +252,29 @@ body {
 
 .filters-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Action Buttons (Surprise Me, etc) */
+.action-btn {
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 10px;
+    transition: all var(--duration-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: var(--radius-sm);
+}
+
+.action-btn:hover {
+    background: rgba(99, 91, 255, 0.05);
+    transform: translateY(-1px);
 }
 
 /* Clear Button */
@@ -413,6 +435,26 @@ body {
     opacity: 0.9;
 }
 
+/* Sidebar Local Tip */
+.result-tip {
+    font-size: 11px;
+    color: #946c00;
+    margin-top: 6px;
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    line-height: 1.4;
+    background: #fffdf5;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #fae8a5;
+}
+.result-tip svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #dcb028;
+}
+
 .no-results {
     color: var(--text-tertiary);
     text-align: center;
@@ -514,11 +556,55 @@ body {
     fill: currentColor;
 }
 
+/* Popup Share Button */
+.popup-share-btn {
+    position: absolute;
+    top: 12px;
+    left: 56px; /* 12 + 36 + 8 */
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+    z-index: 10;
+}
+.popup-share-btn:hover {
+    transform: scale(1.1);
+    color: var(--accent-color);
+}
+
 .custom-popup .popup-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+/* Popup Local Tip */
+.popup-tip {
+    background: #fffdf5;
+    border: 1px solid #fae8a5;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #946c00;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+.popup-tip svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: #dcb028;
 }
 
 .custom-popup .popup-info {
