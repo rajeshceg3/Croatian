@@ -66,7 +66,7 @@ export function updateMarkers(map, features) {
     markerLookup = {}; // Clear lookup
 
     features.forEach(feature => {
-        const { name, category, description, rating, image_url, website, price_level, best_time } = feature.properties;
+        const { name, category, description, rating, image_url, website, price_level, best_time, local_tip } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
 
         const catKey = category.toLowerCase();
@@ -88,6 +88,7 @@ export function updateMarkers(map, features) {
         });
 
         const marker = L.marker([lat, lng], { icon: customIcon });
+        marker.featureName = name; // Attach name for easy access
 
         // Add to lookup
         markerLookup[name] = marker;
@@ -153,6 +154,24 @@ export function updateMarkers(map, features) {
         };
         imageContainer.appendChild(favBtn);
 
+        // Share Button
+        const shareBtn = document.createElement('button');
+        shareBtn.className = 'popup-share-btn';
+        shareBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>`;
+        shareBtn.onclick = (e) => {
+            e.stopPropagation();
+            const url = new URL(window.location.origin + window.location.pathname);
+            url.searchParams.set('site', name);
+            navigator.clipboard.writeText(url.toString()).then(() => {
+                const original = shareBtn.innerHTML;
+                shareBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                setTimeout(() => {
+                    shareBtn.innerHTML = original;
+                }, 2000);
+            });
+        };
+        imageContainer.appendChild(shareBtn);
+
         const img = document.createElement('img');
         img.src = image_url;
         img.alt = name;
@@ -164,7 +183,11 @@ export function updateMarkers(map, features) {
             imageContainer.style.display = 'flex';
             imageContainer.style.alignItems = 'center';
             imageContainer.style.justifyContent = 'center';
-            imageContainer.innerHTML = `<span style="color:white; font-weight:600; font-size:32px;">${name.charAt(0)}</span>`;
+            // Append fallback text instead of replacing content (which kills buttons)
+            const fallback = document.createElement('span');
+            fallback.style.cssText = "color:white; font-weight:600; font-size:32px;";
+            fallback.textContent = name.charAt(0);
+            imageContainer.appendChild(fallback);
         };
         imageContainer.appendChild(img);
 
@@ -198,6 +221,14 @@ export function updateMarkers(map, features) {
              badgeContainer.appendChild(timeBadge);
         }
         infoContainer.appendChild(badgeContainer);
+
+        // Local Tip
+        if (local_tip) {
+            const tipDiv = document.createElement('div');
+            tipDiv.className = 'popup-tip';
+            tipDiv.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2v1"></path><path d="M12 7v5"></path><path d="M12 13v.01"></path><path d="M18.36 6.64a9 9 0 0 1 1.63 7.64"></path><path d="M4.01 7.64a9 9 0 0 1 1.63-1"></path></svg><span>${local_tip}</span>`;
+            infoContainer.appendChild(tipDiv);
+        }
 
         const desc = document.createElement('p');
         // Truncate description for popup
@@ -267,5 +298,14 @@ export function unhighlightMarker(name) {
              }
              marker.setZIndexOffset(0);
          }
+    }
+}
+
+export function openMarkerPopup(name) {
+    const marker = markerLookup[name];
+    if (marker) {
+        markers.zoomToShowLayer(marker, () => {
+             marker.openPopup();
+        });
     }
 }
