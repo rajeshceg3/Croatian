@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, setupSurpriseMe } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, setupSurpriseMe, renderCollections, setupTravelTips } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -18,11 +18,21 @@ function filterSites() {
         .map(chip => chip.dataset.value)
         .filter(val => val !== 'favorites');
 
+    // Check for active collection
+    const activeCollection = document.querySelector('.collection-chip.active');
+    const activeCollectionTag = activeCollection ? activeCollection.dataset.collection : null;
+
     let features = allFeatures;
 
     if (showFavoritesOnly) {
         const favorites = getFavorites();
         features = features.filter(feature => favorites.includes(feature.properties.name));
+    }
+
+    if (activeCollectionTag) {
+        features = features.filter(feature =>
+            feature.properties.tags && feature.properties.tags.includes(activeCollectionTag)
+        );
     }
 
     if (selectedCategories.length > 0) {
@@ -57,6 +67,17 @@ fetchData()
         allFeatures = data.features;
         const categories = [...new Set(allFeatures.map(feature => feature.properties.category))];
         createCategoryFilters(categories, filterSites);
+
+        // Setup Collections
+        const collections = [
+            { name: "UNESCO Gems", tag: "UNESCO", icon: "🏛️" },
+            { name: "Game of Thrones", tag: "Game of Thrones", icon: "🐉" },
+            { name: "Best Sunsets", tag: "Sunset", icon: "🌅" },
+            { name: "Hidden Gems", tag: "Hidden Gem", icon: "💎" }
+        ];
+        renderCollections(collections, filterSites);
+        setupTravelTips();
+
         addSearchListener(filterSites);
         addClearFiltersListener(filterSites);
         setupMobileInteractions();

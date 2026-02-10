@@ -316,6 +316,11 @@ export function addClearFiltersListener(filterCallback) {
         chips.forEach(chip => {
             chip.classList.remove('active');
         });
+
+        // Clear collections too
+        const collectionChips = document.querySelectorAll('.collection-chip');
+        collectionChips.forEach(chip => chip.classList.remove('active'));
+
         filterCallback();
     });
 }
@@ -477,4 +482,82 @@ export function setupScrollEffects() {
             }
         });
     }
+}
+
+export function renderCollections(collections, filterCallback) {
+    const container = document.getElementById('collections-container');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    const scrollContainer = document.createElement('div');
+    scrollContainer.className = 'collections-scroll';
+
+    collections.forEach(col => {
+        const btn = document.createElement('button');
+        btn.className = 'collection-chip';
+        btn.dataset.collection = col.tag;
+        // Clean, minimal structure
+        btn.innerHTML = `
+            <span class="collection-icon">${col.icon}</span>
+            <span class="collection-name">${col.name}</span>
+        `;
+
+        btn.addEventListener('click', () => {
+            const wasActive = btn.classList.contains('active');
+
+            // Deactivate all others
+            container.querySelectorAll('.collection-chip').forEach(c => c.classList.remove('active'));
+
+            if (!wasActive) {
+                btn.classList.add('active');
+            }
+
+            filterCallback();
+        });
+
+        scrollContainer.appendChild(btn);
+    });
+
+    container.appendChild(scrollContainer);
+}
+
+export function setupTravelTips() {
+    const btn = document.getElementById('travel-tips-btn');
+    const modal = document.getElementById('travel-tips-modal');
+    const closeBtn = modal ? modal.querySelector('.modal-close') : null;
+
+    if (!btn || !modal) return;
+
+    btn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        // Small delay to allow transition
+        setTimeout(() => {
+            modal.classList.add('visible');
+        }, 10);
+    });
+
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    };
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('visible')) {
+            closeModal();
+        }
+    });
 }

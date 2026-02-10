@@ -43,6 +43,14 @@
                     </svg>
                     Surprise Me
                 </button>
+                <button id="travel-tips-btn" class="action-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    Travel Tips
+                </button>
                 <button id="clear-filters">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     Clear Filters
@@ -51,6 +59,7 @@
         </div>
 
         <div class="sidebar-content">
+            <div id="collections-container"></div>
             <div id="search-results">
                 <!-- Search results will be populated here -->
             </div>
@@ -63,5 +72,57 @@
      crossorigin=""></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     <script type="module" src="map.js"></script>
+
+    <!-- Travel Tips Modal -->
+    <div id="travel-tips-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h3>Travel Essentials</h3>
+            </div>
+            <div class="modal-body">
+                <div class="tip-card">
+                    <div class="tip-icon">💶</div>
+                    <div class="tip-info">
+                        <h4>Currency</h4>
+                        <p>Croatia uses the <strong>Euro (€)</strong>. Credit cards are widely accepted, but keep cash for small cafes and markets.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🍽️</div>
+                    <div class="tip-info">
+                        <h4>Tipping</h4>
+                        <p>10-15% is standard for good service in restaurants. Rounding up the bill is common in cafes and bars.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">💧</div>
+                    <div class="tip-info">
+                        <h4>Water</h4>
+                        <p>Tap water is safe and delicious to drink throughout Croatia. Carry a reusable bottle.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🗣️</div>
+                    <div class="tip-info">
+                        <h4>Phrases</h4>
+                        <div class="phrase-grid">
+                            <span>Hvala</span> <span class="trans">Thank you</span>
+                            <span>Molim</span> <span class="trans">Please</span>
+                            <span>Bok</span> <span class="trans">Hi / Bye</span>
+                            <span>Pivo</span> <span class="trans">Beer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🆘</div>
+                    <div class="tip-info">
+                        <h4>Emergency</h4>
+                        <p>Dial <strong>112</strong> for all emergencies (police, fire, ambulance). Operators speak English.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
