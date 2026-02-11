@@ -5,7 +5,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [15.9819, 45.8150]
+        "coordinates": [
+          15.9819,
+          45.815
+        ]
       },
       "properties": {
         "name": "Zagreb Cathedral",
@@ -14,7 +17,11 @@
         "price_level": 1,
         "best_time": "Year-round",
         "duration": "45 min",
-        "tags": ["Architecture", "History", "Religious"],
+        "tags": [
+          "Architecture",
+          "History",
+          "Religious"
+        ],
         "description": "A magnificent example of Gothic architecture, the Zagreb Cathedral is a must-see for its stunning spires and rich history. It is the tallest building in Croatia.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Zagreb_Cathedral_01.jpg/800px-Zagreb_Cathedral_01.jpg",
         "website": "https://www.zupa-katedrala.hr/",
@@ -26,7 +33,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.3638, 45.3271]
+        "coordinates": [
+          16.3638,
+          45.3271
+        ]
       },
       "properties": {
         "name": "Plitvice Lakes National Park",
@@ -35,7 +45,13 @@
         "price_level": 3,
         "best_time": "Apr-Oct",
         "duration": "4-6 hours",
-        "tags": ["Nature", "Hiking", "Photography", "Waterfalls", "UNESCO"],
+        "tags": [
+          "Nature",
+          "Hiking",
+          "Photography",
+          "Waterfalls",
+          "UNESCO"
+        ],
         "description": "A UNESCO World Heritage site, Plitvice Lakes National Park is renowned for its 16 terraced lakes, interconnected by a series of stunning waterfalls, set in deep woodland.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Plitvice_Lakes_National_Park_%282%29.jpg/800px-Plitvice_Lakes_National_Park_%282%29.jpg",
         "website": "https://np-plitvicka-jezera.hr/",
@@ -47,7 +63,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [13.7487, 44.8683]
+        "coordinates": [
+          13.7487,
+          44.8683
+        ]
       },
       "properties": {
         "name": "Pula Arena",
@@ -56,7 +75,11 @@
         "price_level": 2,
         "best_time": "May-Sept",
         "duration": "1-2 hours",
-        "tags": ["History", "Roman", "Concerts"],
+        "tags": [
+          "History",
+          "Roman",
+          "Concerts"
+        ],
         "description": "The Pula Arena is a remarkably well-preserved Roman amphitheater in the heart of Pula. It is one of the six largest surviving Roman arenas in the World.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Pula_Arena.JPG/800px-Pula_Arena.JPG",
         "website": "https://www.ami-pula.hr/en/collections-on-display/pula-arena/",
@@ -68,7 +91,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.4402, 43.5081]
+        "coordinates": [
+          16.4402,
+          43.5081
+        ]
       },
       "properties": {
         "name": "Diocletian's Palace",
@@ -77,7 +103,12 @@
         "price_level": 1,
         "best_time": "Year-round",
         "duration": "2-3 hours",
-        "tags": ["History", "UNESCO", "Architecture", "Game of Thrones"],
+        "tags": [
+          "History",
+          "UNESCO",
+          "Architecture",
+          "Game of Thrones"
+        ],
         "description": "An ancient palace built for the Roman Emperor Diocletian, this vast complex in Split is a UNESCO World Heritage site and forms the historic core of the city.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/View_of_Diocletian%27s_Palace%2C_Split_01.jpg/800px-View_of_Diocletian%27s_Palace%2C_Split_01.jpg",
         "website": "https://whc.unesco.org/en/list/97/",
@@ -89,7 +120,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [14.4442, 44.9964]
+        "coordinates": [
+          14.4442,
+          44.9964
+        ]
       },
       "properties": {
         "name": "Zlatni Rat Beach",
@@ -98,7 +132,12 @@
         "price_level": 1,
         "best_time": "Jun-Sept",
         "duration": "3-4 hours",
-        "tags": ["Beach", "Swimming", "Windsurfing", "Sunset"],
+        "tags": [
+          "Beach",
+          "Swimming",
+          "Windsurfing",
+          "Sunset"
+        ],
         "description": "Famous for its distinctive shape, Zlatni Rat (Golden Horn) is a stunning pebble beach that extends into the Adriatic Sea, its tip changing shape with the tides and currents.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Zlatni_rat_Croatia.JPG/800px-Zlatni_rat_Croatia.JPG",
         "website": "https://www.bol.hr/en/attractions/beaches/zlatni-rat-beach",
@@ -110,7 +149,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [18.0944, 42.6507]
+        "coordinates": [
+          18.0944,
+          42.6507
+        ]
       },
       "properties": {
         "name": "Dubrovnik City Walls",
@@ -119,7 +161,13 @@
         "price_level": 3,
         "best_time": "Apr-Oct",
         "duration": "2 hours",
-        "tags": ["History", "Views", "Walking", "UNESCO", "Game of Thrones"],
+        "tags": [
+          "History",
+          "Views",
+          "Walking",
+          "UNESCO",
+          "Game of Thrones"
+        ],
         "description": "Walking the ancient city walls of Dubrovnik offers breathtaking views of the Adriatic Sea and the city's stunning architecture. It is a must-do experience for any visitor.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Dubrovnik_Walls.jpg/800px-Dubrovnik_Walls.jpg",
         "website": "https://www.wallsofdubrovnik.com/",
@@ -131,7 +179,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [15.2288, 44.1192]
+        "coordinates": [
+          15.2288,
+          44.1192
+        ]
       },
       "properties": {
         "name": "Krka National Park",
@@ -140,7 +191,11 @@
         "price_level": 3,
         "best_time": "May-Oct",
         "duration": "3-4 hours",
-        "tags": ["Nature", "Waterfalls", "Swimming"],
+        "tags": [
+          "Nature",
+          "Waterfalls",
+          "Swimming"
+        ],
         "description": "Famous for its seven stunning waterfalls and rich biodiversity, Krka National Park offers a memorable experience of Croatia's natural beauty, with boat trips and swimming areas.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Krka_waterfalls.jpg/800px-Krka_waterfalls.jpg",
         "website": "http://www.np-krka.hr/en/",
@@ -152,7 +207,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [15.9712, 45.8131]
+        "coordinates": [
+          15.9712,
+          45.8131
+        ]
       },
       "properties": {
         "name": "Museum of Broken Relationships",
@@ -161,7 +219,11 @@
         "price_level": 2,
         "best_time": "Year-round",
         "duration": "1 hour",
-        "tags": ["Museum", "Quirky", "Emotional"],
+        "tags": [
+          "Museum",
+          "Quirky",
+          "Emotional"
+        ],
         "description": "A unique and poignant museum in Zagreb, it displays personal objects left over from former lovers, accompanied by brief descriptions. A testament to love's fragility.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Museum_of_broken_relationships.jpg/800px-Museum_of_broken_relationships.jpg",
         "website": "https://brokenships.com/",
@@ -173,7 +235,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [13.6387, 45.0805]
+        "coordinates": [
+          13.6387,
+          45.0805
+        ]
       },
       "properties": {
         "name": "Rovinj Old Town",
@@ -182,7 +247,12 @@
         "price_level": 2,
         "best_time": "May-Oct",
         "duration": "2-3 hours",
-        "tags": ["Romance", "Walking", "Photography", "Sunset"],
+        "tags": [
+          "Romance",
+          "Walking",
+          "Photography",
+          "Sunset"
+        ],
         "description": "The old town of Rovinj is a romantic labyrinth of cobblestone streets, pastel-colored houses, and Venetian architecture, dominated by the hilltop Church of St. Euphemia.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Rovinj_Croatia.jpg/800px-Rovinj_Croatia.jpg",
         "website": "https://www.rovinj-tourism.com/",
@@ -194,7 +264,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.4421, 43.1725]
+        "coordinates": [
+          16.4421,
+          43.1725
+        ]
       },
       "properties": {
         "name": "Hvar Town",
@@ -203,11 +276,15 @@
         "price_level": 4,
         "best_time": "Jun-Sept",
         "duration": "1-2 days",
-        "tags": ["Nightlife", "Luxury", "History"],
+        "tags": [
+          "Nightlife",
+          "Luxury",
+          "History"
+        ],
         "description": "Hvar is a luxurious island destination known for its vibrant nightlife, yacht-filled harbor, and stunning Pakleni Islands nearby. It offers a mix of history and modern glamour.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Hvar_Town_Harbour.jpg/800px-Hvar_Town_Harbour.jpg",
         "website": "https://visithvar.hr/",
-        "local_tip": "Hike up to the Fortica Španjola for the classic postcard view of the harbor and Pakleni islands.",
+        "local_tip": "Hike up to the Fortica \u0160panjola for the classic postcard view of the harbor and Pakleni islands.",
         "must_visit": false
       }
     },
@@ -215,7 +292,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [15.3475, 43.8341]
+        "coordinates": [
+          15.3475,
+          43.8341
+        ]
       },
       "properties": {
         "name": "Kornati National Park",
@@ -224,7 +304,11 @@
         "price_level": 3,
         "best_time": "May-Sept",
         "duration": "Full day",
-        "tags": ["Sailing", "Nature", "Islands"],
+        "tags": [
+          "Sailing",
+          "Nature",
+          "Islands"
+        ],
         "description": "A nautical paradise, the Kornati archipelago consists of 89 islands, islets, and reefs. Its stark, lunar landscape contrasts beautifully with the deep blue Adriatic Sea.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Kornati_National_Park.jpg/800px-Kornati_National_Park.jpg",
         "website": "http://www.np-kornati.hr/en/",
@@ -236,7 +320,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [17.5367, 42.7766]
+        "coordinates": [
+          17.5367,
+          42.7766
+        ]
       },
       "properties": {
         "name": "Mljet National Park",
@@ -245,7 +332,11 @@
         "price_level": 2,
         "best_time": "May-Oct",
         "duration": "4-6 hours",
-        "tags": ["Nature", "Cycling", "Peaceful"],
+        "tags": [
+          "Nature",
+          "Cycling",
+          "Peaceful"
+        ],
         "description": "Mljet is Croatia's greenest island, featuring two saltwater lakes and a 12th-century Benedictine monastery on a small islet. Ideal for cycling, kayaking, and peaceful retreats.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Mljet_National_Park.jpg/800px-Mljet_National_Park.jpg",
         "website": "http://np-mljet.hr/en/",
@@ -257,17 +348,24 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [15.9461, 46.2575]
+        "coordinates": [
+          15.9461,
+          46.2575
+        ]
       },
       "properties": {
-        "name": "Trakošćan Castle",
+        "name": "Trako\u0161\u0107an Castle",
         "category": "historical",
         "rating": 4.8,
         "price_level": 2,
         "best_time": "Year-round",
         "duration": "2-3 hours",
-        "tags": ["Castle", "History", "Nature"],
-        "description": "Perched on a hill overlooking a lake, Trakošćan is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
+        "tags": [
+          "Castle",
+          "History",
+          "Nature"
+        ],
+        "description": "Perched on a hill overlooking a lake, Trako\u0161\u0107an is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg/800px-Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg",
         "website": "https://trakoscan.hr/",
         "local_tip": "Take the 5km walking path around the lake for the best photo angles of the castle reflection.",
@@ -278,7 +376,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [15.2209, 44.1172]
+        "coordinates": [
+          15.2209,
+          44.1172
+        ]
       },
       "properties": {
         "name": "Sea Organ (Zadar)",
@@ -287,7 +388,11 @@
         "price_level": 1,
         "best_time": "Year-round",
         "duration": "30 min",
-        "tags": ["Art", "Music", "Sunset"],
+        "tags": [
+          "Art",
+          "Music",
+          "Sunset"
+        ],
         "description": "An architectural sound art object located in Zadar, the Sea Organ plays music by way of sea waves and tubes located underneath a set of large marble steps.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Sea_organ_Zadar.jpg/800px-Sea_organ_Zadar.jpg",
         "website": "https://zadar.travel/attractions/attractions/sea-organ",
@@ -299,16 +404,24 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.0211, 42.9819]
+        "coordinates": [
+          16.0211,
+          42.9819
+        ]
       },
       "properties": {
-        "name": "Blue Cave (Biševo)",
+        "name": "Blue Cave (Bi\u0161evo)",
         "category": "natural",
         "rating": 4.6,
         "price_level": 3,
         "best_time": "Jun-Sept",
         "duration": "2 hours",
-        "tags": ["Nature", "Boat Trip", "Unique", "Hidden Gem"],
+        "tags": [
+          "Nature",
+          "Boat Trip",
+          "Unique",
+          "Hidden Gem"
+        ],
         "description": "Accessible only by small boat, this water-logged sea cave is world-famous for the glowing blue light that appears at certain times of day due to sunlight reflecting off the seabed.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Blue_Cave_Bisevo.jpg/800px-Blue_Cave_Bisevo.jpg",
         "website": "https://www.croatia.hr/en-GB/Destinations/Islands/Island/Bisevo",
@@ -320,7 +433,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [17.6966, 42.8398]
+        "coordinates": [
+          17.6966,
+          42.8398
+        ]
       },
       "properties": {
         "name": "Walls of Ston",
@@ -329,7 +445,11 @@
         "price_level": 2,
         "best_time": "Spring/Autumn",
         "duration": "1-2 hours",
-        "tags": ["History", "Hiking", "Views"],
+        "tags": [
+          "History",
+          "Hiking",
+          "Views"
+        ],
         "description": "Known as the 'European Wall of China', these defensive walls stretch over 5.5 kilometers, connecting Ston and Mali Ston. They are the longest preserved fortification system in Europe.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Walls_of_Ston.jpg/800px-Walls_of_Ston.jpg",
         "website": "https://ston.hr/",
@@ -341,7 +461,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [13.8290, 45.3361]
+        "coordinates": [
+          13.829,
+          45.3361
+        ]
       },
       "properties": {
         "name": "Truffle Hunting (Motovun)",
@@ -350,7 +473,11 @@
         "price_level": 4,
         "best_time": "Sept-Dec",
         "duration": "3 hours",
-        "tags": ["Food", "Adventure", "Nature"],
+        "tags": [
+          "Food",
+          "Adventure",
+          "Nature"
+        ],
         "description": "Explore the mystical Motovun forest with trained dogs to hunt for the prized white and black truffles, followed by a gourmet tasting of truffle delicacies.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Motovun_Istria_Croatia.jpg/800px-Motovun_Istria_Croatia.jpg",
         "website": "https://www.istra.hr/en/gourmet/truffles",
@@ -362,7 +489,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [17.7032, 42.8469]
+        "coordinates": [
+          17.7032,
+          42.8469
+        ]
       },
       "properties": {
         "name": "Oyster Tasting (Mali Ston)",
@@ -371,7 +501,11 @@
         "price_level": 3,
         "best_time": "Mar-Nov",
         "duration": "1 hour",
-        "tags": ["Food", "Boat Trip", "Local"],
+        "tags": [
+          "Food",
+          "Boat Trip",
+          "Local"
+        ],
         "description": "Take a boat ride to the oyster beds in Mali Ston Bay and taste the freshest oysters directly from the sea, paired with local wine and olive oil.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Mali_Ston.jpg/800px-Mali_Ston.jpg",
         "website": "https://ston.hr/gastronomy",
@@ -383,7 +517,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.6925, 43.4419]
+        "coordinates": [
+          16.6925,
+          43.4419
+        ]
       },
       "properties": {
         "name": "Cetina River Rafting",
@@ -392,7 +529,11 @@
         "price_level": 2,
         "best_time": "May-Sept",
         "duration": "3-4 hours",
-        "tags": ["Adventure", "Water Sports", "Nature"],
+        "tags": [
+          "Adventure",
+          "Water Sports",
+          "Nature"
+        ],
         "description": "Experience the thrill of navigating the rapids of the Cetina River while surrounded by lush green canyons and waterfalls. A perfect mix of adrenaline and nature.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Cetina_Canyon.jpg/800px-Cetina_Canyon.jpg",
         "website": "https://www.omis-croatia.com/active-holidays/rafting/",
@@ -404,16 +545,23 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.6896, 43.4443]
+        "coordinates": [
+          16.6896,
+          43.4443
+        ]
       },
       "properties": {
-        "name": "Zipline Omiš",
+        "name": "Zipline Omi\u0161",
         "category": "adventure",
         "rating": 4.9,
         "price_level": 3,
         "best_time": "Apr-Oct",
         "duration": "3 hours",
-        "tags": ["Adventure", "Adrenaline", "Views"],
+        "tags": [
+          "Adventure",
+          "Adrenaline",
+          "Views"
+        ],
         "description": "Soar 150 meters above the Cetina River canyon on a series of 8 ziplines, totaling over 2 kilometers in length. Offers spectacular views and an unforgettable rush.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Omis_Cetina.jpg/800px-Omis_Cetina.jpg",
         "website": "https://zipline-omis.com/",
@@ -425,7 +573,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [15.2217, 44.1173]
+        "coordinates": [
+          15.2217,
+          44.1173
+        ]
       },
       "properties": {
         "name": "Greeting to the Sun",
@@ -434,7 +585,12 @@
         "price_level": 1,
         "best_time": "Sunset",
         "duration": "30 min",
-        "tags": ["Light Show", "Modern Art", "Sunset", "Family Friendly"],
+        "tags": [
+          "Light Show",
+          "Modern Art",
+          "Sunset",
+          "Family Friendly"
+        ],
         "description": "A solar-powered art installation that produces a stunning light show at night, complementing the nearby Sea Organ.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Zadar_Sun_Salutation.jpg/800px-Zadar_Sun_Salutation.jpg",
         "website": "https://zadar.travel/attractions/attractions/greeting-to-the-sun",
@@ -446,7 +602,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.6432, 43.2929]
+        "coordinates": [
+          16.6432,
+          43.2929
+        ]
       },
       "properties": {
         "name": "Vidova Gora",
@@ -455,7 +614,12 @@
         "price_level": 1,
         "best_time": "Morning",
         "duration": "2-3 hours",
-        "tags": ["Hiking", "Views", "Nature", "Photography"],
+        "tags": [
+          "Hiking",
+          "Views",
+          "Nature",
+          "Photography"
+        ],
         "description": "The highest peak on the Adriatic islands, offering panoramic views of Zlatni Rat beach, Hvar, and the mainland.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Vidova_gora.jpg/800px-Vidova_gora.jpg",
         "website": "https://bol.hr/en/attractions/vidova-gora",
@@ -467,7 +631,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [18.1044, 42.6410]
+        "coordinates": [
+          18.1044,
+          42.641
+        ]
       },
       "properties": {
         "name": "Lovrijenac Fortress",
@@ -476,7 +643,12 @@
         "price_level": 2,
         "best_time": "Late Afternoon",
         "duration": "1 hour",
-        "tags": ["Game of Thrones", "Fortress", "History", "Views"],
+        "tags": [
+          "Game of Thrones",
+          "Fortress",
+          "History",
+          "Views"
+        ],
         "description": "Staggering fortress outside the western wall of Dubrovnik, famous as the Red Keep in Game of Thrones.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Dubrovnik_-_Lovrijenac.jpg/800px-Dubrovnik_-_Lovrijenac.jpg",
         "website": "https://www.dubrovnikcity.com/dubrovnik/attractions/fortress_lovrijenac.htm",
@@ -488,7 +660,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.1479, 43.4398]
+        "coordinates": [
+          16.1479,
+          43.4398
+        ]
       },
       "properties": {
         "name": "Blue Lagoon (Drvenik Veli)",
@@ -497,7 +672,13 @@
         "price_level": 2,
         "best_time": "Jun-Sept",
         "duration": "3-4 hours",
-        "tags": ["Swimming", "Snorkeling", "Boat Trip", "Turquoise Water", "Hidden Gem"],
+        "tags": [
+          "Swimming",
+          "Snorkeling",
+          "Boat Trip",
+          "Turquoise Water",
+          "Hidden Gem"
+        ],
         "description": "A crystal clear turquoise bay between three islands, perfect for swimming and snorkeling away from the crowds.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Blue_Lagoon_Croatia.jpg/800px-Blue_Lagoon_Croatia.jpg",
         "website": "https://www.croatia.hr/en-GB/destinations/drvenik-veli",
@@ -509,7 +690,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [14.0494, 45.3486]
+        "coordinates": [
+          14.0494,
+          45.3486
+        ]
       },
       "properties": {
         "name": "Hum",
@@ -518,7 +702,12 @@
         "price_level": 1,
         "best_time": "Year-round",
         "duration": "1 hour",
-        "tags": ["Smallest Town", "History", "Glagolitic", "Quaint"],
+        "tags": [
+          "Smallest Town",
+          "History",
+          "Glagolitic",
+          "Quaint"
+        ],
         "description": "Officially listed as the smallest town in the world, Hum is a charming medieval stone town with a population of around 20.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Hum_Croatia.jpg/800px-Hum_Croatia.jpg",
         "website": "https://www.istra.hr/en/destinations/hum",
@@ -530,17 +719,25 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [17.1306, 42.9620]
+        "coordinates": [
+          17.1306,
+          42.962
+        ]
       },
       "properties": {
-        "name": "Korčula Old Town",
+        "name": "Kor\u010dula Old Town",
         "category": "historical",
         "rating": 4.8,
         "price_level": 2,
         "best_time": "May-Oct",
         "duration": "2-3 hours",
-        "tags": ["History", "Marco Polo", "Wine", "Islands"],
-        "description": "Often called 'Little Dubrovnik', Korčula's fortified old town is a medieval delight with narrow streets arranged in a fishbone pattern to manage wind and sun.",
+        "tags": [
+          "History",
+          "Marco Polo",
+          "Wine",
+          "Islands"
+        ],
+        "description": "Often called 'Little Dubrovnik', Kor\u010dula's fortified old town is a medieval delight with narrow streets arranged in a fishbone pattern to manage wind and sun.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Korcula_Old_Town.jpg/800px-Korcula_Old_Town.jpg",
         "website": "https://visitkorcula.eu/",
         "local_tip": "Watch the Moreska sword dance, a traditional performance held on summer evenings.",
@@ -551,7 +748,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.1738, 43.0215]
+        "coordinates": [
+          16.1738,
+          43.0215
+        ]
       },
       "properties": {
         "name": "Stiniva Cove (Vis)",
@@ -560,7 +760,12 @@
         "price_level": 1,
         "best_time": "Jun-Sept",
         "duration": "3-4 hours",
-        "tags": ["Beach", "Nature", "Hidden Gem", "Swimming"],
+        "tags": [
+          "Beach",
+          "Nature",
+          "Hidden Gem",
+          "Swimming"
+        ],
         "description": "Voted one of the best beaches in Europe, Stiniva is hidden behind high cliffs with only a narrow entrance from the sea, creating a breathtaking natural amphitheater.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Stiniva_Vis.jpg/800px-Stiniva_Vis.jpg",
         "website": "https://www.tz-vis.hr/",
@@ -572,7 +777,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.2502, 43.5164]
+        "coordinates": [
+          16.2502,
+          43.5164
+        ]
       },
       "properties": {
         "name": "Trogir Old Town",
@@ -581,7 +789,12 @@
         "price_level": 2,
         "best_time": "Year-round",
         "duration": "2 hours",
-        "tags": ["UNESCO", "Architecture", "Venetian", "History"],
+        "tags": [
+          "UNESCO",
+          "Architecture",
+          "Venetian",
+          "History"
+        ],
         "description": "A UNESCO World Heritage site, Trogir is a remarkable example of urban continuity. The orthogonal street plan dates back to the Hellenistic period.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Trogir_Croatia.jpg/800px-Trogir_Croatia.jpg",
         "website": "https://www.visittrogir.hr/",
@@ -593,7 +806,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [14.6219, 45.4294]
+        "coordinates": [
+          14.6219,
+          45.4294
+        ]
       },
       "properties": {
         "name": "Risnjak National Park",
@@ -602,7 +818,12 @@
         "price_level": 2,
         "best_time": "May-Oct",
         "duration": "4-6 hours",
-        "tags": ["Hiking", "Nature", "Mountains", "Lynx"],
+        "tags": [
+          "Hiking",
+          "Nature",
+          "Mountains",
+          "Lynx"
+        ],
         "description": "Located in Gorski Kotar, the most mountainous and heavily forested region of the country, Risnjak offers pristine nature and habitats for brown bears, wolves, and lynx.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Risnjak_National_Park.jpg/800px-Risnjak_National_Park.jpg",
         "website": "https://np-risnjak.hr/en/",
@@ -614,7 +835,10 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [14.4682, 44.5317]
+        "coordinates": [
+          14.4682,
+          44.5317
+        ]
       },
       "properties": {
         "name": "Museum of Apoxyomenos",
@@ -623,11 +847,419 @@
         "price_level": 2,
         "best_time": "Year-round",
         "duration": "1 hour",
-        "tags": ["Museum", "Art", "History", "Unique"],
-        "description": "A unique museum dedicated to a single exhibit: the bronze statue of a young athlete (Apoxyomenos), found in the sea near Lošinj after 2000 years.",
+        "tags": [
+          "Museum",
+          "Art",
+          "History",
+          "Unique"
+        ],
+        "description": "A unique museum dedicated to a single exhibit: the bronze statue of a young athlete (Apoxyomenos), found in the sea near Lo\u0161inj after 2000 years.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Apoxyomenos_Croatia.jpg/800px-Apoxyomenos_Croatia.jpg",
         "website": "https://www.muzejapoksiomena.hr/en/",
         "local_tip": "The museum is designed as a sensory journey through colorful rooms, leading up to the white room with the statue.",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.973,
+          43.861
+        ]
+      },
+      "properties": {
+        "name": "Visovac Monastery",
+        "category": "cultural",
+        "rating": 4.8,
+        "price_level": 2,
+        "best_time": "Apr-Oct",
+        "duration": "1-2 hours",
+        "tags": [
+          "History",
+          "Nature",
+          "Religious",
+          "Island"
+        ],
+        "description": "A Franciscan monastery located on a tiny island in the middle of the Krka River. It houses a valuable library and archaeological collection.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Visovac_Monastery.jpg/800px-Visovac_Monastery.jpg",
+        "website": "http://www.np-krka.hr/en/",
+        "local_tip": "Take the boat trip from Skradinski Buk which includes a 30-minute stop here.",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.969,
+          43.805
+        ]
+      },
+      "properties": {
+        "name": "Skradinski Buk",
+        "category": "natural",
+        "rating": 4.9,
+        "price_level": 3,
+        "best_time": "May-Sept",
+        "duration": "2-3 hours",
+        "tags": [
+          "Nature",
+          "Waterfalls",
+          "Swimming",
+          "Photography"
+        ],
+        "description": "The longest waterfall on the Krka River and one of the best known natural beauties in Croatia. The waterfalls are made up of travertine barriers, islands, and lakes.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Skradinski_buk.jpg/800px-Skradinski_buk.jpg",
+        "website": "http://www.np-krka.hr/en/",
+        "local_tip": "Swimming is allowed in designated areas, so bring your swimsuit!",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.719,
+          42.963
+        ]
+      },
+      "properties": {
+        "name": "Vela Spila",
+        "category": "historical",
+        "rating": 4.5,
+        "price_level": 1,
+        "best_time": "Year-round",
+        "duration": "1 hour",
+        "tags": [
+          "Cave",
+          "History",
+          "Archaeology"
+        ],
+        "description": "Located above the town of Vela Luka on Kor\u010dula, this cave is one of the most important prehistoric archaeological sites in Europe.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Vela_Spila_Korcula.jpg/800px-Vela_Spila_Korcula.jpg",
+        "website": "https://velaspila.hr/",
+        "local_tip": "The walk up is steep but offers a great view of the bay. There is also a road access.",
+        "must_visit": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.545,
+          42.735
+        ]
+      },
+      "properties": {
+        "name": "Odysseus Cave",
+        "category": "adventure",
+        "rating": 4.7,
+        "price_level": 1,
+        "best_time": "Jun-Sept",
+        "duration": "2-3 hours",
+        "tags": [
+          "Cave",
+          "Swimming",
+          "Mythology",
+          "Cliff Jumping"
+        ],
+        "description": "A stunning sea cave on Mljet island where, according to legend, Odysseus was shipwrecked and trapped for seven years by the nymph Calypso.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Odysseus_Cave_Mljet.jpg/800px-Odysseus_Cave_Mljet.jpg",
+        "website": "https://mljet.hr/?l=en",
+        "local_tip": "The hike down is sunny and hot; bring plenty of water. The best time to swim is around noon when the sun illuminates the cave.",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.891,
+          43.735
+        ]
+      },
+      "properties": {
+        "name": "Pellegrini",
+        "category": "gastronomy",
+        "rating": 4.9,
+        "price_level": 4,
+        "best_time": "Dinner",
+        "duration": "2-3 hours",
+        "tags": [
+          "Michelin",
+          "Fine Dining",
+          "Food",
+          "Luxury"
+        ],
+        "description": "Consistently voted the best restaurant in Croatia, Pellegrini holds a Michelin star and offers a modern interpretation of traditional Dalmatian flavors.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Sibenik_Katedra.jpg/800px-Sibenik_Katedra.jpg",
+        "website": "http://pellegrini.hr/",
+        "local_tip": "Book months in advance. Request a table on the steps facing the cathedral for the most romantic setting.",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.928,
+          44.606
+        ]
+      },
+      "properties": {
+        "name": "Bo\u0161kinac",
+        "category": "gastronomy",
+        "rating": 4.8,
+        "price_level": 4,
+        "best_time": "Dinner",
+        "duration": "3 hours",
+        "tags": [
+          "Michelin",
+          "Fine Dining",
+          "Wine",
+          "Food"
+        ],
+        "description": "A luxury boutique hotel, winery, and Michelin-starred restaurant on Pag island, known for its incredible lamb and local wines.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Pag_landscape.jpg/800px-Pag_landscape.jpg",
+        "website": "https://www.boskinac.com/",
+        "local_tip": "Try the tasting menu paired with their own Bo\u0161kinac wines.",
+        "must_visit": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.232,
+          42.516
+        ]
+      },
+      "properties": {
+        "name": "Pasja\u010da Beach",
+        "category": "coastal",
+        "rating": 4.9,
+        "price_level": 1,
+        "best_time": "Jun-Sept",
+        "duration": "3-4 hours",
+        "tags": [
+          "Beach",
+          "Hidden Gem",
+          "Nature",
+          "Swimming"
+        ],
+        "description": "A hidden gem near Dubrovnik, this small beach is nestled at the foot of massive Konavle cliffs. Accessible only by steep stairs carved into the rock.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Pasjaca_Beach.jpg/800px-Pasjaca_Beach.jpg",
+        "website": "https://visit.cavtat-konavle.com/en/beaches",
+        "local_tip": "There are no amenities (no bars, no toilets), so bring everything you need.",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.873,
+          44.133
+        ]
+      },
+      "properties": {
+        "name": "Sakarun Beach",
+        "category": "coastal",
+        "rating": 4.7,
+        "price_level": 1,
+        "best_time": "Jun-Sept",
+        "duration": "4-5 hours",
+        "tags": [
+          "Beach",
+          "Sand",
+          "Swimming",
+          "Family Friendly"
+        ],
+        "description": "One of the rare sandy beaches in Croatia, Sakarun on Dugi Otok is famous for its turquoise water and Caribbean vibe.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sakarun_Beach.jpg/800px-Sakarun_Beach.jpg",
+        "website": "https://www.dugiotok.hr/en/attractions-sakarun",
+        "local_tip": "Take the tourist train from Bo\u017eava to the beach to avoid parking hassles.",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.647,
+          43.561
+        ]
+      },
+      "properties": {
+        "name": "Vranja\u010da Cave",
+        "category": "natural",
+        "rating": 4.8,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "1 hour",
+        "tags": [
+          "Cave",
+          "Nature",
+          "Geology"
+        ],
+        "description": "Located in the hinterland of Split, this cave is filled with stunning stalactites, stalagmites, and underground halls.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Vranjaca_cave.jpg/800px-Vranjaca_cave.jpg",
+        "website": "https://visitdugopolje.com/en/vranjaca-cave/",
+        "local_tip": "The temperature inside is constant at 15\u00b0C, so bring a light jacket even in summer.",
+        "must_visit": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.231,
+          44.113
+        ]
+      },
+      "properties": {
+        "name": "Museum of Ancient Glass",
+        "category": "cultural",
+        "rating": 4.6,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "1-2 hours",
+        "tags": [
+          "Museum",
+          "History",
+          "Art",
+          "Unique"
+        ],
+        "description": "A unique archaeological museum in Zadar specializing in ancient glass. It features demonstrations of glass blowing and bead making.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Museum_of_Ancient_Glass_Zadar.jpg/800px-Museum_of_Ancient_Glass_Zadar.jpg",
+        "website": "https://www.mas-zadar.hr/en",
+        "local_tip": "Check the schedule for the glass-blowing workshops to see the masters in action.",
+        "must_visit": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.192,
+          42.618
+        ]
+      },
+      "properties": {
+        "name": "Kupari (Bay of Abandoned Hotels)",
+        "category": "adventure",
+        "rating": 4.5,
+        "price_level": 1,
+        "best_time": "Year-round",
+        "duration": "1-2 hours",
+        "tags": [
+          "History",
+          "Urban Exploration",
+          "Photography",
+          "Ruins"
+        ],
+        "description": "A complex of luxury hotels destroyed during the Croatian War of Independence in the 1990s. It stands as a haunting monument and a popular spot for urban exploration.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Kupari_hotel_Grand_ruins.jpg/800px-Kupari_hotel_Grand_ruins.jpg",
+        "website": "https://visit.cavtat-konavle.com/en",
+        "local_tip": "Do not enter the buildings as they are unstable; the best views are from the beach path.",
+        "must_visit": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.214,
+          43.447
+        ]
+      },
+      "properties": {
+        "name": "Blue Lake (Imotski)",
+        "category": "natural",
+        "rating": 4.8,
+        "price_level": 1,
+        "best_time": "Spring/Summer",
+        "duration": "1-2 hours",
+        "tags": [
+          "Lake",
+          "Nature",
+          "Hiking",
+          "Unique"
+        ],
+        "description": "A karst lake located in a deep sinkhole near Imotski. When it dries up, locals play traditional football matches on the bottom.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Modro_jezero_Imotski.jpg/800px-Modro_jezero_Imotski.jpg",
+        "website": "https://visitimota.com/",
+        "local_tip": "The path down is zig-zagged and well maintained, but the walk back up is a workout!",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.207,
+          43.454
+        ]
+      },
+      "properties": {
+        "name": "Red Lake (Imotski)",
+        "category": "natural",
+        "rating": 4.7,
+        "price_level": 1,
+        "best_time": "Year-round",
+        "duration": "30 min",
+        "tags": [
+          "Lake",
+          "Nature",
+          "Sinkhole"
+        ],
+        "description": "A sinkhole containing a karst lake with high cliffs, named after the reddish color of the surrounding iron-rich soil. It is one of the deepest sinkholes in the world.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Crveno_jezero.jpg/800px-Crveno_jezero.jpg",
+        "website": "https://visitimota.com/",
+        "local_tip": "You cannot reach the water; enjoy the view from the viewing platform at the top.",
+        "must_visit": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.854,
+          43.722
+        ]
+      },
+      "properties": {
+        "name": "St. Nicholas Fortress",
+        "category": "historical",
+        "rating": 4.8,
+        "price_level": 3,
+        "best_time": "May-Oct",
+        "duration": "2 hours",
+        "tags": [
+          "UNESCO",
+          "Fortress",
+          "History",
+          "Boat Trip"
+        ],
+        "description": "A UNESCO World Heritage site, this triangular Venetian fortress protects the entrance to the St. Anthony Channel in \u0160ibenik. Accessible only by official boat tours.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tvrdjava_sv_Nikole.jpg/800px-Tvrdjava_sv_Nikole.jpg",
+        "website": "https://www.kanal-svetog-ante.com/en/fortress-of-st-nicholas",
+        "local_tip": "The boat ride itself offers amazing views of the \u0160ibenik archipelago.",
         "must_visit": true
       }
     }

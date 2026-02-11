@@ -90,8 +90,15 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
         const noResults = document.createElement('div');
         noResults.className = 'no-results';
         noResults.innerHTML = `
-            <div style="margin-bottom:12px; font-weight:600;">No sites found matching your criteria.</div>
-            <div style="font-size:13px; color:var(--text-tertiary);">Try exploring these popular categories:</div>
+            <div style="font-size:24px; margin-bottom:8px;">🧐</div>
+            <div style="margin-bottom:12px; font-weight:600;">We couldn't find any sites matching your search.</div>
+            <div style="font-size:13px; color:var(--text-tertiary); margin-bottom:16px;">Try adjusting your filters or search terms.</div>
+
+            <button id="no-results-clear" class="action-btn" style="border:1px solid var(--border-color); background:white;">
+                Clear All Filters
+            </button>
+
+            <div style="font-size:12px; color:var(--text-tertiary); margin-top:20px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Or explore:</div>
             <div style="display:flex; justify-content:center; gap:8px; margin-top:12px; flex-wrap:wrap;">
                 <button class="filter-chip no-result-chip" data-cat="natural">Natural</button>
                 <button class="filter-chip no-result-chip" data-cat="historical">Historical</button>
@@ -100,6 +107,14 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
         `;
 
         searchResultsContainer.appendChild(noResults);
+
+        // Add listener for clear button
+        const clearBtn = noResults.querySelector('#no-results-clear');
+        if(clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                document.getElementById('clear-filters').click();
+            });
+        }
 
         // Add listeners
         noResults.querySelectorAll('.no-result-chip').forEach(btn => {

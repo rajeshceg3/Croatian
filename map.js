@@ -3,6 +3,46 @@ import { createCategoryFilters, updateSearchResults, addSearchListener, addClear
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
+
+// Near Me Feature
+const nearMeBtn = document.getElementById('near-me-btn');
+if (nearMeBtn) {
+    nearMeBtn.addEventListener('click', () => {
+        const svg = nearMeBtn.querySelector('svg');
+        if (svg) svg.style.animation = 'spin 1s infinite linear';
+        map.locate({setView: true, maxZoom: 10});
+    });
+}
+
+map.on('locationfound', (e) => {
+    const svg = nearMeBtn ? nearMeBtn.querySelector('svg') : null;
+    if (svg) svg.style.animation = '';
+
+    if (window.userLocationMarker) map.removeLayer(window.userLocationMarker);
+    if (window.userLocationCircle) map.removeLayer(window.userLocationCircle);
+
+    window.userLocationMarker = L.marker(e.latlng, {
+        icon: L.divIcon({
+            className: 'custom-marker-icon',
+            html: '<div class="user-location-marker"></div>',
+            iconSize: [16, 16],
+            iconAnchor: [8, 8]
+        })
+    }).addTo(map)
+      .bindPopup("You are here")
+      .openPopup();
+
+    window.userLocationCircle = L.circle(e.latlng, e.accuracy).addTo(map);
+});
+
+map.on('locationerror', (e) => {
+    const svg = nearMeBtn ? nearMeBtn.querySelector('svg') : null;
+    if (svg) svg.style.animation = '';
+    // Use a simpler alert for now
+    console.warn("Location error:", e.message);
+    alert("Unable to find your location. Please check your browser permissions.");
+});
+
 let allFeatures = [];
 let currentFilteredFeatures = [];
 
@@ -73,7 +113,9 @@ fetchData()
             { name: "UNESCO Gems", tag: "UNESCO", icon: "🏛️" },
             { name: "Game of Thrones", tag: "Game of Thrones", icon: "🐉" },
             { name: "Best Sunsets", tag: "Sunset", icon: "🌅" },
-            { name: "Hidden Gems", tag: "Hidden Gem", icon: "💎" }
+            { name: "Hidden Gems", tag: "Hidden Gem", icon: "💎" },
+            { name: "Fine Dining", tag: "Fine Dining", icon: "🍽️" },
+            { name: "Secret Beaches", tag: "Beach", icon: "🏖️" }
         ];
         renderCollections(collections, filterSites);
         setupTravelTips();
