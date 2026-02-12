@@ -1331,3 +1331,63 @@ body {
 .phrase-grid span.trans {
     color: var(--text-secondary);
 }
+
+/* === Map Floating Controls === */
+
+.map-floating-btn {
+    position: absolute;
+    top: 12px;
+    right: 70px; /* Positioned to the left of zoom controls */
+    background-color: var(--surface-color);
+    color: var(--text-secondary);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000; /* Above map */
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.map-floating-btn:hover {
+    background-color: var(--surface-hover);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .map-floating-btn {
+        top: auto;
+        bottom: 240px; /* Above zoom controls which are bottom: 170px */
+        right: 16px;
+    }
+}
+
+/* User Location Marker */
+.user-location-marker {
+    width: 16px;
+    height: 16px;
+    background-color: var(--accent-color);
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(99, 91, 255, 0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(99, 91, 255, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(99, 91, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(99, 91, 255, 0);
+    }
+}
