@@ -30,6 +30,16 @@
                 </svg>
             </div>
 
+            <div class="price-filter-container">
+                <h4>Price Level:</h4>
+                <div class="price-buttons">
+                    <button class="price-btn" data-price="1">$</button>
+                    <button class="price-btn" data-price="2">$$</button>
+                    <button class="price-btn" data-price="3">$$$</button>
+                    <button class="price-btn" data-price="4">$$$$</button>
+                </div>
+            </div>
+
             <div id="category-filters">
                 <!-- Chips will be added here by JavaScript -->
             </div>
@@ -51,6 +61,14 @@
                     </svg>
                     Travel Tips
                 </button>
+                <button id="share-trip-btn" class="action-btn" title="Share My Trip">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                        <polyline points="16 6 12 2 8 6"></polyline>
+                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                    </svg>
+                    Share
+                </button>
                 <button id="clear-filters">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     Clear Filters
@@ -62,6 +80,61 @@
             <div id="collections-container"></div>
             <div id="search-results">
                 <!-- Search results will be populated here -->
+            </div>
+        </div>
+
+        <div id="site-detail-panel" class="sidebar-panel hidden">
+            <div class="panel-header-sticky">
+                <button id="detail-back-btn" class="back-btn" aria-label="Back">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <div class="panel-actions">
+                    <button id="detail-share-btn" class="action-icon-btn" title="Share Link">
+                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    </button>
+                    <button id="detail-fav-btn" class="action-icon-btn" title="Add to My Trip">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="panel-hero">
+                <img id="detail-image" src="" alt="">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="panel-content">
+                <div class="detail-meta-top">
+                    <span id="detail-category" class="detail-category">Category</span>
+                    <span id="detail-rating" class="rating-badge">4.8</span>
+                </div>
+                <h2 id="detail-title">Title</h2>
+
+                <div id="detail-badges" class="detail-badges">
+                     <!-- Badges -->
+                </div>
+
+                <div class="detail-section">
+                    <h3>About</h3>
+                    <p id="detail-desc">Description...</p>
+                </div>
+
+                <div id="detail-tip-box" class="local-tip-box">
+                     <div class="tip-label">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2v1"></path><path d="M12 7v5"></path><path d="M12 13v.01"></path><path d="M18.36 6.64a9 9 0 0 1 1.63 7.64"></path><path d="M4.01 7.64a9 9 0 0 1 1.63-1"></path></svg>
+                        Local Tip
+                     </div>
+                     <p id="detail-tip">Tip content...</p>
+                </div>
+
+                <div id="detail-tags" class="detail-tags">
+                    <!-- Tags -->
+                </div>
+
+                <div class="detail-footer-actions">
+                    <a id="detail-website" href="#" target="_blank" class="website-btn">
+                        Visit Website
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

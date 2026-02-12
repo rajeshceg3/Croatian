@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, setupSurpriseMe, renderCollections, setupTravelTips } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -62,6 +62,10 @@ function filterSites() {
     const activeCollection = document.querySelector('.collection-chip.active');
     const activeCollectionTag = activeCollection ? activeCollection.dataset.collection : null;
 
+    // Check for active price filters
+    const activePriceBtns = document.querySelectorAll('.price-btn.active');
+    const activePrices = Array.from(activePriceBtns).map(btn => parseInt(btn.dataset.price));
+
     let features = allFeatures;
 
     if (showFavoritesOnly) {
@@ -73,6 +77,12 @@ function filterSites() {
         features = features.filter(feature =>
             feature.properties.tags && feature.properties.tags.includes(activeCollectionTag)
         );
+    }
+
+    if (activePrices.length > 0) {
+        features = features.filter(feature => {
+            return activePrices.includes(feature.properties.price_level);
+        });
     }
 
     if (selectedCategories.length > 0) {
@@ -90,7 +100,7 @@ function filterSites() {
     }
 
     currentFilteredFeatures = features;
-    updateMarkers(map, currentFilteredFeatures);
+    updateMarkers(map, currentFilteredFeatures, openDetailPanel);
     updateSearchResults(map, currentFilteredFeatures, highlightMarker, unhighlightMarker);
 }
 
@@ -119,9 +129,20 @@ fetchData()
         ];
         renderCollections(collections, filterSites);
         setupTravelTips();
+        setupShareTrip();
 
         addSearchListener(filterSites);
         addClearFiltersListener(filterSites);
+
+        // Setup Price Filter Listeners
+        document.querySelectorAll('.price-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+                filterSites();
+            });
+        });
+
+
         setupMobileInteractions();
         setupScrollEffects();
         setupSurpriseMe(map, () => currentFilteredFeatures, openMarkerPopup);
@@ -130,14 +151,35 @@ fetchData()
         // Deep Linking: Check URL params
         const urlParams = new URLSearchParams(window.location.search);
         const siteParam = urlParams.get('site');
+        const tripParam = urlParams.get('trip');
+
+        if (tripParam) {
+            const sharedFavs = tripParam.split(',');
+            const localFavs = getFavorites();
+            const merged = [...new Set([...localFavs, ...sharedFavs])];
+            localStorage.setItem('croatia_favorites', JSON.stringify(merged));
+
+            // Auto-activate favorites filter
+            const favChip = document.querySelector('.filter-chip[data-value="favorites"]');
+            if (favChip) {
+                favChip.classList.add('active');
+                filterSites(); // Refresh view
+            }
+        }
+
         if (siteParam) {
             const feature = allFeatures.find(f => f.properties.name === siteParam);
             if (feature) {
                 const [lng, lat] = feature.geometry.coordinates;
                 map.flyTo([lat, lng], 16, { animate: true, duration: 2 });
-                // Use a timeout to allow cluster/map to settle slightly, though zoomToShowLayer handles it mostly
                 setTimeout(() => {
-                    openMarkerPopup(siteParam);
+                    // Open the detail panel instead of just the popup
+                    openDetailPanel(feature);
+                    // Also zoom to it (handled by flyTo), but ensure we show it in sidebar
+                    if (window.innerWidth <= 768) {
+                        const sidebar = document.getElementById('sidebar');
+                        sidebar.classList.add('expanded');
+                    }
                 }, 500);
             }
         }
