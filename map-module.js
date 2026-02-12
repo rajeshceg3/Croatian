@@ -61,7 +61,7 @@ const iconPaths = {
     "default": `<path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5 2.5z"/>`
 };
 
-export function updateMarkers(map, features) {
+export function updateMarkers(map, features, onViewDetails) {
     markers.clearLayers();
     markerLookup = {}; // Clear lookup
 
@@ -241,18 +241,32 @@ export function updateMarkers(map, features) {
         ratingSpan.className = 'rating-badge';
         ratingSpan.textContent = `★ ${rating}`;
 
-        const websiteLink = document.createElement('a');
-        websiteLink.className = 'visit-link';
-        websiteLink.href = website;
-        websiteLink.target = '_blank';
-        websiteLink.textContent = 'Visit Website →';
+        const detailsBtn = document.createElement('button');
+        detailsBtn.className = 'visit-link';
+        detailsBtn.style.border = 'none';
+        detailsBtn.style.cursor = 'pointer';
+        detailsBtn.style.fontFamily = 'inherit';
+        detailsBtn.style.fontSize = '12px';
+        detailsBtn.textContent = 'More Info →';
+
+        detailsBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (onViewDetails) {
+                onViewDetails(feature);
+
+                // On mobile, close popup so it doesn't obstruct (though sidebar covers it mostly)
+                if (window.innerWidth <= 768) {
+                    marker.closePopup();
+                }
+            }
+        };
 
         infoContainer.appendChild(catSpan);
         infoContainer.appendChild(title);
         infoContainer.appendChild(desc);
 
         footer.appendChild(ratingSpan);
-        footer.appendChild(websiteLink);
+        footer.appendChild(detailsBtn);
         infoContainer.appendChild(footer);
 
         popupContent.appendChild(imageContainer);

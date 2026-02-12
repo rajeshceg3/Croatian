@@ -1262,6 +1262,151 @@
         "local_tip": "The boat ride itself offers amazing views of the \u0160ibenik archipelago.",
         "must_visit": true
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.5866,
+          45.1197
+        ]
+      },
+      "properties": {
+        "name": "Rastoke",
+        "category": "natural",
+        "rating": 4.8,
+        "price_level": 1,
+        "best_time": "Spring/Summer",
+        "duration": "1-2 hours",
+        "tags": [
+          "Nature",
+          "Waterfalls",
+          "Village",
+          "History"
+        ],
+        "description": "Often called 'The Small Plitvice', Rastoke is a picturesque watermill village where the Slunj\u010dica River flows into the Korana River through a series of waterfalls.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Rastoke_Slunj_Croatia.jpg/800px-Rastoke_Slunj_Croatia.jpg",
+        "website": "https://slunj-rastoke.hr/en/",
+        "local_tip": "Try the local trout at one of the riverside restaurants; it's caught fresh from the streams.",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.1389,
+          44.8214
+        ]
+      },
+      "properties": {
+        "name": "Kuterevo Bear Refuge",
+        "category": "natural",
+        "rating": 4.9,
+        "price_level": 1,
+        "best_time": "Apr-Oct",
+        "duration": "1-2 hours",
+        "tags": [
+          "Nature",
+          "Conservation",
+          "Animals",
+          "Volunteering"
+        ],
+        "description": "A unique sanctuary for orphaned brown bears in the Velebit mountains. Run by volunteers, it offers a chance to learn about bear conservation in a natural habitat.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kuterevo_Bear_Refuge.jpg/800px-Kuterevo_Bear_Refuge.jpg",
+        "website": "http://kuterevo.org/",
+        "local_tip": "Entry is free, but donations are highly encouraged to support the bears' food and care.",
+        "must_visit": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.4831,
+          43.5381
+        ]
+      },
+      "properties": {
+        "name": "Salona Ruins",
+        "category": "historical",
+        "rating": 4.6,
+        "price_level": 1,
+        "best_time": "Year-round",
+        "duration": "2 hours",
+        "tags": [
+          "History",
+          "Roman",
+          "Archaeology",
+          "Ruins"
+        ],
+        "description": "The archaeological site of Salona, once the capital of the Roman province of Dalmatia. It features an amphitheater, basilicas, and ancient city walls.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Salona_Amphitheatre.jpg/800px-Salona_Amphitheatre.jpg",
+        "website": "https://www.solin-info.com/en/what-to-visit/archaeological-park-salona/",
+        "local_tip": "It's much quieter than Diocletian's Palace and offers a peaceful walk through history.",
+        "must_visit": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.4678,
+          44.3039
+        ]
+      },
+      "properties": {
+        "name": "Paklenica National Park",
+        "category": "adventure",
+        "rating": 4.9,
+        "price_level": 2,
+        "best_time": "Apr-Oct",
+        "duration": "Half Day",
+        "tags": [
+          "Climbing",
+          "Hiking",
+          "Nature",
+          "Mountains"
+        ],
+        "description": "A climber's paradise featuring dramatic limestone canyons and towering cliffs. It offers hiking trails for all levels, from easy walks to challenging ascents.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Velika_Paklenica.jpg/800px-Velika_Paklenica.jpg",
+        "website": "https://np-paklenica.hr/en/",
+        "local_tip": "Visit the Manita Pe\u0107 cave within the park; the guided tour starts in the morning.",
+        "must_visit": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.3053,
+          45.3376
+        ]
+      },
+      "properties": {
+        "name": "Lungomare Promenade",
+        "category": "coastal",
+        "rating": 4.8,
+        "price_level": 1,
+        "best_time": "Year-round",
+        "duration": "2-3 hours",
+        "tags": [
+          "Walking",
+          "History",
+          "Romance",
+          "Sea Views"
+        ],
+        "description": "A 12-kilometer coastal promenade connecting Opatija and Lovran. It winds past Belle \u00c9poque villas, gardens, and the sea, offering a relaxing and scenic walk.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lungomare_Opatija.jpg/800px-Lungomare_Opatija.jpg",
+        "website": "https://www.visitopatija.com/en/lungomare-promenade",
+        "local_tip": "Stop for a coffee at one of the historic hotel terraces in Opatija along the way.",
+        "must_visit": false
+      }
     }
   ]
 }
