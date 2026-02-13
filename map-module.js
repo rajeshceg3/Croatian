@@ -241,6 +241,17 @@ export function updateMarkers(map, features, onViewDetails) {
         ratingSpan.className = 'rating-badge';
         ratingSpan.textContent = `★ ${rating}`;
 
+        const directionsBtn = document.createElement('a');
+        directionsBtn.href = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+        directionsBtn.target = "_blank";
+        directionsBtn.title = "Get Directions";
+        directionsBtn.className = "popup-directions-btn";
+        directionsBtn.style.cssText = "color: var(--text-tertiary); margin-left: 8px; margin-right: auto; display: flex; align-items: center; transition: color 0.2s;";
+        directionsBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>`;
+        directionsBtn.onclick = (e) => e.stopPropagation();
+        directionsBtn.onmouseover = () => directionsBtn.style.color = "var(--accent-color)";
+        directionsBtn.onmouseout = () => directionsBtn.style.color = "var(--text-tertiary)";
+
         const detailsBtn = document.createElement('button');
         detailsBtn.className = 'visit-link';
         detailsBtn.style.border = 'none';
@@ -266,6 +277,7 @@ export function updateMarkers(map, features, onViewDetails) {
         infoContainer.appendChild(desc);
 
         footer.appendChild(ratingSpan);
+        footer.appendChild(directionsBtn);
         footer.appendChild(detailsBtn);
         infoContainer.appendChild(footer);
 

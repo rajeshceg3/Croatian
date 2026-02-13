@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -129,6 +129,7 @@ fetchData()
         ];
         renderCollections(collections, filterSites);
         setupTravelTips();
+        setupMyTripModal(allFeatures);
         setupShareTrip();
 
         addSearchListener(filterSites);
@@ -159,13 +160,42 @@ fetchData()
             const merged = [...new Set([...localFavs, ...sharedFavs])];
             localStorage.setItem('croatia_favorites', JSON.stringify(merged));
 
+            // Notify app of changes
+            document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+
             // Auto-activate favorites filter
             const favChip = document.querySelector('.filter-chip[data-value="favorites"]');
             if (favChip) {
                 favChip.classList.add('active');
                 filterSites(); // Refresh view
             }
+
+            // Provide visual feedback
+            const myTripBtn = document.getElementById('my-trip-btn');
+            if (myTripBtn) {
+                myTripBtn.click(); // Open the modal so they see the trip immediately
+            }
         }
+
+        // Listen for flyToSite event from My Trip list
+        document.addEventListener('flyToSite', (e) => {
+            const { lat, lng, name } = e.detail;
+            map.flyTo([lat, lng], 16, { animate: true, duration: 1.5 });
+
+            // Find feature and open detail panel
+            const feature = allFeatures.find(f => f.properties.name === name);
+            if (feature) {
+                // Wait slightly for flyTo to start
+                setTimeout(() => {
+                    openDetailPanel(feature);
+                    // Ensure sidebar is expanded on mobile
+                    if (window.innerWidth <= 768) {
+                        const sidebar = document.getElementById('sidebar');
+                        if (sidebar) sidebar.classList.add('expanded');
+                    }
+                }, 500);
+            }
+        });
 
         if (siteParam) {
             const feature = allFeatures.find(f => f.properties.name === siteParam);

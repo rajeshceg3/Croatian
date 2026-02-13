@@ -61,6 +61,13 @@
                     </svg>
                     Travel Tips
                 </button>
+                <button id="my-trip-btn" class="action-btn" title="View My Trip">
+                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    My Trip
+                </button>
                 <button id="share-trip-btn" class="action-btn" title="Share My Trip">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
@@ -112,6 +119,10 @@
                      <!-- Badges -->
                 </div>
 
+                <div id="detail-weather-widget" class="weather-widget" style="display:none;">
+                    <!-- Weather Content -->
+                </div>
+
                 <div class="detail-section">
                     <h3>About</h3>
                     <p id="detail-desc">Description...</p>
@@ -130,7 +141,11 @@
                 </div>
 
                 <div class="detail-footer-actions">
-                    <a id="detail-website" href="#" target="_blank" class="website-btn">
+                    <a id="detail-directions" href="#" target="_blank" class="website-btn directions-btn">
+                        Get Directions
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                    </a>
+                    <a id="detail-website" href="#" target="_blank" class="website-btn secondary-btn">
                         Visit Website
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                     </a>
@@ -151,6 +166,32 @@
      crossorigin=""></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     <script type="module" src="map.js"></script>
+
+    <!-- My Trip Modal -->
+    <div id="my-trip-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h3>My Trip Itinerary</h3>
+            </div>
+            <div class="modal-body" id="my-trip-list">
+                <!-- Trip items will be populated here -->
+                <div class="empty-state">
+                    <p>No favorites yet. Start exploring and click the ❤️ icon!</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="trip-summary">
+                    <span>Est. Duration:</span>
+                    <strong id="trip-duration">0h</strong>
+                </div>
+                <div class="trip-actions">
+                    <button id="trip-share-action" class="action-btn">Share Trip</button>
+                    <button id="trip-start-action" class="website-btn" style="width:auto; padding: 10px 20px;">Start Route</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Travel Tips Modal -->
     <div id="travel-tips-modal" class="modal-overlay hidden">
