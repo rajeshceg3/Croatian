@@ -540,6 +540,24 @@ export function openDetailPanel(feature) {
         }
     }
 
+    // Weather Widget (Mock Data)
+    const weatherWidget = document.getElementById('detail-weather-widget');
+    if (weatherWidget) {
+        const isCoastal = category === 'coastal' || (tags && (tags.includes('Beach') || tags.includes('Island')));
+        const weatherIcon = isCoastal ? '☀️' : '⛅';
+        const weatherTemp = isCoastal ? '26°C' : '22°C';
+        const weatherDesc = isCoastal ? 'Sunny' : 'Partly Cloudy';
+
+        weatherWidget.style.display = 'flex';
+        weatherWidget.innerHTML = `
+            <div class="weather-icon">${weatherIcon}</div>
+            <div class="weather-info">
+                <h4>${weatherDesc} • ${weatherTemp}</h4>
+                <p>Best visit: ${best_time || 'Year-round'}</p>
+            </div>
+        `;
+    }
+
     // Tip
     const tipBox = document.getElementById('detail-tip-box');
     const tipText = document.getElementById('detail-tip');
@@ -575,6 +593,13 @@ export function openDetailPanel(feature) {
         } else {
             webBtn.style.display = 'none';
         }
+    }
+
+    // Directions
+    const dirBtn = document.getElementById('detail-directions');
+    if (dirBtn) {
+        const [lng, lat] = feature.geometry.coordinates;
+        dirBtn.href = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
     }
 
     // Favorites State
@@ -744,4 +769,195 @@ export function setupTravelTips() {
             closeModal();
         }
     });
+}
+
+// --- My Trip / Itinerary Feature ---
+
+function parseDuration(durationStr) {
+    if (!durationStr) return 0;
+    const str = durationStr.toLowerCase();
+    let hours = 0;
+
+    if (str.includes('day')) {
+        if (str.includes('half')) hours = 4;
+        else if (str.includes('full')) hours = 8;
+        else {
+             const days = parseInt(str) || 1;
+             hours = days * 8; // Assume 8h touring day
+        }
+    } else if (str.includes('hour')) {
+        // "2-3 hours" -> take avg 2.5
+        const matches = str.match(/(\d+)/g);
+        if (matches) {
+            if (matches.length > 1) {
+                hours = (parseInt(matches[0]) + parseInt(matches[1])) / 2;
+            } else {
+                hours = parseInt(matches[0]);
+            }
+        }
+    } else if (str.includes('min')) {
+        const matches = str.match(/(\d+)/g);
+        if (matches) {
+            hours = parseInt(matches[0]) / 60;
+        }
+    }
+    return hours;
+}
+
+function renderMyTripList(features, container, durationEl) {
+    container.innerHTML = '';
+    let totalHours = 0;
+
+    if (features.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div style="font-size: 40px; margin-bottom: 16px;">🗺️</div>
+                <p style="margin:0; font-weight:600; color:var(--text-primary);">Your trip is empty</p>
+                <p style="margin-top:8px;">Start exploring the map and click the heart icon to add places to your itinerary.</p>
+            </div>
+        `;
+        if (durationEl) durationEl.textContent = '0h';
+        return;
+    }
+
+    features.forEach(feature => {
+        const { name, category, duration, image_url } = feature.properties;
+        totalHours += parseDuration(duration);
+
+        const item = document.createElement('div');
+        item.className = 'trip-item';
+
+        // Thumb
+        const thumb = document.createElement('img');
+        thumb.className = 'trip-item-thumb';
+        thumb.src = image_url || '';
+        thumb.onerror = () => { thumb.src = ''; thumb.style.background = '#e6ebf1'; };
+        item.appendChild(thumb);
+
+        // Info
+        const info = document.createElement('div');
+        info.className = 'trip-item-info';
+
+        const title = document.createElement('div');
+        title.className = 'trip-item-title';
+        title.textContent = name;
+        info.appendChild(title);
+
+        const meta = document.createElement('div');
+        meta.className = 'trip-item-meta';
+        meta.innerHTML = `<span style="color:var(--accent-color); font-weight:600; text-transform:uppercase; font-size:10px;">${category}</span> • ${duration || 'N/A'}`;
+        info.appendChild(meta);
+
+        item.appendChild(info);
+
+        // Remove Btn
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'trip-remove-btn';
+        removeBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+        removeBtn.title = "Remove from Trip";
+        removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFavorite(name, () => {
+                // Re-render
+                // We need access to allFeatures again or just remove this element and update total
+                // Better to dispatch event or callback.
+                // For simplicity, let's remove the element and update the total text
+                item.remove();
+                totalHours -= parseDuration(duration);
+                durationEl.textContent = totalHours > 0 ? (totalHours % 1 === 0 ? totalHours : totalHours.toFixed(1)) + 'h' : '0h';
+
+                if (container.children.length === 0) {
+                     renderMyTripList([], container, durationEl);
+                }
+                document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+            });
+        });
+        item.appendChild(removeBtn);
+
+        // Click to fly to
+        item.addEventListener('click', (e) => {
+             // We need access to map... but this module doesn't have it easily unless passed.
+             // Maybe we can dispatch an event 'flyToSite'
+             if (e.target !== removeBtn && !removeBtn.contains(e.target)) {
+                 const [lng, lat] = feature.geometry.coordinates;
+                 // Dispatch custom event
+                 const event = new CustomEvent('flyToSite', { detail: { lat, lng, name } });
+                 document.dispatchEvent(event);
+
+                 // Close modal
+                 document.querySelector('#my-trip-modal .modal-close').click();
+             }
+        });
+
+        container.appendChild(item);
+    });
+
+    if (durationEl) {
+        // Format nicely
+        let displayTime = totalHours + 'h';
+        if (totalHours > 8) {
+             const days = (totalHours / 8).toFixed(1);
+             displayTime = `${days} days (${totalHours}h)`;
+        }
+        durationEl.textContent = displayTime;
+    }
+}
+
+export function setupMyTripModal(allFeatures) {
+    const btn = document.getElementById('my-trip-btn');
+    const modal = document.getElementById('my-trip-modal');
+    const closeBtn = modal ? modal.querySelector('.modal-close') : null;
+    const listContainer = document.getElementById('my-trip-list');
+    const durationEl = document.getElementById('trip-duration');
+    const startBtn = document.getElementById('trip-start-action');
+    const shareBtn = document.getElementById('trip-share-action');
+
+    if (!btn || !modal) return;
+
+    const openModal = () => {
+        const favorites = getFavorites();
+        const favFeatures = allFeatures.filter(f => favorites.includes(f.properties.name));
+        renderMyTripList(favFeatures, listContainer, durationEl);
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.add('visible'), 10);
+    };
+
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+    };
+
+    btn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Share Action
+    if (shareBtn) {
+        shareBtn.addEventListener('click', () => {
+             const favorites = getFavorites();
+             if (favorites.length === 0) return;
+             const url = new URL(window.location.origin + window.location.pathname);
+             url.searchParams.set('trip', favorites.join(','));
+             navigator.clipboard.writeText(url.toString()).then(() => {
+                const original = shareBtn.textContent;
+                shareBtn.textContent = 'Copied!';
+                setTimeout(() => shareBtn.textContent = original, 2000);
+             });
+        });
+    }
+
+    // Start Route Action (Get directions to first item)
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            const favorites = getFavorites();
+             if (favorites.length === 0) return;
+             const firstFeature = allFeatures.find(f => f.properties.name === favorites[0]);
+             if (firstFeature) {
+                 const [lng, lat] = firstFeature.geometry.coordinates;
+                 window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank');
+             }
+        });
+    }
 }
