@@ -495,11 +495,54 @@ export function openDetailPanel(feature) {
     const panel = document.getElementById('site-detail-panel');
     if (!panel) return;
 
-    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website } = feature.properties;
+    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility } = feature.properties;
 
     // Populate Data
     const titleEl = document.getElementById('detail-title');
-    if (titleEl) titleEl.textContent = name;
+    if (titleEl) {
+        titleEl.textContent = name;
+        // Make sure we don't duplicate play buttons if re-opening
+        const existingAudioBtn = titleEl.querySelector('.audio-guide-btn');
+        if (existingAudioBtn) existingAudioBtn.remove();
+
+        // Add Audio Guide Button
+        const audioBtn = document.createElement('button');
+        audioBtn.className = 'audio-guide-btn';
+        audioBtn.title = 'Listen to description';
+        audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+
+        // Audio Logic
+        let utterance = null;
+
+        const stopAudio = () => {
+             window.speechSynthesis.cancel();
+             audioBtn.classList.remove('playing');
+             audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+        };
+
+        audioBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (window.speechSynthesis.speaking && audioBtn.classList.contains('playing')) {
+                stopAudio();
+            } else {
+                // Stop any current
+                window.speechSynthesis.cancel();
+
+                utterance = new SpeechSynthesisUtterance(description);
+                utterance.lang = 'en-US';
+                utterance.onend = stopAudio;
+
+                window.speechSynthesis.speak(utterance);
+                audioBtn.classList.add('playing');
+                audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>`;
+            }
+        };
+
+        titleEl.style.display = 'flex';
+        titleEl.style.alignItems = 'center';
+        titleEl.style.justifyContent = 'space-between';
+        titleEl.appendChild(audioBtn);
+    }
 
     const catEl = document.getElementById('detail-category');
     if (catEl) catEl.textContent = category;
@@ -536,6 +579,13 @@ export function openDetailPanel(feature) {
             const b = document.createElement('span');
             b.className = 'duration-badge';
             b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;margin-right:4px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ${duration}`;
+            badgeContainer.appendChild(b);
+        }
+        if (accessibility) {
+            const b = document.createElement('span');
+            b.className = 'access-badge';
+            b.title = 'Accessibility Information';
+            b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> ${accessibility}`;
             badgeContainer.appendChild(b);
         }
     }
@@ -644,6 +694,7 @@ export function openDetailPanel(feature) {
     if (backBtn) {
         backBtn.onclick = () => {
             closeDetailPanel();
+            window.speechSynthesis.cancel(); // Stop audio on close
         };
     }
 }
@@ -960,4 +1011,105 @@ export function setupMyTripModal(allFeatures) {
              }
         });
     }
+}
+
+export function setupSuggestedRoutes(allFeatures) {
+    const btn = document.getElementById('routes-btn');
+    const modal = document.getElementById('routes-modal');
+    const closeBtn = modal ? modal.querySelector('.modal-close') : null;
+    const container = document.getElementById('routes-container');
+
+    if (!btn || !modal) return;
+
+    // Define Routes
+    const routes = [
+        {
+            name: "Game of Thrones Tour",
+            sites: ["Dubrovnik City Walls", "Lovrijenac Fortress", "Diocletian's Palace", "Klis Fortress", "Trsteno Arboretum"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Dubrovnik_-_Lovrijenac.jpg/800px-Dubrovnik_-_Lovrijenac.jpg",
+            desc: "Walk in the footsteps of your favorite characters in Dubrovnik (King's Landing) and Split."
+        },
+        {
+            name: "Istrian Gastronomy",
+            sites: ["Rovinj Old Town", "Truffle Hunting (Motovun)", "Hum", "Pula Arena", "Euphrasian Basilica"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Motovun_Istria_Croatia.jpg/800px-Motovun_Istria_Croatia.jpg",
+            desc: "A culinary journey through Istria's truffles, wines, and ancient Roman history."
+        },
+        {
+            name: "Dalmatian Highlights",
+            sites: ["Zadar Sea Organ", "Krka National Park", "Trogir Old Town", "Split Diocletian's Palace"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Sea_organ_Zadar.jpg/800px-Sea_organ_Zadar.jpg",
+            desc: "The essential coastal route from Zadar to Split, featuring waterfalls and UNESCO sites."
+        },
+        {
+            name: "Slavonia & Danube",
+            sites: ["Osijek Tvr\u0111a", "Kopa\u010dki Rit", "Vu\u010dedol Culture Museum"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Osijek_Tvrdja.jpg/800px-Osijek_Tvrdja.jpg",
+            desc: "Discover the hidden gems of Eastern Croatia, from baroque fortresses to wetlands."
+        }
+    ];
+
+    const openModal = () => {
+        container.innerHTML = '';
+        routes.forEach(route => {
+            // Check availability of sites in current data
+            const availableSites = route.sites.filter(name => allFeatures.some(f => f.properties.name === name));
+            const count = availableSites.length;
+
+            const card = document.createElement('div');
+            card.className = 'route-card';
+            card.innerHTML = `
+                <div class="route-card-image">
+                    <img src="${route.image}" alt="${route.name}" loading="lazy">
+                </div>
+                <div class="route-info">
+                    <h4>${route.name}</h4>
+                    <p>${route.desc}</p>
+                    <div class="route-meta">
+                        <span>${count} Stops</span>
+                        <span class="route-count">Load Route</span>
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener('click', () => {
+                if (count === 0) {
+                    alert("Sites for this route not found in current data.");
+                    return;
+                }
+
+                // Confirm replacement
+                if (getFavorites().length > 0) {
+                     if (!confirm("This will replace your current trip. Continue?")) return;
+                }
+
+                localStorage.setItem('croatia_favorites', JSON.stringify(availableSites));
+                document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+
+                closeModal();
+
+                // Open My Trip to show result
+                setTimeout(() => {
+                    const myTripBtn = document.getElementById('my-trip-btn');
+                    if (myTripBtn) myTripBtn.click();
+                }, 300);
+            });
+
+            container.appendChild(card);
+        });
+
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.add('visible'), 10);
+    };
+
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+    };
+
+    btn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
 }
