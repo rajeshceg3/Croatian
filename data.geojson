@@ -26,7 +26,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Zagreb_Cathedral_01.jpg/800px-Zagreb_Cathedral_01.jpg",
         "website": "https://www.zupa-katedrala.hr/",
         "local_tip": "Visit early in the morning to catch the sunlight illuminating the stained glass windows without the crowds.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -56,7 +57,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Plitvice_Lakes_National_Park_%282%29.jpg/800px-Plitvice_Lakes_National_Park_%282%29.jpg",
         "website": "https://np-plitvicka-jezera.hr/",
         "local_tip": "Start at Entrance 1 early (around 7-8 AM) and walk up to the upper lakes to avoid the main tour bus crowds.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Not accessible (Rough terrain)"
       }
     },
     {
@@ -84,7 +86,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Pula_Arena.JPG/800px-Pula_Arena.JPG",
         "website": "https://www.ami-pula.hr/en/collections-on-display/pula-arena/",
         "local_tip": "Check the summer schedule for evening concerts or film festivals held inside the arena for a magical experience.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -113,7 +116,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/View_of_Diocletian%27s_Palace%2C_Split_01.jpg/800px-View_of_Diocletian%27s_Palace%2C_Split_01.jpg",
         "website": "https://whc.unesco.org/en/list/97/",
         "local_tip": "Look for the sphinxes brought from Egypt; one is still well-preserved on the Peristyle square.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -142,7 +146,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Zlatni_rat_Croatia.JPG/800px-Zlatni_rat_Croatia.JPG",
         "website": "https://www.bol.hr/en/attractions/beaches/zlatni-rat-beach",
         "local_tip": "The shape of the beach tip changes with the wind. Visit in the late afternoon for easier parking and softer light.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -172,7 +177,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Dubrovnik_Walls.jpg/800px-Dubrovnik_Walls.jpg",
         "website": "https://www.wallsofdubrovnik.com/",
         "local_tip": "Buy the 'Dubrovnik Pass' for access to the walls and several museums; it's cheaper than the individual wall ticket.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -200,7 +206,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Krka_waterfalls.jpg/800px-Krka_waterfalls.jpg",
         "website": "http://www.np-krka.hr/en/",
         "local_tip": "Don't miss the ethno village near Skradinski Buk to see traditional watermills in action.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Partial (Nature trails)"
       }
     },
     {
@@ -228,7 +235,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Museum_of_broken_relationships.jpg/800px-Museum_of_broken_relationships.jpg",
         "website": "https://brokenships.com/",
         "local_tip": "Read the stories slowly; bring tissues. There is a great cafe inside to reflect afterwards.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Likely Accessible (Check website)"
       }
     },
     {
@@ -257,7 +265,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Rovinj_Croatia.jpg/800px-Rovinj_Croatia.jpg",
         "website": "https://www.rovinj-tourism.com/",
         "local_tip": "Climb the bell tower of St. Euphemia for the best panoramic view of the coastline.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -285,7 +294,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Hvar_Town_Harbour.jpg/800px-Hvar_Town_Harbour.jpg",
         "website": "https://visithvar.hr/",
         "local_tip": "Hike up to the Fortica \u0160panjola for the classic postcard view of the harbor and Pakleni islands.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -313,7 +323,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Kornati_National_Park.jpg/800px-Kornati_National_Park.jpg",
         "website": "http://www.np-kornati.hr/en/",
         "local_tip": "The best way to see Kornati is by private sailboat, but day trips from Murter are a good alternative.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Partial (Nature trails)"
       }
     },
     {
@@ -341,7 +352,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Mljet_National_Park.jpg/800px-Mljet_National_Park.jpg",
         "website": "http://np-mljet.hr/en/",
         "local_tip": "Rent a bike at the park entrance; the paths around the lakes are flat, shaded, and perfect for cycling.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Partial (Nature trails)"
       }
     },
     {
@@ -369,7 +381,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg/800px-Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg",
         "website": "https://trakoscan.hr/",
         "local_tip": "Take the 5km walking path around the lake for the best photo angles of the castle reflection.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -397,7 +410,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Sea_organ_Zadar.jpg/800px-Sea_organ_Zadar.jpg",
         "website": "https://zadar.travel/attractions/attractions/sea-organ",
         "local_tip": "Arrive 30 minutes before sunset to secure a spot on the steps and hear the 'music' intensify with the waves.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Partial (Many stairs)"
       }
     },
     {
@@ -426,7 +440,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Blue_Cave_Bisevo.jpg/800px-Blue_Cave_Bisevo.jpg",
         "website": "https://www.croatia.hr/en-GB/Destinations/Islands/Island/Bisevo",
         "local_tip": "The light is best between 11 AM and 12 PM, but queue times can be long. Book a tour that handles tickets.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -454,7 +469,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Walls_of_Ston.jpg/800px-Walls_of_Ston.jpg",
         "website": "https://ston.hr/",
         "local_tip": "Walk from Ston to Mali Ston and reward yourself with fresh oysters at the end of the hike.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Not accessible (Rough terrain)"
       }
     },
     {
@@ -482,7 +498,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Motovun_Istria_Croatia.jpg/800px-Motovun_Istria_Croatia.jpg",
         "website": "https://www.istra.hr/en/gourmet/truffles",
         "local_tip": "October is peak season for white truffles, the most expensive and flavorful variety.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -510,7 +527,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Mali_Ston.jpg/800px-Mali_Ston.jpg",
         "website": "https://ston.hr/gastronomy",
         "local_tip": "Oysters are said to be most delicious in March, around the feast of St. Joseph.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -538,7 +556,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Cetina_Canyon.jpg/800px-Cetina_Canyon.jpg",
         "website": "https://www.omis-croatia.com/active-holidays/rafting/",
         "local_tip": "Bring water shoes and a waterproof camera if you have one.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -566,7 +585,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Omis_Cetina.jpg/800px-Omis_Cetina.jpg",
         "website": "https://zipline-omis.com/",
         "local_tip": "Book in advance during summer; the sunset tours offer cooler temperatures and incredible lighting.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -595,7 +615,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Zadar_Sun_Salutation.jpg/800px-Zadar_Sun_Salutation.jpg",
         "website": "https://zadar.travel/attractions/attractions/greeting-to-the-sun",
         "local_tip": "The light show starts exactly at sunset. It's crowded, so be patient for photos.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Likely Accessible (Check website)"
       }
     },
     {
@@ -624,7 +645,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Vidova_gora.jpg/800px-Vidova_gora.jpg",
         "website": "https://bol.hr/en/attractions/vidova-gora",
         "local_tip": "You can drive almost to the top if you're not up for the steep hike from Bol.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Not accessible (Rough terrain)"
       }
     },
     {
@@ -653,7 +675,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Dubrovnik_-_Lovrijenac.jpg/800px-Dubrovnik_-_Lovrijenac.jpg",
         "website": "https://www.dubrovnikcity.com/dubrovnik/attractions/fortress_lovrijenac.htm",
         "local_tip": "Your City Walls ticket includes entry to Lovrijenac, so visit both on the same day.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -683,7 +706,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Blue_Lagoon_Croatia.jpg/800px-Blue_Lagoon_Croatia.jpg",
         "website": "https://www.croatia.hr/en-GB/destinations/drvenik-veli",
         "local_tip": "Bring your own snorkel gear; the water clarity is incredible but there's not much sea life.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -712,7 +736,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Hum_Croatia.jpg/800px-Hum_Croatia.jpg",
         "website": "https://www.istra.hr/en/destinations/hum",
         "local_tip": "Try the local 'Biska' brandy, a mistletoe grappa that originates from here.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -741,7 +766,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Korcula_Old_Town.jpg/800px-Korcula_Old_Town.jpg",
         "website": "https://visitkorcula.eu/",
         "local_tip": "Watch the Moreska sword dance, a traditional performance held on summer evenings.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -770,7 +796,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Stiniva_Vis.jpg/800px-Stiniva_Vis.jpg",
         "website": "https://www.tz-vis.hr/",
         "local_tip": "The hike down is steep and rough (20 mins). Wear sneakers, not flip-flops, or arrive by boat.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -799,7 +826,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Trogir_Croatia.jpg/800px-Trogir_Croatia.jpg",
         "website": "https://www.visittrogir.hr/",
         "local_tip": "Visit the Cathedral of St. Lawrence to see Radovan's portal, a masterpiece of Romanesque-Gothic art.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -828,7 +856,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Risnjak_National_Park.jpg/800px-Risnjak_National_Park.jpg",
         "website": "https://np-risnjak.hr/en/",
         "local_tip": "Hike the Leska educational trail for a 4.2 km easy introduction to the park's biodiversity.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Not accessible (Rough terrain)"
       }
     },
     {
@@ -857,7 +886,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Apoxyomenos_Croatia.jpg/800px-Apoxyomenos_Croatia.jpg",
         "website": "https://www.muzejapoksiomena.hr/en/",
         "local_tip": "The museum is designed as a sensory journey through colorful rooms, leading up to the white room with the statue.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Likely Accessible (Check website)"
       }
     },
     {
@@ -886,7 +916,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Visovac_Monastery.jpg/800px-Visovac_Monastery.jpg",
         "website": "http://www.np-krka.hr/en/",
         "local_tip": "Take the boat trip from Skradinski Buk which includes a 30-minute stop here.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Likely Accessible (Check website)"
       }
     },
     {
@@ -915,7 +946,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Skradinski_buk.jpg/800px-Skradinski_buk.jpg",
         "website": "http://www.np-krka.hr/en/",
         "local_tip": "Swimming is allowed in designated areas, so bring your swimsuit!",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -943,7 +975,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Vela_Spila_Korcula.jpg/800px-Vela_Spila_Korcula.jpg",
         "website": "https://velaspila.hr/",
         "local_tip": "The walk up is steep but offers a great view of the bay. There is also a road access.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Not accessible (Rough terrain)"
       }
     },
     {
@@ -972,7 +1005,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Odysseus_Cave_Mljet.jpg/800px-Odysseus_Cave_Mljet.jpg",
         "website": "https://mljet.hr/?l=en",
         "local_tip": "The hike down is sunny and hot; bring plenty of water. The best time to swim is around noon when the sun illuminates the cave.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Not accessible (Rough terrain)"
       }
     },
     {
@@ -1001,7 +1035,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Sibenik_Katedra.jpg/800px-Sibenik_Katedra.jpg",
         "website": "http://pellegrini.hr/",
         "local_tip": "Book months in advance. Request a table on the steps facing the cathedral for the most romantic setting.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1030,7 +1065,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Pag_landscape.jpg/800px-Pag_landscape.jpg",
         "website": "https://www.boskinac.com/",
         "local_tip": "Try the tasting menu paired with their own Bo\u0161kinac wines.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1059,7 +1095,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Pasjaca_Beach.jpg/800px-Pasjaca_Beach.jpg",
         "website": "https://visit.cavtat-konavle.com/en/beaches",
         "local_tip": "There are no amenities (no bars, no toilets), so bring everything you need.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1088,7 +1125,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sakarun_Beach.jpg/800px-Sakarun_Beach.jpg",
         "website": "https://www.dugiotok.hr/en/attractions-sakarun",
         "local_tip": "Take the tourist train from Bo\u017eava to the beach to avoid parking hassles.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1116,7 +1154,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Vranjaca_cave.jpg/800px-Vranjaca_cave.jpg",
         "website": "https://visitdugopolje.com/en/vranjaca-cave/",
         "local_tip": "The temperature inside is constant at 15\u00b0C, so bring a light jacket even in summer.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Not accessible (Rough terrain)"
       }
     },
     {
@@ -1145,7 +1184,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Museum_of_Ancient_Glass_Zadar.jpg/800px-Museum_of_Ancient_Glass_Zadar.jpg",
         "website": "https://www.mas-zadar.hr/en",
         "local_tip": "Check the schedule for the glass-blowing workshops to see the masters in action.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Likely Accessible (Check website)"
       }
     },
     {
@@ -1174,7 +1214,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Kupari_hotel_Grand_ruins.jpg/800px-Kupari_hotel_Grand_ruins.jpg",
         "website": "https://visit.cavtat-konavle.com/en",
         "local_tip": "Do not enter the buildings as they are unstable; the best views are from the beach path.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1203,7 +1244,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Modro_jezero_Imotski.jpg/800px-Modro_jezero_Imotski.jpg",
         "website": "https://visitimota.com/",
         "local_tip": "The path down is zig-zagged and well maintained, but the walk back up is a workout!",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Not accessible (Rough terrain)"
       }
     },
     {
@@ -1231,7 +1273,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Crveno_jezero.jpg/800px-Crveno_jezero.jpg",
         "website": "https://visitimota.com/",
         "local_tip": "You cannot reach the water; enjoy the view from the viewing platform at the top.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1260,7 +1303,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tvrdjava_sv_Nikole.jpg/800px-Tvrdjava_sv_Nikole.jpg",
         "website": "https://www.kanal-svetog-ante.com/en/fortress-of-st-nicholas",
         "local_tip": "The boat ride itself offers amazing views of the \u0160ibenik archipelago.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1289,7 +1333,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Rastoke_Slunj_Croatia.jpg/800px-Rastoke_Slunj_Croatia.jpg",
         "website": "https://slunj-rastoke.hr/en/",
         "local_tip": "Try the local trout at one of the riverside restaurants; it's caught fresh from the streams.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1318,7 +1363,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kuterevo_Bear_Refuge.jpg/800px-Kuterevo_Bear_Refuge.jpg",
         "website": "http://kuterevo.org/",
         "local_tip": "Entry is free, but donations are highly encouraged to support the bears' food and care.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1347,7 +1393,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Salona_Amphitheatre.jpg/800px-Salona_Amphitheatre.jpg",
         "website": "https://www.solin-info.com/en/what-to-visit/archaeological-park-salona/",
         "local_tip": "It's much quieter than Diocletian's Palace and offers a peaceful walk through history.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
       }
     },
     {
@@ -1376,7 +1423,8 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Velika_Paklenica.jpg/800px-Velika_Paklenica.jpg",
         "website": "https://np-paklenica.hr/en/",
         "local_tip": "Visit the Manita Pe\u0107 cave within the park; the guided tour starts in the morning.",
-        "must_visit": true
+        "must_visit": true,
+        "accessibility": "Not accessible (Rough terrain)"
       }
     },
     {
@@ -1405,7 +1453,128 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lungomare_Opatija.jpg/800px-Lungomare_Opatija.jpg",
         "website": "https://www.visitopatija.com/en/lungomare-promenade",
         "local_tip": "Stop for a coffee at one of the historic hotel terraces in Opatija along the way.",
-        "must_visit": false
+        "must_visit": false,
+        "accessibility": "Check website for details"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.6944,
+          45.5606
+        ]
+      },
+      "properties": {
+        "name": "Osijek Tvr\u0111a",
+        "category": "historical",
+        "rating": 4.8,
+        "price_level": 1,
+        "best_time": "Year-round",
+        "duration": "2 hours",
+        "tags": [
+          "Architecture",
+          "History",
+          "Baroque",
+          "Walk"
+        ],
+        "description": "The best-preserved ensemble of Baroque buildings in Croatia, located in the historic heart of Osijek. It features fortifications, squares, and museums.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Osijek_Tvrdja.jpg/800px-Osijek_Tvrdja.jpg",
+        "website": "https://www.tzosijek.hr/en/attractions/tvrdja-citadel/",
+        "local_tip": "Visit the Museum of Slavonia located here, then relax at a cafe on the Holy Trinity Square.",
+        "must_visit": true,
+        "accessibility": "Cobblestone streets (moderate)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.7897,
+          45.6268
+        ]
+      },
+      "properties": {
+        "name": "Kopa\u010dki Rit",
+        "category": "natural",
+        "rating": 4.9,
+        "price_level": 2,
+        "best_time": "Spring/Autumn",
+        "duration": "3-4 hours",
+        "tags": [
+          "Nature",
+          "Birds",
+          "Wetlands",
+          "Boat Trip"
+        ],
+        "description": "One of the largest fluvial-wetland plains in Europe, home to over 290 bird species. A paradise for birdwatchers and nature lovers.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Kopa%C4%8Dki_rit_park_prirode.jpg/800px-Kopa%C4%8Dki_rit_park_prirode.jpg",
+        "website": "https://pp-kopacki-rit.hr/en/",
+        "local_tip": "The boat tour is essential to see the heart of the park where the Danube and Drava rivers meet.",
+        "must_visit": true,
+        "accessibility": "Wheelchair accessible boardwalks"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.0631,
+          45.3377
+        ]
+      },
+      "properties": {
+        "name": "Vu\u010dedol Culture Museum",
+        "category": "cultural",
+        "rating": 4.9,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "1-2 hours",
+        "tags": [
+          "Museum",
+          "History",
+          "Archaeology",
+          "Unique"
+        ],
+        "description": "A stunning modern museum dedicated to the Vu\u010dedol culture (3000-2200 BC). It is built into a hill overlooking the Danube river.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Muzej_vu%C4%8Dedolske_kulture.jpg/800px-Muzej_vu%C4%8Dedolske_kulture.jpg",
+        "website": "https://vucedol.hr/en/",
+        "local_tip": "The view of the Danube from the museum roof is spectacular.",
+        "must_visit": false,
+        "accessibility": "Fully Accessible"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.5947,
+          45.2272
+        ]
+      },
+      "properties": {
+        "name": "Euphrasian Basilica",
+        "category": "historical",
+        "rating": 4.7,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "1 hour",
+        "tags": [
+          "UNESCO",
+          "History",
+          "Mosaics",
+          "Religious"
+        ],
+        "description": "A UNESCO World Heritage site in Pore\u010d, famous for its glittering 6th-century Byzantine mosaics which are among the finest in the world.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Porec_Euphrasian_Basilica.jpg/800px-Porec_Euphrasian_Basilica.jpg",
+        "website": "http://www.to-porec.com/en/euphrasian-basilica",
+        "local_tip": "Climb the bell tower for a great view over the old town rooftops and the sea.",
+        "must_visit": true,
+        "accessibility": "Partial (stairs to bell tower)"
       }
     }
   ]

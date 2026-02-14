@@ -76,6 +76,12 @@
                     </svg>
                     Share
                 </button>
+                <button id="routes-btn" class="action-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                    </svg>
+                    Routes
+                </button>
                 <button id="clear-filters">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     Clear Filters
@@ -188,6 +194,22 @@
                 <div class="trip-actions">
                     <button id="trip-share-action" class="action-btn">Share Trip</button>
                     <button id="trip-start-action" class="website-btn" style="width:auto; padding: 10px 20px;">Start Route</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Suggested Routes Modal -->
+    <div id="routes-modal" class="modal-overlay hidden">
+        <div class="modal-content large-modal">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h3>Suggested Itineraries</h3>
+                <p style="margin: 4px 0 0; font-size: 13px; color: var(--text-secondary);">Curated trips to experience the best of Croatia.</p>
+            </div>
+            <div class="modal-body">
+                <div id="routes-container" class="routes-grid">
+                    <!-- Route cards will be populated here -->
                 </div>
             </div>
         </div>
