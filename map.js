@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -100,8 +100,8 @@ function filterSites() {
     }
 
     currentFilteredFeatures = features;
-    updateMarkers(map, currentFilteredFeatures, openDetailPanel);
-    updateSearchResults(map, currentFilteredFeatures, highlightMarker, unhighlightMarker);
+    updateMarkers(map, currentFilteredFeatures, (feature) => openDetailPanel(feature, allFeatures));
+    updateSearchResults(map, currentFilteredFeatures, highlightMarker, unhighlightMarker, allFeatures);
 }
 
 // Listen for favorites updates
@@ -148,6 +148,7 @@ fetchData()
         setupMobileInteractions();
         setupScrollEffects();
         setupSurpriseMe(map, () => currentFilteredFeatures, openMarkerPopup);
+        setupOnboarding();
         filterSites(); // Populate map and results on initial load
 
         // Deep Linking: Check URL params
@@ -188,7 +189,7 @@ fetchData()
             if (feature) {
                 // Wait slightly for flyTo to start
                 setTimeout(() => {
-                    openDetailPanel(feature);
+                    openDetailPanel(feature, allFeatures);
                     // Ensure sidebar is expanded on mobile
                     if (window.innerWidth <= 768) {
                         const sidebar = document.getElementById('sidebar');
@@ -205,7 +206,7 @@ fetchData()
                 map.flyTo([lat, lng], 16, { animate: true, duration: 2 });
                 setTimeout(() => {
                     // Open the detail panel instead of just the popup
-                    openDetailPanel(feature);
+                    openDetailPanel(feature, allFeatures);
                     // Also zoom to it (handled by flyTo), but ensure we show it in sidebar
                     if (window.innerWidth <= 768) {
                         const sidebar = document.getElementById('sidebar');
