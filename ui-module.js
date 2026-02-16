@@ -82,7 +82,7 @@ export function createCategoryFilters(categories, filterCallback) {
     filtersContainer.appendChild(filtersList);
 }
 
-export function updateSearchResults(map, features, highlightMarker, unhighlightMarker) {
+export function updateSearchResults(map, features, highlightMarker, unhighlightMarker, allFeatures = []) {
     const searchResultsContainer = document.getElementById('search-results');
     searchResultsContainer.innerHTML = ''; // Clear previous results
 
@@ -297,7 +297,7 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
                 });
 
                 // Open Detail Panel
-                openDetailPanel(feature);
+                openDetailPanel(feature, allFeatures);
 
                 // Ensure sidebar is expanded on mobile to show the panel
                 if (window.innerWidth <= 768) {
@@ -491,11 +491,11 @@ export function setupSurpriseMe(map, getFilteredFeatures, openPopupCallback) {
     });
 }
 
-export function openDetailPanel(feature) {
+export function openDetailPanel(feature, allFeatures = []) {
     const panel = document.getElementById('site-detail-panel');
     if (!panel) return;
 
-    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility } = feature.properties;
+    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact } = feature.properties;
 
     // Populate Data
     const titleEl = document.getElementById('detail-title');
@@ -606,6 +606,111 @@ export function openDetailPanel(feature) {
                 <p>Best visit: ${best_time || 'Year-round'}</p>
             </div>
         `;
+    }
+
+    // === New Content Injection ===
+    const contentContainer = document.querySelector('.panel-content');
+
+    // Remove old dynamic sections if any
+    const existingExtras = contentContainer.querySelectorAll('.dynamic-extra-section');
+    existingExtras.forEach(el => el.remove());
+
+    const insertAfter = (newNode, referenceNode) => {
+        if (referenceNode && referenceNode.parentNode) {
+            referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+        }
+    };
+
+    // Fun Fact
+    if (fun_fact) {
+        const ffBox = document.createElement('div');
+        ffBox.className = 'fun-fact-box dynamic-extra-section';
+        ffBox.innerHTML = `
+            <div class="fun-fact-header">
+                <span style="font-size:14px;">💡</span> Did You Know?
+            </div>
+            <div class="fun-fact-content">${fun_fact}</div>
+        `;
+        const badgeContainer = document.getElementById('detail-badges');
+        if (badgeContainer) insertAfter(ffBox, badgeContainer);
+    }
+
+    // Best Time Visualizer (Mock logic for demo)
+    if (best_time) {
+        const btBox = document.createElement('div');
+        btBox.className = 'best-time-container dynamic-extra-section';
+
+        const months = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+        let active = [];
+        const low = best_time.toLowerCase();
+
+        if (low.includes('year')) active = [0,1,2,3,4,5,6,7,8,9,10,11];
+        else if (low.includes('jun') || low.includes('summer')) active = [5,6,7,8];
+        else if (low.includes('may') || low.includes('oct')) active = [4,5,6,7,8,9];
+        else active = [4,5,6,7,8]; // Default summer-ish
+
+        let bars = months.map((m, i) =>
+            `<div class="month-bar ${active.includes(i) ? 'active' : ''}" data-month="${m}"></div>`
+        ).join('');
+
+        btBox.innerHTML = `
+            <div class="best-time-header">
+                <span>Popularity by Month</span>
+                <span style="color:var(--accent-color);">${best_time}</span>
+            </div>
+            <div class="month-viz">${bars}</div>
+        `;
+
+        const target = contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(btBox, target);
+    }
+
+    // Nearby Gems
+    if (allFeatures && allFeatures.length > 0) {
+        const [cLng, cLat] = feature.geometry.coordinates;
+
+        const others = allFeatures
+            .filter(f => f.properties.name !== name)
+            .map(f => {
+                const [lng, lat] = f.geometry.coordinates;
+                const d = getDistanceFromLatLonInKm(cLat, cLng, lat, lng);
+                return { ...f, dist: d };
+            })
+            .sort((a, b) => a.dist - b.dist)
+            .slice(0, 3);
+
+        if (others.length > 0) {
+            const nearby = document.createElement('div');
+            nearby.className = 'nearby-section dynamic-extra-section';
+            nearby.style.marginTop = '24px';
+            nearby.innerHTML = `<h3>Nearby Gems</h3>`;
+
+            const grid = document.createElement('div');
+            grid.className = 'nearby-grid';
+
+            others.forEach(o => {
+                const card = document.createElement('div');
+                card.className = 'nearby-card';
+                card.innerHTML = `
+                    <div class="nearby-thumb"><img src="${o.properties.image_url}" onerror="this.style.display='none'"></div>
+                    <div class="nearby-info">
+                        <div class="nearby-title">${o.properties.name}</div>
+                        <div class="nearby-dist">${o.dist.toFixed(1)} km</div>
+                    </div>
+                `;
+                card.onclick = () => {
+                   const [lng, lat] = o.geometry.coordinates;
+                   const event = new CustomEvent('flyToSite', { detail: { lat, lng, name: o.properties.name } });
+                   document.dispatchEvent(event);
+                };
+                grid.appendChild(card);
+            });
+
+            nearby.appendChild(grid);
+
+            const footer = document.querySelector('.detail-footer-actions');
+            if (footer) footer.parentNode.insertBefore(nearby, footer);
+        }
     }
 
     // Tip
@@ -1112,4 +1217,65 @@ export function setupSuggestedRoutes(allFeatures) {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
+}
+
+// === New Enhancements: Helpers & Onboarding ===
+
+export function deg2rad(deg) {
+    return deg * (Math.PI/180);
+}
+
+export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);
+    var dLon = deg2rad(lon2-lon1);
+    var a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+        ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d;
+}
+
+export function setupOnboarding() {
+    // Check if seen
+    if (localStorage.getItem('seen_onboarding')) return;
+
+    // Create Toast
+    const toast = document.createElement('div');
+    toast.className = 'onboarding-toast';
+    toast.innerHTML = `
+        <div class="toast-icon">👋</div>
+        <div class="toast-content">
+            <h4>Welcome to Croatia Guide!</h4>
+            <p>Start by clicking a marker on the map or use the search bar to find your next adventure.</p>
+        </div>
+        <button class="toast-close">Got it</button>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Animate In
+    requestAnimationFrame(() => {
+        toast.classList.add('visible');
+    });
+
+    // Dismiss Logic
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.addEventListener('click', () => {
+        toast.classList.remove('visible');
+        localStorage.setItem('seen_onboarding', 'true');
+        setTimeout(() => toast.remove(), 500);
+    });
+
+    // Auto dismiss after 8 seconds
+    setTimeout(() => {
+        if (document.body.contains(toast)) {
+            toast.classList.remove('visible');
+            localStorage.setItem('seen_onboarding', 'true');
+            setTimeout(() => toast.remove(), 500);
+        }
+    }, 8000);
 }

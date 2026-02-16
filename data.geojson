@@ -27,7 +27,8 @@
         "website": "https://www.zupa-katedrala.hr/",
         "local_tip": "Visit early in the morning to catch the sunlight illuminating the stained glass windows without the crowds.",
         "must_visit": true,
-        "accessibility": "Check website for details"
+        "accessibility": "Check website for details",
+        "fun_fact": "One of its spires is currently being repaired due to the 2020 earthquake, revealing a time capsule from 1898 inside the cross."
       }
     },
     {
@@ -58,7 +59,8 @@
         "website": "https://np-plitvicka-jezera.hr/",
         "local_tip": "Start at Entrance 1 early (around 7-8 AM) and walk up to the upper lakes to avoid the main tour bus crowds.",
         "must_visit": true,
-        "accessibility": "Not accessible (Rough terrain)"
+        "accessibility": "Not accessible (Rough terrain)",
+        "fun_fact": "The lakes are renowned for their distinctive colors, ranging from azure to green, grey or blue depending on the quantity of minerals or organisms in the water and the angle of sunlight."
       }
     },
     {
@@ -87,7 +89,8 @@
         "website": "https://www.ami-pula.hr/en/collections-on-display/pula-arena/",
         "local_tip": "Check the summer schedule for evening concerts or film festivals held inside the arena for a magical experience.",
         "must_visit": false,
-        "accessibility": "Check website for details"
+        "accessibility": "Check website for details",
+        "fun_fact": "This amphitheater is the only remaining Roman amphitheater to have four side towers entirely preserved."
       }
     },
     {
@@ -117,7 +120,8 @@
         "website": "https://whc.unesco.org/en/list/97/",
         "local_tip": "Look for the sphinxes brought from Egypt; one is still well-preserved on the Peristyle square.",
         "must_visit": false,
-        "accessibility": "Check website for details"
+        "accessibility": "Check website for details",
+        "fun_fact": "The palace is not just a monument but a living city; over 3,000 people still live within its ancient walls today."
       }
     },
     {
@@ -147,7 +151,8 @@
         "website": "https://www.bol.hr/en/attractions/beaches/zlatni-rat-beach",
         "local_tip": "The shape of the beach tip changes with the wind. Visit in the late afternoon for easier parking and softer light.",
         "must_visit": false,
-        "accessibility": "Check website for details"
+        "accessibility": "Check website for details",
+        "fun_fact": "The tip of the beach shifts significantly depending on the wind and currents, sometimes curving to the east and sometimes to the west."
       }
     },
     {
@@ -178,7 +183,8 @@
         "website": "https://www.wallsofdubrovnik.com/",
         "local_tip": "Buy the 'Dubrovnik Pass' for access to the walls and several museums; it's cheaper than the individual wall ticket.",
         "must_visit": true,
-        "accessibility": "Check website for details"
+        "accessibility": "Check website for details",
+        "fun_fact": "Despite numerous earthquakes and sieges, the walls have never been breached by a hostile army during the time of the Republic of Ragusa."
       }
     },
     {
@@ -207,7 +213,8 @@
         "website": "http://www.np-krka.hr/en/",
         "local_tip": "Don't miss the ethno village near Skradinski Buk to see traditional watermills in action.",
         "must_visit": false,
-        "accessibility": "Partial (Nature trails)"
+        "accessibility": "Partial (Nature trails)",
+        "fun_fact": "The park includes the site of the first hydroelectric power plant in Europe (Jaruga), which began operations just two days after Tesla's Niagara Falls plant."
       }
     },
     {
@@ -236,7 +243,8 @@
         "website": "https://brokenships.com/",
         "local_tip": "Read the stories slowly; bring tissues. There is a great cafe inside to reflect afterwards.",
         "must_visit": false,
-        "accessibility": "Likely Accessible (Check website)"
+        "accessibility": "Likely Accessible (Check website)",
+        "fun_fact": "It started as a traveling exhibition of donated items from failed relationships before finding a permanent home in Zagreb."
       }
     },
     {
@@ -266,7 +274,8 @@
         "website": "https://www.rovinj-tourism.com/",
         "local_tip": "Climb the bell tower of St. Euphemia for the best panoramic view of the coastline.",
         "must_visit": true,
-        "accessibility": "Check website for details"
+        "accessibility": "Check website for details",
+        "fun_fact": "Originally an island, the channel separating it from the mainland was filled in 1763."
       }
     },
     {
@@ -295,7 +304,8 @@
         "website": "https://visithvar.hr/",
         "local_tip": "Hike up to the Fortica \u0160panjola for the classic postcard view of the harbor and Pakleni islands.",
         "must_visit": false,
-        "accessibility": "Check website for details"
+        "accessibility": "Check website for details",
+        "fun_fact": "Hvar is the sunniest island in Europe, with an average of over 2,718 hours of sunshine per year."
       }
     },
     {
