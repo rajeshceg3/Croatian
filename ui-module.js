@@ -22,6 +22,28 @@ export function toggleFavorite(name, callback) {
     if (callback) callback();
 }
 
+export function getVisited() {
+    try {
+        const visited = localStorage.getItem('croatia_visited');
+        return visited ? JSON.parse(visited) : [];
+    } catch (e) {
+        console.error("Error reading visited", e);
+        return [];
+    }
+}
+
+export function toggleVisited(name, callback) {
+    const visited = getVisited();
+    const index = visited.indexOf(name);
+    if (index === -1) {
+        visited.push(name);
+    } else {
+        visited.splice(index, 1);
+    }
+    localStorage.setItem('croatia_visited', JSON.stringify(visited));
+    if (callback) callback();
+}
+
 const categoryIcons = {
     "historical": `<path fill="currentColor" d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm19-12h-2V7h-3v3h-2V7h-3v3H9V7H6v3H4V7H2l10-5 10 5v3z"/>`,
     "natural": `<path fill="currentColor" d="M10 21v-4.83l-7 5.96L4.82 20 12 14l7.18 6L21 22.13l-7-5.96V21h-4zm2-19L2 12h5v2h10v-2h5L12 2z"/>`,
@@ -54,6 +76,23 @@ export function createCategoryFilters(categories, filterCallback) {
         filterCallback();
     });
     filtersList.appendChild(favChip);
+
+    // Visited Filter
+    const visitedChip = document.createElement('button');
+    visitedChip.className = 'filter-chip visited-filter';
+    visitedChip.type = 'button';
+    visitedChip.dataset.value = 'visited';
+    visitedChip.innerHTML = `
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: inherit;">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        Visited
+    `;
+    visitedChip.addEventListener('click', () => {
+        visitedChip.classList.toggle('active');
+        filterCallback();
+    });
+    filtersList.appendChild(visitedChip);
 
     categories.forEach(category => {
         const chip = document.createElement('button');
@@ -137,6 +176,7 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
     }
 
     const favorites = getFavorites();
+    const visited = getVisited();
     const fragment = document.createDocumentFragment();
 
     features.forEach((feature, index) => {
@@ -195,10 +235,25 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
         headerDiv.style.alignItems = 'flex-start';
 
         // Add content
+        const titleWrapper = document.createElement('div');
+        titleWrapper.style.display = 'flex';
+        titleWrapper.style.alignItems = 'center';
+        titleWrapper.style.gap = '6px';
+        titleWrapper.style.flex = '1';
+
         const title = document.createElement('div');
         title.className = 'result-title';
         title.textContent = name;
-        headerDiv.appendChild(title);
+        titleWrapper.appendChild(title);
+
+        if (visited.includes(name)) {
+            const visitedBadge = document.createElement('span');
+            visitedBadge.className = 'visited-indicator';
+            visitedBadge.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            visitedBadge.title = "Visited";
+            titleWrapper.appendChild(visitedBadge);
+        }
+        headerDiv.appendChild(titleWrapper);
 
         // Favorite Button
         const isFav = favorites.includes(name);
@@ -495,7 +550,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     const panel = document.getElementById('site-detail-panel');
     if (!panel) return;
 
-    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact } = feature.properties;
+    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot } = feature.properties;
 
     // Populate Data
     const titleEl = document.getElementById('detail-title');
@@ -588,6 +643,17 @@ export function openDetailPanel(feature, allFeatures = []) {
             b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> ${accessibility}`;
             badgeContainer.appendChild(b);
         }
+        if (transit_option) {
+            const t = document.createElement('span');
+            t.className = 'transit-badge';
+            t.title = 'Getting There';
+            let icon = '🚗';
+            if (transit_option === 'Boat') icon = '🚤';
+            if (transit_option === 'Walk') icon = '🚶';
+            if (transit_option === 'Hike') icon = '🥾';
+            t.innerHTML = `<span>${icon}</span> ${transit_option}`;
+            badgeContainer.appendChild(t);
+        }
     }
 
     // Weather Widget (Mock Data)
@@ -633,6 +699,20 @@ export function openDetailPanel(feature, allFeatures = []) {
         `;
         const badgeContainer = document.getElementById('detail-badges');
         if (badgeContainer) insertAfter(ffBox, badgeContainer);
+    }
+
+    // Photospot
+    if (photospot) {
+        const psBox = document.createElement('div');
+        psBox.className = 'photospot-box dynamic-extra-section';
+        psBox.innerHTML = `
+             <div class="photospot-header">
+                <span style="font-size:14px;">📸</span> Best Photo Spot
+            </div>
+            <div class="photospot-content">${photospot}</div>
+        `;
+        const target = contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(psBox, target);
     }
 
     // Best Time Visualizer (Mock logic for demo)
@@ -774,6 +854,47 @@ export function openDetailPanel(feature, allFeatures = []) {
                 document.dispatchEvent(new CustomEvent('favoritesUpdated'));
             });
         };
+    }
+
+    // Visited State (New Button injection)
+    // Remove old one if exists
+    const existingVisitBtn = document.getElementById('detail-visit-btn');
+    if (existingVisitBtn) existingVisitBtn.remove();
+
+    // Create Visit Button in Action Panel
+    const actionPanel = document.querySelector('.panel-actions');
+    if (actionPanel) {
+        const visitBtn = document.createElement('button');
+        visitBtn.id = 'detail-visit-btn';
+        visitBtn.className = 'action-icon-btn';
+        visitBtn.title = 'Mark as Visited';
+        visitBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+        const updateVisitState = () => {
+             const visited = getVisited();
+             const isVisited = visited.includes(name);
+             visitBtn.classList.toggle('active', isVisited);
+             // Maybe different style for visited
+             if (isVisited) {
+                 visitBtn.style.background = 'var(--accent-color)';
+                 visitBtn.style.color = 'white';
+             } else {
+                 visitBtn.style.background = '';
+                 visitBtn.style.color = '';
+             }
+        };
+        updateVisitState();
+
+        visitBtn.onclick = () => {
+            toggleVisited(name, () => {
+                updateVisitState();
+                document.dispatchEvent(new CustomEvent('favoritesUpdated')); // Reuse this event to trigger re-renders
+            });
+        };
+
+        // Insert before share button
+        const shareBtn = document.getElementById('detail-share-btn');
+        if (shareBtn) actionPanel.insertBefore(visitBtn, shareBtn);
     }
 
     // Share Btn

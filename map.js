@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -52,11 +52,12 @@ function filterSites() {
     // Updated to query active chips
     const activeChips = Array.from(document.querySelectorAll('.filter-chip.active'));
     const showFavoritesOnly = activeChips.some(chip => chip.dataset.value === 'favorites');
+    const showVisitedOnly = activeChips.some(chip => chip.dataset.value === 'visited');
 
-    // Filter out 'favorites' from category list
+    // Filter out 'favorites' and 'visited' from category list
     const selectedCategories = activeChips
         .map(chip => chip.dataset.value)
-        .filter(val => val !== 'favorites');
+        .filter(val => val !== 'favorites' && val !== 'visited');
 
     // Check for active collection
     const activeCollection = document.querySelector('.collection-chip.active');
@@ -71,6 +72,11 @@ function filterSites() {
     if (showFavoritesOnly) {
         const favorites = getFavorites();
         features = features.filter(feature => favorites.includes(feature.properties.name));
+    }
+
+    if (showVisitedOnly) {
+        const visited = getVisited();
+        features = features.filter(feature => visited.includes(feature.properties.name));
     }
 
     if (activeCollectionTag) {
