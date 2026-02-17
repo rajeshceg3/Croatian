@@ -80,9 +80,13 @@ function filterSites() {
     }
 
     if (activeCollectionTag) {
-        features = features.filter(feature =>
-            feature.properties.tags && feature.properties.tags.includes(activeCollectionTag)
-        );
+        features = features.filter(feature => {
+            if (activeCollectionTag === 'Photography') {
+                return (feature.properties.tags && feature.properties.tags.includes('Photography')) ||
+                       feature.properties.photospot;
+            }
+            return feature.properties.tags && feature.properties.tags.includes(activeCollectionTag);
+        });
     }
 
     if (activePrices.length > 0) {
@@ -130,6 +134,7 @@ fetchData()
             { name: "Game of Thrones", tag: "Game of Thrones", icon: "🐉" },
             { name: "Best Sunsets", tag: "Sunset", icon: "🌅" },
             { name: "Hidden Gems", tag: "Hidden Gem", icon: "💎" },
+            { name: "Photography", tag: "Photography", icon: "📸" },
             { name: "Fine Dining", tag: "Fine Dining", icon: "🍽️" },
             { name: "Secret Beaches", tag: "Beach", icon: "🏖️" }
         ];
