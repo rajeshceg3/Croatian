@@ -2235,3 +2235,95 @@ body {
         height: 90% !important;
     }
 }
+
+/* === New Style Additions === */
+
+/* Visited Filter */
+.filter-chip.visited-filter {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+    background: rgba(0,0,0,0.03);
+}
+.filter-chip.visited-filter.active {
+    background: var(--text-primary);
+    color: white;
+    border-color: var(--text-primary);
+}
+.filter-chip.visited-filter svg {
+    margin-right: 4px;
+}
+
+/* Visited Indicator (List) */
+.visited-indicator {
+    color: #2dce89; /* Success green */
+    display: flex;
+    align-items: center;
+    background: rgba(45, 206, 137, 0.1);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Photospot Box */
+.photospot-box {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+    color: #e65100;
+}
+
+.photospot-box::before {
+    content: '📸';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 80px;
+    opacity: 0.1;
+    transform: rotate(-15deg);
+}
+
+.photospot-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: #e65100;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.photospot-content {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+/* Transit Badge */
+.transit-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: white;
+    border: 1px solid var(--border-color);
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    width: fit-content;
+    box-shadow: var(--shadow-xs);
+}
+
+.transit-badge span {
+    font-size: 14px;
+}
