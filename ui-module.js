@@ -1046,6 +1046,49 @@ export function setupTravelTips() {
             closeModal();
         }
     });
+
+    // --- Dynamic Phrases with Audio ---
+    const phraseGrid = modal.querySelector('.phrase-grid');
+    if (phraseGrid) {
+        phraseGrid.innerHTML = ''; // Clear static content
+        const phrases = [
+            { hr: "Hvala", en: "Thank you" },
+            { hr: "Molim", en: "Please" },
+            { hr: "Bok", en: "Hi / Bye" },
+            { hr: "Pivo", en: "Beer" },
+            { hr: "Dobar dan", en: "Good day" },
+            { hr: "Koliko košta?", en: "How much?" }
+        ];
+
+        phrases.forEach(p => {
+            const item = document.createElement('div');
+            item.className = 'phrase-item';
+
+            const btn = document.createElement('button');
+            btn.className = 'audio-play-btn';
+            btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+            btn.title = "Listen";
+            btn.onclick = () => {
+                const u = new SpeechSynthesisUtterance(p.hr);
+                u.lang = 'hr-HR'; // Ideally Croatian, falls back if not available
+                window.speechSynthesis.speak(u);
+            };
+
+            const textSpan = document.createElement('span');
+            textSpan.textContent = p.hr;
+            textSpan.style.fontWeight = '600';
+            textSpan.style.marginRight = '4px';
+
+            const transSpan = document.createElement('span');
+            transSpan.className = 'trans';
+            transSpan.textContent = p.en;
+
+            item.appendChild(btn);
+            item.appendChild(textSpan);
+            item.appendChild(transSpan);
+            phraseGrid.appendChild(item);
+        });
+    }
 }
 
 // --- My Trip / Itinerary Feature ---
@@ -1091,8 +1134,23 @@ function renderMyTripList(features, container, durationEl) {
                 <div style="font-size: 40px; margin-bottom: 16px;">🗺️</div>
                 <p style="margin:0; font-weight:600; color:var(--text-primary);">Your trip is empty</p>
                 <p style="margin-top:8px;">Start exploring the map and click the heart icon to add places to your itinerary.</p>
+                <button class="empty-state-action" style="margin-top:16px;">Start Exploring</button>
             </div>
         `;
+
+        const exploreBtn = container.querySelector('.empty-state-action');
+        if (exploreBtn) {
+            exploreBtn.onclick = () => {
+                const modal = document.getElementById('my-trip-modal');
+                if (modal) {
+                     const close = modal.querySelector('.modal-close');
+                     if (close) close.click();
+                }
+                const search = document.getElementById('search-input');
+                if (search) search.focus();
+            };
+        }
+
         if (durationEl) durationEl.textContent = '0h';
         return;
     }
@@ -1230,10 +1288,27 @@ export function setupMyTripModal(allFeatures) {
         startBtn.addEventListener('click', () => {
             const favorites = getFavorites();
              if (favorites.length === 0) return;
-             const firstFeature = allFeatures.find(f => f.properties.name === favorites[0]);
-             if (firstFeature) {
-                 const [lng, lat] = firstFeature.geometry.coordinates;
-                 window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank');
+
+             // Get features in order
+             const tripFeatures = favorites.map(name => allFeatures.find(f => f.properties.name === name)).filter(f => f);
+
+             if (tripFeatures.length > 0) {
+                 const last = tripFeatures[tripFeatures.length - 1];
+                 const [destLng, destLat] = last.geometry.coordinates;
+
+                 let url = `https://www.google.com/maps/dir/?api=1&destination=${destLat},${destLng}`;
+
+                 if (tripFeatures.length > 1) {
+                     const waypoints = tripFeatures.slice(0, tripFeatures.length - 1)
+                        .map(f => {
+                            const [lng, lat] = f.geometry.coordinates;
+                            return `${lat},${lng}`;
+                        })
+                        .join('|');
+                     url += `&waypoints=${waypoints}`;
+                 }
+
+                 window.open(url, '_blank');
              }
         });
     }

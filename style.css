@@ -2327,3 +2327,97 @@ body {
 .transit-badge span {
     font-size: 14px;
 }
+
+/* === Interactive Phrases === */
+.phrase-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+}
+
+.phrase-item:hover {
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.audio-play-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.audio-play-btn:hover {
+    transform: scale(1.1);
+    background: var(--accent-hover);
+}
+
+.audio-play-btn svg {
+    width: 10px;
+    height: 10px;
+    fill: currentColor;
+    stroke: none;
+}
+
+.audio-play-btn svg path, .audio-play-btn svg polygon {
+    fill: currentColor;
+    stroke: none;
+}
+
+/* === Empty State Action === */
+.empty-state-action {
+    margin-top: 16px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(99, 91, 255, 0.3);
+}
+
+.empty-state-action:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(99, 91, 255, 0.4);
+}
+
+/* === Pulse Animation === */
+.pulse-animation {
+    animation: pulse-soft 2s infinite;
+}
+
+@keyframes pulse-soft {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Override for new interactive grid */
+.phrase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns of cards */
+    gap: 12px;
+}
+
+@media (max-width: 480px) {
+    .phrase-grid {
+        grid-template-columns: 1fr;
+    }
+}
