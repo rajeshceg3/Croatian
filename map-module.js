@@ -66,17 +66,18 @@ export function updateMarkers(map, features, onViewDetails) {
     markerLookup = {}; // Clear lookup
 
     features.forEach(feature => {
-        const { name, category, description, rating, image_url, website, price_level, best_time, local_tip } = feature.properties;
+        const { name, category, description, rating, image_url, website, price_level, best_time, local_tip, tags } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
 
         const catKey = category.toLowerCase();
         const svgPath = iconPaths[catKey] || iconPaths['default'];
+        const isHiddenGem = tags && tags.includes('Hidden Gem');
 
         // Use DivIcon for CSS styling
         const customIcon = L.divIcon({
             className: 'custom-marker-icon', // Defined in CSS
             html: `
-                <div class="marker-pin ${catKey}">
+                <div class="marker-pin ${catKey} ${isHiddenGem ? 'hidden-gem' : ''}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         ${svgPath}
                     </svg>

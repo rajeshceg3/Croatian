@@ -109,6 +109,24 @@ function filterSites() {
         });
     }
 
+    // Sort Logic
+    const sortValue = document.getElementById('sort-select').value;
+    features.sort((a, b) => {
+        const propsA = a.properties;
+        const propsB = b.properties;
+
+        if (sortValue === 'rating_desc') {
+            return (propsB.rating || 0) - (propsA.rating || 0);
+        } else if (sortValue === 'price_asc') {
+            return (propsA.price_level || 0) - (propsB.price_level || 0);
+        } else if (sortValue === 'price_desc') {
+            return (propsB.price_level || 0) - (propsA.price_level || 0);
+        } else {
+            // Default: Recommended (Keep original order or specific logic)
+            return 0;
+        }
+    });
+
     currentFilteredFeatures = features;
     updateMarkers(map, currentFilteredFeatures, (feature) => openDetailPanel(feature, allFeatures));
     updateSearchResults(map, currentFilteredFeatures, highlightMarker, unhighlightMarker, allFeatures);
@@ -144,6 +162,7 @@ fetchData()
         setupSuggestedRoutes(allFeatures);
         setupShareTrip();
 
+        document.getElementById('sort-select').addEventListener('change', filterSites);
         addSearchListener(filterSites);
         addClearFiltersListener(filterSites);
 

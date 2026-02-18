@@ -1735,6 +1735,172 @@
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
         "fun_fact": "It is the only early Christian complex of its kind in the world to be completely preserved."
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.3378,
+          46.3083
+        ]
+      },
+      "properties": {
+        "name": "Varaždin Old Town",
+        "category": "historical",
+        "rating": 4.7,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "2-3 hours",
+        "tags": [
+          "Baroque",
+          "History",
+          "City",
+          "Hidden Gem"
+        ],
+        "description": "Often called 'Little Vienna', Varaždin is famous for its baroque architecture, music, and flowers. The castle houses the City Museum.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Varazdin_castle_Croatia.jpg/800px-Varazdin_castle_Croatia.jpg",
+        "website": "https://www.varazdin.hr/en/",
+        "local_tip": "Visit the insect museum inside Herzer Palace—it's surprisingly fascinating.",
+        "must_visit": false,
+        "accessibility": "Cobblestone streets",
+        "transit_option": "Walk",
+        "photospot": "Stari Grad (Old Town Castle) from the surrounding park.",
+        "fun_fact": "It was briefly the capital of Croatia (1756-1776) until a massive fire destroyed much of the city."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.8967,
+          42.7631
+        ]
+      },
+      "properties": {
+        "name": "Lastovo Nature Park",
+        "category": "natural",
+        "rating": 4.9,
+        "price_level": 2,
+        "best_time": "May-Sept",
+        "duration": "2-3 days",
+        "tags": [
+          "Nature",
+          "Island",
+          "Stargazing",
+          "Hidden Gem",
+          "Peaceful"
+        ],
+        "description": "One of the most remote inhabited islands in the Adriatic, Lastovo is a nature park with clean sea, rich underwater life, and incredible dark skies.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Lastovo_panorama.jpg/800px-Lastovo_panorama.jpg",
+        "website": "https://pp-lastovo.hr/en/",
+        "local_tip": "The island is famous for its chimneys (fumari); count how many unique shapes you can spot in Lastovo town.",
+        "must_visit": true,
+        "accessibility": "Partial",
+        "transit_option": "Boat",
+        "photospot": "Hum viewpoint—the highest peak offering 360-degree views.",
+        "fun_fact": "Due to its strategic military importance, foreigners were banned from the island until 1989."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.1667,
+          43.8833
+        ]
+      },
+      "properties": {
+        "name": "Telašćica Nature Park",
+        "category": "natural",
+        "rating": 4.8,
+        "price_level": 3,
+        "best_time": "May-Oct",
+        "duration": "4-6 hours",
+        "tags": [
+          "Nature",
+          "Cliffs",
+          "Salt Lake",
+          "Boat Trip"
+        ],
+        "description": "Located on Dugi Otok, Telašćica features dramatic 160m high cliffs, a saltwater lake 'Mir' known for its healing mud, and a safe natural harbor.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Telascica_cliffs.jpg/800px-Telascica_cliffs.jpg",
+        "website": "https://pp-telascica.hr/en/",
+        "local_tip": "Donkeys roam freely near the lake; they are friendly but watch your snacks!",
+        "must_visit": true,
+        "accessibility": "Partial",
+        "transit_option": "Boat",
+        "photospot": "The edge of the cliffs looking down at the open sea (be careful!).",
+        "fun_fact": "The salt lake 'Mir' is always warmer than the surrounding sea and has medicinal mud."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.9378,
+          45.2403
+        ]
+      },
+      "properties": {
+        "name": "Pazin Cave",
+        "category": "adventure",
+        "rating": 4.7,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "1-2 hours",
+        "tags": [
+          "Cave",
+          "Adventure",
+          "Jules Verne",
+          "Nature"
+        ],
+        "description": "A dramatic chasm in the heart of Istria where the Pazinčica river disappears underground. It inspired Jules Verne's novel 'Mathias Sandorf'.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pazin_Castle_and_Cave.jpg/800px-Pazin_Castle_and_Cave.jpg",
+        "website": "https://www.central-istria.com/en/to-visit/pazin-cave",
+        "local_tip": "For thrill-seekers, try the zipline that goes directly over the cave entrance.",
+        "must_visit": false,
+        "accessibility": "Not accessible",
+        "transit_option": "Hike",
+        "photospot": "From the bridge looking down into the abyss.",
+        "fun_fact": "Jules Verne never visited Pazin but described the cave accurately based on photographs and letters."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.5539,
+          46.1542
+        ]
+      },
+      "properties": {
+        "name": "Veliki Tabor Castle",
+        "category": "historical",
+        "rating": 4.6,
+        "price_level": 2,
+        "best_time": "Spring/Autumn",
+        "duration": "2 hours",
+        "tags": [
+          "Castle",
+          "History",
+          "Legend",
+          "Hidden Gem"
+        ],
+        "description": "One of the most important cultural and historical monuments in continental Croatia, offering stunning views of the Zagorje region.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Veliki_Tabor.jpg/800px-Veliki_Tabor.jpg",
+        "website": "https://www.veliki-tabor.hr/en",
+        "local_tip": "Visit during the medieval festival in summer for reenactments and archery.",
+        "must_visit": false,
+        "accessibility": "Partial",
+        "transit_option": "Car",
+        "photospot": "From the main approach road capturing the distinctive pentagonal tower.",
+        "fun_fact": "Legend says the skull of Veronika of Desinić, a peasant girl walled up in the castle for forbidden love, is still kept in the chapel."
+      }
     }
   ]
 }
