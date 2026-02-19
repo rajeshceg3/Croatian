@@ -1,5 +1,5 @@
-import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding } from './ui-module.js';
+import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup, toggleMapTheme } from './map-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding, setupThemeToggle } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -67,6 +67,9 @@ function filterSites() {
     const activePriceBtns = document.querySelectorAll('.price-btn.active');
     const activePrices = Array.from(activePriceBtns).map(btn => parseInt(btn.dataset.price));
 
+    // Check for active quick filters
+    const activeQuickFilters = Array.from(document.querySelectorAll('.quick-filter-chip.active')).map(c => c.dataset.filter);
+
     let features = allFeatures;
 
     if (showFavoritesOnly) {
@@ -92,6 +95,24 @@ function filterSites() {
     if (activePrices.length > 0) {
         features = features.filter(feature => {
             return activePrices.includes(feature.properties.price_level);
+        });
+    }
+
+    if (activeQuickFilters.length > 0) {
+        features = features.filter(feature => {
+            let match = true;
+            if (activeQuickFilters.includes('must_visit')) {
+                if (!feature.properties.rating || feature.properties.rating < 4.8) match = false;
+            }
+            if (activeQuickFilters.includes('beach')) {
+                const isBeach = feature.properties.category === 'coastal' || (feature.properties.tags && feature.properties.tags.includes('Beach'));
+                if (!isBeach) match = false;
+            }
+            if (activeQuickFilters.includes('hidden_gem')) {
+                const isHidden = feature.properties.tags && (feature.properties.tags.includes('Hidden Gem') || feature.properties.tags.includes('Unique'));
+                if (!isHidden) match = false;
+            }
+            return match;
         });
     }
 
@@ -174,10 +195,18 @@ fetchData()
             });
         });
 
+        // Setup Quick Filter Listeners
+        document.querySelectorAll('.quick-filter-chip').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+                filterSites();
+            });
+        });
 
         setupMobileInteractions();
         setupScrollEffects();
         setupSurpriseMe(map, () => currentFilteredFeatures, openMarkerPopup);
+        setupThemeToggle(toggleMapTheme);
         setupOnboarding();
         filterSites(); // Populate map and results on initial load
 

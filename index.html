@@ -31,6 +31,9 @@
             </div>
 
             <div class="filter-controls">
+                <button id="theme-toggle" class="action-btn" title="Toggle Dark Mode" style="margin-right:auto;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
                 <div class="sort-container">
                     <label for="sort-select">Sort by:</label>
                     <div class="select-wrapper">
@@ -174,6 +177,19 @@
             </div>
         </div>
     </div>
+
+    <div id="quick-filter-bar">
+        <button class="quick-filter-chip" data-filter="must_visit">
+            <span>💎</span> Must Visit
+        </button>
+        <button class="quick-filter-chip" data-filter="beach">
+            <span>🏖️</span> Beaches
+        </button>
+        <button class="quick-filter-chip" data-filter="hidden_gem">
+            <span>🤫</span> Hidden Gems
+        </button>
+    </div>
+
     <div id="map"></div>
 
     <button id="near-me-btn" class="map-floating-btn" title="Show my location">
