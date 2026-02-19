@@ -1,5 +1,26 @@
 import { getFavorites, toggleFavorite } from './ui-module.js';
 
+let currentTileLayer = null;
+let currentMap = null;
+
+export function toggleMapTheme(theme) {
+    if (!currentMap) return;
+
+    if (currentTileLayer) {
+        currentMap.removeLayer(currentTileLayer);
+    }
+
+    const url = theme === 'dark'
+        ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+        : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+
+    currentTileLayer = L.tileLayer(url, {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    }).addTo(currentMap);
+}
+
 // This module will be responsible for map initialization and management.
 export function initializeMap() {
     // Center on Croatia
@@ -7,17 +28,15 @@ export function initializeMap() {
         zoomControl: false // We will add it manually to position it better if needed, or style the default one
     }).setView([45.1, 15.2], 7);
 
+    currentMap = map;
+
     // Add Zoom control to top-right
     L.control.zoom({
         position: 'topright'
     }).addTo(map);
 
-    // CartoDB Positron - Clean, high-contrast, "Stripe-like" map style
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
-    }).addTo(map);
+    // Initialize with light theme by default
+    toggleMapTheme('light');
 
     return map;
 }

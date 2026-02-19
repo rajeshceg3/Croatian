@@ -396,6 +396,9 @@ export function addClearFiltersListener(filterCallback) {
         // Clear price filters
         document.querySelectorAll('.price-btn').forEach(btn => btn.classList.remove('active'));
 
+        // Clear quick filters
+        document.querySelectorAll('.quick-filter-chip').forEach(btn => btn.classList.remove('active'));
+
         filterCallback();
     });
 }
@@ -745,6 +748,26 @@ export function openDetailPanel(feature, allFeatures = []) {
         if (target) insertAfter(btBox, target);
     }
 
+    // Packing List
+    const packingItems = getPackingList(category);
+    if (packingItems.length > 0) {
+        const packBox = document.createElement('div');
+        packBox.className = 'packing-box dynamic-extra-section';
+        packBox.style.marginBottom = '24px';
+        packBox.innerHTML = `
+            <div style="font-size:12px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                What to Pack
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                ${packingItems.map(item => `<span style="background:var(--bg-color); border:1px solid var(--border-color); padding:4px 8px; border-radius:4px; font-size:12px; color:var(--text-secondary);">${item}</span>`).join('')}
+            </div>
+        `;
+        // Insert after Best Time or Fun Fact
+        const target = contentContainer.querySelector('.best-time-container') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(packBox, target);
+    }
+
     // Nearby Gems
     if (allFeatures && allFeatures.length > 0) {
         const [cLng, cLat] = feature.geometry.coordinates;
@@ -790,6 +813,40 @@ export function openDetailPanel(feature, allFeatures = []) {
 
             const footer = document.querySelector('.detail-footer-actions');
             if (footer) footer.parentNode.insertBefore(nearby, footer);
+        }
+
+        // Similar Vibe
+        const similar = findSimilarSites(feature, allFeatures);
+        if (similar.length > 0) {
+            const similarDiv = document.createElement('div');
+            similarDiv.className = 'similar-section dynamic-extra-section';
+            similarDiv.style.marginTop = '24px';
+            similarDiv.innerHTML = `<h3>You Might Also Like</h3>`;
+
+            const grid = document.createElement('div');
+            grid.className = 'nearby-grid'; // Reuse styles
+
+            similar.forEach(s => {
+                const card = document.createElement('div');
+                card.className = 'nearby-card';
+                card.innerHTML = `
+                    <div class="nearby-thumb"><img src="${s.properties.image_url}" onerror="this.style.display='none'"></div>
+                    <div class="nearby-info">
+                        <div class="nearby-title">${s.properties.name}</div>
+                        <div class="nearby-dist" style="color:var(--accent-color); font-weight:600;">${s.properties.category}</div>
+                    </div>
+                `;
+                card.onclick = () => {
+                   const [lng, lat] = s.geometry.coordinates;
+                   const event = new CustomEvent('flyToSite', { detail: { lat, lng, name: s.properties.name } });
+                   document.dispatchEvent(event);
+                };
+                grid.appendChild(card);
+            });
+
+            similarDiv.appendChild(grid);
+            const footer = document.querySelector('.detail-footer-actions');
+            if (footer) footer.parentNode.insertBefore(similarDiv, footer);
         }
     }
 
@@ -1127,6 +1184,7 @@ function parseDuration(durationStr) {
 function renderMyTripList(features, container, durationEl) {
     container.innerHTML = '';
     let totalHours = 0;
+    const categoryCounts = {};
 
     if (features.length === 0) {
         container.innerHTML = `
@@ -1153,6 +1211,26 @@ function renderMyTripList(features, container, durationEl) {
 
         if (durationEl) durationEl.textContent = '0h';
         return;
+    }
+
+    // Calculate breakdown
+    features.forEach(f => {
+        const cat = f.properties.category || 'other';
+        categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+    });
+
+    // Render Breakdown Bar
+    if (features.length > 0) {
+        const breakdownDiv = document.createElement('div');
+        breakdownDiv.style.cssText = 'padding: 16px 24px; border-bottom: 1px solid var(--divider-color); display: flex; gap: 8px; overflow-x: auto; background: var(--bg-color);';
+
+        Object.entries(categoryCounts).forEach(([cat, count]) => {
+            const chip = document.createElement('div');
+            chip.style.cssText = 'font-size: 11px; padding: 4px 8px; background: var(--surface-color); border-radius: 12px; border: 1px solid var(--border-color); white-space: nowrap; color: var(--text-secondary); display: flex; align-items: center; gap: 4px;';
+            chip.innerHTML = `<span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color);"></span> <strong>${count}</strong> ${cat.charAt(0).toUpperCase() + cat.slice(1)}`;
+            breakdownDiv.appendChild(chip);
+        });
+        container.appendChild(breakdownDiv);
     }
 
     features.forEach(feature => {
@@ -1417,6 +1495,50 @@ export function setupSuggestedRoutes(allFeatures) {
 
 // === New Enhancements: Helpers & Onboarding ===
 
+export function getPackingList(category) {
+    const common = ["Comfortable shoes", "Water bottle", "Camera/Phone"];
+    const specifics = {
+        "coastal": ["Swimsuit & Towel", "Sunscreen & Hat", "Sunglasses", "Sandals"],
+        "natural": ["Hiking boots", "Insect repellent", "Light jacket", "Backpack"],
+        "adventure": ["Sportswear", "GoPro/Action Cam", "Energy snacks", "Change of clothes"],
+        "historical": ["Walking shoes", "Hat for sun", "Power bank", "Guidebook"],
+        "cultural": ["Modest clothing (churches)", "Small change", "Notebook", "Curiosity"],
+        "gastronomy": ["Appetite!", "Smart casual outfit", "Cash for tips", "Water"],
+        "default": ["Map/Navigation", "ID/Passport", "Power bank"]
+    };
+
+    const catKey = category ? category.toLowerCase() : 'default';
+    const items = specifics[catKey] || specifics['default'];
+    return [...new Set([...common, ...items])]; // Unique items
+}
+
+export function findSimilarSites(currentFeature, allFeatures) {
+    if (!currentFeature || !allFeatures) return [];
+
+    const { name, tags, category } = currentFeature.properties;
+    const currentTags = tags || [];
+
+    return allFeatures
+        .filter(f => f.properties.name !== name) // Exclude self
+        .map(f => {
+            const fTags = f.properties.tags || [];
+            let score = 0;
+
+            // Same category points
+            if (f.properties.category === category) score += 2;
+
+            // Tag overlap points
+            const overlap = fTags.filter(t => currentTags.includes(t));
+            score += overlap.length * 3;
+
+            return { feature: f, score };
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3) // Top 3
+        .map(item => item.feature);
+}
+
 export function deg2rad(deg) {
     return deg * (Math.PI/180);
 }
@@ -1433,6 +1555,34 @@ export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c; // Distance in km
     return d;
+}
+
+export function setupThemeToggle(updateMapTheme) {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    const setTheme = (theme) => {
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem('theme', theme);
+        updateMapTheme(theme);
+
+        // Update Icon
+        if (theme === 'dark') {
+            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+        } else {
+            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+        }
+    };
+
+    // Init
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+
+    btn.addEventListener('click', () => {
+        const current = document.documentElement.dataset.theme;
+        const next = current === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+    });
 }
 
 export function setupOnboarding() {

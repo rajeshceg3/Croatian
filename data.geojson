@@ -1901,6 +1901,169 @@
         "photospot": "From the main approach road capturing the distinctive pentagonal tower.",
         "fun_fact": "Legend says the skull of Veronika of Desinić, a peasant girl walled up in the castle for forbidden love, is still kept in the chapel."
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.8814,
+          45.4241
+        ]
+      },
+      "properties": {
+        "name": "Kutjevo Wine Cellars",
+        "category": "gastronomy",
+        "rating": 4.7,
+        "price_level": 3,
+        "best_time": "Sept-Oct",
+        "duration": "2 hours",
+        "tags": [
+          "Wine",
+          "History",
+          "Tasting"
+        ],
+        "description": "Located in the heart of Slavonia's 'Golden Valley', these historic cellars date back to 1232. Kutjevo is the capital of Croatian wine production.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kutjevo_Castle.jpg/800px-Kutjevo_Castle.jpg",
+        "website": "https://www.kutjevo.com/en/",
+        "local_tip": "Book a tasting of their 'Ice Wine', which has won numerous international awards.",
+        "must_visit": false,
+        "accessibility": "Likely Accessible",
+        "transit_option": "Car",
+        "photospot": "The historic castle next to the cellars.",
+        "fun_fact": "Legend says Empress Maria Theresa and Baron Trenck were locked in the cellar for 7 days, leaving marks on the stone table."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.3833,
+          43.9806
+        ]
+      },
+      "properties": {
+        "name": "Galešnjak Island",
+        "category": "natural",
+        "rating": 4.5,
+        "price_level": 1,
+        "best_time": "Summer",
+        "duration": "2 hours",
+        "tags": [
+          "Nature",
+          "Romance",
+          "Island"
+        ],
+        "description": "World-famous as the 'Island of Love' due to its perfect heart shape. It is uninhabited and offers wild nature and pebble beaches.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Galesnjak.jpg/800px-Galesnjak.jpg",
+        "website": "https://www.croatia.hr/en-GB/destinations/pasman/galesnjak",
+        "local_tip": "There are no facilities, so bring everything you need. You can rent a small boat from nearby Pašman or Turanj.",
+        "must_visit": true,
+        "accessibility": "Not accessible",
+        "transit_option": "Boat",
+        "photospot": "Aerial drone shot is best, or from the boat approaching the shore.",
+        "fun_fact": "The island's perfect heart shape was first recorded by Napoleon's cartographer in 1806."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.4253,
+          43.0722
+        ]
+      },
+      "properties": {
+        "name": "Baćina Lakes",
+        "category": "natural",
+        "rating": 4.6,
+        "price_level": 1,
+        "best_time": "May-Oct",
+        "duration": "3 hours",
+        "tags": [
+          "Nature",
+          "Kayaking",
+          "Swimming",
+          "Peaceful"
+        ],
+        "description": "A group of seven interconnected lakes near Ploče. The water is brackish and teems with life. It's a paradise for paddleboarding and traditional boat rides.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Bacinska_jezera.jpg/800px-Bacinska_jezera.jpg",
+        "website": "https://visitploce.com/en/bacina-lakes/",
+        "local_tip": "Rent a traditional 'lađa' boat for a guided tour through the tunnels connecting the lakes.",
+        "must_visit": false,
+        "accessibility": "Partial",
+        "transit_option": "Car",
+        "photospot": "From the viewpoint on the Adriatic Highway (Magistrala) above the lakes.",
+        "fun_fact": "The lakes are cryptodepressions, meaning their bottom is below sea level."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.7214,
+          42.9642
+        ]
+      },
+      "properties": {
+        "name": "Vela Luka",
+        "category": "cultural",
+        "rating": 4.7,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "1-2 days",
+        "tags": [
+          "Music",
+          "Art",
+          "Mosaic",
+          "Harbor"
+        ],
+        "description": "A charming port town on Korčula island, famous for its mosaics and as the home of Croatia's beloved singer Oliver Dragojević.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Vela_Luka.jpg/800px-Vela_Luka.jpg",
+        "website": "https://tzvelaluka.hr/en",
+        "local_tip": "Visit the center of town to see the world's longest mosaic street.",
+        "must_visit": false,
+        "accessibility": "Likely Accessible",
+        "transit_option": "Boat",
+        "photospot": "The mosaic street in the town center.",
+        "fun_fact": "Artists from all over the world gathered here in 1968 to create the mosaics that decorate the town."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.3811,
+          44.0628
+        ]
+      },
+      "properties": {
+        "name": "Dinara Peak",
+        "category": "adventure",
+        "rating": 4.8,
+        "price_level": 1,
+        "best_time": "May-Oct",
+        "duration": "Full Day",
+        "tags": [
+          "Hiking",
+          "Mountains",
+          "Views",
+          "Nature"
+        ],
+        "description": "At 1,831 meters, Dinara (Sinjal) is the highest peak in Croatia. It offers spectacular views of Peruća Lake and the surrounding karst landscape.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Dinara_Sinjal.jpg/800px-Dinara_Sinjal.jpg",
+        "website": "https://pp-dinara.hr/",
+        "local_tip": "The easiest route starts from Glavaš; it takes about 4-5 hours to reach the top. Bring plenty of water!",
+        "must_visit": true,
+        "accessibility": "Not accessible",
+        "transit_option": "Hike",
+        "photospot": "The summit marker with the Croatian flag.",
+        "fun_fact": "The entire Dinaric Alps mountain range is named after this mountain."
+      }
     }
   ]
 }
