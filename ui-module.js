@@ -45,12 +45,13 @@ export function toggleVisited(name, callback) {
 }
 
 const categoryIcons = {
-    "historical": `<path fill="currentColor" d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm19-12h-2V7h-3v3h-2V7h-3v3H9V7H6v3H4V7H2l10-5 10 5v3z"/>`,
-    "natural": `<path fill="currentColor" d="M10 21v-4.83l-7 5.96L4.82 20 12 14l7.18 6L21 22.13l-7-5.96V21h-4zm2-19L2 12h5v2h10v-2h5L12 2z"/>`,
-    "cultural": `<path fill="currentColor" d="M12 3a9 9 0 0 0 0 18c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>`,
-    "coastal": `<path fill="currentColor" d="M12 6c4.42 0 8 3.58 8 8h-2c0-3.31-2.69-6-6-6s-6 2.69-6 6H4c0-4.42 3.58-8 8-8z M11 14v6h2v-6h-2z"/>`,
-    "gastronomy": `<path fill="currentColor" d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>`,
-    "adventure": `<path fill="currentColor" d="M14 6l-4.22 5.63 1.25 1.67L14 9.33 19 16h-8.46l-4.01-5.37L1 18h22L14 6zM5 16l1.52-2.03L8.04 16H5z"/>`,
+    // Cleaner, more geometric icons (Stripe-inspired simplicity)
+    "historical": `<path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5 9.5 9.75 12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/>`,
+    "natural": `<path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34 3.32 22.58 4.75 23.5 6 23.5c4 0 9.17-2.17 11.17-4.17S21 14 21 14s-3.17 1.83-4 6C16 11 15 8 15 8s-3-3-2-5c1 2 4 5 4 5zM8 12c-1 0-1-2 0-2 1 0 1 2 0 2z"/>`,
+    "cultural": `<path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>`,
+    "coastal": `<path fill="currentColor" d="M21 15.61a12.65 12.65 0 0 1-5.14-1.17c-.45-.19-1.29-.19-1.8 0a12.65 12.65 0 0 0-4.12 1.17 12.65 12.65 0 0 1-4.12 1.17c-1.32 0-2.55-.38-3.82-1.17v-8a12.65 12.65 0 0 1 3.82 1.17c.45.19 1.29.19 1.8 0a12.65 12.65 0 0 0 4.12-1.17 12.65 12.65 0 0 1 4.12-1.17c.45-.19 1.29-.19 1.8 0a12.65 12.65 0 0 0 3.34 1.17V15.61zM12 2a3 3 0 0 0-3 3v2h6V5a3 3 0 0 0-3-3z"/>`,
+    "gastronomy": `<path fill="currentColor" d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V22.99zM7.5 12c1.93 0 3.5-1.57 3.5-3.5V2H4v6.5C4 10.43 5.57 12 7.5 12zm0-8.5h1v4h-1v-4zm-2.5 0h1v4H5v-4zM11 20H4v2h7v-2zm.48-5.32l.74 7.32h1.63l-.74-7.32c-.08-.82-.77-1.46-1.63-1.46z"/>`,
+    "adventure": `<path fill="currentColor" d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V12h2V8.9z"/>`,
     "default": `<path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5 2.5z"/>`
 };
 
@@ -378,12 +379,38 @@ export function debounce(func, wait) {
 }
 
 export function addSearchListener(filterCallback) {
-    document.getElementById('search-input').addEventListener('input', debounce(filterCallback, 250));
+    const input = document.getElementById('search-input');
+    const clearBtn = document.getElementById('search-clear');
+
+    const debouncedFilter = debounce(filterCallback, 250);
+
+    input.addEventListener('input', (e) => {
+        if (clearBtn) {
+            if (e.target.value.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+        }
+        debouncedFilter();
+    });
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            clearBtn.classList.add('hidden');
+            filterCallback();
+            input.focus();
+        });
+    }
 }
 
 export function addClearFiltersListener(filterCallback) {
     document.getElementById('clear-filters').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
+        const clearBtn = document.getElementById('search-clear');
+        if (clearBtn) clearBtn.classList.add('hidden');
+
         const chips = document.querySelectorAll('.filter-chip');
         chips.forEach(chip => {
             chip.classList.remove('active');
@@ -1117,6 +1144,66 @@ export function setupTravelTips() {
             { hr: "Koliko košta?", en: "How much?" }
         ];
 
+        // Add Play All Button
+        const container = phraseGrid.parentElement;
+        const header = container.querySelector('h4');
+        if (header && !header.querySelector('.play-all-btn')) {
+             const playAllBtn = document.createElement('button');
+             playAllBtn.className = 'action-btn play-all-btn';
+             playAllBtn.style.cssText = 'font-size: 11px; margin-left: 8px; padding: 2px 8px; border: 1px solid var(--accent-color); border-radius: 12px;';
+             playAllBtn.innerHTML = '▶ Play All';
+
+             let isPlaying = false;
+
+             playAllBtn.onclick = () => {
+                 if (isPlaying) {
+                     window.speechSynthesis.cancel();
+                     isPlaying = false;
+                     playAllBtn.innerHTML = '▶ Play All';
+                     return;
+                 }
+
+                 // Cancel any ongoing speech
+                 window.speechSynthesis.cancel();
+                 isPlaying = true;
+                 playAllBtn.innerHTML = '⏹ Stop';
+
+                 let currentIndex = 0;
+
+                 const playNext = () => {
+                     if (!isPlaying || currentIndex >= phrases.length) {
+                         isPlaying = false;
+                         playAllBtn.innerHTML = '▶ Play All';
+                         return;
+                     }
+
+                     const p = phrases[currentIndex];
+                     const u = new SpeechSynthesisUtterance(p.hr);
+                     u.lang = 'hr-HR';
+
+                     u.onend = () => {
+                         currentIndex++;
+                         // Small pause between words
+                         setTimeout(playNext, 500);
+                     };
+
+                     u.onerror = () => {
+                         console.error('Speech synthesis error');
+                         isPlaying = false;
+                         playAllBtn.innerHTML = '▶ Play All';
+                     };
+
+                     window.speechSynthesis.speak(u);
+                 };
+
+                 playNext();
+             };
+
+             header.style.display = 'flex';
+             header.style.alignItems = 'center';
+             header.appendChild(playAllBtn);
+        }
+
         phrases.forEach(p => {
             const item = document.createElement('div');
             item.className = 'phrase-item';
@@ -1233,6 +1320,15 @@ function renderMyTripList(features, container, durationEl) {
         container.appendChild(breakdownDiv);
     }
 
+    let totalDistance = 0;
+    if (features.length > 1) {
+        for (let i = 0; i < features.length - 1; i++) {
+            const [lng1, lat1] = features[i].geometry.coordinates;
+            const [lng2, lat2] = features[i + 1].geometry.coordinates;
+            totalDistance += getDistanceFromLatLonInKm(lat1, lng1, lat2, lng2);
+        }
+    }
+
     features.forEach(feature => {
         const { name, category, duration, image_url } = feature.properties;
         totalHours += parseDuration(duration);
@@ -1312,7 +1408,13 @@ function renderMyTripList(features, container, durationEl) {
              const days = (totalHours / 8).toFixed(1);
              displayTime = `${days} days (${totalHours}h)`;
         }
-        durationEl.textContent = displayTime;
+
+        let distanceText = "";
+        if (totalDistance > 0) {
+            distanceText = ` • ~${Math.round(totalDistance)} km`;
+        }
+
+        durationEl.textContent = displayTime + distanceText;
     }
 }
 
@@ -1345,6 +1447,14 @@ export function setupMyTripModal(allFeatures) {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
+
+    // Print Action
+    const printBtn = document.getElementById('trip-print-action');
+    if (printBtn) {
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    }
 
     // Share Action
     if (shareBtn) {
@@ -1539,23 +1649,6 @@ export function findSimilarSites(currentFeature, allFeatures) {
         .map(item => item.feature);
 }
 
-export function deg2rad(deg) {
-    return deg * (Math.PI/180);
-}
-
-export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-    var R = 6371; // Radius of the earth in km
-    var dLat = deg2rad(lat2-lat1);
-    var dLon = deg2rad(lon2-lon1);
-    var a =
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon/2) * Math.sin(dLon/2)
-        ;
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c; // Distance in km
-    return d;
-}
 
 export function setupThemeToggle(updateMapTheme) {
     const btn = document.getElementById('theme-toggle');
