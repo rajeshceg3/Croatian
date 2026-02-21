@@ -152,7 +152,8 @@
           "Beach",
           "Swimming",
           "Windsurfing",
-          "Sunset"
+          "Sunset",
+          "Family Friendly"
         ],
         "description": "Famous for its distinctive shape, Zlatni Rat (Golden Horn) is a stunning pebble beach that extends into the Adriatic Sea, its tip changing shape with the tides and currents.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Zlatni_rat_Croatia.JPG/800px-Zlatni_rat_Croatia.JPG",
@@ -186,7 +187,8 @@
           "Views",
           "Walking",
           "UNESCO",
-          "Game of Thrones"
+          "Game of Thrones",
+          "Must Visit"
         ],
         "description": "Walking the ancient city walls of Dubrovnik offers breathtaking views of the Adriatic Sea and the city's stunning architecture. It is a must-do experience for any visitor.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Dubrovnik_Walls.jpg/800px-Dubrovnik_Walls.jpg",
@@ -218,7 +220,8 @@
         "tags": [
           "Nature",
           "Waterfalls",
-          "Swimming"
+          "Swimming",
+          "Family Friendly"
         ],
         "description": "Famous for its seven stunning waterfalls and rich biodiversity, Krka National Park offers a memorable experience of Croatia's natural beauty, with boat trips and swimming areas.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Krka_waterfalls.jpg/800px-Krka_waterfalls.jpg",
@@ -411,7 +414,8 @@
         "tags": [
           "Castle",
           "History",
-          "Nature"
+          "Nature",
+          "Family Friendly"
         ],
         "description": "Perched on a hill overlooking a lake, Trako\u0161\u0107an is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg/800px-Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg",
@@ -443,7 +447,8 @@
         "tags": [
           "Art",
           "Music",
-          "Sunset"
+          "Sunset",
+          "Family Friendly"
         ],
         "description": "An architectural sound art object located in Zadar, the Sea Organ plays music by way of sea waves and tubes located underneath a set of large marble steps.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Sea_organ_Zadar.jpg/800px-Sea_organ_Zadar.jpg",
@@ -1098,7 +1103,8 @@
           "Cave",
           "Swimming",
           "Mythology",
-          "Cliff Jumping"
+          "Cliff Jumping",
+          "Hidden Gem"
         ],
         "description": "A stunning sea cave on Mljet island where, according to legend, Odysseus was shipwrecked and trapped for seven years by the nymph Calypso.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Odysseus_Cave_Mljet.jpg/800px-Odysseus_Cave_Mljet.jpg",
@@ -1459,7 +1465,8 @@
           "Nature",
           "Waterfalls",
           "Village",
-          "History"
+          "History",
+          "Family Friendly"
         ],
         "description": "Often called 'The Small Plitvice', Rastoke is a picturesque watermill village where the Slunj\u010dica River flows into the Korana River through a series of waterfalls.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Rastoke_Slunj_Croatia.jpg/800px-Rastoke_Slunj_Croatia.jpg",
@@ -1492,7 +1499,8 @@
           "Nature",
           "Conservation",
           "Animals",
-          "Volunteering"
+          "Volunteering",
+          "Family Friendly"
         ],
         "description": "A unique sanctuary for orphaned brown bears in the Velebit mountains. Run by volunteers, it offers a chance to learn about bear conservation in a natural habitat.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kuterevo_Bear_Refuge.jpg/800px-Kuterevo_Bear_Refuge.jpg",

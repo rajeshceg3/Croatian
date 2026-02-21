@@ -174,8 +174,9 @@ fetchData()
             { name: "Best Sunsets", tag: "Sunset", icon: "🌅" },
             { name: "Hidden Gems", tag: "Hidden Gem", icon: "💎" },
             { name: "Photography", tag: "Photography", icon: "📸" },
-            { name: "Fine Dining", tag: "Fine Dining", icon: "🍽️" },
-            { name: "Secret Beaches", tag: "Beach", icon: "🏖️" }
+            { name: "Food & Wine", tag: "Food", icon: "🍷" },
+            { name: "Islands", tag: "Islands", icon: "🏝️" },
+            { name: "Family Friendly", tag: "Family Friendly", icon: "👨‍👩‍👧‍👦" }
         ];
         renderCollections(collections, filterSites);
         setupTravelTips();
