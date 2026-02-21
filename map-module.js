@@ -2,6 +2,7 @@ import { getFavorites, toggleFavorite } from './ui-module.js';
 
 let currentTileLayer = null;
 let currentMap = null;
+let currentRouteLayer = null;
 
 export function toggleMapTheme(theme) {
     if (!currentMap) return;
@@ -353,5 +354,42 @@ export function openMarkerPopup(name) {
         markers.zoomToShowLayer(marker, () => {
              marker.openPopup();
         });
+    }
+}
+
+export function drawRoute(features) {
+    if (!currentMap) return;
+    clearRoute();
+
+    if (!features || features.length < 2) return;
+
+    const latlngs = features.map(f => {
+        const [lng, lat] = f.geometry.coordinates;
+        return [lat, lng];
+    });
+
+    // Create a dashed polyline
+    currentRouteLayer = L.polyline(latlngs, {
+        color: '#635bff', // Accent color
+        weight: 4,
+        opacity: 0.8,
+        dashArray: '10, 10',
+        lineCap: 'round',
+        className: 'route-line-anim' // We'll animate this in CSS
+    }).addTo(currentMap);
+
+    // Fit bounds with padding
+    currentMap.fitBounds(currentRouteLayer.getBounds(), {
+        padding: [50, 50],
+        maxZoom: 14,
+        animate: true,
+        duration: 1.5
+    });
+}
+
+export function clearRoute() {
+    if (currentRouteLayer && currentMap) {
+        currentMap.removeLayer(currentRouteLayer);
+        currentRouteLayer = null;
     }
 }

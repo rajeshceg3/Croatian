@@ -1,4 +1,4 @@
-import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup, toggleMapTheme } from './map-module.js';
+import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup, toggleMapTheme, drawRoute, clearRoute } from './map-module.js';
 import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding, setupThemeToggle } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
@@ -70,6 +70,10 @@ function filterSites() {
     // Check for active quick filters
     const activeQuickFilters = Array.from(document.querySelectorAll('.quick-filter-chip.active')).map(c => c.dataset.filter);
 
+    // Context Filters
+    const seasonFilter = document.getElementById('season-filter') ? document.getElementById('season-filter').value : '';
+    const durationFilter = document.getElementById('duration-filter') ? document.getElementById('duration-filter').value : '';
+
     let features = allFeatures;
 
     if (showFavoritesOnly) {
@@ -116,6 +120,43 @@ function filterSites() {
         });
     }
 
+    if (seasonFilter) {
+        features = features.filter(feature => {
+            const bt = (feature.properties.best_time || "").toLowerCase();
+            if (bt.includes('year')) return true;
+
+            if (seasonFilter === 'spring') {
+                return bt.includes('spring') || bt.includes('may') || bt.includes('apr') || bt.includes('mar');
+            }
+            if (seasonFilter === 'summer') {
+                return bt.includes('summer') || bt.includes('jun') || bt.includes('jul') || bt.includes('aug') || bt.includes('sep');
+            }
+            if (seasonFilter === 'autumn') {
+                return bt.includes('autumn') || bt.includes('sep') || bt.includes('oct') || bt.includes('nov');
+            }
+            if (seasonFilter === 'winter') {
+                return bt.includes('winter') || bt.includes('dec') || bt.includes('jan') || bt.includes('feb');
+            }
+            return true;
+        });
+    }
+
+    if (durationFilter) {
+        features = features.filter(feature => {
+            const d = (feature.properties.duration || "").toLowerCase();
+            if (durationFilter === 'quick') {
+                return d.includes('min') || d === '1 hour' || d === '1-2 hours';
+            }
+            if (durationFilter === 'half') {
+                return d.includes('2') || d.includes('3') || d.includes('4');
+            }
+            if (durationFilter === 'full') {
+                return d.includes('5') || d.includes('6') || d.includes('full') || d.includes('day');
+            }
+            return true;
+        });
+    }
+
     if (selectedCategories.length > 0) {
         features = features.filter(feature => {
             const category = feature.properties.category.toLowerCase();
@@ -151,6 +192,13 @@ function filterSites() {
     currentFilteredFeatures = features;
     updateMarkers(map, currentFilteredFeatures, (feature) => openDetailPanel(feature, allFeatures));
     updateSearchResults(map, currentFilteredFeatures, highlightMarker, unhighlightMarker, allFeatures);
+
+    // Route Drawing Logic
+    if (showFavoritesOnly && features.length > 1) {
+        drawRoute(features);
+    } else {
+        clearRoute();
+    }
 }
 
 // Listen for favorites updates
