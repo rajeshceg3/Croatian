@@ -2768,3 +2768,87 @@ body {
     width: 0; /* Animate via JS or CSS */
     transition: width 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
+
+/* Getting There Box */
+.getting-there-box {
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 24px;
+    color: #0d47a1;
+}
+
+.getting-there-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1565c0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.getting-there-content {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Notes Section */
+.notes-box {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.notes-textarea {
+    width: 100%;
+    height: 80px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    margin-bottom: 8px;
+    background: var(--bg-color);
+    transition: all 0.2s;
+}
+
+.notes-textarea:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: var(--shadow-focus);
+}
+
+.save-note-btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-note-btn:hover {
+    background: var(--accent-hover);
+}
+
+.save-note-btn.saved {
+    background: #2dce89 !important;
+}
+
+/* Trip Budget */
+.trip-budget-display {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}

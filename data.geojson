@@ -28,6 +28,8 @@
         "local_tip": "Visit early in the morning to catch the sunlight illuminating the stained glass windows without the crowds.",
         "must_visit": true,
         "accessibility": "Check website for details",
+        "getting_there_detail": "Easily accessible on foot from the main Ban Jelačić Square. Trams 6, 11, 12, 14 stop nearby.",
+        "best_time_of_day": "Morning (8 AM - 10 AM) for light and quiet.",
         "fun_fact": "One of its spires is currently being repaired due to the 2020 earthquake, revealing a time capsule from 1898 inside the cross.",
         "transit_option": "Walk",
         "photospot": "From Gradec plateau for a panoramic view of the spires."
@@ -62,6 +64,8 @@
         "local_tip": "Start at Entrance 1 early (around 7-8 AM) and walk up to the upper lakes to avoid the main tour bus crowds.",
         "must_visit": true,
         "accessibility": "Not accessible (Rough terrain)",
+        "getting_there_detail": "Bus from Zagreb or Zadar takes ~2.5 hours. Parking is available at Entrance 1 and 2 but fills up fast in summer.",
+        "best_time_of_day": "7 AM (Entrance 1 opens) to beat tour buses.",
         "fun_fact": "The lakes are renowned for their distinctive colors, ranging from azure to green, grey or blue depending on the quantity of minerals or organisms in the water and the angle of sunlight.",
         "transit_option": "Hike",
         "photospot": "The Veliki Slap viewpoint offers the iconic waterfall shot."
@@ -127,6 +131,8 @@
         "local_tip": "Look for the sphinxes brought from Egypt; one is still well-preserved on the Peristyle square.",
         "must_visit": false,
         "accessibility": "Check website for details",
+        "getting_there_detail": "Located in the heart of Split, adjacent to the ferry port and bus station. No cars allowed inside.",
+        "best_time_of_day": "Early morning or Late Evening for atmosphere.",
         "fun_fact": "The palace is not just a monument but a living city; over 3,000 people still live within its ancient walls today.",
         "transit_option": "Walk",
         "photospot": "The Peristyle square at dusk."
@@ -196,6 +202,8 @@
         "local_tip": "Buy the 'Dubrovnik Pass' for access to the walls and several museums; it's cheaper than the individual wall ticket.",
         "must_visit": true,
         "accessibility": "Check website for details",
+        "getting_there_detail": "Main entrance at Pile Gate. If arriving by cruise ship, take the shuttle or bus 1A/1B to Pile.",
+        "best_time_of_day": "Just before sunset or 8 AM sharp.",
         "fun_fact": "Despite numerous earthquakes and sieges, the walls have never been breached by a hostile army during the time of the Republic of Ragusa.",
         "transit_option": "Walk",
         "photospot": "Minceta Tower provides the highest vantage point over the Old Town."
@@ -326,6 +334,8 @@
         "local_tip": "Hike up to the Fortica \u0160panjola for the classic postcard view of the harbor and Pakleni islands.",
         "must_visit": false,
         "accessibility": "Check website for details",
+        "getting_there_detail": "Catamaran from Split (1h). If driving, ferry goes to Stari Grad, then 20min drive to Hvar Town.",
+        "best_time_of_day": "Sunset at Hula Hula or Fortica.",
         "fun_fact": "Hvar is the sunniest island in Europe, with an average of over 2,718 hours of sunshine per year.",
         "transit_option": "Car",
         "photospot": "Fortica \u0160panjola for the harbor view."

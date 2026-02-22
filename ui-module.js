@@ -44,6 +44,28 @@ export function toggleVisited(name, callback) {
     if (callback) callback();
 }
 
+export function getNotes(name) {
+    try {
+        const notes = localStorage.getItem('croatia_notes');
+        const parsed = notes ? JSON.parse(notes) : {};
+        return parsed[name] || '';
+    } catch (e) {
+        console.error("Error reading notes", e);
+        return '';
+    }
+}
+
+export function saveNote(name, text) {
+    try {
+        const notes = localStorage.getItem('croatia_notes');
+        const parsed = notes ? JSON.parse(notes) : {};
+        parsed[name] = text;
+        localStorage.setItem('croatia_notes', JSON.stringify(parsed));
+    } catch (e) {
+        console.error("Error saving note", e);
+    }
+}
+
 const categoryIcons = {
     // Cleaner, more geometric icons (Stripe-inspired simplicity)
     "historical": `<path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5 9.5 9.75 12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/>`,
@@ -627,7 +649,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     const panel = document.getElementById('site-detail-panel');
     if (!panel) return;
 
-    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot } = feature.properties;
+    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day } = feature.properties;
 
     // Populate Data
     const titleEl = document.getElementById('detail-title');
@@ -815,6 +837,7 @@ export function openDetailPanel(feature, allFeatures = []) {
                 <span>Popularity by Month</span>
                 <span style="color:var(--accent-color);">${best_time}</span>
             </div>
+            ${best_time_of_day ? `<div style="font-size:11px; color:var(--text-secondary); margin-bottom:8px; display:flex; align-items:center; gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg> Best time: <strong>${best_time_of_day}</strong></div>` : ''}
             <div class="month-viz">${bars}</div>
         `;
 
@@ -897,6 +920,51 @@ export function openDetailPanel(feature, allFeatures = []) {
         const target = contentContainer.querySelector('.best-time-container') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-weather-widget');
         if (target) insertAfter(packBox, target);
     }
+
+    // Getting There Detail
+    if (getting_there_detail) {
+        const gtBox = document.createElement('div');
+        gtBox.className = 'getting-there-box dynamic-extra-section';
+        gtBox.innerHTML = `
+            <div class="getting-there-header">
+               <span style="font-size:14px;">🧭</span> Getting There
+           </div>
+           <div class="getting-there-content">${getting_there_detail}</div>
+        `;
+        const target = contentContainer.querySelector('.packing-box') || contentContainer.querySelector('.best-time-container') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(gtBox, target);
+    }
+
+    // Notes Section
+    const notesBox = document.createElement('div');
+    notesBox.className = 'notes-box dynamic-extra-section';
+
+    const savedNote = getNotes(name);
+
+    notesBox.innerHTML = `
+        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px;">
+            📝 My Personal Notes
+        </div>
+        <textarea class="notes-textarea" placeholder="Add your notes here..."></textarea>
+        <button class="save-note-btn">Save Note</button>
+    `;
+
+    const textarea = notesBox.querySelector('.notes-textarea');
+    textarea.value = savedNote;
+    const saveNoteBtn = notesBox.querySelector('.save-note-btn');
+
+    saveNoteBtn.onclick = () => {
+        saveNote(name, textarea.value);
+        saveNoteBtn.textContent = 'Saved!';
+        saveNoteBtn.classList.add('saved');
+        setTimeout(() => {
+            saveNoteBtn.textContent = 'Save Note';
+            saveNoteBtn.classList.remove('saved');
+        }, 2000);
+    };
+
+    const footerAction = document.querySelector('.detail-footer-actions');
+    if (footerAction) footerAction.parentNode.insertBefore(notesBox, footerAction);
 
     // Nearby Gems
     if (allFeatures && allFeatures.length > 0) {
@@ -1442,6 +1510,7 @@ function parseDuration(durationStr) {
 function renderMyTripList(features, container, durationEl) {
     container.innerHTML = '';
     let totalHours = 0;
+    let totalPricePoints = 0;
     const categoryCounts = {};
 
     if (features.length === 0) {
@@ -1501,8 +1570,9 @@ function renderMyTripList(features, container, durationEl) {
     }
 
     features.forEach(feature => {
-        const { name, category, duration, image_url } = feature.properties;
+        const { name, category, duration, image_url, price_level } = feature.properties;
         totalHours += parseDuration(duration);
+        totalPricePoints += (price_level || 1);
 
         const item = document.createElement('div');
         item.className = 'trip-item';
@@ -1586,6 +1656,19 @@ function renderMyTripList(features, container, durationEl) {
         }
 
         durationEl.textContent = displayTime + distanceText;
+
+        // Budget
+        const estCost = totalPricePoints * 35; // Approx 35 EUR per point
+        let budgetEl = document.getElementById('trip-budget');
+        if (!budgetEl) {
+            budgetEl = document.createElement('div');
+            budgetEl.id = 'trip-budget';
+            budgetEl.className = 'trip-budget-display';
+            durationEl.parentNode.appendChild(budgetEl);
+        }
+        budgetEl.innerHTML = `<span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase; font-weight:700;">Est. Cost:</span> <strong style="font-size:18px; color:var(--accent-color);">~€${estCost}</strong>`;
+        // Handle empty state
+        if (features.length === 0) budgetEl.innerHTML = '';
     }
 }
 
@@ -1622,6 +1705,36 @@ export function setupMyTripModal(allFeatures) {
     // Print Action
     const printBtn = document.getElementById('trip-print-action');
     if (printBtn) {
+        // Optimize Action
+        const optimizeBtn = document.createElement('button');
+        optimizeBtn.className = 'action-btn';
+        optimizeBtn.style.marginRight = 'auto'; // Push others to right if flex
+        optimizeBtn.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+            Optimize
+        `;
+
+        if (!printBtn.parentElement.querySelector('.optimize-inserted')) {
+             printBtn.parentElement.insertBefore(optimizeBtn, printBtn);
+             optimizeBtn.classList.add('optimize-inserted');
+        }
+
+        optimizeBtn.onclick = () => {
+            const favorites = getFavorites();
+            if (favorites.length < 2) return;
+
+            const tripFeatures = allFeatures.filter(f => favorites.includes(f.properties.name));
+
+            // Simple Sort: North to South (Latitude Descending)
+            tripFeatures.sort((a, b) => b.geometry.coordinates[1] - a.geometry.coordinates[1]);
+
+            const newOrder = tripFeatures.map(f => f.properties.name);
+            localStorage.setItem('croatia_favorites', JSON.stringify(newOrder));
+            document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+
+            renderMyTripList(tripFeatures, listContainer, durationEl);
+        };
+
         printBtn.addEventListener('click', () => {
             window.print();
         });
