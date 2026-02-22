@@ -48,7 +48,7 @@ const categoryIcons = {
     // Cleaner, more geometric icons (Stripe-inspired simplicity)
     "historical": `<path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5 9.5 9.75 12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/>`,
     "natural": `<path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34 3.32 22.58 4.75 23.5 6 23.5c4 0 9.17-2.17 11.17-4.17S21 14 21 14s-3.17 1.83-4 6C16 11 15 8 15 8s-3-3-2-5c1 2 4 5 4 5zM8 12c-1 0-1-2 0-2 1 0 1 2 0 2z"/>`,
-    "cultural": `<path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>`,
+    "cultural": `<path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>`,
     "coastal": `<path fill="currentColor" d="M21 15.61a12.65 12.65 0 0 1-5.14-1.17c-.45-.19-1.29-.19-1.8 0a12.65 12.65 0 0 0-4.12 1.17 12.65 12.65 0 0 1-4.12 1.17c-1.32 0-2.55-.38-3.82-1.17v-8a12.65 12.65 0 0 1 3.82 1.17c.45.19 1.29.19 1.8 0a12.65 12.65 0 0 0 4.12-1.17 12.65 12.65 0 0 1 4.12-1.17c.45-.19 1.29-.19 1.8 0a12.65 12.65 0 0 0 3.34 1.17V15.61zM12 2a3 3 0 0 0-3 3v2h6V5a3 3 0 0 0-3-3z"/>`,
     "gastronomy": `<path fill="currentColor" d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V22.99zM7.5 12c1.93 0 3.5-1.57 3.5-3.5V2H4v6.5C4 10.43 5.57 12 7.5 12zm0-8.5h1v4h-1v-4zm-2.5 0h1v4H5v-4zM11 20H4v2h7v-2zm.48-5.32l.74 7.32h1.63l-.74-7.32c-.08-.82-.77-1.46-1.63-1.46z"/>`,
     "adventure": `<path fill="currentColor" d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V12h2V8.9z"/>`,
@@ -60,6 +60,9 @@ export function createCategoryFilters(categories, filterCallback) {
     filtersContainer.innerHTML = '<h4>Filter by Category:</h4>'; // Reset and add header
     const filtersList = document.createElement('div');
     filtersList.className = 'filters-list';
+
+    // Context Filters (Season & Duration) - Added at the top for visibility or bottom?
+    // Let's add them AFTER categories to keep the flow
 
     // Favorites Filter
     const favChip = document.createElement('button');
@@ -120,6 +123,44 @@ export function createCategoryFilters(categories, filterCallback) {
         filtersList.appendChild(chip);
     });
     filtersContainer.appendChild(filtersList);
+
+    // Add Context Filters (Season/Duration)
+    const contextHeader = document.createElement('h4');
+    contextHeader.style.marginTop = '16px';
+    contextHeader.textContent = 'Plan Your Visit:';
+    filtersContainer.appendChild(contextHeader);
+
+    const contextGrid = document.createElement('div');
+    contextGrid.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;';
+
+    contextGrid.innerHTML = `
+        <div class="select-wrapper" style="width:100%;">
+            <select id="season-filter" style="width:100%;">
+                <option value="">Any Season</option>
+                <option value="spring">Spring</option>
+                <option value="summer">Summer</option>
+                <option value="autumn">Autumn</option>
+                <option value="winter">Winter</option>
+            </select>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right:8px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="select-wrapper" style="width:100%;">
+            <select id="duration-filter" style="width:100%;">
+                <option value="">Any Duration</option>
+                <option value="quick">Quick (< 2h)</option>
+                <option value="half">Half Day (2-5h)</option>
+                <option value="full">Full Day (+5h)</option>
+            </select>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right:8px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+    `;
+    filtersContainer.appendChild(contextGrid);
+
+    // Bind events
+    const sFilter = document.getElementById('season-filter');
+    const dFilter = document.getElementById('duration-filter');
+    if (sFilter) sFilter.addEventListener('change', filterCallback);
+    if (dFilter) dFilter.addEventListener('change', filterCallback);
 }
 
 export function updateSearchResults(map, features, highlightMarker, unhighlightMarker, allFeatures = []) {
@@ -425,6 +466,12 @@ export function addClearFiltersListener(filterCallback) {
 
         // Clear quick filters
         document.querySelectorAll('.quick-filter-chip').forEach(btn => btn.classList.remove('active'));
+
+        // Clear context filters
+        const sFilter = document.getElementById('season-filter');
+        const dFilter = document.getElementById('duration-filter');
+        if (sFilter) sFilter.value = '';
+        if (dFilter) dFilter.value = '';
 
         filterCallback();
     });
@@ -775,6 +822,62 @@ export function openDetailPanel(feature, allFeatures = []) {
         if (target) insertAfter(btBox, target);
     }
 
+    // Crowd Forecast (New)
+    const crowdData = getCrowdData(category);
+    if (crowdData) {
+        const crowdBox = document.createElement('div');
+        crowdBox.className = 'crowd-box dynamic-extra-section';
+
+        let bars = crowdData.map((val, i) => {
+            const h = (i + 8); // Start at 8 AM
+            const label = h > 12 ? (h-12)+'PM' : h+'AM';
+            const height = val + '%';
+            // Simplified rendering: just bars
+            return `<div class="crowd-bar" style="height:${height}" title="${label}: ${val}% capacity"></div>`;
+        }).join('');
+
+        crowdBox.innerHTML = `
+            <div class="crowd-header">
+                <span>Typical Daily Crowds</span>
+            </div>
+            <div class="crowd-viz">
+                ${bars}
+            </div>
+            <div class="crowd-labels">
+                <span>8 AM</span>
+                <span>8 PM</span>
+            </div>
+        `;
+
+        const target = contentContainer.querySelector('.best-time-container') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(crowdBox, target);
+    }
+
+    // Instagrammability Score (New)
+    const instaScore = calculateInstaScore(feature.properties);
+    if (instaScore > 0) {
+        const instaBox = document.createElement('div');
+        instaBox.className = 'insta-box dynamic-extra-section';
+
+        let color = '#2dce89'; // Green
+        if (instaScore < 50) color = '#fb6340'; // Orange
+        if (instaScore >= 80) color = '#e1306c'; // Insta Pink
+
+        instaBox.innerHTML = `
+            <div class="insta-header">
+                <span>📸 Instagrammability</span>
+                <span style="color:${color}; font-weight:700;">${instaScore}/100</span>
+            </div>
+            <div class="insta-bar-bg">
+                <div class="insta-bar-fill" style="width:${instaScore}%; background:${color};"></div>
+            </div>
+            <p style="margin:4px 0 0; font-size:11px; color:var(--text-tertiary);">Based on views, uniqueness, and popularity.</p>
+        `;
+
+        const target = contentContainer.querySelector('.crowd-box') || contentContainer.querySelector('.best-time-container') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(instaBox, target);
+    }
+
     // Packing List
     const packingItems = getPackingList(category);
     if (packingItems.length > 0) {
@@ -914,11 +1017,79 @@ export function openDetailPanel(feature, allFeatures = []) {
         }
     }
 
-    // Directions
+    // Directions & Street View
     const dirBtn = document.getElementById('detail-directions');
     if (dirBtn) {
         const [lng, lat] = feature.geometry.coordinates;
         dirBtn.href = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+
+        // Add Street View Button if not exists
+        const footerActions = document.querySelector('.detail-footer-actions');
+        const existingSv = document.getElementById('detail-streetview');
+        if (existingSv) existingSv.remove();
+
+        const svBtn = document.createElement('a');
+        svBtn.id = 'detail-streetview';
+        svBtn.className = 'website-btn secondary-btn'; // Reusing secondary style
+        svBtn.target = '_blank';
+        svBtn.href = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lng}`;
+        svBtn.innerHTML = `
+            Street View
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        `;
+
+        // Insert between directions and website
+        const websiteButton = document.getElementById('detail-website');
+        if (footerActions && websiteButton) {
+            footerActions.insertBefore(svBtn, websiteButton);
+        }
+    }
+
+    // Phrase of the Moment
+    const phraseBox = document.createElement('div');
+    phraseBox.className = 'phrase-box dynamic-extra-section';
+    phraseBox.style.marginTop = '24px';
+
+    const phrases = [
+        { hr: "Hvala", en: "Thank you" },
+        { hr: "Molim", en: "Please" },
+        { hr: "Bok", en: "Hi / Bye" },
+        { hr: "Pivo", en: "Beer" },
+        { hr: "Dobar dan", en: "Good day" },
+        { hr: "Koliko košta?", en: "How much?" },
+        { hr: "Živjeli", en: "Cheers" },
+        { hr: "Oprostite", en: "Excuse me" }
+    ];
+    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+
+    phraseBox.innerHTML = `
+        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+            <span>🇭🇷 Phrase of the Moment</span>
+            <button class="audio-play-btn" style="width:20px; height:20px;" title="Listen">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            </button>
+        </div>
+        <div style="background:var(--bg-color); padding:12px; border-radius:8px; display:flex; flex-direction:column; align-items:center; text-align:center;">
+            <span style="font-size:16px; font-weight:700; color:var(--text-primary); margin-bottom:2px;">${randomPhrase.hr}</span>
+            <span style="font-size:13px; color:var(--text-secondary);">${randomPhrase.en}</span>
+        </div>
+    `;
+
+    // Audio Logic for Phrase
+    const pBtn = phraseBox.querySelector('.audio-play-btn');
+    pBtn.onclick = () => {
+        const u = new SpeechSynthesisUtterance(randomPhrase.hr);
+        u.lang = 'hr-HR';
+        window.speechSynthesis.speak(u);
+    };
+
+    // Insert near bottom
+    const similarSection = contentContainer.querySelector('.similar-section');
+    if (similarSection) insertAfter(phraseBox, similarSection);
+    else {
+        // Fallback
+        const footer = document.querySelector('.detail-footer-actions');
+        if (footer) footer.parentNode.insertBefore(phraseBox, footer);
     }
 
     // Favorites State
@@ -1622,6 +1793,52 @@ export function getPackingList(category) {
     return [...new Set([...common, ...items])]; // Unique items
 }
 
+// Mock Crowd Data (8am to 8pm)
+export function getCrowdData(category) {
+    if (!category) return null;
+    const cat = category.toLowerCase();
+
+    // 13 points (8am - 8pm)
+    if (cat === 'historical' || cat === 'cultural') {
+        // Peak mid-day
+        return [10, 30, 60, 80, 90, 85, 80, 70, 60, 40, 30, 20, 10];
+    } else if (cat === 'coastal') {
+        // Peak afternoon
+        return [5, 15, 40, 70, 90, 95, 95, 85, 60, 40, 30, 20, 10];
+    } else if (cat === 'gastronomy') {
+        // Lunch and Dinner peaks
+        return [0, 5, 10, 20, 80, 90, 50, 20, 40, 80, 95, 80, 40];
+    } else if (cat === 'adventure') {
+        // Morning peak
+        return [20, 60, 80, 90, 70, 60, 50, 40, 30, 20, 10, 5, 0];
+    }
+
+    // Default
+    return [10, 20, 40, 60, 70, 70, 60, 50, 40, 30, 20, 10, 5];
+}
+
+export function calculateInstaScore(properties) {
+    if (!properties) return 0;
+
+    let score = 30; // Base score
+
+    const { photospot, tags, rating, best_time } = properties;
+
+    if (photospot) score += 20;
+    if (rating && rating >= 4.7) score += 15;
+
+    if (tags) {
+        if (tags.includes('Views') || tags.includes('Sunset')) score += 15;
+        if (tags.includes('Hidden Gem')) score += 10;
+        if (tags.includes('UNESCO')) score += 10;
+        if (tags.includes('Nature') || tags.includes('Beach')) score += 5;
+    }
+
+    if (best_time && best_time.toLowerCase().includes('sunset')) score += 10;
+
+    return Math.min(score, 100);
+}
+
 export function findSimilarSites(currentFeature, allFeatures) {
     if (!currentFeature || !allFeatures) return [];
 
@@ -1717,4 +1934,22 @@ export function setupOnboarding() {
             setTimeout(() => toast.remove(), 500);
         }
     }, 8000);
+}
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1);
+  var a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
 }
