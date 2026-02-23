@@ -846,7 +846,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     }
 
     // Crowd Forecast (New)
-    const crowdData = getCrowdData(category);
+    const crowdData = getCrowdData(category, feature.properties.popularity_score);
     if (crowdData) {
         const crowdBox = document.createElement('div');
         crowdBox.className = 'crowd-box dynamic-extra-section';
@@ -1740,6 +1740,43 @@ export function setupMyTripModal(allFeatures) {
         });
     }
 
+    // Copy as Text Action
+    const copyTextBtn = document.createElement('button');
+    copyTextBtn.className = 'action-btn';
+    copyTextBtn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        Copy Text
+    `;
+    if (shareBtn && shareBtn.parentNode) {
+        shareBtn.parentNode.insertBefore(copyTextBtn, shareBtn);
+    }
+
+    copyTextBtn.onclick = () => {
+        const favorites = getFavorites();
+        if (favorites.length === 0) return;
+
+        // Get features in order
+        const tripFeatures = favorites.map(name => allFeatures.find(f => f.properties.name === name)).filter(f => f);
+
+        let text = "🇭🇷 My Croatia Itinerary\n\n";
+        tripFeatures.forEach((f, i) => {
+            text += `${i + 1}. ${f.properties.name}\n   ⏱ ${f.properties.duration || 'N/A'} • ${f.properties.category}\n\n`;
+        });
+
+        const totalDuration = document.getElementById('trip-duration').textContent;
+        const totalBudget = document.getElementById('trip-budget') ? document.getElementById('trip-budget').innerText.replace('Est. Cost:', '').trim() : '';
+
+        text += `Total Duration: ${totalDuration}\n`;
+        if (totalBudget) text += `Estimated Budget: ${totalBudget}\n`;
+        text += `\nShared via Croatia Guide`;
+
+        navigator.clipboard.writeText(text).then(() => {
+            const original = copyTextBtn.innerHTML;
+            copyTextBtn.textContent = 'Copied!';
+            setTimeout(() => copyTextBtn.innerHTML = original, 2000);
+        });
+    };
+
     // Share Action
     if (shareBtn) {
         shareBtn.addEventListener('click', () => {
@@ -1819,6 +1856,18 @@ export function setupSuggestedRoutes(allFeatures) {
             sites: ["Osijek Tvr\u0111a", "Kopa\u010dki Rit", "Vu\u010dedol Culture Museum"],
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Osijek_Tvrdja.jpg/800px-Osijek_Tvrdja.jpg",
             desc: "Discover the hidden gems of Eastern Croatia, from baroque fortresses to wetlands."
+        },
+        {
+            name: "Island Hopping Adventure",
+            sites: ["Hvar Town", "Korčula Old Town", "Stiniva Cove (Vis)", "Blue Cave (Biševo)", "Mljet National Park"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Hvar_Town_Harbour.jpg/800px-Hvar_Town_Harbour.jpg",
+            desc: "Sail through the most beautiful islands of the Adriatic, exploring hidden coves and historic towns."
+        },
+        {
+            name: "Nature Lover's Paradise",
+            sites: ["Plitvice Lakes National Park", "Krka National Park", "Risnjak National Park", "Paklenica National Park", "Telašćica Nature Park"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Plitvice_Lakes_National_Park_%282%29.jpg/800px-Plitvice_Lakes_National_Park_%282%29.jpg",
+            desc: "Immerse yourself in Croatia's stunning natural beauty, from waterfalls to mountain peaks."
         }
     ];
 
@@ -1907,27 +1956,34 @@ export function getPackingList(category) {
 }
 
 // Mock Crowd Data (8am to 8pm)
-export function getCrowdData(category) {
+export function getCrowdData(category, popularityScore = 75) {
     if (!category) return null;
     const cat = category.toLowerCase();
+
+    // Scale factor (0.5 to 1.0 based on popularity 0-100)
+    const scale = 0.5 + (popularityScore / 200);
+
+    let baseData = [];
 
     // 13 points (8am - 8pm)
     if (cat === 'historical' || cat === 'cultural') {
         // Peak mid-day
-        return [10, 30, 60, 80, 90, 85, 80, 70, 60, 40, 30, 20, 10];
+        baseData = [10, 30, 60, 80, 90, 85, 80, 70, 60, 40, 30, 20, 10];
     } else if (cat === 'coastal') {
         // Peak afternoon
-        return [5, 15, 40, 70, 90, 95, 95, 85, 60, 40, 30, 20, 10];
+        baseData = [5, 15, 40, 70, 90, 95, 95, 85, 60, 40, 30, 20, 10];
     } else if (cat === 'gastronomy') {
         // Lunch and Dinner peaks
-        return [0, 5, 10, 20, 80, 90, 50, 20, 40, 80, 95, 80, 40];
+        baseData = [0, 5, 10, 20, 80, 90, 50, 20, 40, 80, 95, 80, 40];
     } else if (cat === 'adventure') {
         // Morning peak
-        return [20, 60, 80, 90, 70, 60, 50, 40, 30, 20, 10, 5, 0];
+        baseData = [20, 60, 80, 90, 70, 60, 50, 40, 30, 20, 10, 5, 0];
+    } else {
+        // Default
+        baseData = [10, 20, 40, 60, 70, 70, 60, 50, 40, 30, 20, 10, 5];
     }
 
-    // Default
-    return [10, 20, 40, 60, 70, 70, 60, 50, 40, 30, 20, 10, 5];
+    return baseData.map(val => Math.min(100, Math.round(val * scale)));
 }
 
 export function calculateInstaScore(properties) {

@@ -32,7 +32,8 @@
         "best_time_of_day": "Morning (8 AM - 10 AM) for light and quiet.",
         "fun_fact": "One of its spires is currently being repaired due to the 2020 earthquake, revealing a time capsule from 1898 inside the cross.",
         "transit_option": "Walk",
-        "photospot": "From Gradec plateau for a panoramic view of the spires."
+        "photospot": "From Gradec plateau for a panoramic view of the spires.",
+        "popularity_score": 95
       }
     },
     {
@@ -68,7 +69,8 @@
         "best_time_of_day": "7 AM (Entrance 1 opens) to beat tour buses.",
         "fun_fact": "The lakes are renowned for their distinctive colors, ranging from azure to green, grey or blue depending on the quantity of minerals or organisms in the water and the angle of sunlight.",
         "transit_option": "Hike",
-        "photospot": "The Veliki Slap viewpoint offers the iconic waterfall shot."
+        "photospot": "The Veliki Slap viewpoint offers the iconic waterfall shot.",
+        "popularity_score": 100
       }
     },
     {
@@ -100,7 +102,10 @@
         "accessibility": "Check website for details",
         "fun_fact": "This amphitheater is the only remaining Roman amphitheater to have four side towers entirely preserved.",
         "transit_option": "Walk",
-        "photospot": "Exterior side towers at sunset."
+        "photospot": "Exterior side towers at sunset.",
+        "popularity_score": 94,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -135,7 +140,8 @@
         "best_time_of_day": "Early morning or Late Evening for atmosphere.",
         "fun_fact": "The palace is not just a monument but a living city; over 3,000 people still live within its ancient walls today.",
         "transit_option": "Walk",
-        "photospot": "The Peristyle square at dusk."
+        "photospot": "The Peristyle square at dusk.",
+        "popularity_score": 96
       }
     },
     {
@@ -169,7 +175,10 @@
         "accessibility": "Check website for details",
         "fun_fact": "The tip of the beach shifts significantly depending on the wind and currents, sometimes curving to the east and sometimes to the west.",
         "transit_option": "Car",
-        "photospot": "From Vidova Gora peak for the full aerial shape."
+        "photospot": "From Vidova Gora peak for the full aerial shape.",
+        "popularity_score": 93,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Golden Hour (1 hour before sunset)"
       }
     },
     {
@@ -206,7 +215,8 @@
         "best_time_of_day": "Just before sunset or 8 AM sharp.",
         "fun_fact": "Despite numerous earthquakes and sieges, the walls have never been breached by a hostile army during the time of the Republic of Ragusa.",
         "transit_option": "Walk",
-        "photospot": "Minceta Tower provides the highest vantage point over the Old Town."
+        "photospot": "Minceta Tower provides the highest vantage point over the Old Town.",
+        "popularity_score": 96
       }
     },
     {
@@ -239,7 +249,10 @@
         "accessibility": "Partial (Nature trails)",
         "fun_fact": "The park includes the site of the first hydroelectric power plant in Europe (Jaruga), which began operations just two days after Tesla's Niagara Falls plant.",
         "transit_option": "Hike",
-        "photospot": "Wooden bridge in front of Skradinski Buk."
+        "photospot": "Wooden bridge in front of Skradinski Buk.",
+        "popularity_score": 98,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -271,7 +284,10 @@
         "accessibility": "Likely Accessible (Check website)",
         "fun_fact": "It started as a traveling exhibition of donated items from failed relationships before finding a permanent home in Zagreb.",
         "transit_option": "Walk",
-        "photospot": "Capture the unique atmosphere from the main entrance or viewpoint."
+        "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
+        "popularity_score": 86,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -304,7 +320,10 @@
         "accessibility": "Check website for details",
         "fun_fact": "Originally an island, the channel separating it from the mainland was filled in 1763.",
         "transit_option": "Walk",
-        "photospot": "From the pier near the Grand Park Hotel for the classic skyline."
+        "photospot": "From the pier near the Grand Park Hotel for the classic skyline.",
+        "popularity_score": 97,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Golden Hour (1 hour before sunset)"
       }
     },
     {
@@ -331,14 +350,15 @@
         "description": "Hvar is a luxurious island destination known for its vibrant nightlife, yacht-filled harbor, and stunning Pakleni Islands nearby. It offers a mix of history and modern glamour.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Hvar_Town_Harbour.jpg/800px-Hvar_Town_Harbour.jpg",
         "website": "https://visithvar.hr/",
-        "local_tip": "Hike up to the Fortica \u0160panjola for the classic postcard view of the harbor and Pakleni islands.",
+        "local_tip": "Hike up to the Fortica Španjola for the classic postcard view of the harbor and Pakleni islands.",
         "must_visit": false,
         "accessibility": "Check website for details",
         "getting_there_detail": "Catamaran from Split (1h). If driving, ferry goes to Stari Grad, then 20min drive to Hvar Town.",
         "best_time_of_day": "Sunset at Hula Hula or Fortica.",
         "fun_fact": "Hvar is the sunniest island in Europe, with an average of over 2,718 hours of sunshine per year.",
         "transit_option": "Car",
-        "photospot": "Fortica \u0160panjola for the harbor view."
+        "photospot": "Fortica Španjola for the harbor view.",
+        "popularity_score": 91
       }
     },
     {
@@ -370,7 +390,10 @@
         "accessibility": "Partial (Nature trails)",
         "transit_option": "Boat",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "Legend says God created the Kornati islands from white tears, stars, and breath."
+        "fun_fact": "Legend says God created the Kornati islands from white tears, stars, and breath.",
+        "popularity_score": 92,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -402,7 +425,10 @@
         "accessibility": "Partial (Nature trails)",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "Mongoose were introduced to the island in 1910 to control the snake population."
+        "fun_fact": "Mongoose were introduced to the island in 1910 to control the snake population.",
+        "popularity_score": 100,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -415,7 +441,7 @@
         ]
       },
       "properties": {
-        "name": "Trako\u0161\u0107an Castle",
+        "name": "Trakošćan Castle",
         "category": "historical",
         "rating": 4.8,
         "price_level": 2,
@@ -427,7 +453,7 @@
           "Nature",
           "Family Friendly"
         ],
-        "description": "Perched on a hill overlooking a lake, Trako\u0161\u0107an is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
+        "description": "Perched on a hill overlooking a lake, Trakošćan is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg/800px-Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg",
         "website": "https://trakoscan.hr/",
         "local_tip": "Take the 5km walking path around the lake for the best photo angles of the castle reflection.",
@@ -435,7 +461,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The castle features a fully preserved knight's armor collection from the 16th century."
+        "fun_fact": "The castle features a fully preserved knight's armor collection from the 16th century.",
+        "popularity_score": 91,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -468,7 +497,10 @@
         "accessibility": "Partial (Many stairs)",
         "transit_option": "Walk",
         "photospot": "Sitting on the steps during sunset.",
-        "fun_fact": "The organ pipes are located under the concrete stairs and played by the pressure of the waves."
+        "fun_fact": "The organ pipes are located under the concrete stairs and played by the pressure of the waves.",
+        "popularity_score": 91,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Golden Hour (1 hour before sunset)"
       }
     },
     {
@@ -481,7 +513,7 @@
         ]
       },
       "properties": {
-        "name": "Blue Cave (Bi\u0161evo)",
+        "name": "Blue Cave (Biševo)",
         "category": "natural",
         "rating": 4.6,
         "price_level": 3,
@@ -501,7 +533,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Boat",
         "photospot": "Inside the cave (no flash!) capturing the blue glow.",
-        "fun_fact": "The cave was originally accessible only by diving; a small entrance for boats was blasted in 1884."
+        "fun_fact": "The cave was originally accessible only by diving; a small entrance for boats was blasted in 1884.",
+        "popularity_score": 87,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -533,7 +568,10 @@
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The salt pans guarded by these walls are the oldest still-active salt pans in Europe."
+        "fun_fact": "The salt pans guarded by these walls are the oldest still-active salt pans in Europe.",
+        "popularity_score": 94,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -565,7 +603,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Motovun city walls looking over the valley.",
-        "fun_fact": "The largest white truffle ever found was discovered near here, weighing 1.31 kg."
+        "fun_fact": "The largest white truffle ever found was discovered near here, weighing 1.31 kg.",
+        "popularity_score": 100,
+        "getting_there_detail": "Located in the region; car or taxi recommended.",
+        "best_time_of_day": "Evening for dinner atmosphere"
       }
     },
     {
@@ -597,7 +638,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Boat",
         "photospot": "On the boat with the oyster lines in background.",
-        "fun_fact": "These oysters were served at the banquets of Roman emperors and Austrian archdukes."
+        "fun_fact": "These oysters were served at the banquets of Roman emperors and Austrian archdukes.",
+        "popularity_score": 100,
+        "getting_there_detail": "Located in the region; car or taxi recommended.",
+        "best_time_of_day": "Evening for dinner atmosphere"
       }
     },
     {
@@ -629,7 +673,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "During the Middle Ages, the canyon was a stronghold for the famous Omi\u0161 pirates."
+        "fun_fact": "During the Middle Ages, the canyon was a stronghold for the famous Omiš pirates.",
+        "popularity_score": 95,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -642,7 +689,7 @@
         ]
       },
       "properties": {
-        "name": "Zipline Omi\u0161",
+        "name": "Zipline Omiš",
         "category": "adventure",
         "rating": 4.9,
         "price_level": 3,
@@ -661,7 +708,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The longest wire is 700 meters long and 150 meters above the ground."
+        "fun_fact": "The longest wire is 700 meters long and 150 meters above the ground.",
+        "popularity_score": 100,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -694,7 +744,10 @@
         "accessibility": "Likely Accessible (Check website)",
         "transit_option": "Walk",
         "photospot": "Low angle capturing the light reflections at night.",
-        "fun_fact": "The installation collects enough solar energy to light up the entire waterfront at night."
+        "fun_fact": "The installation collects enough solar energy to light up the entire waterfront at night.",
+        "popularity_score": 93,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Golden Hour (1 hour before sunset)"
       }
     },
     {
@@ -727,7 +780,10 @@
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "On a clear day, you can see all the way to Italy across the Adriatic."
+        "fun_fact": "On a clear day, you can see all the way to Italy across the Adriatic.",
+        "popularity_score": 94,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -760,7 +816,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The inscription above the gate reads: 'Liberty is not to be sold for all the gold in the world'."
+        "fun_fact": "The inscription above the gate reads: 'Liberty is not to be sold for all the gold in the world'.",
+        "popularity_score": 94,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -794,7 +853,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Boat",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The seabed is made of crushed sea shells which gives the water its mesmerizing turquoise color."
+        "fun_fact": "The seabed is made of crushed sea shells which gives the water its mesmerizing turquoise color.",
+        "popularity_score": 90,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -827,7 +889,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The town elects a mayor every year by carving their vote into a wooden stick."
+        "fun_fact": "The town elects a mayor every year by carving their vote into a wooden stick.",
+        "popularity_score": 86,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -840,7 +905,7 @@
         ]
       },
       "properties": {
-        "name": "Kor\u010dula Old Town",
+        "name": "Korčula Old Town",
         "category": "historical",
         "rating": 4.8,
         "price_level": 2,
@@ -852,7 +917,7 @@
           "Wine",
           "Islands"
         ],
-        "description": "Often called 'Little Dubrovnik', Kor\u010dula's fortified old town is a medieval delight with narrow streets arranged in a fishbone pattern to manage wind and sun.",
+        "description": "Often called 'Little Dubrovnik', Korčula's fortified old town is a medieval delight with narrow streets arranged in a fishbone pattern to manage wind and sun.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Korcula_Old_Town.jpg/800px-Korcula_Old_Town.jpg",
         "website": "https://visitkorcula.eu/",
         "local_tip": "Watch the Moreska sword dance, a traditional performance held on summer evenings.",
@@ -860,7 +925,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Walk",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The streets are built in a fishbone pattern to block cold winds but allow cooling summer breezes."
+        "fun_fact": "The streets are built in a fishbone pattern to block cold winds but allow cooling summer breezes.",
+        "popularity_score": 99,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -893,7 +961,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Boat",
         "photospot": "From the cliffs above before descending.",
-        "fun_fact": "The cove was a cave ceiling that collapsed thousands of years ago."
+        "fun_fact": "The cove was a cave ceiling that collapsed thousands of years ago.",
+        "popularity_score": 95,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -926,7 +997,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Walk",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "It has been continuously inhabited for 2,300 years and influenced by Greeks, Romans, and Venetians."
+        "fun_fact": "It has been continuously inhabited for 2,300 years and influenced by Greeks, Romans, and Venetians.",
+        "popularity_score": 94,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -959,7 +1033,10 @@
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "It is one of the few places in Europe where wolves, bears, and lynx coexist."
+        "fun_fact": "It is one of the few places in Europe where wolves, bears, and lynx coexist.",
+        "popularity_score": 94,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -984,7 +1061,7 @@
           "History",
           "Unique"
         ],
-        "description": "A unique museum dedicated to a single exhibit: the bronze statue of a young athlete (Apoxyomenos), found in the sea near Lo\u0161inj after 2000 years.",
+        "description": "A unique museum dedicated to a single exhibit: the bronze statue of a young athlete (Apoxyomenos), found in the sea near Lošinj after 2000 years.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Apoxyomenos_Croatia.jpg/800px-Apoxyomenos_Croatia.jpg",
         "website": "https://www.muzejapoksiomena.hr/en/",
         "local_tip": "The museum is designed as a sensory journey through colorful rooms, leading up to the white room with the statue.",
@@ -992,7 +1069,10 @@
         "accessibility": "Likely Accessible (Check website)",
         "transit_option": "Walk",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The statue was found covered in marine organisms and took 6 years to restore."
+        "fun_fact": "The statue was found covered in marine organisms and took 6 years to restore.",
+        "popularity_score": 93,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1025,7 +1105,10 @@
         "accessibility": "Likely Accessible (Check website)",
         "transit_option": "Boat",
         "photospot": "From the viewpoint on the mainland road.",
-        "fun_fact": "The monks have lived on this tiny island since 1445."
+        "fun_fact": "The monks have lived on this tiny island since 1445.",
+        "popularity_score": 91,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1058,7 +1141,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The waterfall powers the second oldest hydroelectric plant in the world (Jaruga)."
+        "fun_fact": "The waterfall powers the second oldest hydroelectric plant in the world (Jaruga).",
+        "popularity_score": 100,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1082,7 +1168,7 @@
           "History",
           "Archaeology"
         ],
-        "description": "Located above the town of Vela Luka on Kor\u010dula, this cave is one of the most important prehistoric archaeological sites in Europe.",
+        "description": "Located above the town of Vela Luka on Korčula, this cave is one of the most important prehistoric archaeological sites in Europe.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Vela_Spila_Korcula.jpg/800px-Vela_Spila_Korcula.jpg",
         "website": "https://velaspila.hr/",
         "local_tip": "The walk up is steep but offers a great view of the bay. There is also a road access.",
@@ -1090,7 +1176,10 @@
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "Pottery found here proves trade links existed across the Mediterranean 15,000 years ago."
+        "fun_fact": "Pottery found here proves trade links existed across the Mediterranean 15,000 years ago.",
+        "popularity_score": 85,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1124,7 +1213,10 @@
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "Local legend claims Odysseus was shipwrecked here and charmed by the nymph Calypso."
+        "fun_fact": "Local legend claims Odysseus was shipwrecked here and charmed by the nymph Calypso.",
+        "popularity_score": 94,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -1157,7 +1249,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The chef uses over 30 different local herbs sourced directly from the surrounding area."
+        "fun_fact": "The chef uses over 30 different local herbs sourced directly from the surrounding area.",
+        "popularity_score": 93,
+        "getting_there_detail": "Located in the region; car or taxi recommended.",
+        "best_time_of_day": "Evening for dinner atmosphere"
       }
     },
     {
@@ -1170,7 +1265,7 @@
         ]
       },
       "properties": {
-        "name": "Bo\u0161kinac",
+        "name": "Boškinac",
         "category": "gastronomy",
         "rating": 4.8,
         "price_level": 4,
@@ -1185,12 +1280,15 @@
         "description": "A luxury boutique hotel, winery, and Michelin-starred restaurant on Pag island, known for its incredible lamb and local wines.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Pag_landscape.jpg/800px-Pag_landscape.jpg",
         "website": "https://www.boskinac.com/",
-        "local_tip": "Try the tasting menu paired with their own Bo\u0161kinac wines.",
+        "local_tip": "Try the tasting menu paired with their own Boškinac wines.",
         "must_visit": false,
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The hotel is built in a dense pine forest near a vineyard planted by the owner's grandfather."
+        "fun_fact": "The hotel is built in a dense pine forest near a vineyard planted by the owner's grandfather.",
+        "popularity_score": 92,
+        "getting_there_detail": "Located in the region; car or taxi recommended.",
+        "best_time_of_day": "Evening for dinner atmosphere"
       }
     },
     {
@@ -1203,7 +1301,7 @@
         ]
       },
       "properties": {
-        "name": "Pasja\u010da Beach",
+        "name": "Pasjača Beach",
         "category": "coastal",
         "rating": 4.9,
         "price_level": 1,
@@ -1223,7 +1321,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "This beach was actually man-made during WWII by throwing rocks from tunnel excavations into the sea."
+        "fun_fact": "This beach was actually man-made during WWII by throwing rocks from tunnel excavations into the sea.",
+        "popularity_score": 93,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -1251,12 +1352,15 @@
         "description": "One of the rare sandy beaches in Croatia, Sakarun on Dugi Otok is famous for its turquoise water and Caribbean vibe.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sakarun_Beach.jpg/800px-Sakarun_Beach.jpg",
         "website": "https://www.dugiotok.hr/en/attractions-sakarun",
-        "local_tip": "Take the tourist train from Bo\u017eava to the beach to avoid parking hassles.",
+        "local_tip": "Take the tourist train from Božava to the beach to avoid parking hassles.",
         "must_visit": true,
         "accessibility": "Check website for details",
         "transit_option": "Walk",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "Despite looking tropical, the 'sand' is actually finely ground white pebbles."
+        "fun_fact": "Despite looking tropical, the 'sand' is actually finely ground white pebbles.",
+        "popularity_score": 94,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -1269,7 +1373,7 @@
         ]
       },
       "properties": {
-        "name": "Vranja\u010da Cave",
+        "name": "Vranjača Cave",
         "category": "natural",
         "rating": 4.8,
         "price_level": 2,
@@ -1283,12 +1387,15 @@
         "description": "Located in the hinterland of Split, this cave is filled with stunning stalactites, stalagmites, and underground halls.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Vranjaca_cave.jpg/800px-Vranjaca_cave.jpg",
         "website": "https://visitdugopolje.com/en/vranjaca-cave/",
-        "local_tip": "The temperature inside is constant at 15\u00b0C, so bring a light jacket even in summer.",
+        "local_tip": "The temperature inside is constant at 15°C, so bring a light jacket even in summer.",
         "must_visit": false,
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The cave temperature remains a constant 15\u00b0C year-round, regardless of outside weather."
+        "fun_fact": "The cave temperature remains a constant 15°C year-round, regardless of outside weather.",
+        "popularity_score": 100,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1321,7 +1428,10 @@
         "accessibility": "Likely Accessible (Check website)",
         "transit_option": "Walk",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "It houses over 5,000 different glass objects from antiquity."
+        "fun_fact": "It houses over 5,000 different glass objects from antiquity.",
+        "popularity_score": 97,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1354,7 +1464,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "It was once the private holiday resort for the Yugoslav military elite."
+        "fun_fact": "It was once the private holiday resort for the Yugoslav military elite.",
+        "popularity_score": 88,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -1387,7 +1500,10 @@
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "When the lake dries up completely, a traditional football match is played on the bottom."
+        "fun_fact": "When the lake dries up completely, a traditional football match is played on the bottom.",
+        "popularity_score": 95,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1419,7 +1535,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "It is impossible to throw a stone into the lake from the edge due to the strong updraft."
+        "fun_fact": "It is impossible to throw a stone into the lake from the edge due to the strong updraft.",
+        "popularity_score": 95,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1444,15 +1563,18 @@
           "History",
           "Boat Trip"
         ],
-        "description": "A UNESCO World Heritage site, this triangular Venetian fortress protects the entrance to the St. Anthony Channel in \u0160ibenik. Accessible only by official boat tours.",
+        "description": "A UNESCO World Heritage site, this triangular Venetian fortress protects the entrance to the St. Anthony Channel in Šibenik. Accessible only by official boat tours.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tvrdjava_sv_Nikole.jpg/800px-Tvrdjava_sv_Nikole.jpg",
         "website": "https://www.kanal-svetog-ante.com/en/fortress-of-st-nicholas",
-        "local_tip": "The boat ride itself offers amazing views of the \u0160ibenik archipelago.",
+        "local_tip": "The boat ride itself offers amazing views of the Šibenik archipelago.",
         "must_visit": true,
         "accessibility": "Check website for details",
         "transit_option": "Boat",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "It was built in the 16th century to protect the port from the Ottoman navy."
+        "fun_fact": "It was built in the 16th century to protect the port from the Ottoman navy.",
+        "popularity_score": 96,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1478,7 +1600,7 @@
           "History",
           "Family Friendly"
         ],
-        "description": "Often called 'The Small Plitvice', Rastoke is a picturesque watermill village where the Slunj\u010dica River flows into the Korana River through a series of waterfalls.",
+        "description": "Often called 'The Small Plitvice', Rastoke is a picturesque watermill village where the Slunjčica River flows into the Korana River through a series of waterfalls.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Rastoke_Slunj_Croatia.jpg/800px-Rastoke_Slunj_Croatia.jpg",
         "website": "https://slunj-rastoke.hr/en/",
         "local_tip": "Try the local trout at one of the riverside restaurants; it's caught fresh from the streams.",
@@ -1486,7 +1608,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The village was built directly atop the waterfalls to harness water power for mills."
+        "fun_fact": "The village was built directly atop the waterfalls to harness water power for mills.",
+        "popularity_score": 95,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1520,7 +1645,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The bears here are all orphans who cannot be returned to the wild."
+        "fun_fact": "The bears here are all orphans who cannot be returned to the wild.",
+        "popularity_score": 98,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1553,7 +1681,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Walk",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "Salona was 3 times larger than Pompeii and had a population of 60,000."
+        "fun_fact": "Salona was 3 times larger than Pompeii and had a population of 60,000.",
+        "popularity_score": 95,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1581,12 +1712,15 @@
         "description": "A climber's paradise featuring dramatic limestone canyons and towering cliffs. It offers hiking trails for all levels, from easy walks to challenging ascents.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Velika_Paklenica.jpg/800px-Velika_Paklenica.jpg",
         "website": "https://np-paklenica.hr/en/",
-        "local_tip": "Visit the Manita Pe\u0107 cave within the park; the guided tour starts in the morning.",
+        "local_tip": "Visit the Manita Peć cave within the park; the guided tour starts in the morning.",
         "must_visit": true,
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The park has over 500 equipped climbing routes and hosts an annual speed climbing competition."
+        "fun_fact": "The park has over 500 equipped climbing routes and hosts an annual speed climbing competition.",
+        "popularity_score": 97,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1611,7 +1745,7 @@
           "Romance",
           "Sea Views"
         ],
-        "description": "A 12-kilometer coastal promenade connecting Opatija and Lovran. It winds past Belle \u00c9poque villas, gardens, and the sea, offering a relaxing and scenic walk.",
+        "description": "A 12-kilometer coastal promenade connecting Opatija and Lovran. It winds past Belle Époque villas, gardens, and the sea, offering a relaxing and scenic walk.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lungomare_Opatija.jpg/800px-Lungomare_Opatija.jpg",
         "website": "https://www.visitopatija.com/en/lungomare-promenade",
         "local_tip": "Stop for a coffee at one of the historic hotel terraces in Opatija along the way.",
@@ -1619,7 +1753,10 @@
         "accessibility": "Check website for details",
         "transit_option": "Walk",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The promenade was built in stages starting in 1889 and took 22 years to complete."
+        "fun_fact": "The promenade was built in stages starting in 1889 and took 22 years to complete.",
+        "popularity_score": 95,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -1632,7 +1769,7 @@
         ]
       },
       "properties": {
-        "name": "Osijek Tvr\u0111a",
+        "name": "Osijek Tvrđa",
         "category": "historical",
         "rating": 4.8,
         "price_level": 1,
@@ -1652,7 +1789,10 @@
         "accessibility": "Cobblestone streets (moderate)",
         "transit_option": "Walk",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "It was built by the Habsburgs as a defense against the Ottoman Empire."
+        "fun_fact": "It was built by the Habsburgs as a defense against the Ottoman Empire.",
+        "popularity_score": 100,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1665,7 +1805,7 @@
         ]
       },
       "properties": {
-        "name": "Kopa\u010dki Rit",
+        "name": "Kopački Rit",
         "category": "natural",
         "rating": 4.9,
         "price_level": 2,
@@ -1685,7 +1825,10 @@
         "accessibility": "Wheelchair accessible boardwalks",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The park floods almost completely every year, changing its landscape dramatically."
+        "fun_fact": "The park floods almost completely every year, changing its landscape dramatically.",
+        "popularity_score": 100,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1698,7 +1841,7 @@
         ]
       },
       "properties": {
-        "name": "Vu\u010dedol Culture Museum",
+        "name": "Vučedol Culture Museum",
         "category": "cultural",
         "rating": 4.9,
         "price_level": 2,
@@ -1710,7 +1853,7 @@
           "Archaeology",
           "Unique"
         ],
-        "description": "A stunning modern museum dedicated to the Vu\u010dedol culture (3000-2200 BC). It is built into a hill overlooking the Danube river.",
+        "description": "A stunning modern museum dedicated to the Vučedol culture (3000-2200 BC). It is built into a hill overlooking the Danube river.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Muzej_vu%C4%8Dedolske_kulture.jpg/800px-Muzej_vu%C4%8Dedolske_kulture.jpg",
         "website": "https://vucedol.hr/en/",
         "local_tip": "The view of the Danube from the museum roof is spectacular.",
@@ -1718,7 +1861,10 @@
         "accessibility": "Fully Accessible",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The Vu\u010dedol culture created the oldest European calendar, the Orion."
+        "fun_fact": "The Vučedol culture created the oldest European calendar, the Orion.",
+        "popularity_score": 94,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1743,7 +1889,7 @@
           "Mosaics",
           "Religious"
         ],
-        "description": "A UNESCO World Heritage site in Pore\u010d, famous for its glittering 6th-century Byzantine mosaics which are among the finest in the world.",
+        "description": "A UNESCO World Heritage site in Poreč, famous for its glittering 6th-century Byzantine mosaics which are among the finest in the world.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Porec_Euphrasian_Basilica.jpg/800px-Porec_Euphrasian_Basilica.jpg",
         "website": "http://www.to-porec.com/en/euphrasian-basilica",
         "local_tip": "Climb the bell tower for a great view over the old town rooftops and the sea.",
@@ -1751,7 +1897,10 @@
         "accessibility": "Partial (stairs to bell tower)",
         "transit_option": "Walk",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "It is the only early Christian complex of its kind in the world to be completely preserved."
+        "fun_fact": "It is the only early Christian complex of its kind in the world to be completely preserved.",
+        "popularity_score": 99,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1784,7 +1933,10 @@
         "accessibility": "Cobblestone streets",
         "transit_option": "Walk",
         "photospot": "Stari Grad (Old Town Castle) from the surrounding park.",
-        "fun_fact": "It was briefly the capital of Croatia (1756-1776) until a massive fire destroyed much of the city."
+        "fun_fact": "It was briefly the capital of Croatia (1756-1776) until a massive fire destroyed much of the city.",
+        "popularity_score": 96,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1818,7 +1970,10 @@
         "accessibility": "Partial",
         "transit_option": "Boat",
         "photospot": "Hum viewpoint—the highest peak offering 360-degree views.",
-        "fun_fact": "Due to its strategic military importance, foreigners were banned from the island until 1989."
+        "fun_fact": "Due to its strategic military importance, foreigners were banned from the island until 1989.",
+        "popularity_score": 100,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1851,7 +2006,10 @@
         "accessibility": "Partial",
         "transit_option": "Boat",
         "photospot": "The edge of the cliffs looking down at the open sea (be careful!).",
-        "fun_fact": "The salt lake 'Mir' is always warmer than the surrounding sea and has medicinal mud."
+        "fun_fact": "The salt lake 'Mir' is always warmer than the surrounding sea and has medicinal mud.",
+        "popularity_score": 94,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -1884,7 +2042,10 @@
         "accessibility": "Not accessible",
         "transit_option": "Hike",
         "photospot": "From the bridge looking down into the abyss.",
-        "fun_fact": "Jules Verne never visited Pazin but described the cave accurately based on photographs and letters."
+        "fun_fact": "Jules Verne never visited Pazin but described the cave accurately based on photographs and letters.",
+        "popularity_score": 97,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Morning or Late Afternoon"
       }
     },
     {
@@ -1917,7 +2078,10 @@
         "accessibility": "Partial",
         "transit_option": "Car",
         "photospot": "From the main approach road capturing the distinctive pentagonal tower.",
-        "fun_fact": "Legend says the skull of Veronika of Desinić, a peasant girl walled up in the castle for forbidden love, is still kept in the chapel."
+        "fun_fact": "Legend says the skull of Veronika of Desinić, a peasant girl walled up in the castle for forbidden love, is still kept in the chapel.",
+        "popularity_score": 93,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -1949,7 +2113,10 @@
         "accessibility": "Likely Accessible",
         "transit_option": "Car",
         "photospot": "The historic castle next to the cellars.",
-        "fun_fact": "Legend says Empress Maria Theresa and Baron Trenck were locked in the cellar for 7 days, leaving marks on the stone table."
+        "fun_fact": "Legend says Empress Maria Theresa and Baron Trenck were locked in the cellar for 7 days, leaving marks on the stone table.",
+        "popularity_score": 92,
+        "getting_there_detail": "Located in the region; car or taxi recommended.",
+        "best_time_of_day": "Evening for dinner atmosphere"
       }
     },
     {
@@ -1981,7 +2148,10 @@
         "accessibility": "Not accessible",
         "transit_option": "Boat",
         "photospot": "Aerial drone shot is best, or from the boat approaching the shore.",
-        "fun_fact": "The island's perfect heart shape was first recorded by Napoleon's cartographer in 1806."
+        "fun_fact": "The island's perfect heart shape was first recorded by Napoleon's cartographer in 1806.",
+        "popularity_score": 93,
+        "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -2014,7 +2184,10 @@
         "accessibility": "Partial",
         "transit_option": "Car",
         "photospot": "From the viewpoint on the Adriatic Highway (Magistrala) above the lakes.",
-        "fun_fact": "The lakes are cryptodepressions, meaning their bottom is below sea level."
+        "fun_fact": "The lakes are cryptodepressions, meaning their bottom is below sea level.",
+        "popularity_score": 96,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     },
     {
@@ -2047,7 +2220,10 @@
         "accessibility": "Likely Accessible",
         "transit_option": "Boat",
         "photospot": "The mosaic street in the town center.",
-        "fun_fact": "Artists from all over the world gathered here in 1968 to create the mosaics that decorate the town."
+        "fun_fact": "Artists from all over the world gathered here in 1968 to create the mosaics that decorate the town.",
+        "popularity_score": 98,
+        "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
+        "best_time_of_day": "Late Afternoon for better light"
       }
     },
     {
@@ -2080,7 +2256,10 @@
         "accessibility": "Not accessible",
         "transit_option": "Hike",
         "photospot": "The summit marker with the Croatian flag.",
-        "fun_fact": "The entire Dinaric Alps mountain range is named after this mountain."
+        "fun_fact": "The entire Dinaric Alps mountain range is named after this mountain.",
+        "popularity_score": 100,
+        "getting_there_detail": "Best reached by car. Public transport may be limited.",
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
       }
     }
   ]
