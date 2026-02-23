@@ -1158,27 +1158,27 @@ body {
 .collection-chip {
     flex: 0 0 auto;
     width: 130px;
-    height: 70px;
+    height: 76px; /* Slightly taller */
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 12px;
+    border-radius: var(--radius-lg); /* More rounded */
+    padding: 12px 14px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: var(--shadow-sm); /* Default shadow */
     position: relative;
     overflow: hidden;
 }
 
 .collection-chip:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: #cfd7df;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(99, 91, 255, 0.2);
 }
 
 [data-theme="dark"] .collection-chip:hover {
@@ -1187,16 +1187,28 @@ body {
 
 .collection-chip.active {
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color), var(--shadow-md);
-    background: var(--surface-hover);
+    box-shadow: 0 4px 12px rgba(99, 91, 255, 0.25);
+    background: linear-gradient(135deg, var(--surface-hover), rgba(99, 91, 255, 0.05));
 }
+.collection-chip.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent-color);
+}
+
 .collection-chip.active .collection-name {
     color: var(--accent-color);
+    font-weight: 700;
 }
 
 .collection-icon {
-    font-size: 20px;
+    font-size: 22px;
     line-height: 1;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
 }
 
 .collection-name {
