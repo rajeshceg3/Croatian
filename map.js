@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup, toggleMapTheme, drawRoute, clearRoute } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding, setupThemeToggle } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding, setupThemeToggle, setupBadges } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -231,6 +231,7 @@ fetchData()
         setupMyTripModal(allFeatures);
         setupSuggestedRoutes(allFeatures);
         setupShareTrip();
+        setupBadges(allFeatures);
 
         document.getElementById('sort-select').addEventListener('change', filterSites);
         addSearchListener(filterSites);
