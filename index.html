@@ -101,6 +101,12 @@
                     </svg>
                     Routes
                 </button>
+                <button id="badges-btn" class="action-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.78 4.78 4 4 0 0 1-6.74 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path>
+                    </svg>
+                    Badges
+                </button>
                 <button id="clear-filters">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     Clear Filters
@@ -243,6 +249,22 @@
             <div class="modal-body">
                 <div id="routes-container" class="routes-grid">
                     <!-- Route cards will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Badges Modal -->
+    <div id="badges-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h3>Traveler Badges</h3>
+                <p style="margin: 4px 0 0; font-size: 13px; color: var(--text-secondary);">Unlock achievements by exploring Croatia!</p>
+            </div>
+            <div class="modal-body">
+                <div id="badges-grid" class="badges-grid">
+                    <!-- Badges will be populated here -->
                 </div>
             </div>
         </div>

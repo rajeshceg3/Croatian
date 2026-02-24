@@ -28,7 +28,7 @@
         "local_tip": "Visit early in the morning to catch the sunlight illuminating the stained glass windows without the crowds.",
         "must_visit": true,
         "accessibility": "Check website for details",
-        "getting_there_detail": "Easily accessible on foot from the main Ban Jelačić Square. Trams 6, 11, 12, 14 stop nearby.",
+        "getting_there_detail": "Easily accessible on foot from the main Ban Jela\u010di\u0107 Square. Trams 6, 11, 12, 14 stop nearby.",
         "best_time_of_day": "Morning (8 AM - 10 AM) for light and quiet.",
         "fun_fact": "One of its spires is currently being repaired due to the 2020 earthquake, revealing a time capsule from 1898 inside the cross.",
         "transit_option": "Walk",
@@ -350,14 +350,14 @@
         "description": "Hvar is a luxurious island destination known for its vibrant nightlife, yacht-filled harbor, and stunning Pakleni Islands nearby. It offers a mix of history and modern glamour.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Hvar_Town_Harbour.jpg/800px-Hvar_Town_Harbour.jpg",
         "website": "https://visithvar.hr/",
-        "local_tip": "Hike up to the Fortica Španjola for the classic postcard view of the harbor and Pakleni islands.",
+        "local_tip": "Hike up to the Fortica \u0160panjola for the classic postcard view of the harbor and Pakleni islands.",
         "must_visit": false,
         "accessibility": "Check website for details",
         "getting_there_detail": "Catamaran from Split (1h). If driving, ferry goes to Stari Grad, then 20min drive to Hvar Town.",
         "best_time_of_day": "Sunset at Hula Hula or Fortica.",
         "fun_fact": "Hvar is the sunniest island in Europe, with an average of over 2,718 hours of sunshine per year.",
         "transit_option": "Car",
-        "photospot": "Fortica Španjola for the harbor view.",
+        "photospot": "Fortica \u0160panjola for the harbor view.",
         "popularity_score": 91
       }
     },
@@ -441,7 +441,7 @@
         ]
       },
       "properties": {
-        "name": "Trakošćan Castle",
+        "name": "Trako\u0161\u0107an Castle",
         "category": "historical",
         "rating": 4.8,
         "price_level": 2,
@@ -453,7 +453,7 @@
           "Nature",
           "Family Friendly"
         ],
-        "description": "Perched on a hill overlooking a lake, Trakošćan is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
+        "description": "Perched on a hill overlooking a lake, Trako\u0161\u0107an is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg/800px-Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg",
         "website": "https://trakoscan.hr/",
         "local_tip": "Take the 5km walking path around the lake for the best photo angles of the castle reflection.",
@@ -513,7 +513,7 @@
         ]
       },
       "properties": {
-        "name": "Blue Cave (Biševo)",
+        "name": "Blue Cave (Bi\u0161evo)",
         "category": "natural",
         "rating": 4.6,
         "price_level": 3,
@@ -673,7 +673,7 @@
         "accessibility": "Check website for details",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "During the Middle Ages, the canyon was a stronghold for the famous Omiš pirates.",
+        "fun_fact": "During the Middle Ages, the canyon was a stronghold for the famous Omi\u0161 pirates.",
         "popularity_score": 95,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
         "best_time_of_day": "Morning or Late Afternoon"
@@ -689,7 +689,7 @@
         ]
       },
       "properties": {
-        "name": "Zipline Omiš",
+        "name": "Zipline Omi\u0161",
         "category": "adventure",
         "rating": 4.9,
         "price_level": 3,
@@ -905,7 +905,7 @@
         ]
       },
       "properties": {
-        "name": "Korčula Old Town",
+        "name": "Kor\u010dula Old Town",
         "category": "historical",
         "rating": 4.8,
         "price_level": 2,
@@ -917,7 +917,7 @@
           "Wine",
           "Islands"
         ],
-        "description": "Often called 'Little Dubrovnik', Korčula's fortified old town is a medieval delight with narrow streets arranged in a fishbone pattern to manage wind and sun.",
+        "description": "Often called 'Little Dubrovnik', Kor\u010dula's fortified old town is a medieval delight with narrow streets arranged in a fishbone pattern to manage wind and sun.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Korcula_Old_Town.jpg/800px-Korcula_Old_Town.jpg",
         "website": "https://visitkorcula.eu/",
         "local_tip": "Watch the Moreska sword dance, a traditional performance held on summer evenings.",
@@ -1061,7 +1061,7 @@
           "History",
           "Unique"
         ],
-        "description": "A unique museum dedicated to a single exhibit: the bronze statue of a young athlete (Apoxyomenos), found in the sea near Lošinj after 2000 years.",
+        "description": "A unique museum dedicated to a single exhibit: the bronze statue of a young athlete (Apoxyomenos), found in the sea near Lo\u0161inj after 2000 years.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Apoxyomenos_Croatia.jpg/800px-Apoxyomenos_Croatia.jpg",
         "website": "https://www.muzejapoksiomena.hr/en/",
         "local_tip": "The museum is designed as a sensory journey through colorful rooms, leading up to the white room with the statue.",
@@ -1168,7 +1168,7 @@
           "History",
           "Archaeology"
         ],
-        "description": "Located above the town of Vela Luka on Korčula, this cave is one of the most important prehistoric archaeological sites in Europe.",
+        "description": "Located above the town of Vela Luka on Kor\u010dula, this cave is one of the most important prehistoric archaeological sites in Europe.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Vela_Spila_Korcula.jpg/800px-Vela_Spila_Korcula.jpg",
         "website": "https://velaspila.hr/",
         "local_tip": "The walk up is steep but offers a great view of the bay. There is also a road access.",
@@ -1265,7 +1265,7 @@
         ]
       },
       "properties": {
-        "name": "Boškinac",
+        "name": "Bo\u0161kinac",
         "category": "gastronomy",
         "rating": 4.8,
         "price_level": 4,
@@ -1280,7 +1280,7 @@
         "description": "A luxury boutique hotel, winery, and Michelin-starred restaurant on Pag island, known for its incredible lamb and local wines.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Pag_landscape.jpg/800px-Pag_landscape.jpg",
         "website": "https://www.boskinac.com/",
-        "local_tip": "Try the tasting menu paired with their own Boškinac wines.",
+        "local_tip": "Try the tasting menu paired with their own Bo\u0161kinac wines.",
         "must_visit": false,
         "accessibility": "Check website for details",
         "transit_option": "Car",
@@ -1301,7 +1301,7 @@
         ]
       },
       "properties": {
-        "name": "Pasjača Beach",
+        "name": "Pasja\u010da Beach",
         "category": "coastal",
         "rating": 4.9,
         "price_level": 1,
@@ -1352,7 +1352,7 @@
         "description": "One of the rare sandy beaches in Croatia, Sakarun on Dugi Otok is famous for its turquoise water and Caribbean vibe.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sakarun_Beach.jpg/800px-Sakarun_Beach.jpg",
         "website": "https://www.dugiotok.hr/en/attractions-sakarun",
-        "local_tip": "Take the tourist train from Božava to the beach to avoid parking hassles.",
+        "local_tip": "Take the tourist train from Bo\u017eava to the beach to avoid parking hassles.",
         "must_visit": true,
         "accessibility": "Check website for details",
         "transit_option": "Walk",
@@ -1373,7 +1373,7 @@
         ]
       },
       "properties": {
-        "name": "Vranjača Cave",
+        "name": "Vranja\u010da Cave",
         "category": "natural",
         "rating": 4.8,
         "price_level": 2,
@@ -1387,12 +1387,12 @@
         "description": "Located in the hinterland of Split, this cave is filled with stunning stalactites, stalagmites, and underground halls.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Vranjaca_cave.jpg/800px-Vranjaca_cave.jpg",
         "website": "https://visitdugopolje.com/en/vranjaca-cave/",
-        "local_tip": "The temperature inside is constant at 15°C, so bring a light jacket even in summer.",
+        "local_tip": "The temperature inside is constant at 15\u00b0C, so bring a light jacket even in summer.",
         "must_visit": false,
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The cave temperature remains a constant 15°C year-round, regardless of outside weather.",
+        "fun_fact": "The cave temperature remains a constant 15\u00b0C year-round, regardless of outside weather.",
         "popularity_score": 100,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
         "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
@@ -1563,10 +1563,10 @@
           "History",
           "Boat Trip"
         ],
-        "description": "A UNESCO World Heritage site, this triangular Venetian fortress protects the entrance to the St. Anthony Channel in Šibenik. Accessible only by official boat tours.",
+        "description": "A UNESCO World Heritage site, this triangular Venetian fortress protects the entrance to the St. Anthony Channel in \u0160ibenik. Accessible only by official boat tours.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tvrdjava_sv_Nikole.jpg/800px-Tvrdjava_sv_Nikole.jpg",
         "website": "https://www.kanal-svetog-ante.com/en/fortress-of-st-nicholas",
-        "local_tip": "The boat ride itself offers amazing views of the Šibenik archipelago.",
+        "local_tip": "The boat ride itself offers amazing views of the \u0160ibenik archipelago.",
         "must_visit": true,
         "accessibility": "Check website for details",
         "transit_option": "Boat",
@@ -1600,7 +1600,7 @@
           "History",
           "Family Friendly"
         ],
-        "description": "Often called 'The Small Plitvice', Rastoke is a picturesque watermill village where the Slunjčica River flows into the Korana River through a series of waterfalls.",
+        "description": "Often called 'The Small Plitvice', Rastoke is a picturesque watermill village where the Slunj\u010dica River flows into the Korana River through a series of waterfalls.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Rastoke_Slunj_Croatia.jpg/800px-Rastoke_Slunj_Croatia.jpg",
         "website": "https://slunj-rastoke.hr/en/",
         "local_tip": "Try the local trout at one of the riverside restaurants; it's caught fresh from the streams.",
@@ -1712,7 +1712,7 @@
         "description": "A climber's paradise featuring dramatic limestone canyons and towering cliffs. It offers hiking trails for all levels, from easy walks to challenging ascents.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Velika_Paklenica.jpg/800px-Velika_Paklenica.jpg",
         "website": "https://np-paklenica.hr/en/",
-        "local_tip": "Visit the Manita Peć cave within the park; the guided tour starts in the morning.",
+        "local_tip": "Visit the Manita Pe\u0107 cave within the park; the guided tour starts in the morning.",
         "must_visit": true,
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
@@ -1745,7 +1745,7 @@
           "Romance",
           "Sea Views"
         ],
-        "description": "A 12-kilometer coastal promenade connecting Opatija and Lovran. It winds past Belle Époque villas, gardens, and the sea, offering a relaxing and scenic walk.",
+        "description": "A 12-kilometer coastal promenade connecting Opatija and Lovran. It winds past Belle \u00c9poque villas, gardens, and the sea, offering a relaxing and scenic walk.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lungomare_Opatija.jpg/800px-Lungomare_Opatija.jpg",
         "website": "https://www.visitopatija.com/en/lungomare-promenade",
         "local_tip": "Stop for a coffee at one of the historic hotel terraces in Opatija along the way.",
@@ -1769,7 +1769,7 @@
         ]
       },
       "properties": {
-        "name": "Osijek Tvrđa",
+        "name": "Osijek Tvr\u0111a",
         "category": "historical",
         "rating": 4.8,
         "price_level": 1,
@@ -1805,7 +1805,7 @@
         ]
       },
       "properties": {
-        "name": "Kopački Rit",
+        "name": "Kopa\u010dki Rit",
         "category": "natural",
         "rating": 4.9,
         "price_level": 2,
@@ -1841,7 +1841,7 @@
         ]
       },
       "properties": {
-        "name": "Vučedol Culture Museum",
+        "name": "Vu\u010dedol Culture Museum",
         "category": "cultural",
         "rating": 4.9,
         "price_level": 2,
@@ -1853,7 +1853,7 @@
           "Archaeology",
           "Unique"
         ],
-        "description": "A stunning modern museum dedicated to the Vučedol culture (3000-2200 BC). It is built into a hill overlooking the Danube river.",
+        "description": "A stunning modern museum dedicated to the Vu\u010dedol culture (3000-2200 BC). It is built into a hill overlooking the Danube river.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Muzej_vu%C4%8Dedolske_kulture.jpg/800px-Muzej_vu%C4%8Dedolske_kulture.jpg",
         "website": "https://vucedol.hr/en/",
         "local_tip": "The view of the Danube from the museum roof is spectacular.",
@@ -1861,7 +1861,7 @@
         "accessibility": "Fully Accessible",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The Vučedol culture created the oldest European calendar, the Orion.",
+        "fun_fact": "The Vu\u010dedol culture created the oldest European calendar, the Orion.",
         "popularity_score": 94,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
         "best_time_of_day": "Late Afternoon for better light"
@@ -1889,7 +1889,7 @@
           "Mosaics",
           "Religious"
         ],
-        "description": "A UNESCO World Heritage site in Poreč, famous for its glittering 6th-century Byzantine mosaics which are among the finest in the world.",
+        "description": "A UNESCO World Heritage site in Pore\u010d, famous for its glittering 6th-century Byzantine mosaics which are among the finest in the world.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Porec_Euphrasian_Basilica.jpg/800px-Porec_Euphrasian_Basilica.jpg",
         "website": "http://www.to-porec.com/en/euphrasian-basilica",
         "local_tip": "Climb the bell tower for a great view over the old town rooftops and the sea.",
@@ -1913,7 +1913,7 @@
         ]
       },
       "properties": {
-        "name": "Varaždin Old Town",
+        "name": "Vara\u017edin Old Town",
         "category": "historical",
         "rating": 4.7,
         "price_level": 2,
@@ -1925,10 +1925,10 @@
           "City",
           "Hidden Gem"
         ],
-        "description": "Often called 'Little Vienna', Varaždin is famous for its baroque architecture, music, and flowers. The castle houses the City Museum.",
+        "description": "Often called 'Little Vienna', Vara\u017edin is famous for its baroque architecture, music, and flowers. The castle houses the City Museum.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Varazdin_castle_Croatia.jpg/800px-Varazdin_castle_Croatia.jpg",
         "website": "https://www.varazdin.hr/en/",
-        "local_tip": "Visit the insect museum inside Herzer Palace—it's surprisingly fascinating.",
+        "local_tip": "Visit the insect museum inside Herzer Palace\u2014it's surprisingly fascinating.",
         "must_visit": false,
         "accessibility": "Cobblestone streets",
         "transit_option": "Walk",
@@ -1969,7 +1969,7 @@
         "must_visit": true,
         "accessibility": "Partial",
         "transit_option": "Boat",
-        "photospot": "Hum viewpoint—the highest peak offering 360-degree views.",
+        "photospot": "Hum viewpoint\u2014the highest peak offering 360-degree views.",
         "fun_fact": "Due to its strategic military importance, foreigners were banned from the island until 1989.",
         "popularity_score": 100,
         "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
@@ -1986,7 +1986,7 @@
         ]
       },
       "properties": {
-        "name": "Telašćica Nature Park",
+        "name": "Tela\u0161\u0107ica Nature Park",
         "category": "natural",
         "rating": 4.8,
         "price_level": 3,
@@ -1998,7 +1998,7 @@
           "Salt Lake",
           "Boat Trip"
         ],
-        "description": "Located on Dugi Otok, Telašćica features dramatic 160m high cliffs, a saltwater lake 'Mir' known for its healing mud, and a safe natural harbor.",
+        "description": "Located on Dugi Otok, Tela\u0161\u0107ica features dramatic 160m high cliffs, a saltwater lake 'Mir' known for its healing mud, and a safe natural harbor.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Telascica_cliffs.jpg/800px-Telascica_cliffs.jpg",
         "website": "https://pp-telascica.hr/en/",
         "local_tip": "Donkeys roam freely near the lake; they are friendly but watch your snacks!",
@@ -2034,7 +2034,7 @@
           "Jules Verne",
           "Nature"
         ],
-        "description": "A dramatic chasm in the heart of Istria where the Pazinčica river disappears underground. It inspired Jules Verne's novel 'Mathias Sandorf'.",
+        "description": "A dramatic chasm in the heart of Istria where the Pazin\u010dica river disappears underground. It inspired Jules Verne's novel 'Mathias Sandorf'.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pazin_Castle_and_Cave.jpg/800px-Pazin_Castle_and_Cave.jpg",
         "website": "https://www.central-istria.com/en/to-visit/pazin-cave",
         "local_tip": "For thrill-seekers, try the zipline that goes directly over the cave entrance.",
@@ -2078,7 +2078,7 @@
         "accessibility": "Partial",
         "transit_option": "Car",
         "photospot": "From the main approach road capturing the distinctive pentagonal tower.",
-        "fun_fact": "Legend says the skull of Veronika of Desinić, a peasant girl walled up in the castle for forbidden love, is still kept in the chapel.",
+        "fun_fact": "Legend says the skull of Veronika of Desini\u0107, a peasant girl walled up in the castle for forbidden love, is still kept in the chapel.",
         "popularity_score": 93,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
         "best_time_of_day": "Late Afternoon for better light"
@@ -2129,7 +2129,7 @@
         ]
       },
       "properties": {
-        "name": "Galešnjak Island",
+        "name": "Gale\u0161njak Island",
         "category": "natural",
         "rating": 4.5,
         "price_level": 1,
@@ -2143,7 +2143,7 @@
         "description": "World-famous as the 'Island of Love' due to its perfect heart shape. It is uninhabited and offers wild nature and pebble beaches.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Galesnjak.jpg/800px-Galesnjak.jpg",
         "website": "https://www.croatia.hr/en-GB/destinations/pasman/galesnjak",
-        "local_tip": "There are no facilities, so bring everything you need. You can rent a small boat from nearby Pašman or Turanj.",
+        "local_tip": "There are no facilities, so bring everything you need. You can rent a small boat from nearby Pa\u0161man or Turanj.",
         "must_visit": true,
         "accessibility": "Not accessible",
         "transit_option": "Boat",
@@ -2164,7 +2164,7 @@
         ]
       },
       "properties": {
-        "name": "Baćina Lakes",
+        "name": "Ba\u0107ina Lakes",
         "category": "natural",
         "rating": 4.6,
         "price_level": 1,
@@ -2176,10 +2176,10 @@
           "Swimming",
           "Peaceful"
         ],
-        "description": "A group of seven interconnected lakes near Ploče. The water is brackish and teems with life. It's a paradise for paddleboarding and traditional boat rides.",
+        "description": "A group of seven interconnected lakes near Plo\u010de. The water is brackish and teems with life. It's a paradise for paddleboarding and traditional boat rides.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Bacinska_jezera.jpg/800px-Bacinska_jezera.jpg",
         "website": "https://visitploce.com/en/bacina-lakes/",
-        "local_tip": "Rent a traditional 'lađa' boat for a guided tour through the tunnels connecting the lakes.",
+        "local_tip": "Rent a traditional 'la\u0111a' boat for a guided tour through the tunnels connecting the lakes.",
         "must_visit": false,
         "accessibility": "Partial",
         "transit_option": "Car",
@@ -2212,7 +2212,7 @@
           "Mosaic",
           "Harbor"
         ],
-        "description": "A charming port town on Korčula island, famous for its mosaics and as the home of Croatia's beloved singer Oliver Dragojević.",
+        "description": "A charming port town on Kor\u010dula island, famous for its mosaics and as the home of Croatia's beloved singer Oliver Dragojevi\u0107.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Vela_Luka.jpg/800px-Vela_Luka.jpg",
         "website": "https://tzvelaluka.hr/en",
         "local_tip": "Visit the center of town to see the world's longest mosaic street.",
@@ -2248,10 +2248,10 @@
           "Views",
           "Nature"
         ],
-        "description": "At 1,831 meters, Dinara (Sinjal) is the highest peak in Croatia. It offers spectacular views of Peruća Lake and the surrounding karst landscape.",
+        "description": "At 1,831 meters, Dinara (Sinjal) is the highest peak in Croatia. It offers spectacular views of Peru\u0107a Lake and the surrounding karst landscape.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Dinara_Sinjal.jpg/800px-Dinara_Sinjal.jpg",
         "website": "https://pp-dinara.hr/",
-        "local_tip": "The easiest route starts from Glavaš; it takes about 4-5 hours to reach the top. Bring plenty of water!",
+        "local_tip": "The easiest route starts from Glava\u0161; it takes about 4-5 hours to reach the top. Bring plenty of water!",
         "must_visit": true,
         "accessibility": "Not accessible",
         "transit_option": "Hike",
@@ -2260,6 +2260,365 @@
         "popularity_score": 100,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
         "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.244,
+          45.496
+        ]
+      },
+      "properties": {
+        "name": "Kama\u010dnik Canyon",
+        "category": "natural",
+        "rating": 4.8,
+        "price_level": 1,
+        "best_time": "Spring/Summer",
+        "duration": "2-3 hours",
+        "tags": [
+          "Nature",
+          "Hiking",
+          "River",
+          "Hidden Gem"
+        ],
+        "description": "A stunning, protected landscape where the Kama\u010dnik stream cuts through a deep gorge before flowing into the Dobra River. Perfect for easy family hiking.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Kama%C4%8Dnik_canyon.jpg/800px-Kama%C4%8Dnik_canyon.jpg",
+        "website": "https://visitvrbovsko.hr/kamacnik/",
+        "local_tip": "Visit the restaurant at the entrance for excellent local trout.",
+        "must_visit": true,
+        "accessibility": "Partial (Wooden walkways)",
+        "transit_option": "Car",
+        "photospot": "Wooden bridge over the rapids.",
+        "fun_fact": "The canyon is known for its musical bridge where you can play a giant xylophone.",
+        "popularity_score": 60,
+        "getting_there_detail": "Located near Vrbovsko, easily accessible from the A6 motorway.",
+        "best_time_of_day": "Morning for best light in the gorge"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.118,
+          45.08
+        ]
+      },
+      "properties": {
+        "name": "Lubenice",
+        "category": "historical",
+        "rating": 4.7,
+        "price_level": 1,
+        "best_time": "Summer",
+        "duration": "1-2 hours",
+        "tags": [
+          "Village",
+          "Views",
+          "Island",
+          "Cres"
+        ],
+        "description": "An ancient stone village perched on top of a 378-meter high cliff on Cres island, offering one of the most spectacular views in the Adriatic.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Lubenice_Cres.jpg/800px-Lubenice_Cres.jpg",
+        "website": "https://www.visitcres.hr/en",
+        "local_tip": "The hike down to the beach below takes 45 mins but the walk back up is tough! Bring water.",
+        "must_visit": true,
+        "accessibility": "Cobblestone streets",
+        "transit_option": "Car",
+        "photospot": "The main viewpoint looking down at St. Ivan beach.",
+        "fun_fact": "The village has been continuously inhabited for over 4,000 years.",
+        "popularity_score": 75,
+        "getting_there_detail": "Accessible by narrow winding road on Cres island.",
+        "best_time_of_day": "Late afternoon for sunset"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.995,
+          45.158
+        ]
+      },
+      "properties": {
+        "name": "Ilok Wine Cellars",
+        "category": "gastronomy",
+        "rating": 4.8,
+        "price_level": 2,
+        "best_time": "Autumn",
+        "duration": "2 hours",
+        "tags": [
+          "Wine",
+          "History",
+          "Slavonia",
+          "River"
+        ],
+        "description": "The easternmost town in Croatia, overlooking the Danube. Famous for its Traminac wine which was served at the coronation of Queen Elizabeth II.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Ilok_Castle.jpg/800px-Ilok_Castle.jpg",
+        "website": "https://www.ilocki-podrumi.hr/en/",
+        "local_tip": "Try the 'Principovac' estate for a tasting with a view over the vineyards.",
+        "must_visit": false,
+        "accessibility": "Likely Accessible",
+        "transit_option": "Car",
+        "photospot": "Principovac viewpoint overlooking vineyards and Danube.",
+        "fun_fact": "Bottles from these cellars were hidden behind a walled-up door during WWII to protect them from Nazis.",
+        "popularity_score": 65,
+        "getting_there_detail": "Located in Eastern Croatia near Vukovar.",
+        "best_time_of_day": "Afternoon/Evening"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.589,
+          44.295
+        ]
+      },
+      "properties": {
+        "name": "Cerova\u010dke Caves",
+        "category": "natural",
+        "rating": 4.9,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "1.5 hours",
+        "tags": [
+          "Cave",
+          "Nature",
+          "Lika",
+          "Geology"
+        ],
+        "description": "The largest cave complex in Croatia, located in the Velebit Nature Park. Known for significant archaeological finds including cave bear remains.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Cerovacke_spilje.jpg/800px-Cerovacke_spilje.jpg",
+        "website": "https://pp-velebit.hr/en/tourism/cerovacke-caves",
+        "local_tip": "It's cold inside (8\u00b0C) even in summer, so bring a jacket.",
+        "must_visit": true,
+        "accessibility": "Partial",
+        "transit_option": "Car",
+        "photospot": "The 'Cathedral' hall in the Upper Cave.",
+        "fun_fact": "These caves were discovered during the construction of the Lika railway line in 1924.",
+        "popularity_score": 70,
+        "getting_there_detail": "Near Gra\u010dac, easily accessible from the main road.",
+        "best_time_of_day": "Anytime (guided tours)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.438,
+          43.559
+        ]
+      },
+      "properties": {
+        "name": "Klis Fortress",
+        "category": "historical",
+        "rating": 4.7,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "1-2 hours",
+        "tags": [
+          "History",
+          "Game of Thrones",
+          "Views",
+          "Fortress"
+        ],
+        "description": "A medieval fortress situated above the village of Klis, offering a panoramic view of Split and the islands. Filming location for Meereen in Game of Thrones.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Klis_Fortress_02.jpg/800px-Klis_Fortress_02.jpg",
+        "website": "https://www.klis.hr/tvrdava-klis/",
+        "local_tip": "Visit just before sunset for the best photos of Split lighting up below.",
+        "must_visit": true,
+        "accessibility": "Not accessible (Stairs/Cobblestone)",
+        "transit_option": "Bus/Car",
+        "photospot": "Upper battlements looking towards Split.",
+        "fun_fact": "It was the seat of many Croatian kings and a major defense point against the Ottomans.",
+        "popularity_score": 88,
+        "getting_there_detail": "20 min drive from Split or take local bus #34.",
+        "best_time_of_day": "Sunset"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.483,
+          45.027
+        ]
+      },
+      "properties": {
+        "name": "Plitvice Barac Caves",
+        "category": "natural",
+        "rating": 4.6,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "1 hour",
+        "tags": [
+          "Cave",
+          "Nature",
+          "Hidden Gem"
+        ],
+        "description": "Located near the famous lakes, these caves offer a fascinating look underground with guided tours showcasing stalactites and bats.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Barac_caves.jpg/800px-Barac_caves.jpg",
+        "website": "https://baraceve-spilje.hr/en/",
+        "local_tip": "A great rainy day alternative if Plitvice Lakes is too wet.",
+        "must_visit": false,
+        "accessibility": "Check website",
+        "transit_option": "Car",
+        "photospot": "Entrance hall formations.",
+        "fun_fact": "The caves were once inhabited by prehistoric humans.",
+        "popularity_score": 65,
+        "getting_there_detail": "Short drive from Plitvice Lakes.",
+        "best_time_of_day": "Anytime"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.837,
+          43.158
+        ]
+      },
+      "properties": {
+        "name": "Skywalk Biokovo",
+        "category": "adventure",
+        "rating": 4.8,
+        "price_level": 2,
+        "best_time": "Summer",
+        "duration": "2 hours",
+        "tags": [
+          "Views",
+          "Glass Floor",
+          "Mountain",
+          "Adrenaline"
+        ],
+        "description": "A horseshoe-shaped glass walkway jutting out from the cliff face of Biokovo Mountain, 1228 meters above sea level.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Skywalk_Biokovo.jpg/800px-Skywalk_Biokovo.jpg",
+        "website": "https://pp-biokovo.hr/en/meadows/skywalk",
+        "local_tip": "Tickets must be bought online in advance; the road up is narrow and challenging.",
+        "must_visit": true,
+        "accessibility": "Accessible platform",
+        "transit_option": "Car",
+        "photospot": "Selfie looking down through the glass floor.",
+        "fun_fact": "On a clear day you can see Italy across the Adriatic.",
+        "popularity_score": 95,
+        "getting_there_detail": "Drive up Biokovo road from Makarska (park entrance fee).",
+        "best_time_of_day": "Morning to avoid fog"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.788,
+          45.069
+        ]
+      },
+      "properties": {
+        "name": "Dvigrad",
+        "category": "historical",
+        "rating": 4.5,
+        "price_level": 1,
+        "best_time": "Year-round",
+        "duration": "1 hour",
+        "tags": [
+          "Ruins",
+          "History",
+          "Istria",
+          "Hidden Gem"
+        ],
+        "description": "The picturesque ruins of a medieval town in Istria that was abandoned in the 17th century due to plague and malaria.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Dvigrad.jpg/800px-Dvigrad.jpg",
+        "website": "https://www.kanfanar.hr/en/culture/dvigrad/",
+        "local_tip": "It's an open site with no entry fee. Great for atmospheric photography.",
+        "must_visit": false,
+        "accessibility": "Rough terrain",
+        "transit_option": "Car",
+        "photospot": "Main basilica ruins.",
+        "fun_fact": "Legend says the pirate Captain Morgan buried treasure nearby.",
+        "popularity_score": 60,
+        "getting_there_detail": "Located in central Istria near Kanfanar.",
+        "best_time_of_day": "Late Afternoon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.918,
+          46.16
+        ]
+      },
+      "properties": {
+        "name": "Krapina Neanderthal Museum",
+        "category": "cultural",
+        "rating": 4.9,
+        "price_level": 2,
+        "best_time": "Year-round",
+        "duration": "2 hours",
+        "tags": [
+          "Museum",
+          "History",
+          "Science",
+          "Family Friendly"
+        ],
+        "description": "One of the most modern and sophisticated evolution museums in Europe, located at the site of a major Neanderthal discovery.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Muzej_krapinskih_neandertalaca.jpg/800px-Muzej_krapinskih_neandertalaca.jpg",
+        "website": "https://mkn.mhz.hr/en/",
+        "local_tip": "The audio guide is essential and very well done.",
+        "must_visit": true,
+        "accessibility": "Accessible",
+        "transit_option": "Car/Train",
+        "photospot": "The hyper-realistic Neanderthal family diorama.",
+        "fun_fact": "The site yielded the largest collection of Neanderthal remains in the world.",
+        "popularity_score": 85,
+        "getting_there_detail": "Located in Krapina, ~1h drive from Zagreb.",
+        "best_time_of_day": "Anytime"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.935,
+          43.12
+        ]
+      },
+      "properties": {
+        "name": "Neretva Delta",
+        "category": "natural",
+        "rating": 4.6,
+        "price_level": 1,
+        "best_time": "Summer/Autumn",
+        "duration": "3 hours",
+        "tags": [
+          "Kitesurfing",
+          "Sand",
+          "Fruit",
+          "Unique"
+        ],
+        "description": "A vast river delta known for its sandy beaches, kitesurfing, and endless mandarin orange plantations. Often called the 'Croatian California'.",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Usce_Neretve.jpg/800px-Usce_Neretve.jpg",
+        "website": "https://visitplocce.com/en/",
+        "local_tip": "Try the 'Photo Safari' boat tours through the narrow canals.",
+        "must_visit": false,
+        "accessibility": "Accessible",
+        "transit_option": "Car",
+        "photospot": "Kitesurfers at sunset on the sandy mouth of the river.",
+        "fun_fact": "Locals use traditional narrow boats called 'la\u0111a' to navigate the canals.",
+        "popularity_score": 75,
+        "getting_there_detail": "Between Split and Dubrovnik.",
+        "best_time_of_day": "Afternoon for wind/kitesurfing"
       }
     }
   ]
