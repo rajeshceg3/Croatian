@@ -649,7 +649,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     const panel = document.getElementById('site-detail-panel');
     if (!panel) return;
 
-    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day } = feature.properties;
+    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day, legend } = feature.properties;
 
     // Populate Data
     const titleEl = document.getElementById('detail-title');
@@ -798,6 +798,18 @@ export function openDetailPanel(feature, allFeatures = []) {
         `;
         const badgeContainer = document.getElementById('detail-badges');
         if (badgeContainer) insertAfter(ffBox, badgeContainer);
+    }
+
+    // Legend (New)
+    if (legend) {
+        const legendBox = document.createElement('div');
+        legendBox.className = 'legend-box dynamic-extra-section';
+        legendBox.innerHTML = `
+            <div class="legend-header">Local Legend</div>
+            <div class="legend-content">${legend}</div>
+        `;
+        const target = contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(legendBox, target);
     }
 
     // Photospot
@@ -1532,6 +1544,7 @@ function renderMyTripList(features, container, durationEl) {
     let totalHours = 0;
     let totalPricePoints = 0;
     const categoryCounts = {};
+    const tripDays = getTripDays();
 
     if (features.length === 0) {
         container.innerHTML = `
@@ -1580,48 +1593,43 @@ function renderMyTripList(features, container, durationEl) {
         container.appendChild(breakdownDiv);
     }
 
-    let totalDistance = 0;
-    if (features.length > 1) {
-        for (let i = 0; i < features.length - 1; i++) {
-            const [lng1, lat1] = features[i].geometry.coordinates;
-            const [lng2, lat2] = features[i + 1].geometry.coordinates;
-            totalDistance += getDistanceFromLatLonInKm(lat1, lng1, lat2, lng2);
-        }
-    }
-
-    // --- Enhanced Grouping Logic ---
-    const getRegion = (lat, lng) => {
-        if (lat > 45.0 && lng > 15.0) return "Continental Croatia"; // Rough approx for Slavonia/Zagorje
-        if (lat > 44.5 && lng < 15.0) return "Istria & Kvarner";
-        if (lat > 44.2 && lat <= 45.0 && lng >= 15.0) return "Lika & Highlands";
-        if (lat > 43.7 && lat <= 44.2) return "North Dalmatia";
-        if (lat > 43.0 && lat <= 43.7) return "Central Dalmatia";
-        return "South Dalmatia";
-    };
-
-    // Group features
+    // Grouping Logic: By Day
     const grouped = {};
-    const regionOrder = ["Continental Croatia", "Istria & Kvarner", "Lika & Highlands", "North Dalmatia", "Central Dalmatia", "South Dalmatia"];
-
     features.forEach(f => {
-        const [lng, lat] = f.geometry.coordinates;
-        const region = getRegion(lat, lng);
-        if (!grouped[region]) grouped[region] = [];
-        grouped[region].push(f);
+        const name = f.properties.name;
+        const day = tripDays[name] || 0; // 0 = Unassigned
+        const key = day === 0 ? "Unassigned" : `Day ${day}`;
+        if (!grouped[key]) grouped[key] = [];
+        grouped[key].push(f);
     });
 
-    // Render Groups
-    regionOrder.forEach(region => {
-        if (!grouped[region]) return;
+    // Sort Keys
+    const keys = Object.keys(grouped).sort((a, b) => {
+        if (a === "Unassigned") return 1; // Unassigned at bottom
+        if (b === "Unassigned") return -1;
+        const da = parseInt(a.replace("Day ", ""));
+        const db = parseInt(b.replace("Day ", ""));
+        return da - db;
+    });
 
-        // Region Header
+    keys.forEach(groupKey => {
         const header = document.createElement('div');
         header.className = 'group-header';
-        header.style.cssText = 'padding: 12px 24px 4px; font-size: 11px; font-weight: 800; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; background: var(--bg-color); position: sticky; top: 0; z-index: 5; border-bottom: 1px solid var(--divider-color);';
-        header.textContent = region;
+        header.style.cssText = 'padding: 12px 24px 4px; font-size: 11px; font-weight: 800; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; background: var(--bg-color); position: sticky; top: 0; z-index: 5; border-bottom: 1px solid var(--divider-color); display:flex; justify-content:space-between; align-items:center;';
+
+        // Calculate Day Stats
+        let dayDuration = 0;
+        grouped[groupKey].forEach(f => {
+             dayDuration += parseDuration(f.properties.duration);
+        });
+
+        header.innerHTML = `
+            <span>${groupKey}</span>
+            <span style="font-weight:400; color:var(--text-tertiary);">${dayDuration > 0 ? dayDuration + 'h' : ''}</span>
+        `;
         container.appendChild(header);
 
-        grouped[region].forEach(feature => {
+        grouped[groupKey].forEach(feature => {
             const { name, category, duration, image_url, price_level } = feature.properties;
             totalHours += parseDuration(duration);
             totalPricePoints += (price_level || 1);
@@ -1652,6 +1660,24 @@ function renderMyTripList(features, container, durationEl) {
 
             item.appendChild(info);
 
+            // Day Selector (New)
+            const daySelect = document.createElement('select');
+            daySelect.className = 'day-selector';
+            daySelect.style.cssText = 'margin-right: 12px; font-size: 11px; padding: 4px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-color); cursor:pointer; color:var(--text-secondary); max-width: 80px;';
+            daySelect.onclick = (e) => e.stopPropagation();
+
+            const currentDay = tripDays[name] || 0;
+            let opts = `<option value="0" ${currentDay === 0 ? 'selected' : ''}>--</option>`;
+            for(let d=1; d<=7; d++) {
+                opts += `<option value="${d}" ${currentDay === d ? 'selected' : ''}>Day ${d}</option>`;
+            }
+            daySelect.innerHTML = opts;
+
+            daySelect.onchange = (e) => {
+                setTripDay(name, e.target.value);
+            };
+            item.appendChild(daySelect);
+
             // Remove Btn
             const removeBtn = document.createElement('button');
             removeBtn.className = 'trip-remove-btn';
@@ -1660,29 +1686,15 @@ function renderMyTripList(features, container, durationEl) {
             removeBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 toggleFavorite(name, () => {
-                    const prev = item.previousElementSibling;
-                    const next = item.nextElementSibling;
-                    item.remove();
-
-                    if (prev && prev.classList.contains('group-header')) {
-                        if (!next || next.classList.contains('group-header')) {
-                             prev.remove();
-                        }
-                    }
-
-                    totalHours -= parseDuration(duration);
-                    if (durationEl) {
-                         const dHours = totalHours > 0 ? (totalHours % 1 === 0 ? totalHours : totalHours.toFixed(1)) : 0;
-                         durationEl.textContent = dHours + 'h';
-                    }
-                    document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+                    // Refresh handled by event listener in setupMyTripModal
+                    setTripDay(name, 0); // Cleanup day assignment
                 });
             });
             item.appendChild(removeBtn);
 
             // Click to fly to
             item.addEventListener('click', (e) => {
-                 if (e.target !== removeBtn && !removeBtn.contains(e.target)) {
+                 if (e.target !== removeBtn && !removeBtn.contains(e.target) && e.target !== daySelect) {
                      const [lng, lat] = feature.geometry.coordinates;
                      const event = new CustomEvent('flyToSite', { detail: { lat, lng, name } });
                      document.dispatchEvent(event);
@@ -1702,12 +1714,7 @@ function renderMyTripList(features, container, durationEl) {
              displayTime = `${days} days (${totalHours}h)`;
         }
 
-        let distanceText = "";
-        if (totalDistance > 0) {
-            distanceText = ` • ~${Math.round(totalDistance)} km`;
-        }
-
-        durationEl.textContent = displayTime + distanceText;
+        durationEl.textContent = displayTime;
 
         // Budget
         const estCost = totalPricePoints * 35; // Approx 35 EUR per point
@@ -2324,4 +2331,212 @@ export function createPostcardModal(feature) {
 
     modal.classList.remove('hidden');
     setTimeout(() => modal.classList.add('visible'), 10);
+}
+
+// === Quest System ===
+
+const quests = [
+    {
+        id: 'roman_empire',
+        name: 'The Roman Path',
+        icon: '🏛️',
+        desc: 'Visit 3 major Roman sites to earn the Centurion Badge.',
+        targets: ['Pula Arena', 'Diocletian\'s Palace', 'Salona Ruins', 'Euphrasian Basilica'],
+        required: 3,
+        reward: 'Centurion'
+    },
+    {
+        id: 'game_of_thrones',
+        name: 'Game of Thrones Hunt',
+        icon: '🐉',
+        desc: 'Find 3 filming locations from King\'s Landing and Meereen.',
+        targets: ['Dubrovnik City Walls', 'Lovrijenac Fortress', 'Klis Fortress', 'Trsteno Arboretum', 'Diocletian\'s Palace'],
+        required: 3,
+        reward: 'Hand of the King'
+    },
+    {
+        id: 'island_explorer',
+        name: 'Ultimate Island Hopper',
+        icon: '🏝️',
+        desc: 'Visit 4 different islands.',
+        targets: ['Hvar Town', 'Korčula Old Town', 'Stiniva Cove (Vis)', 'Mljet National Park', 'Galešnjak Island', 'Blue Cave (Biševo)', 'Sakarun Beach', 'Lastovo Nature Park'],
+        required: 4,
+        reward: 'Sea Wolf'
+    }
+];
+
+let activeQuestId = null;
+
+export function setupQuestSystem(allFeatures, filterCallback) {
+    const btn = document.getElementById('quests-btn');
+    const modal = document.getElementById('quests-modal');
+    if (!btn || !modal) return;
+
+    // Render Quests
+    const render = () => {
+        const container = document.getElementById('quests-grid');
+        container.innerHTML = '';
+        const visited = getVisited();
+
+        quests.forEach(q => {
+            // Calc progress
+            const progress = q.targets.filter(t => visited.includes(t)).length;
+            const percent = Math.min(100, (progress / q.required) * 100);
+            const isComplete = progress >= q.required;
+            const isActive = activeQuestId === q.id;
+
+            const card = document.createElement('div');
+            card.className = `quest-card ${isComplete ? 'completed' : ''}`;
+            card.innerHTML = `
+                <div class="quest-header">
+                    <div class="quest-icon">${q.icon}</div>
+                    <div class="quest-info">
+                        <h4>${q.name}</h4>
+                        <p>${q.desc}</p>
+                    </div>
+                </div>
+                <div class="quest-progress-container">
+                    <div class="quest-progress-bar" style="width: ${percent}%"></div>
+                </div>
+                <div class="quest-footer">
+                    <span>${progress}/${q.required} visited</span>
+                    ${!isComplete ? `
+                        <button class="quest-btn ${isActive ? 'active' : 'start'}" data-id="${q.id}">
+                            ${isActive ? 'Stop Quest' : 'Start Quest'}
+                        </button>
+                    ` : '<span style="color:#d4af37; font-weight:700;">Completed!</span>'}
+                </div>
+            `;
+
+            const actionBtn = card.querySelector('.quest-btn');
+            if (actionBtn) {
+                actionBtn.onclick = () => {
+                    if (isActive) {
+                        stopQuest(filterCallback);
+                    } else {
+                        startQuest(q.id, filterCallback);
+                        modal.classList.remove('visible');
+                        setTimeout(() => modal.classList.add('hidden'), 300);
+                    }
+                    render(); // Re-render to update buttons
+                };
+            }
+
+            container.appendChild(card);
+        });
+    };
+
+    btn.addEventListener('click', () => {
+        render();
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.add('visible'), 10);
+    });
+
+    // Close logic
+    const closeBtn = modal.querySelector('.modal-close');
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+    };
+    if (closeBtn) closeBtn.onclick = closeModal;
+    modal.onclick = (e) => {
+        if (e.target === modal) closeModal();
+    };
+
+    // Listen for visited updates to check progress
+    document.addEventListener('favoritesUpdated', () => {
+        if (activeQuestId) {
+            updateQuestHUD();
+        }
+    });
+}
+
+function startQuest(id, filterCallback) {
+    activeQuestId = id;
+    document.body.classList.add('quest-active');
+
+    createQuestHUD(id, filterCallback);
+    filterCallback();
+}
+
+function stopQuest(filterCallback) {
+    activeQuestId = null;
+    document.body.classList.remove('quest-active');
+    const hud = document.getElementById('active-quest-hud');
+    if (hud) hud.remove();
+    filterCallback();
+}
+
+function createQuestHUD(id, filterCallback) {
+    const quest = quests.find(q => q.id === id);
+    if (!quest) return;
+
+    const visited = getVisited();
+    const progress = quest.targets.filter(t => visited.includes(t)).length;
+
+    let hud = document.getElementById('active-quest-hud');
+    if (!hud) {
+        hud = document.createElement('div');
+        hud.id = 'active-quest-hud';
+        document.body.appendChild(hud);
+    }
+
+    hud.innerHTML = `
+        <div style="font-size:24px;">${quest.icon}</div>
+        <div class="quest-status">
+            <h5>Current Quest</h5>
+            <span>${quest.name}: ${progress}/${quest.required}</span>
+        </div>
+        <button class="close-quest" title="Stop Quest">&times;</button>
+    `;
+
+    hud.querySelector('.close-quest').onclick = () => stopQuest(filterCallback);
+}
+
+function updateQuestHUD() {
+    if (!activeQuestId) return;
+
+    const quest = quests.find(q => q.id === activeQuestId);
+    const visited = getVisited();
+    const progress = quest.targets.filter(t => visited.includes(t)).length;
+
+    const hud = document.getElementById('active-quest-hud');
+    if (hud) {
+        hud.querySelector('.quest-status span').textContent = `${quest.name}: ${progress}/${quest.required}`;
+
+        if (progress >= quest.required) {
+            // Simple alert for now, could be a fancy modal
+            setTimeout(() => {
+                 alert(`🎉 Quest Complete: ${quest.name}!\nYou've earned the ${quest.reward} title.`);
+                 stopQuest(() => document.dispatchEvent(new CustomEvent('favoritesUpdated')));
+            }, 500);
+        }
+    }
+}
+
+export function getActiveQuestTargets() {
+    if (!activeQuestId) return null;
+    const quest = quests.find(q => q.id === activeQuestId);
+    return quest ? quest.targets : null;
+}
+
+// === Day Planner Logic ===
+
+export function getTripDays() {
+    try {
+        const days = localStorage.getItem('croatia_itinerary_days');
+        return days ? JSON.parse(days) : {};
+    } catch (e) { return {}; }
+}
+
+export function setTripDay(name, day) {
+    const days = getTripDays();
+    if (day === 0 || day === '0' || day === '') {
+        delete days[name];
+    } else {
+        days[name] = parseInt(day);
+    }
+    localStorage.setItem('croatia_itinerary_days', JSON.stringify(days));
+    // Trigger update
+    document.dispatchEvent(new CustomEvent('favoritesUpdated'));
 }

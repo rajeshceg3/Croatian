@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup, toggleMapTheme, drawRoute, clearRoute } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding, setupThemeToggle, setupBadges } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding, setupThemeToggle, setupBadges, setupQuestSystem, getActiveQuestTargets } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -74,7 +74,14 @@ function filterSites() {
     const seasonFilter = document.getElementById('season-filter') ? document.getElementById('season-filter').value : '';
     const durationFilter = document.getElementById('duration-filter') ? document.getElementById('duration-filter').value : '';
 
+    // Check for active quest
+    const activeQuestTargets = getActiveQuestTargets();
+
     let features = allFeatures;
+
+    if (activeQuestTargets) {
+        features = features.filter(feature => activeQuestTargets.includes(feature.properties.name));
+    }
 
     if (showFavoritesOnly) {
         const favorites = getFavorites();
@@ -232,6 +239,7 @@ fetchData()
         setupSuggestedRoutes(allFeatures);
         setupShareTrip();
         setupBadges(allFeatures);
+        setupQuestSystem(allFeatures, filterSites);
 
         document.getElementById('sort-select').addEventListener('change', filterSites);
         addSearchListener(filterSites);
