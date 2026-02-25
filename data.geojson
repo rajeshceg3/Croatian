@@ -70,7 +70,8 @@
         "fun_fact": "The lakes are renowned for their distinctive colors, ranging from azure to green, grey or blue depending on the quantity of minerals or organisms in the water and the angle of sunlight.",
         "transit_option": "Hike",
         "photospot": "The Veliki Slap viewpoint offers the iconic waterfall shot.",
-        "popularity_score": 100
+        "popularity_score": 100,
+        "legend": "The lakes were created after a long drought when the 'Black Queen' descended from the mountains and summoned rain. The rain fell until the lakes formed, saving the people."
       }
     },
     {
@@ -105,7 +106,8 @@
         "photospot": "Exterior side towers at sunset.",
         "popularity_score": 94,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
-        "best_time_of_day": "Late Afternoon for better light"
+        "best_time_of_day": "Late Afternoon for better light",
+        "legend": "According to local legend, the Arena was built by fairies (Vile) who lived on the slopes of Velebit. They carried stones by night but failed to complete the roof before the rooster crowed, leaving the arena open to the sky."
       }
     },
     {
@@ -141,7 +143,8 @@
         "fun_fact": "The palace is not just a monument but a living city; over 3,000 people still live within its ancient walls today.",
         "transit_option": "Walk",
         "photospot": "The Peristyle square at dusk.",
-        "popularity_score": 96
+        "popularity_score": 96,
+        "legend": "Emperor Diocletian was so dedicated to his retirement garden here that when asked to return to power, he replied: 'If you could show the cabbage that I planted with my own hands to your emperor, he definitely wouldn't dare suggest that I replace the peace and happiness of this place with the storms of a never-satisfied greed.'"
       }
     },
     {
@@ -216,7 +219,8 @@
         "fun_fact": "Despite numerous earthquakes and sieges, the walls have never been breached by a hostile army during the time of the Republic of Ragusa.",
         "transit_option": "Walk",
         "photospot": "Minceta Tower provides the highest vantage point over the Old Town.",
-        "popularity_score": 96
+        "popularity_score": 96,
+        "legend": "Legend has it that Richard the Lionheart was shipwrecked on the nearby island of Lokrum returning from the Crusades. He vowed to build a great church where he was saved, but the citizens of Dubrovnik convinced him to build the cathedral in the city instead."
       }
     },
     {
@@ -2081,7 +2085,8 @@
         "fun_fact": "Legend says the skull of Veronika of Desini\u0107, a peasant girl walled up in the castle for forbidden love, is still kept in the chapel.",
         "popularity_score": 93,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
-        "best_time_of_day": "Late Afternoon for better light"
+        "best_time_of_day": "Late Afternoon for better light",
+        "legend": "Veronika of Desinić was a peasant girl who fell in love with the count's son. The count, disapproving, accused her of witchcraft and had her walled up alive in the castle walls. Her cries are said to still be heard on windy winter nights."
       }
     },
     {
