@@ -28,9 +28,10 @@
         "local_tip": "Visit early in the morning to catch the sunlight illuminating the stained glass windows without the crowds.",
         "must_visit": true,
         "accessibility": "Check website for details",
-        "getting_there_detail": "Easily accessible on foot from the main Ban Jela\u010di\u0107 Square. Trams 6, 11, 12, 14 stop nearby.",
+        "getting_there_detail": "Easily accessible on foot from the main Ban Jelačić Square. Trams 6, 11, 12, 14 stop nearby.",
         "best_time_of_day": "Morning (8 AM - 10 AM) for light and quiet.",
         "fun_fact": "One of its spires is currently being repaired due to the 2020 earthquake, revealing a time capsule from 1898 inside the cross.",
+        "legend": "Old tales speak of a dragon sleeping deep beneath the cathedral hill, guarding the city's foundations.",
         "transit_option": "Walk",
         "photospot": "From Gradec plateau for a panoramic view of the spires.",
         "popularity_score": 95
@@ -181,7 +182,8 @@
         "photospot": "From Vidova Gora peak for the full aerial shape.",
         "popularity_score": 93,
         "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
-        "best_time_of_day": "Golden Hour (1 hour before sunset)"
+        "best_time_of_day": "Golden Hour (1 hour before sunset)",
+        "legend": "Local fishermen say the beach changes its direction to point towards the approaching shoals of fish."
       }
     },
     {
@@ -291,7 +293,8 @@
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
         "popularity_score": 86,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
-        "best_time_of_day": "Late Afternoon for better light"
+        "best_time_of_day": "Late Afternoon for better light",
+        "legend": "While modern, the museum has become a place of pilgrimage for the heartbroken, creating a new urban myth of healing through sharing."
       }
     },
     {
@@ -327,7 +330,8 @@
         "photospot": "From the pier near the Grand Park Hotel for the classic skyline.",
         "popularity_score": 97,
         "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
-        "best_time_of_day": "Golden Hour (1 hour before sunset)"
+        "best_time_of_day": "Golden Hour (1 hour before sunset)",
+        "legend": "The sarcophagus of St. Euphemia miraculously floated to the shores of Rovinj in 800 AD and was hauled up the hill by a young boy with two small calves."
       }
     },
     {
@@ -354,15 +358,16 @@
         "description": "Hvar is a luxurious island destination known for its vibrant nightlife, yacht-filled harbor, and stunning Pakleni Islands nearby. It offers a mix of history and modern glamour.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Hvar_Town_Harbour.jpg/800px-Hvar_Town_Harbour.jpg",
         "website": "https://visithvar.hr/",
-        "local_tip": "Hike up to the Fortica \u0160panjola for the classic postcard view of the harbor and Pakleni islands.",
+        "local_tip": "Hike up to the Fortica Španjola for the classic postcard view of the harbor and Pakleni islands.",
         "must_visit": false,
         "accessibility": "Check website for details",
         "getting_there_detail": "Catamaran from Split (1h). If driving, ferry goes to Stari Grad, then 20min drive to Hvar Town.",
         "best_time_of_day": "Sunset at Hula Hula or Fortica.",
         "fun_fact": "Hvar is the sunniest island in Europe, with an average of over 2,718 hours of sunshine per year.",
         "transit_option": "Car",
-        "photospot": "Fortica \u0160panjola for the harbor view.",
-        "popularity_score": 91
+        "photospot": "Fortica Španjola for the harbor view.",
+        "popularity_score": 91,
+        "legend": "Locals believe that the agave lace made by the Benedictine nuns in Hvar is blessed, as they use thread made from agave leaves that grow only on the island."
       }
     },
     {
@@ -432,7 +437,8 @@
         "fun_fact": "Mongoose were introduced to the island in 1910 to control the snake population.",
         "popularity_score": 100,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
-        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat",
+        "legend": "Odysseus was said to be captivated by the nymph Calypso here for seven years, in a cave now named after him."
       }
     },
     {
@@ -445,7 +451,7 @@
         ]
       },
       "properties": {
-        "name": "Trako\u0161\u0107an Castle",
+        "name": "Trakošćan Castle",
         "category": "historical",
         "rating": 4.8,
         "price_level": 2,
@@ -457,7 +463,7 @@
           "Nature",
           "Family Friendly"
         ],
-        "description": "Perched on a hill overlooking a lake, Trako\u0161\u0107an is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
+        "description": "Perched on a hill overlooking a lake, Trakošćan is one of the most beautiful and well-preserved castles in Croatia, dating back to the 13th century.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg/800px-Dvorac_Trako%C5%A1%C4%87an_-_sjeverozapadna_strana.jpg",
         "website": "https://trakoscan.hr/",
         "local_tip": "Take the 5km walking path around the lake for the best photo angles of the castle reflection.",
@@ -468,7 +474,8 @@
         "fun_fact": "The castle features a fully preserved knight's armor collection from the 16th century.",
         "popularity_score": 91,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
-        "best_time_of_day": "Late Afternoon for better light"
+        "best_time_of_day": "Late Afternoon for better light",
+        "legend": "It is said a 'White Lady' haunts the lake, protecting the castle from invaders."
       }
     },
     {
@@ -517,7 +524,7 @@
         ]
       },
       "properties": {
-        "name": "Blue Cave (Bi\u0161evo)",
+        "name": "Blue Cave (Biševo)",
         "category": "natural",
         "rating": 4.6,
         "price_level": 3,
@@ -537,7 +544,7 @@
         "accessibility": "Check website for details",
         "transit_option": "Boat",
         "photospot": "Inside the cave (no flash!) capturing the blue glow.",
-        "fun_fact": "The cave was originally accessible only by diving; a small entrance for boats was blasted in 1884.",
+        "fun_fact": "The cave was originally accessible only by diving; a small entrance for boats was blasted in 1884 by Baron Eugen von Ransonnet.",
         "popularity_score": 87,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
         "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
@@ -677,7 +684,7 @@
         "accessibility": "Check website for details",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "During the Middle Ages, the canyon was a stronghold for the famous Omi\u0161 pirates.",
+        "fun_fact": "During the Middle Ages, the canyon was a stronghold for the famous Omiš pirates.",
         "popularity_score": 95,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
         "best_time_of_day": "Morning or Late Afternoon"
@@ -693,7 +700,7 @@
         ]
       },
       "properties": {
-        "name": "Zipline Omi\u0161",
+        "name": "Zipline Omiš",
         "category": "adventure",
         "rating": 4.9,
         "price_level": 3,
@@ -751,7 +758,8 @@
         "fun_fact": "The installation collects enough solar energy to light up the entire waterfront at night.",
         "popularity_score": 93,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
-        "best_time_of_day": "Golden Hour (1 hour before sunset)"
+        "best_time_of_day": "Golden Hour (1 hour before sunset)",
+        "legend": "Locals joke that Alfred Hitchcock was right when he said Zadar has the most beautiful sunset in the world, now enhanced by this light show."
       }
     },
     {
@@ -787,7 +795,8 @@
         "fun_fact": "On a clear day, you can see all the way to Italy across the Adriatic.",
         "popularity_score": 94,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
-        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat",
+        "legend": "Ancient tales speak of giants who once roamed Brač, with Vidova Gora being their lookout point."
       }
     },
     {
@@ -909,7 +918,7 @@
         ]
       },
       "properties": {
-        "name": "Kor\u010dula Old Town",
+        "name": "Korčula Old Town",
         "category": "historical",
         "rating": 4.8,
         "price_level": 2,
@@ -921,7 +930,7 @@
           "Wine",
           "Islands"
         ],
-        "description": "Often called 'Little Dubrovnik', Kor\u010dula's fortified old town is a medieval delight with narrow streets arranged in a fishbone pattern to manage wind and sun.",
+        "description": "Often called 'Little Dubrovnik', Korčula's fortified old town is a medieval delight with narrow streets arranged in a fishbone pattern to manage wind and sun.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Korcula_Old_Town.jpg/800px-Korcula_Old_Town.jpg",
         "website": "https://visitkorcula.eu/",
         "local_tip": "Watch the Moreska sword dance, a traditional performance held on summer evenings.",
@@ -968,7 +977,8 @@
         "fun_fact": "The cove was a cave ceiling that collapsed thousands of years ago.",
         "popularity_score": 95,
         "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
-        "best_time_of_day": "Morning or Late Afternoon"
+        "best_time_of_day": "Morning or Late Afternoon",
+        "legend": "It is said that the cliffs guard the cove from storms, providing a safe haven for sailors for millennia."
       }
     },
     {
@@ -1040,7 +1050,8 @@
         "fun_fact": "It is one of the few places in Europe where wolves, bears, and lynx coexist.",
         "popularity_score": 94,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
-        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat",
+        "legend": "The park is named after the lynx ('ris' in Croatian), a mystical animal that was hunted to extinction but has since returned to these woods."
       }
     },
     {
@@ -1065,7 +1076,7 @@
           "History",
           "Unique"
         ],
-        "description": "A unique museum dedicated to a single exhibit: the bronze statue of a young athlete (Apoxyomenos), found in the sea near Lo\u0161inj after 2000 years.",
+        "description": "A unique museum dedicated to a single exhibit: the bronze statue of a young athlete (Apoxyomenos), found in the sea near Lošinj after 2000 years.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Apoxyomenos_Croatia.jpg/800px-Apoxyomenos_Croatia.jpg",
         "website": "https://www.muzejapoksiomena.hr/en/",
         "local_tip": "The museum is designed as a sensory journey through colorful rooms, leading up to the white room with the statue.",
@@ -1112,7 +1123,8 @@
         "fun_fact": "The monks have lived on this tiny island since 1445.",
         "popularity_score": 91,
         "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
-        "best_time_of_day": "Late Afternoon for better light"
+        "best_time_of_day": "Late Afternoon for better light",
+        "legend": "Monks seeking refuge from Ottoman invaders found this island and were protected by the river's treacherous currents."
       }
     },
     {
@@ -1148,7 +1160,8 @@
         "fun_fact": "The waterfall powers the second oldest hydroelectric plant in the world (Jaruga).",
         "popularity_score": 100,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
-        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat",
+        "legend": "It is said that forest fairies gather here at midnight to wash their golden hair in the moonlight."
       }
     },
     {
@@ -1172,7 +1185,7 @@
           "History",
           "Archaeology"
         ],
-        "description": "Located above the town of Vela Luka on Kor\u010dula, this cave is one of the most important prehistoric archaeological sites in Europe.",
+        "description": "Located above the town of Vela Luka on Korčula, this cave is one of the most important prehistoric archaeological sites in Europe.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Vela_Spila_Korcula.jpg/800px-Vela_Spila_Korcula.jpg",
         "website": "https://velaspila.hr/",
         "local_tip": "The walk up is steep but offers a great view of the bay. There is also a road access.",
@@ -1269,7 +1282,7 @@
         ]
       },
       "properties": {
-        "name": "Bo\u0161kinac",
+        "name": "Boškinac",
         "category": "gastronomy",
         "rating": 4.8,
         "price_level": 4,
@@ -1284,7 +1297,7 @@
         "description": "A luxury boutique hotel, winery, and Michelin-starred restaurant on Pag island, known for its incredible lamb and local wines.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Pag_landscape.jpg/800px-Pag_landscape.jpg",
         "website": "https://www.boskinac.com/",
-        "local_tip": "Try the tasting menu paired with their own Bo\u0161kinac wines.",
+        "local_tip": "Try the tasting menu paired with their own Boškinac wines.",
         "must_visit": false,
         "accessibility": "Check website for details",
         "transit_option": "Car",
@@ -1305,7 +1318,7 @@
         ]
       },
       "properties": {
-        "name": "Pasja\u010da Beach",
+        "name": "Pasjača Beach",
         "category": "coastal",
         "rating": 4.9,
         "price_level": 1,
@@ -1356,7 +1369,7 @@
         "description": "One of the rare sandy beaches in Croatia, Sakarun on Dugi Otok is famous for its turquoise water and Caribbean vibe.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sakarun_Beach.jpg/800px-Sakarun_Beach.jpg",
         "website": "https://www.dugiotok.hr/en/attractions-sakarun",
-        "local_tip": "Take the tourist train from Bo\u017eava to the beach to avoid parking hassles.",
+        "local_tip": "Take the tourist train from Božava to the beach to avoid parking hassles.",
         "must_visit": true,
         "accessibility": "Check website for details",
         "transit_option": "Walk",
@@ -1377,7 +1390,7 @@
         ]
       },
       "properties": {
-        "name": "Vranja\u010da Cave",
+        "name": "Vranjača Cave",
         "category": "natural",
         "rating": 4.8,
         "price_level": 2,
@@ -1391,12 +1404,12 @@
         "description": "Located in the hinterland of Split, this cave is filled with stunning stalactites, stalagmites, and underground halls.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Vranjaca_cave.jpg/800px-Vranjaca_cave.jpg",
         "website": "https://visitdugopolje.com/en/vranjaca-cave/",
-        "local_tip": "The temperature inside is constant at 15\u00b0C, so bring a light jacket even in summer.",
+        "local_tip": "The temperature inside is constant at 15°C, so bring a light jacket even in summer.",
         "must_visit": false,
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The cave temperature remains a constant 15\u00b0C year-round, regardless of outside weather.",
+        "fun_fact": "The cave temperature remains a constant 15°C year-round, regardless of outside weather.",
         "popularity_score": 100,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
         "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
@@ -1507,7 +1520,8 @@
         "fun_fact": "When the lake dries up completely, a traditional football match is played on the bottom.",
         "popularity_score": 95,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
-        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat",
+        "legend": "It is said that fairies dance on the surface of the lake at dawn."
       }
     },
     {
@@ -1542,7 +1556,8 @@
         "fun_fact": "It is impossible to throw a stone into the lake from the edge due to the strong updraft.",
         "popularity_score": 95,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
-        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat",
+        "legend": "Legend has it that the rich and arrogant Gavan's palace stood here before the earth swallowed it up for his sins, creating the deep lake."
       }
     },
     {
@@ -1567,10 +1582,10 @@
           "History",
           "Boat Trip"
         ],
-        "description": "A UNESCO World Heritage site, this triangular Venetian fortress protects the entrance to the St. Anthony Channel in \u0160ibenik. Accessible only by official boat tours.",
+        "description": "A UNESCO World Heritage site, this triangular Venetian fortress protects the entrance to the St. Anthony Channel in Šibenik. Accessible only by official boat tours.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tvrdjava_sv_Nikole.jpg/800px-Tvrdjava_sv_Nikole.jpg",
         "website": "https://www.kanal-svetog-ante.com/en/fortress-of-st-nicholas",
-        "local_tip": "The boat ride itself offers amazing views of the \u0160ibenik archipelago.",
+        "local_tip": "The boat ride itself offers amazing views of the Šibenik archipelago.",
         "must_visit": true,
         "accessibility": "Check website for details",
         "transit_option": "Boat",
@@ -1604,7 +1619,7 @@
           "History",
           "Family Friendly"
         ],
-        "description": "Often called 'The Small Plitvice', Rastoke is a picturesque watermill village where the Slunj\u010dica River flows into the Korana River through a series of waterfalls.",
+        "description": "Often called 'The Small Plitvice', Rastoke is a picturesque watermill village where the Slunjčica River flows into the Korana River through a series of waterfalls.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Rastoke_Slunj_Croatia.jpg/800px-Rastoke_Slunj_Croatia.jpg",
         "website": "https://slunj-rastoke.hr/en/",
         "local_tip": "Try the local trout at one of the riverside restaurants; it's caught fresh from the streams.",
@@ -1716,7 +1731,7 @@
         "description": "A climber's paradise featuring dramatic limestone canyons and towering cliffs. It offers hiking trails for all levels, from easy walks to challenging ascents.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Velika_Paklenica.jpg/800px-Velika_Paklenica.jpg",
         "website": "https://np-paklenica.hr/en/",
-        "local_tip": "Visit the Manita Pe\u0107 cave within the park; the guided tour starts in the morning.",
+        "local_tip": "Visit the Manita Peć cave within the park; the guided tour starts in the morning.",
         "must_visit": true,
         "accessibility": "Not accessible (Rough terrain)",
         "transit_option": "Hike",
@@ -1749,7 +1764,7 @@
           "Romance",
           "Sea Views"
         ],
-        "description": "A 12-kilometer coastal promenade connecting Opatija and Lovran. It winds past Belle \u00c9poque villas, gardens, and the sea, offering a relaxing and scenic walk.",
+        "description": "A 12-kilometer coastal promenade connecting Opatija and Lovran. It winds past Belle Époque villas, gardens, and the sea, offering a relaxing and scenic walk.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lungomare_Opatija.jpg/800px-Lungomare_Opatija.jpg",
         "website": "https://www.visitopatija.com/en/lungomare-promenade",
         "local_tip": "Stop for a coffee at one of the historic hotel terraces in Opatija along the way.",
@@ -1773,7 +1788,7 @@
         ]
       },
       "properties": {
-        "name": "Osijek Tvr\u0111a",
+        "name": "Osijek Tvrđa",
         "category": "historical",
         "rating": 4.8,
         "price_level": 1,
@@ -1809,7 +1824,7 @@
         ]
       },
       "properties": {
-        "name": "Kopa\u010dki Rit",
+        "name": "Kopački Rit",
         "category": "natural",
         "rating": 4.9,
         "price_level": 2,
@@ -1845,7 +1860,7 @@
         ]
       },
       "properties": {
-        "name": "Vu\u010dedol Culture Museum",
+        "name": "Vučedol Culture Museum",
         "category": "cultural",
         "rating": 4.9,
         "price_level": 2,
@@ -1857,7 +1872,7 @@
           "Archaeology",
           "Unique"
         ],
-        "description": "A stunning modern museum dedicated to the Vu\u010dedol culture (3000-2200 BC). It is built into a hill overlooking the Danube river.",
+        "description": "A stunning modern museum dedicated to the Vučedol culture (3000-2200 BC). It is built into a hill overlooking the Danube river.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Muzej_vu%C4%8Dedolske_kulture.jpg/800px-Muzej_vu%C4%8Dedolske_kulture.jpg",
         "website": "https://vucedol.hr/en/",
         "local_tip": "The view of the Danube from the museum roof is spectacular.",
@@ -1865,7 +1880,7 @@
         "accessibility": "Fully Accessible",
         "transit_option": "Car",
         "photospot": "Capture the unique atmosphere from the main entrance or viewpoint.",
-        "fun_fact": "The Vu\u010dedol culture created the oldest European calendar, the Orion.",
+        "fun_fact": "The Vučedol culture created the oldest European calendar, the Orion.",
         "popularity_score": 94,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
         "best_time_of_day": "Late Afternoon for better light"
@@ -1893,7 +1908,7 @@
           "Mosaics",
           "Religious"
         ],
-        "description": "A UNESCO World Heritage site in Pore\u010d, famous for its glittering 6th-century Byzantine mosaics which are among the finest in the world.",
+        "description": "A UNESCO World Heritage site in Poreč, famous for its glittering 6th-century Byzantine mosaics which are among the finest in the world.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Porec_Euphrasian_Basilica.jpg/800px-Porec_Euphrasian_Basilica.jpg",
         "website": "http://www.to-porec.com/en/euphrasian-basilica",
         "local_tip": "Climb the bell tower for a great view over the old town rooftops and the sea.",
@@ -1917,7 +1932,7 @@
         ]
       },
       "properties": {
-        "name": "Vara\u017edin Old Town",
+        "name": "Varaždin Old Town",
         "category": "historical",
         "rating": 4.7,
         "price_level": 2,
@@ -1929,10 +1944,10 @@
           "City",
           "Hidden Gem"
         ],
-        "description": "Often called 'Little Vienna', Vara\u017edin is famous for its baroque architecture, music, and flowers. The castle houses the City Museum.",
+        "description": "Often called 'Little Vienna', Varaždin is famous for its baroque architecture, music, and flowers. The castle houses the City Museum.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Varazdin_castle_Croatia.jpg/800px-Varazdin_castle_Croatia.jpg",
         "website": "https://www.varazdin.hr/en/",
-        "local_tip": "Visit the insect museum inside Herzer Palace\u2014it's surprisingly fascinating.",
+        "local_tip": "Visit the insect museum inside Herzer Palace—it's surprisingly fascinating.",
         "must_visit": false,
         "accessibility": "Cobblestone streets",
         "transit_option": "Walk",
@@ -1940,7 +1955,8 @@
         "fun_fact": "It was briefly the capital of Croatia (1756-1776) until a massive fire destroyed much of the city.",
         "popularity_score": 96,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
-        "best_time_of_day": "Late Afternoon for better light"
+        "best_time_of_day": "Late Afternoon for better light",
+        "legend": "A dragon was said to live in the well of the castle, demanding young maidens until a clever knight tricked it."
       }
     },
     {
@@ -1973,11 +1989,12 @@
         "must_visit": true,
         "accessibility": "Partial",
         "transit_option": "Boat",
-        "photospot": "Hum viewpoint\u2014the highest peak offering 360-degree views.",
+        "photospot": "Hum viewpoint—the highest peak offering 360-degree views.",
         "fun_fact": "Due to its strategic military importance, foreigners were banned from the island until 1989.",
         "popularity_score": 100,
         "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
-        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat",
+        "legend": "The Lastovo Carnival (Poklad) celebrates a victory over pirates where the islanders' prayers caused a storm to destroy the pirate fleet."
       }
     },
     {
@@ -1990,7 +2007,7 @@
         ]
       },
       "properties": {
-        "name": "Tela\u0161\u0107ica Nature Park",
+        "name": "Telašćica Nature Park",
         "category": "natural",
         "rating": 4.8,
         "price_level": 3,
@@ -2002,7 +2019,7 @@
           "Salt Lake",
           "Boat Trip"
         ],
-        "description": "Located on Dugi Otok, Tela\u0161\u0107ica features dramatic 160m high cliffs, a saltwater lake 'Mir' known for its healing mud, and a safe natural harbor.",
+        "description": "Located on Dugi Otok, Telašćica features dramatic 160m high cliffs, a saltwater lake 'Mir' known for its healing mud, and a safe natural harbor.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Telascica_cliffs.jpg/800px-Telascica_cliffs.jpg",
         "website": "https://pp-telascica.hr/en/",
         "local_tip": "Donkeys roam freely near the lake; they are friendly but watch your snacks!",
@@ -2013,7 +2030,8 @@
         "fun_fact": "The salt lake 'Mir' is always warmer than the surrounding sea and has medicinal mud.",
         "popularity_score": 94,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
-        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat"
+        "best_time_of_day": "Early Morning (7-9 AM) to avoid heat",
+        "legend": "Locals call the high cliffs 'Stene' and say they were built by the devil, but the angels stopped him before he could finish, leaving them jagged."
       }
     },
     {
@@ -2038,7 +2056,7 @@
           "Jules Verne",
           "Nature"
         ],
-        "description": "A dramatic chasm in the heart of Istria where the Pazin\u010dica river disappears underground. It inspired Jules Verne's novel 'Mathias Sandorf'.",
+        "description": "A dramatic chasm in the heart of Istria where the Pazinčica river disappears underground. It inspired Jules Verne's novel 'Mathias Sandorf'.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pazin_Castle_and_Cave.jpg/800px-Pazin_Castle_and_Cave.jpg",
         "website": "https://www.central-istria.com/en/to-visit/pazin-cave",
         "local_tip": "For thrill-seekers, try the zipline that goes directly over the cave entrance.",
@@ -2049,7 +2067,8 @@
         "fun_fact": "Jules Verne never visited Pazin but described the cave accurately based on photographs and letters.",
         "popularity_score": 97,
         "getting_there_detail": "Best reached by car. Public transport may be limited.",
-        "best_time_of_day": "Morning or Late Afternoon"
+        "best_time_of_day": "Morning or Late Afternoon",
+        "legend": "The giant Ban Dragonja plowed a furrow for the river to the sea, but when he reached Pazin, the people mocked him, so he stomped his foot and the water vanished into the earth."
       }
     },
     {
@@ -2082,7 +2101,7 @@
         "accessibility": "Partial",
         "transit_option": "Car",
         "photospot": "From the main approach road capturing the distinctive pentagonal tower.",
-        "fun_fact": "Legend says the skull of Veronika of Desini\u0107, a peasant girl walled up in the castle for forbidden love, is still kept in the chapel.",
+        "fun_fact": "Legend says the skull of Veronika of Desinić, a peasant girl walled up in the castle for forbidden love, is still kept in the chapel.",
         "popularity_score": 93,
         "getting_there_detail": "Located centrally, easily accessible by walking or local bus.",
         "best_time_of_day": "Late Afternoon for better light",
@@ -2134,7 +2153,7 @@
         ]
       },
       "properties": {
-        "name": "Gale\u0161njak Island",
+        "name": "Galešnjak Island",
         "category": "natural",
         "rating": 4.5,
         "price_level": 1,
@@ -2148,7 +2167,7 @@
         "description": "World-famous as the 'Island of Love' due to its perfect heart shape. It is uninhabited and offers wild nature and pebble beaches.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Galesnjak.jpg/800px-Galesnjak.jpg",
         "website": "https://www.croatia.hr/en-GB/destinations/pasman/galesnjak",
-        "local_tip": "There are no facilities, so bring everything you need. You can rent a small boat from nearby Pa\u0161man or Turanj.",
+        "local_tip": "There are no facilities, so bring everything you need. You can rent a small boat from nearby Pašman or Turanj.",
         "must_visit": true,
         "accessibility": "Not accessible",
         "transit_option": "Boat",
@@ -2169,7 +2188,7 @@
         ]
       },
       "properties": {
-        "name": "Ba\u0107ina Lakes",
+        "name": "Baćina Lakes",
         "category": "natural",
         "rating": 4.6,
         "price_level": 1,
@@ -2181,10 +2200,10 @@
           "Swimming",
           "Peaceful"
         ],
-        "description": "A group of seven interconnected lakes near Plo\u010de. The water is brackish and teems with life. It's a paradise for paddleboarding and traditional boat rides.",
+        "description": "A group of seven interconnected lakes near Ploče. The water is brackish and teems with life. It's a paradise for paddleboarding and traditional boat rides.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Bacinska_jezera.jpg/800px-Bacinska_jezera.jpg",
         "website": "https://visitploce.com/en/bacina-lakes/",
-        "local_tip": "Rent a traditional 'la\u0111a' boat for a guided tour through the tunnels connecting the lakes.",
+        "local_tip": "Rent a traditional 'lađa' boat for a guided tour through the tunnels connecting the lakes.",
         "must_visit": false,
         "accessibility": "Partial",
         "transit_option": "Car",
@@ -2217,7 +2236,7 @@
           "Mosaic",
           "Harbor"
         ],
-        "description": "A charming port town on Kor\u010dula island, famous for its mosaics and as the home of Croatia's beloved singer Oliver Dragojevi\u0107.",
+        "description": "A charming port town on Korčula island, famous for its mosaics and as the home of Croatia's beloved singer Oliver Dragojević.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Vela_Luka.jpg/800px-Vela_Luka.jpg",
         "website": "https://tzvelaluka.hr/en",
         "local_tip": "Visit the center of town to see the world's longest mosaic street.",
@@ -2253,10 +2272,10 @@
           "Views",
           "Nature"
         ],
-        "description": "At 1,831 meters, Dinara (Sinjal) is the highest peak in Croatia. It offers spectacular views of Peru\u0107a Lake and the surrounding karst landscape.",
+        "description": "At 1,831 meters, Dinara (Sinjal) is the highest peak in Croatia. It offers spectacular views of Peruća Lake and the surrounding karst landscape.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Dinara_Sinjal.jpg/800px-Dinara_Sinjal.jpg",
         "website": "https://pp-dinara.hr/",
-        "local_tip": "The easiest route starts from Glava\u0161; it takes about 4-5 hours to reach the top. Bring plenty of water!",
+        "local_tip": "The easiest route starts from Glavaš; it takes about 4-5 hours to reach the top. Bring plenty of water!",
         "must_visit": true,
         "accessibility": "Not accessible",
         "transit_option": "Hike",
@@ -2277,7 +2296,7 @@
         ]
       },
       "properties": {
-        "name": "Kama\u010dnik Canyon",
+        "name": "Kamačnik Canyon",
         "category": "natural",
         "rating": 4.8,
         "price_level": 1,
@@ -2289,7 +2308,7 @@
           "River",
           "Hidden Gem"
         ],
-        "description": "A stunning, protected landscape where the Kama\u010dnik stream cuts through a deep gorge before flowing into the Dobra River. Perfect for easy family hiking.",
+        "description": "A stunning, protected landscape where the Kamačnik stream cuts through a deep gorge before flowing into the Dobra River. Perfect for easy family hiking.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Kama%C4%8Dnik_canyon.jpg/800px-Kama%C4%8Dnik_canyon.jpg",
         "website": "https://visitvrbovsko.hr/kamacnik/",
         "local_tip": "Visit the restaurant at the entrance for excellent local trout.",
@@ -2300,7 +2319,8 @@
         "fun_fact": "The canyon is known for its musical bridge where you can play a giant xylophone.",
         "popularity_score": 60,
         "getting_there_detail": "Located near Vrbovsko, easily accessible from the A6 motorway.",
-        "best_time_of_day": "Morning for best light in the gorge"
+        "best_time_of_day": "Morning for best light in the gorge",
+        "legend": "It is said that the stream sings songs of the old forest spirits to those who listen closely."
       }
     },
     {
@@ -2336,7 +2356,8 @@
         "fun_fact": "The village has been continuously inhabited for over 4,000 years.",
         "popularity_score": 75,
         "getting_there_detail": "Accessible by narrow winding road on Cres island.",
-        "best_time_of_day": "Late afternoon for sunset"
+        "best_time_of_day": "Late afternoon for sunset",
+        "legend": "The village is named after a queen (Ljubica/Lubenice) who was banished here by her father for falling in love with a commoner."
       }
     },
     {
@@ -2385,7 +2406,7 @@
         ]
       },
       "properties": {
-        "name": "Cerova\u010dke Caves",
+        "name": "Cerovačke Caves",
         "category": "natural",
         "rating": 4.9,
         "price_level": 2,
@@ -2400,14 +2421,14 @@
         "description": "The largest cave complex in Croatia, located in the Velebit Nature Park. Known for significant archaeological finds including cave bear remains.",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Cerovacke_spilje.jpg/800px-Cerovacke_spilje.jpg",
         "website": "https://pp-velebit.hr/en/tourism/cerovacke-caves",
-        "local_tip": "It's cold inside (8\u00b0C) even in summer, so bring a jacket.",
+        "local_tip": "It's cold inside (8°C) even in summer, so bring a jacket.",
         "must_visit": true,
         "accessibility": "Partial",
         "transit_option": "Car",
         "photospot": "The 'Cathedral' hall in the Upper Cave.",
         "fun_fact": "These caves were discovered during the construction of the Lika railway line in 1924.",
         "popularity_score": 70,
-        "getting_there_detail": "Near Gra\u010dac, easily accessible from the main road.",
+        "getting_there_detail": "Near Gračac, easily accessible from the main road.",
         "best_time_of_day": "Anytime (guided tours)"
       }
     },
@@ -2444,7 +2465,8 @@
         "fun_fact": "It was the seat of many Croatian kings and a major defense point against the Ottomans.",
         "popularity_score": 88,
         "getting_there_detail": "20 min drive from Split or take local bus #34.",
-        "best_time_of_day": "Sunset"
+        "best_time_of_day": "Sunset",
+        "legend": "The Uskok warriors who defended this fortress were known for their bravery and for raiding Ottoman ships, becoming local legends of freedom."
       }
     },
     {
@@ -2551,7 +2573,8 @@
         "fun_fact": "Legend says the pirate Captain Morgan buried treasure nearby.",
         "popularity_score": 60,
         "getting_there_detail": "Located in central Istria near Kanfanar.",
-        "best_time_of_day": "Late Afternoon"
+        "best_time_of_day": "Late Afternoon",
+        "legend": "A famous legend tells that the pirate Henry Morgan buried his treasure here while fleeing from the British fleet, and it has never been found."
       }
     },
     {
@@ -2620,7 +2643,7 @@
         "accessibility": "Accessible",
         "transit_option": "Car",
         "photospot": "Kitesurfers at sunset on the sandy mouth of the river.",
-        "fun_fact": "Locals use traditional narrow boats called 'la\u0111a' to navigate the canals.",
+        "fun_fact": "Locals use traditional narrow boats called 'lađa' to navigate the canals.",
         "popularity_score": 75,
         "getting_there_detail": "Between Split and Dubrovnik.",
         "best_time_of_day": "Afternoon for wind/kitesurfing"
