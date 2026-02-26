@@ -682,7 +682,11 @@ export function openDetailPanel(feature, allFeatures = []) {
                 // Stop any current
                 window.speechSynthesis.cancel();
 
-                utterance = new SpeechSynthesisUtterance(description);
+                let textToRead = `Here is what you need to know about ${name}. ${description}`;
+                if (local_tip) textToRead += ` Local tip: ${local_tip}`;
+                if (fun_fact) textToRead += ` Fun fact: ${fun_fact}`;
+
+                utterance = new SpeechSynthesisUtterance(textToRead);
                 utterance.lang = 'en-US';
                 utterance.onend = stopAudio;
 
@@ -755,13 +759,31 @@ export function openDetailPanel(feature, allFeatures = []) {
         }
     }
 
-    // Weather Widget (Mock Data)
+    // Weather Widget (Smart Mock Data)
     const weatherWidget = document.getElementById('detail-weather-widget');
     if (weatherWidget) {
+        const month = new Date().getMonth(); // 0-11
+        const isSummer = month >= 5 && month <= 8; // Jun-Sep
+        const isWinter = month >= 11 || month <= 2; // Dec-Mar
+
         const isCoastal = category === 'coastal' || (tags && (tags.includes('Beach') || tags.includes('Island')));
-        const weatherIcon = isCoastal ? '☀️' : '⛅';
-        const weatherTemp = isCoastal ? '26°C' : '22°C';
-        const weatherDesc = isCoastal ? 'Sunny' : 'Partly Cloudy';
+
+        let weatherIcon, weatherTemp, weatherDesc;
+
+        if (isSummer) {
+            weatherIcon = '☀️';
+            weatherTemp = isCoastal ? '30°C' : '28°C';
+            weatherDesc = 'Sunny';
+        } else if (isWinter) {
+            weatherIcon = isCoastal ? '🌧️' : '❄️';
+            weatherTemp = isCoastal ? '10°C' : '2°C';
+            weatherDesc = isCoastal ? 'Rainy' : 'Snowy';
+        } else {
+            // Spring/Autumn
+            weatherIcon = '⛅';
+            weatherTemp = isCoastal ? '20°C' : '16°C';
+            weatherDesc = 'Partly Cloudy';
+        }
 
         weatherWidget.style.display = 'flex';
         weatherWidget.innerHTML = `
@@ -2222,21 +2244,46 @@ export function calculateBadges(visitedSites, allFeatures) {
     return badges;
 }
 
-export function renderBadges(badges) {
+export function renderBadges(badges, visitedCount = 0) {
     const modal = document.getElementById('badges-modal');
     if (!modal) return;
 
     const container = document.getElementById('badges-grid');
     container.innerHTML = '';
 
-    if (badges.length === 0) {
-        container.innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-secondary);">
-                <div style="font-size: 40px; margin-bottom: 16px; opacity: 0.5;">🔒</div>
-                <p>No badges yet.</p>
-                <p style="font-size: 13px;">Mark places as "Visited" to earn badges!</p>
+    // Progress Bar for Next Level
+    let nextGoal = null;
+    if (visitedCount < 5) nextGoal = { name: "Bronze Explorer", target: 5, current: visitedCount };
+    else if (visitedCount < 10) nextGoal = { name: "Silver Explorer", target: 10, current: visitedCount };
+    else if (visitedCount < 20) nextGoal = { name: "Gold Explorer", target: 20, current: visitedCount };
+
+    if (nextGoal) {
+        const progressDiv = document.createElement('div');
+        progressDiv.style.gridColumn = "1 / -1";
+        progressDiv.style.marginBottom = "16px";
+        const pct = (nextGoal.current / nextGoal.target) * 100;
+
+        progressDiv.innerHTML = `
+            <div style="font-size:12px; font-weight:600; color:var(--text-secondary); margin-bottom:6px; display:flex; justify-content:space-between;">
+                <span>Next Goal: ${nextGoal.name}</span>
+                <span>${nextGoal.current}/${nextGoal.target}</span>
+            </div>
+            <div class="badge-progress-bg" style="width:100%; height:8px; background:#e6ebf1; border-radius:4px; overflow:hidden;">
+                <div class="badge-progress-fill" style="width:${pct}%; height:100%; background:var(--accent-color); transition:width 1s ease;"></div>
             </div>
         `;
+        container.appendChild(progressDiv);
+    }
+
+    if (badges.length === 0) {
+        const emptyState = document.createElement('div');
+        emptyState.style.cssText = "grid-column: 1/-1; text-align: center; padding: 20px; color: var(--text-secondary);";
+        emptyState.innerHTML = `
+            <div style="font-size: 40px; margin-bottom: 16px; opacity: 0.5;">🔒</div>
+            <p>No badges earned yet.</p>
+            <p style="font-size: 13px;">Keep exploring to unlock specific achievements!</p>
+        `;
+        container.appendChild(emptyState);
     } else {
         badges.forEach(badge => {
             const el = document.createElement('div');
@@ -2275,7 +2322,7 @@ export function setupBadges(allFeatures) {
     btn.addEventListener('click', () => {
         const visited = getVisited();
         const badges = calculateBadges(visited, allFeatures);
-        renderBadges(badges);
+        renderBadges(badges, visited.length);
     });
 }
 
