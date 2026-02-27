@@ -33,7 +33,9 @@
         "fun_fact": "One of its spires is currently being repaired due to the 2020 earthquake, revealing a time capsule from 1898 inside the cross.",
         "transit_option": "Walk",
         "photospot": "From Gradec plateau for a panoramic view of the spires.",
-        "popularity_score": 95
+        "popularity_score": 95,
+        "gastronomy_highlight": "Try the 'Zagreb \u0161truklji' at nearby La \u0160truk.",
+        "hidden_secret": "There is a hidden well in the cathedral's sacristy that dates back to the pre-cathedral era."
       }
     },
     {
@@ -71,7 +73,9 @@
         "transit_option": "Hike",
         "photospot": "The Veliki Slap viewpoint offers the iconic waterfall shot.",
         "popularity_score": 100,
-        "legend": "The lakes were created after a long drought when the 'Black Queen' descended from the mountains and summoned rain. The rain fell until the lakes formed, saving the people."
+        "legend": "The lakes were created after a long drought when the 'Black Queen' descended from the mountains and summoned rain. The rain fell until the lakes formed, saving the people.",
+        "gastronomy_highlight": "Li\u010dka basa (local soft cheese) and roasted lamb at Li\u010dka Ku\u0107a restaurant.",
+        "hidden_secret": "Look for the \u0160upljara Cave, used as a filming location for Winnetou movies."
       }
     },
     {
@@ -326,6 +330,8 @@
         "transit_option": "Walk",
         "photospot": "From the pier near the Grand Park Hotel for the classic skyline.",
         "popularity_score": 97,
+        "gastronomy_highlight": "Fresh seafood at 'La Puntulina' on the rocks by the sea.",
+        "hidden_secret": "The Spacio Matika is a traditional tavern that looks like a wine cellar museum.",
         "getting_there_detail": "Accessible by ferry or local boat from the nearest mainland port.",
         "best_time_of_day": "Golden Hour (1 hour before sunset)"
       }
@@ -362,7 +368,9 @@
         "fun_fact": "Hvar is the sunniest island in Europe, with an average of over 2,718 hours of sunshine per year.",
         "transit_option": "Car",
         "photospot": "Fortica \u0160panjola for the harbor view.",
-        "popularity_score": 91
+        "popularity_score": 91,
+        "gastronomy_highlight": "Gregada (traditional fisherman's stew) at Macondo.",
+        "hidden_secret": "The Benedictine nuns in town make lace from agave leaves—a UNESCO heritage craft."
       }
     },
     {
@@ -607,6 +615,8 @@
         "accessibility": "Check website for details",
         "transit_option": "Car",
         "photospot": "Motovun city walls looking over the valley.",
+        "gastronomy_highlight": "Fu\u017ei pasta with white truffles at Konoba Mondo.",
+        "hidden_secret": "Ancient glagolitic graffiti can be found on the frescoes in nearby church of St. Barnabas in Vi\u017einada.",
         "fun_fact": "The largest white truffle ever found was discovered near here, weighing 1.31 kg.",
         "popularity_score": 100,
         "getting_there_detail": "Located in the region; car or taxi recommended.",

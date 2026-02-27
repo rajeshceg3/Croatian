@@ -185,8 +185,9 @@ export function createCategoryFilters(categories, filterCallback) {
     if (dFilter) dFilter.addEventListener('change', filterCallback);
 }
 
-export function updateSearchResults(map, features, highlightMarker, unhighlightMarker, allFeatures = []) {
+export function updateSearchResults(map, features, highlightMarker, unhighlightMarker, allFeatures) {
     const searchResultsContainer = document.getElementById('search-results');
+    if (!searchResultsContainer) return;
     searchResultsContainer.innerHTML = ''; // Clear previous results
 
     if (features.length === 0) {
@@ -237,6 +238,50 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
             });
         });
         return;
+    }
+
+    // Featured Site of the Day (Only show if no search/filter is active and it's the full list)
+    // We determine "full list" by checking if 'features' length matches 'allFeatures' length,
+    // but 'allFeatures' is passed in.
+    const isDefaultView = allFeatures && features.length === allFeatures.length;
+
+    if (isDefaultView) {
+        // Pick a random top-rated site (deterministically based on date so it stays same for the day)
+        const topSites = features.filter(f => f.properties.rating >= 4.8);
+        if (topSites.length > 0) {
+            const today = new Date().getDate();
+            const featuredSite = topSites[today % topSites.length];
+
+            // Check if already rendered to avoid duplicate
+            const existingFeatured = document.querySelector('.featured-site-card');
+            if (!existingFeatured) {
+                const featuredCard = document.createElement('div');
+                featuredCard.className = 'featured-site-card animate-in';
+
+                const { name, description, image_url } = featuredSite.properties;
+
+                featuredCard.innerHTML = `
+                    <div style="height: 160px; position: relative;">
+                        <img src="${image_url}" style="width:100%; height:100%; object-fit:cover;">
+                        <div class="featured-label">
+                            Featured Site
+                        </div>
+                    </div>
+                    <div style="padding: 16px;">
+                        <h3 style="margin:0 0 6px; font-size:18px;">${name}</h3>
+                        <p style="margin:0; font-size:13px; color:var(--text-secondary); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${description}</p>
+                    </div>
+                `;
+
+                featuredCard.onclick = () => {
+                    const [lng, lat] = featuredSite.geometry.coordinates;
+                    const event = new CustomEvent('flyToSite', { detail: { lat, lng, name } });
+                    document.dispatchEvent(event);
+                };
+
+                searchResultsContainer.appendChild(featuredCard);
+            }
+        }
     }
 
     const favorites = getFavorites();
@@ -649,7 +694,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     const panel = document.getElementById('site-detail-panel');
     if (!panel) return;
 
-    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day, legend } = feature.properties;
+    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day, legend, gastronomy_highlight, hidden_secret } = feature.properties;
 
     // Populate Data
     const titleEl = document.getElementById('detail-title');
@@ -810,6 +855,34 @@ export function openDetailPanel(feature, allFeatures = []) {
         `;
         const target = contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
         if (target) insertAfter(legendBox, target);
+    }
+
+    // Gastronomy Highlight (Enrichment)
+    if (gastronomy_highlight) {
+        const gastroBox = document.createElement('div');
+        gastroBox.className = 'dynamic-extra-section gastronomy-box';
+        gastroBox.innerHTML = `
+            <div class="enrichment-header">
+                <span style="font-size:14px;">🍽️</span> Foodie Highlight
+            </div>
+            <div class="enrichment-content">${gastronomy_highlight}</div>
+        `;
+        const target = contentContainer.querySelector('.legend-box') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(gastroBox, target);
+    }
+
+    // Hidden Secret (Enrichment)
+    if (hidden_secret) {
+        const secretBox = document.createElement('div');
+        secretBox.className = 'dynamic-extra-section secret-box';
+        secretBox.innerHTML = `
+            <div class="enrichment-header">
+                <span style="font-size:14px;">🤫</span> Insider Secret
+            </div>
+            <div class="enrichment-content">${hidden_secret}</div>
+        `;
+        const target = contentContainer.querySelector('.legend-box') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(secretBox, target);
     }
 
     // Photospot
@@ -2540,3 +2613,5 @@ export function setTripDay(name, day) {
     // Trigger update
     document.dispatchEvent(new CustomEvent('favoritesUpdated'));
 }
+
+export { setupVibeMatcher } from './vibe-matcher.js';

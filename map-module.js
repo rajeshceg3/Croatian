@@ -36,6 +36,43 @@ export function initializeMap() {
         position: 'topright'
     }).addTo(map);
 
+    // Add Legend Control
+    const legend = L.control({ position: 'bottomright' });
+
+    legend.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'info legend');
+        const categories = [
+            { name: 'Historical', color: '#5e72e4' },
+            { name: 'Natural', color: '#2dce89' },
+            { name: 'Cultural', color: '#fb6340' },
+            { name: 'Coastal', color: '#11cdef' },
+            { name: 'Gastronomy', color: '#f5365c' },
+            { name: 'Adventure', color: '#ff9f43' }
+        ];
+
+        div.innerHTML = '<h4>Map Legend</h4>';
+        categories.forEach(cat => {
+            div.innerHTML += `
+                <div class="legend-item">
+                    <span class="legend-dot" style="background:${cat.color}"></span>
+                    ${cat.name}
+                </div>
+            `;
+        });
+
+        // Add Cluster info
+        div.innerHTML += `
+            <div class="legend-item" style="margin-top:8px; border-top:1px solid rgba(0,0,0,0.1); padding-top:4px;">
+                <span class="legend-dot" style="background:var(--accent-color); border:2px solid white;"></span>
+                Cluster
+            </div>
+        `;
+
+        return div;
+    };
+
+    legend.addTo(map);
+
     // Initialize with light theme by default
     toggleMapTheme('light');
 
