@@ -194,9 +194,9 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
         const noResults = document.createElement('div');
         noResults.className = 'no-results';
         noResults.innerHTML = `
-            <div style="font-size:24px; margin-bottom:8px;">🧐</div>
-            <div style="margin-bottom:12px; font-weight:600;">We couldn't find any sites matching your search.</div>
-            <div style="font-size:13px; color:var(--text-tertiary); margin-bottom:16px;">Try adjusting your filters or search terms.</div>
+            <div style="font-size:24px; margin-bottom:8px;">🏝️</div>
+            <div style="margin-bottom:12px; font-weight:600;">Looks like this spot is still a hidden gem!</div>
+            <div style="font-size:13px; color:var(--text-tertiary); margin-bottom:16px;">Try adjusting your filters.</div>
 
             <button id="no-results-clear" class="action-btn" style="border:1px solid var(--border-color); background:white;">
                 Clear All Filters
@@ -863,9 +863,13 @@ export function openDetailPanel(feature, allFeatures = []) {
         gastroBox.className = 'dynamic-extra-section gastronomy-box';
         gastroBox.innerHTML = `
             <div class="enrichment-header">
-                <span style="font-size:14px;">🍽️</span> Foodie Highlight
+                <span style="font-size:14px;">🧑‍🍳</span> Chef's Recommendation
             </div>
-            <div class="enrichment-content">${gastronomy_highlight}</div>
+            <div class="enrichment-content">
+                <div style="background: white; padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-color); font-style: italic; margin-top: 8px;">
+                    ${gastronomy_highlight}
+                </div>
+            </div>
         `;
         const target = contentContainer.querySelector('.legend-box') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
         if (target) insertAfter(gastroBox, target);
@@ -1123,6 +1127,7 @@ export function openDetailPanel(feature, allFeatures = []) {
                    const [lng, lat] = s.geometry.coordinates;
                    const event = new CustomEvent('flyToSite', { detail: { lat, lng, name: s.properties.name } });
                    document.dispatchEvent(event);
+                   document.getElementById('site-detail-panel').scrollTop = 0;
                 };
                 grid.appendChild(card);
             });
@@ -2367,7 +2372,12 @@ export function createPostcardModal(feature) {
                 <div class="postcard-preview" id="postcard-target">
                     <!-- Postcard content -->
                 </div>
-                <div class="modal-footer" style="justify-content: center; gap: 16px;">
+                <div class="modal-footer" style="justify-content: center; flex-direction: column; align-items: center; gap: 16px;">
+                    <div class="postcard-filters" style="display: flex; gap: 8px;">
+                        <button class="action-btn filter-btn" data-filter="none">Original</button>
+                        <button class="action-btn filter-btn" data-filter="sepia(0.6) contrast(1.1)">Vintage</button>
+                        <button class="action-btn filter-btn" data-filter="grayscale(1) contrast(1.2)">Noir</button>
+                    </div>
                     <span style="font-size: 12px; color: var(--text-tertiary); font-weight: 600;">Tip: Take a screenshot to share! 📸</span>
                 </div>
             </div>
@@ -2401,6 +2411,14 @@ export function createPostcardModal(feature) {
             </div>
         </div>
     `;
+
+    modal.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.onclick = (e) => {
+            const filter = e.target.dataset.filter;
+            const img = modal.querySelector('.postcard-image');
+            if (img) img.style.filter = filter;
+        };
+    });
 
     modal.classList.remove('hidden');
     setTimeout(() => modal.classList.add('visible'), 10);
