@@ -32,27 +32,27 @@ export function setupVibeMatcher(filterCallback) {
             id: 'q1',
             text: "What's your ideal morning?",
             options: [
-                { text: "Hiking a mountain trail", value: "active" },
-                { text: "Coffee in a historic square", value: "chill" },
-                { text: "Exploring ancient ruins", value: "history" }
+                { text: "🥾 Hiking a mountain trail", value: "active" },
+                { text: "☕ Coffee in a historic square", value: "chill" },
+                { text: "🏛️ Exploring ancient ruins", value: "history" }
             ]
         },
         {
             id: 'q2',
             text: "Pick a dinner vibe:",
             options: [
-                { text: "Sunset picnic by the sea", value: "nature" },
-                { text: "Fine dining with local wine", value: "luxury" },
-                { text: "Street food and bustling crowds", value: "culture" }
+                { text: "🌅 Sunset picnic by the sea", value: "nature" },
+                { text: "🍷 Fine dining with local wine", value: "luxury" },
+                { text: "🍢 Street food and bustling crowds", value: "culture" }
             ]
         },
         {
             id: 'q3',
             text: "Your camera roll is full of:",
             options: [
-                { text: "Selfies & OOTD", value: "photo" },
-                { text: "Landscapes & Sunsets", value: "scenic" },
-                { text: "Details of old buildings", value: "arch" }
+                { text: "📸 Selfies & OOTD", value: "photo" },
+                { text: "🌄 Landscapes & Sunsets", value: "scenic" },
+                { text: "🧱 Details of old buildings", value: "arch" }
             ]
         }
     ];
@@ -90,7 +90,8 @@ export function setupVibeMatcher(filterCallback) {
         html += `</div>`;
         html += `<div style="margin-top:24px; display:flex; justify-content:center; gap:4px;">
             ${questions.map((_, i) => `<div style="width:8px; height:8px; border-radius:50%; background:${i === currentStep ? 'var(--accent-color)' : '#e2e8f0'};"></div>`).join('')}
-        </div>`;
+        </div>
+        <div style="text-align:center; font-size:12px; font-weight:600; color:var(--text-tertiary); margin-top: 12px;">Question ${currentStep + 1} of ${questions.length}</div>`;
 
         container.innerHTML = html;
 
