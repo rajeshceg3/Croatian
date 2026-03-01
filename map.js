@@ -1,5 +1,5 @@
 import { initializeMap, updateMarkers, highlightMarker, unhighlightMarker, openMarkerPopup, toggleMapTheme, drawRoute, clearRoute } from './map-module.js';
-import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding, setupThemeToggle, setupBadges, setupQuestSystem, getActiveQuestTargets, setupVibeMatcher } from './ui-module.js';
+import { createCategoryFilters, updateSearchResults, addSearchListener, addClearFiltersListener, setupMobileInteractions, setupScrollEffects, getFavorites, getVisited, setupSurpriseMe, renderCollections, setupTravelTips, openDetailPanel, setupShareTrip, setupMyTripModal, setupSuggestedRoutes, setupOnboarding, setupThemeToggle, setupBadges, setupQuestSystem, getActiveQuestTargets, setupVibeMatcher, setupDynamicGreeting } from './ui-module.js';
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
@@ -213,6 +213,39 @@ document.addEventListener('favoritesUpdated', () => {
     filterSites();
 });
 
+// Did You Know? Tooltips Logic
+let lastTooltipTime = 0;
+map.on('moveend', () => {
+    const now = Date.now();
+    // Only show a tooltip every 30 seconds at most to avoid annoyance
+    if (now - lastTooltipTime < 30000) return;
+
+    // Must be zoomed in enough
+    if (map.getZoom() < 12) return;
+
+    const bounds = map.getBounds();
+    const visibleFeatures = currentFilteredFeatures.filter(f => {
+        const [lng, lat] = f.geometry.coordinates;
+        return bounds.contains(L.latLng(lat, lng));
+    });
+
+    // Find markers in view that have a fun fact
+    const factMarkers = visibleFeatures.filter(f => f.properties.fun_fact);
+
+    if (factMarkers.length > 0) {
+        // Pick a random one
+        const target = factMarkers[Math.floor(Math.random() * factMarkers.length)];
+
+        // Find the Leaflet marker
+        // Since markerLookup is in map-module.js, we need to expose a way to open it,
+        // or just use our openMarkerTooltip function.
+        // Let's create an event or just let map-module handle it if we imported markerLookup.
+        // Actually, we can dispatch an event to map-module.
+        document.dispatchEvent(new CustomEvent('showFunFactTooltip', { detail: { name: target.properties.name } }));
+        lastTooltipTime = now;
+    }
+});
+
 // Show loading
 const loader = document.getElementById('loading-overlay');
 
@@ -267,6 +300,7 @@ fetchData()
         setupThemeToggle(toggleMapTheme);
         setupOnboarding();
         setupVibeMatcher(filterSites);
+        setupDynamicGreeting(filterSites);
         filterSites(); // Populate map and results on initial load
 
         // Deep Linking: Check URL params
@@ -296,6 +330,39 @@ fetchData()
                 myTripBtn.click(); // Open the modal so they see the trip immediately
             }
         }
+
+        // Listen for Vibe Match event
+        document.addEventListener('vibeMatchFound', (e) => {
+            const name = e.detail.name;
+            const feature = allFeatures.find(f => f.properties.name === name);
+            if (feature) {
+                const [lng, lat] = feature.geometry.coordinates;
+                map.flyTo([lat, lng], 16, { animate: true, duration: 1.5 });
+                setTimeout(() => openDetailPanel(feature, allFeatures), 1500);
+            }
+        });
+
+        // Listen for Show Route Event
+        document.addEventListener('showTripRoute', (e) => {
+            const features = e.detail.features;
+            if (features && features.length > 1) {
+                drawRoute(features);
+
+                // On mobile, optionally collapse the modal slightly or close it
+                // so they can see the map. For now, let's keep it simple.
+                if (window.innerWidth <= 768) {
+                    const modal = document.getElementById('my-trip-modal');
+                    if (modal) modal.querySelector('.modal-close').click();
+                }
+            } else {
+                clearRoute();
+            }
+        });
+
+        // Listen for Hide Route Event
+        document.addEventListener('hideTripRoute', () => {
+            clearRoute();
+        });
 
         // Listen for flyToSite event from My Trip list
         document.addEventListener('flyToSite', (e) => {

@@ -3394,3 +3394,184 @@ body {
     box-shadow: var(--shadow-sm);
     z-index: 10;
 }
+
+/* === New Enhancements Styles === */
+
+/* Local Lingo */
+.local-lingo-box {
+    margin-bottom: 24px;
+}
+.lingo-item {
+    transition: background-color 0.2s;
+}
+.lingo-item:hover {
+    background-color: var(--surface-hover);
+}
+.lingo-item:first-child {
+    border-top-left-radius: var(--radius-md);
+    border-top-right-radius: var(--radius-md);
+}
+.lingo-item:last-child {
+    border-bottom-left-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+}
+
+/* Vibe Matcher Top Match Card */
+.top-match-card {
+    background: linear-gradient(135deg, var(--surface-color), #f8f9fa);
+    border: 2px solid var(--accent-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin: 16px 0;
+    box-shadow: 0 10px 30px rgba(99, 91, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: popupScaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.top-match-card::before {
+    content: '🏆';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 80px;
+    opacity: 0.1;
+    transform: rotate(15deg);
+}
+
+.top-match-header {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.top-match-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 12px;
+}
+
+.top-match-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Dynamic Greeting */
+.dynamic-greeting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.greeting-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.greeting-suggestion {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-color);
+    background: rgba(99, 91, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.greeting-suggestion:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+/* My Trip Show Route Toggle */
+.trip-actions-extended {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.show-route-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.toggle-switch {
+    width: 36px;
+    height: 20px;
+    background: #e6ebf1;
+    border-radius: 20px;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+input[type="checkbox"]:checked + .toggle-switch {
+    background: var(--accent-color);
+}
+
+input[type="checkbox"]:checked + .toggle-switch::after {
+    transform: translateX(16px);
+}
+
+/* Did You Know Tooltip */
+.leaflet-tooltip.fun-fact-tooltip {
+    background: var(--surface-color);
+    border: 1px solid var(--accent-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 12px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    width: 200px;
+    white-space: normal;
+    animation: pulse-soft 2s infinite;
+}
+
+.leaflet-tooltip.fun-fact-tooltip::before {
+    border-top-color: var(--accent-color);
+}
+
+.tooltip-header {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
