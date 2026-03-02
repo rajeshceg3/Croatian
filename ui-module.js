@@ -694,7 +694,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     const panel = document.getElementById('site-detail-panel');
     if (!panel) return;
 
-    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day, legend, gastronomy_highlight, hidden_secret } = feature.properties;
+    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day, legend, gastronomy_highlight, hidden_secret, vibe, good_to_know, perfect_day } = feature.properties;
 
     // Populate Data
     const titleEl = document.getElementById('detail-title');
@@ -821,6 +821,55 @@ export function openDetailPanel(feature, allFeatures = []) {
     // === New Content Injection ===
     const contentContainer = document.querySelector('.panel-content');
 
+    // Live Status & Vibe Injection
+    const injectedTitleEl = document.getElementById('detail-title');
+    if (injectedTitleEl) {
+        // Clear previous vibe/status containers if any
+        let existingVibe = injectedTitleEl.nextElementSibling;
+        while (existingVibe && (existingVibe.classList.contains('vibe-chips-container') || existingVibe.classList.contains('live-status-badge'))) {
+            const next = existingVibe.nextElementSibling;
+            existingVibe.remove();
+            existingVibe = next;
+        }
+
+        const injectAfterTitle = (el) => {
+            injectedTitleEl.parentNode.insertBefore(el, injectedTitleEl.nextSibling);
+        };
+
+        // Live Status Logic
+        const crowdData = getCrowdData(category, feature.properties.popularity_score || 75);
+        if (crowdData) {
+            const currentHour = new Date().getHours();
+            // crowdData maps index 0 to 8 AM. If hour < 8, use index 0. If hour > 20, use index 12.
+            const dataIndex = Math.max(0, Math.min(12, currentHour - 8));
+            const currentCrowd = crowdData[dataIndex];
+
+            let statusText = 'Quiet Now';
+            let dotClass = 'quiet';
+
+            if (currentCrowd >= 80) {
+                statusText = 'Busy Now';
+                dotClass = 'busy';
+            } else if (currentCrowd >= 50) {
+                statusText = 'Moderate Crowds';
+                dotClass = 'moderate';
+            }
+
+            const statusBadge = document.createElement('div');
+            statusBadge.className = 'live-status-badge';
+            statusBadge.innerHTML = `<span class="status-dot ${dotClass}"></span> ${statusText}`;
+            injectAfterTitle(statusBadge);
+        }
+
+        // Vibe Chips
+        if (vibe && Array.isArray(vibe)) {
+            const vibeContainer = document.createElement('div');
+            vibeContainer.className = 'vibe-chips-container';
+            vibeContainer.innerHTML = vibe.map(v => `<span class="vibe-chip">${v}</span>`).join('');
+            injectAfterTitle(vibeContainer);
+        }
+    }
+
     // Remove old dynamic sections if any
     const existingExtras = contentContainer.querySelectorAll('.dynamic-extra-section');
     existingExtras.forEach(el => el.remove());
@@ -830,6 +879,45 @@ export function openDetailPanel(feature, allFeatures = []) {
             referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
         }
     };
+
+    // Know Before You Go
+    if (good_to_know && Array.isArray(good_to_know)) {
+        const kbygBox = document.createElement('div');
+        kbygBox.className = 'kbyg-box dynamic-extra-section stagger-delay-1';
+        kbygBox.innerHTML = `
+            <div class="kbyg-header">📌 Know Before You Go</div>
+            <div class="kbyg-grid">
+                ${good_to_know.map(item => `
+                    <div class="kbyg-item">
+                        <span class="kbyg-label">${item.label}</span>
+                        <span class="kbyg-value">${item.value}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        const badgeContainer = document.getElementById('detail-badges');
+        if (badgeContainer) insertAfter(kbygBox, badgeContainer);
+    }
+
+    // Local's Perfect Day
+    if (perfect_day && Array.isArray(perfect_day)) {
+        const pdBox = document.createElement('div');
+        pdBox.className = 'timeline-box dynamic-extra-section stagger-delay-2';
+        pdBox.innerHTML = `
+            <div class="timeline-header">🧭 A Local's Perfect Day</div>
+            <div class="timeline-container">
+                ${perfect_day.map(item => `
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-time">${item.time}</div>
+                        <div class="timeline-content">${item.desc}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        const target = contentContainer.querySelector('.kbyg-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(pdBox, target);
+    }
 
     // Fun Fact
     if (fun_fact) {
