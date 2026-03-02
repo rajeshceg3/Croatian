@@ -151,6 +151,20 @@ export function updateMarkers(map, features, onViewDetails) {
         // Add to lookup
         markerLookup[name] = marker;
 
+        // Setup Fun Fact Tooltip
+        const funFact = feature.properties.fun_fact;
+        if (funFact) {
+            marker.bindTooltip(`
+                <div class="tooltip-header">💡 Did you know?</div>
+                <div>${funFact}</div>
+            `, {
+                className: 'fun-fact-tooltip',
+                direction: 'top',
+                offset: [0, -40]
+            });
+            marker.hasFunFact = true;
+        }
+
         // Add class to elevate z-index on hover
         marker.on('mouseover', function (e) {
             this.setZIndexOffset(1000);
@@ -394,6 +408,25 @@ export function openMarkerPopup(name) {
     }
 }
 
+// Listen for Fun Fact Tooltips
+document.addEventListener('showFunFactTooltip', (e) => {
+    const name = e.detail.name;
+    const marker = markerLookup[name];
+    if (marker && marker.hasFunFact && !marker.isPopupOpen()) {
+        const visibleParent = markers.getVisibleParent(marker);
+        if (visibleParent && visibleParent === marker) {
+            marker.openTooltip();
+            // Auto close after 5s
+            setTimeout(() => {
+                if (marker.isTooltipOpen()) marker.closeTooltip();
+            }, 5000);
+        }
+    }
+});
+
+
+let routeMarkerGroup = null;
+
 export function drawRoute(features) {
     if (!currentMap) return;
     clearRoute();
@@ -412,8 +445,22 @@ export function drawRoute(features) {
         opacity: 0.8,
         dashArray: '10, 10',
         lineCap: 'round',
-        className: 'route-line-anim' // We'll animate this in CSS
+        className: 'route-line-anim'
     }).addTo(currentMap);
+
+    // Numbered Markers
+    routeMarkerGroup = L.featureGroup();
+    features.forEach((f, idx) => {
+        const [lng, lat] = f.geometry.coordinates;
+        const numberIcon = L.divIcon({
+            className: 'route-number-marker',
+            html: `<div style="background:var(--accent-color); color:white; width:24px; height:24px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-weight:700; font-size:12px; border:2px solid white; box-shadow:0 2px 5px rgba(0,0,0,0.3); position:absolute; top:-12px; left:-12px;">${idx + 1}</div>`,
+            iconSize: [0, 0] // the html handles the visual size and offset
+        });
+
+        L.marker([lat, lng], {icon: numberIcon}).addTo(routeMarkerGroup);
+    });
+    routeMarkerGroup.addTo(currentMap);
 
     // Fit bounds with padding
     currentMap.fitBounds(currentRouteLayer.getBounds(), {
@@ -428,5 +475,9 @@ export function clearRoute() {
     if (currentRouteLayer && currentMap) {
         currentMap.removeLayer(currentRouteLayer);
         currentRouteLayer = null;
+    }
+    if (routeMarkerGroup && currentMap) {
+        currentMap.removeLayer(routeMarkerGroup);
+        routeMarkerGroup = null;
     }
 }

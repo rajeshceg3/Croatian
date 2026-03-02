@@ -70,7 +70,7 @@ const categoryIcons = {
     // Cleaner, more geometric icons (Stripe-inspired simplicity)
     "historical": `<path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5 9.5 9.75 12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/>`,
     "natural": `<path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34 3.32 22.58 4.75 23.5 6 23.5c4 0 9.17-2.17 11.17-4.17S21 14 21 14s-3.17 1.83-4 6C16 11 15 8 15 8s-3-3-2-5c1 2 4 5 4 5zM8 12c-1 0-1-2 0-2 1 0 1 2 0 2z"/>`,
-    "cultural": `<path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>`,
+    "cultural": `<path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2ZM11 19.93A8 8 0 0 1 4.07 13H11ZM11 11H4.07A8 8 0 0 1 11 4.07ZM13 4.07A8 8 0 0 1 19.93 11H13ZM13 13H19.93A8 8 0 0 1 13 19.93Z"/>`,
     "coastal": `<path fill="currentColor" d="M21 15.61a12.65 12.65 0 0 1-5.14-1.17c-.45-.19-1.29-.19-1.8 0a12.65 12.65 0 0 0-4.12 1.17 12.65 12.65 0 0 1-4.12 1.17c-1.32 0-2.55-.38-3.82-1.17v-8a12.65 12.65 0 0 1 3.82 1.17c.45.19 1.29.19 1.8 0a12.65 12.65 0 0 0 4.12-1.17 12.65 12.65 0 0 1 4.12-1.17c.45-.19 1.29-.19 1.8 0a12.65 12.65 0 0 0 3.34 1.17V15.61zM12 2a3 3 0 0 0-3 3v2h6V5a3 3 0 0 0-3-3z"/>`,
     "gastronomy": `<path fill="currentColor" d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V22.99zM7.5 12c1.93 0 3.5-1.57 3.5-3.5V2H4v6.5C4 10.43 5.57 12 7.5 12zm0-8.5h1v4h-1v-4zm-2.5 0h1v4H5v-4zM11 20H4v2h7v-2zm.48-5.32l.74 7.32h1.63l-.74-7.32c-.08-.82-.77-1.46-1.63-1.46z"/>`,
     "adventure": `<path fill="currentColor" d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V12h2V8.9z"/>`,
@@ -1203,43 +1203,85 @@ export function openDetailPanel(feature, allFeatures = []) {
         }
     }
 
-    // Phrase of the Moment
+    // Local Lingo
     const phraseBox = document.createElement('div');
-    phraseBox.className = 'phrase-box dynamic-extra-section';
+    phraseBox.className = 'phrase-box dynamic-extra-section local-lingo-box';
     phraseBox.style.marginTop = '24px';
 
-    const phrases = [
-        { hr: "Hvala", en: "Thank you" },
-        { hr: "Molim", en: "Please" },
-        { hr: "Bok", en: "Hi / Bye" },
-        { hr: "Pivo", en: "Beer" },
-        { hr: "Dobar dan", en: "Good day" },
-        { hr: "Koliko košta?", en: "How much?" },
-        { hr: "Živjeli", en: "Cheers" },
-        { hr: "Oprostite", en: "Excuse me" }
-    ];
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    const lingoByCategory = {
+        'gastronomy': [
+            { hr: "Mogu li dobiti jelovnik?", en: "Can I have the menu?" },
+            { hr: "Račun, molim", en: "The bill, please" },
+            { hr: "Jako ukusno", en: "Very tasty" }
+        ],
+        'historical': [
+            { hr: "Jednu kartu, molim", en: "One ticket, please" },
+            { hr: "Gdje je muzej?", en: "Where is the museum?" },
+            { hr: "Smijem li slikati?", en: "May I take photos?" }
+        ],
+        'cultural': [
+            { hr: "Jednu kartu, molim", en: "One ticket, please" },
+            { hr: "Gdje je muzej?", en: "Where is the museum?" },
+            { hr: "Smijem li slikati?", en: "May I take photos?" }
+        ],
+        'coastal': [
+            { hr: "Gdje je plaža?", en: "Where is the beach?" },
+            { hr: "Trebam brod", en: "I need a boat" },
+            { hr: "Predivno", en: "Beautiful" }
+        ],
+        'natural': [
+            { hr: "Gdje je staza?", en: "Where is the trail?" },
+            { hr: "Predivno", en: "Beautiful" },
+            { hr: "Idemo!", en: "Let's go!" }
+        ],
+        'adventure': [
+            { hr: "Je li sigurno?", en: "Is it safe?" },
+            { hr: "Trebam pomoć", en: "I need help" },
+            { hr: "Idemo!", en: "Let's go!" }
+        ],
+        'default': [
+            { hr: "Hvala", en: "Thank you" },
+            { hr: "Koliko košta?", en: "How much?" },
+            { hr: "Dobar dan", en: "Good day" }
+        ]
+    };
+
+    const catKey = category ? category.toLowerCase() : 'default';
+    const phrases = lingoByCategory[catKey] || lingoByCategory['default'];
+
+    let phraseHtml = '';
+    phrases.forEach((p, i) => {
+        phraseHtml += `
+            <div class="lingo-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px; border-bottom: ${i < phrases.length - 1 ? '1px solid var(--border-color)' : 'none'};">
+                <div style="display:flex; flex-direction:column;">
+                    <span style="font-size:14px; font-weight:600; color:var(--text-primary);">${p.hr}</span>
+                    <span style="font-size:12px; color:var(--text-secondary);">${p.en}</span>
+                </div>
+                <button class="audio-play-btn lingo-audio-btn" data-phrase="${p.hr}" style="width:28px; height:28px;" title="Listen">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+            </div>
+        `;
+    });
 
     phraseBox.innerHTML = `
-        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-            <span>🇭🇷 Phrase of the Moment</span>
-            <button class="audio-play-btn" style="width:20px; height:20px;" title="Listen">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-            </button>
+        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center;">
+            <span>🇭🇷 Local Lingo</span>
         </div>
-        <div style="background:var(--bg-color); padding:12px; border-radius:8px; display:flex; flex-direction:column; align-items:center; text-align:center;">
-            <span style="font-size:16px; font-weight:700; color:var(--text-primary); margin-bottom:2px;">${randomPhrase.hr}</span>
-            <span style="font-size:13px; color:var(--text-secondary);">${randomPhrase.en}</span>
+        <div style="background:var(--surface-color); border:1px solid var(--border-color); border-radius:var(--radius-md); display:flex; flex-direction:column;">
+            ${phraseHtml}
         </div>
     `;
 
-    // Audio Logic for Phrase
-    const pBtn = phraseBox.querySelector('.audio-play-btn');
-    pBtn.onclick = () => {
-        const u = new SpeechSynthesisUtterance(randomPhrase.hr);
-        u.lang = 'hr-HR';
-        window.speechSynthesis.speak(u);
-    };
+    // Audio Logic for Phrases
+    phraseBox.querySelectorAll('.lingo-audio-btn').forEach(btn => {
+        btn.onclick = (e) => {
+            const hrText = e.currentTarget.getAttribute('data-phrase');
+            const u = new SpeechSynthesisUtterance(hrText);
+            u.lang = 'hr-HR';
+            window.speechSynthesis.speak(u);
+        };
+    });
 
     // Insert near bottom
     const similarSection = contentContainer.querySelector('.similar-section');
@@ -1820,6 +1862,33 @@ export function setupMyTripModal(allFeatures) {
 
     if (!btn || !modal) return;
 
+    // Add Show Route Toggle
+    const footer = modal.querySelector('.modal-footer');
+    let routeToggleContainer = modal.querySelector('.trip-actions-extended');
+    if (!routeToggleContainer) {
+        routeToggleContainer = document.createElement('div');
+        routeToggleContainer.className = 'trip-actions-extended';
+        routeToggleContainer.innerHTML = `
+            <label class="show-route-toggle">
+                <input type="checkbox" id="show-trip-route-cb" style="display:none;">
+                <div class="toggle-switch"></div>
+                <span>Show Route on Map</span>
+            </label>
+        `;
+        footer.insertBefore(routeToggleContainer, footer.firstChild);
+
+        const cb = document.getElementById('show-trip-route-cb');
+        cb.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                const favorites = getFavorites();
+                const tripFeatures = favorites.map(name => allFeatures.find(f => f.properties.name === name)).filter(f => f);
+                document.dispatchEvent(new CustomEvent('showTripRoute', { detail: { features: tripFeatures } }));
+            } else {
+                document.dispatchEvent(new CustomEvent('hideTripRoute'));
+            }
+        });
+    }
+
     const openModal = () => {
         const favorites = getFavorites();
         const favFeatures = allFeatures.filter(f => favorites.includes(f.properties.name));
@@ -1831,6 +1900,12 @@ export function setupMyTripModal(allFeatures) {
     const closeModal = () => {
         modal.classList.remove('visible');
         setTimeout(() => modal.classList.add('hidden'), 300);
+        // Uncheck the toggle if they close
+        const cb = document.getElementById('show-trip-route-cb');
+        if (cb && cb.checked && window.innerWidth > 768) { // Keep route on mobile when closing modal
+             // Wait, if they check it on mobile they want to see the map.
+             // Maybe don't uncheck it automatically on desktop either until they clear filters.
+        }
     };
 
     btn.addEventListener('click', openModal);
@@ -2064,6 +2139,12 @@ export function setupSuggestedRoutes(allFeatures) {
     const closeModal = () => {
         modal.classList.remove('visible');
         setTimeout(() => modal.classList.add('hidden'), 300);
+        // Uncheck the toggle if they close
+        const cb = document.getElementById('show-trip-route-cb');
+        if (cb && cb.checked && window.innerWidth > 768) { // Keep route on mobile when closing modal
+             // Wait, if they check it on mobile they want to see the map.
+             // Maybe don't uncheck it automatically on desktop either until they clear filters.
+        }
     };
 
     btn.addEventListener('click', openModal);
@@ -2199,6 +2280,69 @@ export function setupThemeToggle(updateMapTheme) {
         const next = current === 'dark' ? 'light' : 'dark';
         setTheme(next);
     });
+}
+
+export function setupDynamicGreeting(filterCallback) {
+    const container = document.getElementById('dynamic-greeting-container');
+    if (!container) return;
+
+    const hour = new Date().getHours();
+    let greeting = "";
+    let suggestion = "";
+    let suggestionTag = "";
+
+    if (hour >= 5 && hour < 12) {
+        greeting = "Dobro jutro ☀️"; // Good morning
+        suggestion = "Coffee Spots";
+        suggestionTag = "chill"; // Needs a map to a filter
+    } else if (hour >= 12 && hour < 18) {
+        greeting = "Dobar dan 🌤️"; // Good afternoon
+        suggestion = "Find Lunch";
+        suggestionTag = "gastronomy";
+    } else {
+        greeting = "Dobra večer 🌙"; // Good evening
+        suggestion = "Sunset Views";
+        suggestionTag = "Sunset"; // Collection tag
+    }
+
+    container.innerHTML = `
+        <div class="dynamic-greeting">
+            <span class="greeting-text">${greeting}</span>
+            <button class="greeting-suggestion" data-tag="${suggestionTag}">${suggestion}</button>
+        </div>
+    `;
+
+    const btn = container.querySelector('.greeting-suggestion');
+    btn.onclick = () => {
+        // Clear existing filters
+        document.getElementById('clear-filters').click();
+
+        const tag = btn.dataset.tag;
+
+        // Try to find category first
+        const catChip = document.querySelector(`.filter-chip[data-value="${tag.toLowerCase()}"]`);
+        if (catChip) {
+            catChip.click();
+            return;
+        }
+
+        // Try to find collection
+        const colChip = document.querySelector(`.collection-chip[data-collection="${tag}"]`);
+        if (colChip) {
+            colChip.click();
+            return;
+        }
+
+        // If 'chill' isn't mapped, default to coastal/nature or search
+        if (tag === 'chill') {
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.value = 'coffee';
+                const inputEvent = new Event('input', { bubbles: true });
+                searchInput.dispatchEvent(inputEvent);
+            }
+        }
+    };
 }
 
 export function setupOnboarding() {
@@ -2339,6 +2483,12 @@ export function renderBadges(badges) {
     const closeModal = () => {
         modal.classList.remove('visible');
         setTimeout(() => modal.classList.add('hidden'), 300);
+        // Uncheck the toggle if they close
+        const cb = document.getElementById('show-trip-route-cb');
+        if (cb && cb.checked && window.innerWidth > 768) { // Keep route on mobile when closing modal
+             // Wait, if they check it on mobile they want to see the map.
+             // Maybe don't uncheck it automatically on desktop either until they clear filters.
+        }
     };
     if (closeBtn) closeBtn.onclick = closeModal;
     modal.onclick = (e) => {
@@ -2528,6 +2678,12 @@ export function setupQuestSystem(allFeatures, filterCallback) {
     const closeModal = () => {
         modal.classList.remove('visible');
         setTimeout(() => modal.classList.add('hidden'), 300);
+        // Uncheck the toggle if they close
+        const cb = document.getElementById('show-trip-route-cb');
+        if (cb && cb.checked && window.innerWidth > 768) { // Keep route on mobile when closing modal
+             // Wait, if they check it on mobile they want to see the map.
+             // Maybe don't uncheck it automatically on desktop either until they clear filters.
+        }
     };
     if (closeBtn) closeBtn.onclick = closeModal;
     modal.onclick = (e) => {
