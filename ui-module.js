@@ -1523,13 +1523,20 @@ export function setupShareTrip() {
 export function setupScrollEffects() {
     const sidebarContent = document.querySelector('.sidebar-content');
     if (sidebarContent) {
+        let ticking = false;
         sidebarContent.addEventListener('scroll', () => {
-            if (sidebarContent.scrollTop > 10) {
-                sidebarContent.classList.add('scrolled');
-            } else {
-                sidebarContent.classList.remove('scrolled');
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (sidebarContent.scrollTop > 10) {
+                        sidebarContent.classList.add('scrolled');
+                    } else {
+                        sidebarContent.classList.remove('scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
-        });
+        }, { passive: true });
     }
 }
 
