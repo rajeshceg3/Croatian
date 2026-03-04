@@ -77,106 +77,65 @@ function filterSites() {
     // Check for active quest
     const activeQuestTargets = getActiveQuestTargets();
 
-    let features = allFeatures;
+    // Pre-fetch favorites and visited if needed
+    const favorites = showFavoritesOnly ? getFavorites() : null;
+    const visited = showVisitedOnly ? getVisited() : null;
 
-    if (activeQuestTargets) {
-        features = features.filter(feature => activeQuestTargets.includes(feature.properties.name));
-    }
+    let features = allFeatures.filter(feature => {
+        const props = feature.properties;
+        const name = props.name;
 
-    if (showFavoritesOnly) {
-        const favorites = getFavorites();
-        features = features.filter(feature => favorites.includes(feature.properties.name));
-    }
+        if (activeQuestTargets && !activeQuestTargets.includes(name)) return false;
+        if (showFavoritesOnly && !favorites.includes(name)) return false;
+        if (showVisitedOnly && !visited.includes(name)) return false;
 
-    if (showVisitedOnly) {
-        const visited = getVisited();
-        features = features.filter(feature => visited.includes(feature.properties.name));
-    }
-
-    if (activeCollectionTag) {
-        features = features.filter(feature => {
+        if (activeCollectionTag) {
             if (activeCollectionTag === 'Photography') {
-                return (feature.properties.tags && feature.properties.tags.includes('Photography')) ||
-                       feature.properties.photospot;
+                if (!((props.tags && props.tags.includes('Photography')) || props.photospot)) return false;
+            } else {
+                if (!(props.tags && props.tags.includes(activeCollectionTag))) return false;
             }
-            return feature.properties.tags && feature.properties.tags.includes(activeCollectionTag);
-        });
-    }
+        }
 
-    if (activePrices.length > 0) {
-        features = features.filter(feature => {
-            return activePrices.includes(feature.properties.price_level);
-        });
-    }
+        if (activePrices.length > 0 && !activePrices.includes(props.price_level)) return false;
 
-    if (activeQuickFilters.length > 0) {
-        features = features.filter(feature => {
-            let match = true;
+        if (activeQuickFilters.length > 0) {
             if (activeQuickFilters.includes('must_visit')) {
-                if (!feature.properties.rating || feature.properties.rating < 4.8) match = false;
+                if (!props.rating || props.rating < 4.8) return false;
             }
             if (activeQuickFilters.includes('beach')) {
-                const isBeach = feature.properties.category === 'coastal' || (feature.properties.tags && feature.properties.tags.includes('Beach'));
-                if (!isBeach) match = false;
+                const isBeach = props.category === 'coastal' || (props.tags && props.tags.includes('Beach'));
+                if (!isBeach) return false;
             }
             if (activeQuickFilters.includes('hidden_gem')) {
-                const isHidden = feature.properties.tags && (feature.properties.tags.includes('Hidden Gem') || feature.properties.tags.includes('Unique'));
-                if (!isHidden) match = false;
+                const isHidden = props.tags && (props.tags.includes('Hidden Gem') || props.tags.includes('Unique'));
+                if (!isHidden) return false;
             }
-            return match;
-        });
-    }
+        }
 
-    if (seasonFilter) {
-        features = features.filter(feature => {
-            const bt = (feature.properties.best_time || "").toLowerCase();
-            if (bt.includes('year')) return true;
+        if (seasonFilter) {
+            const bt = (props.best_time || "").toLowerCase();
+            if (!bt.includes('year')) {
+                if (seasonFilter === 'spring' && !(bt.includes('spring') || bt.includes('may') || bt.includes('apr') || bt.includes('mar'))) return false;
+                if (seasonFilter === 'summer' && !(bt.includes('summer') || bt.includes('jun') || bt.includes('jul') || bt.includes('aug') || bt.includes('sep'))) return false;
+                if (seasonFilter === 'autumn' && !(bt.includes('autumn') || bt.includes('sep') || bt.includes('oct') || bt.includes('nov'))) return false;
+                if (seasonFilter === 'winter' && !(bt.includes('winter') || bt.includes('dec') || bt.includes('jan') || bt.includes('feb'))) return false;
+            }
+        }
 
-            if (seasonFilter === 'spring') {
-                return bt.includes('spring') || bt.includes('may') || bt.includes('apr') || bt.includes('mar');
-            }
-            if (seasonFilter === 'summer') {
-                return bt.includes('summer') || bt.includes('jun') || bt.includes('jul') || bt.includes('aug') || bt.includes('sep');
-            }
-            if (seasonFilter === 'autumn') {
-                return bt.includes('autumn') || bt.includes('sep') || bt.includes('oct') || bt.includes('nov');
-            }
-            if (seasonFilter === 'winter') {
-                return bt.includes('winter') || bt.includes('dec') || bt.includes('jan') || bt.includes('feb');
-            }
-            return true;
-        });
-    }
+        if (durationFilter) {
+            const d = (props.duration || "").toLowerCase();
+            if (durationFilter === 'quick' && !(d.includes('min') || d === '1 hour' || d === '1-2 hours')) return false;
+            if (durationFilter === 'half' && !(d.includes('2') || d.includes('3') || d.includes('4'))) return false;
+            if (durationFilter === 'full' && !(d.includes('5') || d.includes('6') || d.includes('full') || d.includes('day'))) return false;
+        }
 
-    if (durationFilter) {
-        features = features.filter(feature => {
-            const d = (feature.properties.duration || "").toLowerCase();
-            if (durationFilter === 'quick') {
-                return d.includes('min') || d === '1 hour' || d === '1-2 hours';
-            }
-            if (durationFilter === 'half') {
-                return d.includes('2') || d.includes('3') || d.includes('4');
-            }
-            if (durationFilter === 'full') {
-                return d.includes('5') || d.includes('6') || d.includes('full') || d.includes('day');
-            }
-            return true;
-        });
-    }
+        if (selectedCategories.length > 0 && !selectedCategories.includes(props.category.toLowerCase())) return false;
 
-    if (selectedCategories.length > 0) {
-        features = features.filter(feature => {
-            const category = feature.properties.category.toLowerCase();
-            return selectedCategories.includes(category);
-        });
-    }
+        if (searchText && !name.toLowerCase().includes(searchText)) return false;
 
-    if (searchText) {
-        features = features.filter(feature => {
-            const name = feature.properties.name.toLowerCase();
-            return name.includes(searchText);
-        });
-    }
+        return true;
+    });
 
     // Sort Logic
     const sortValue = document.getElementById('sort-select').value;
