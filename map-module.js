@@ -122,6 +122,8 @@ export function updateMarkers(map, features, onViewDetails) {
     markers.clearLayers();
     markerLookup = {}; // Clear lookup
 
+    const newMarkers = [];
+
     features.forEach(feature => {
         const { name, category, description, rating, image_url, website, price_level, best_time, local_tip, tags } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
@@ -361,8 +363,9 @@ export function updateMarkers(map, features, onViewDetails) {
             minWidth: 320,
             className: 'polished-popup'
         });
-        markers.addLayer(marker);
+        newMarkers.push(marker);
     });
+    markers.addLayers(newMarkers);
     map.addLayer(markers);
 }
 
