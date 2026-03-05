@@ -77,17 +77,18 @@ function filterSites() {
     // Check for active quest
     const activeQuestTargets = getActiveQuestTargets();
 
-    // Pre-fetch favorites and visited if needed
-    const favorites = showFavoritesOnly ? getFavorites() : null;
-    const visited = showVisitedOnly ? getVisited() : null;
+    // ⚡ Bolt Optimization: Use Sets for O(1) lookups instead of O(N) Array.includes during filtering
+    const favoritesSet = showFavoritesOnly ? new Set(getFavorites()) : null;
+    const visitedSet = showVisitedOnly ? new Set(getVisited()) : null;
+    const activeQuestTargetsSet = activeQuestTargets ? new Set(activeQuestTargets) : null;
 
     let features = allFeatures.filter(feature => {
         const props = feature.properties;
         const name = props.name;
 
-        if (activeQuestTargets && !activeQuestTargets.includes(name)) return false;
-        if (showFavoritesOnly && !favorites.includes(name)) return false;
-        if (showVisitedOnly && !visited.includes(name)) return false;
+        if (activeQuestTargetsSet && !activeQuestTargetsSet.has(name)) return false;
+        if (showFavoritesOnly && !favoritesSet.has(name)) return false;
+        if (showVisitedOnly && !visitedSet.has(name)) return false;
 
         if (activeCollectionTag) {
             if (activeCollectionTag === 'Photography') {
