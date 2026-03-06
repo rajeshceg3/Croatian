@@ -284,8 +284,9 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
         }
     }
 
-    const favorites = getFavorites();
-    const visited = getVisited();
+    // ⚡ Bolt Optimization: Use Sets for O(1) lookups instead of O(N) Array.includes inside the rendering loop
+    const favoritesSet = new Set(getFavorites());
+    const visitedSet = new Set(getVisited());
     const fragment = document.createDocumentFragment();
 
     features.forEach((feature, index) => {
@@ -355,7 +356,7 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
         title.textContent = name;
         titleWrapper.appendChild(title);
 
-        if (visited.includes(name)) {
+        if (visitedSet.has(name)) {
             const visitedBadge = document.createElement('span');
             visitedBadge.className = 'visited-indicator';
             visitedBadge.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
@@ -365,7 +366,7 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
         headerDiv.appendChild(titleWrapper);
 
         // Favorite Button
-        const isFav = favorites.includes(name);
+        const isFav = favoritesSet.has(name);
         const favBtn = document.createElement('button');
         favBtn.className = `favorite-btn ${isFav ? 'active' : ''}`;
         favBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;

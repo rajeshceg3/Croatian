@@ -124,6 +124,9 @@ export function updateMarkers(map, features, onViewDetails) {
 
     const newMarkers = [];
 
+    // ⚡ Bolt Optimization: Hoisted getFavorites() out of loop and converted to Set for O(1) lookups
+    const favoritesSet = new Set(getFavorites());
+
     features.forEach(feature => {
         const { name, category, description, rating, image_url, website, price_level, best_time, local_tip, tags } = feature.properties;
         const [lng, lat] = feature.geometry.coordinates;
@@ -210,8 +213,7 @@ export function updateMarkers(map, features, onViewDetails) {
         imageContainer.className = 'popup-image';
 
         // Add Favorites button to Image Container
-        const favorites = getFavorites();
-        const isFav = favorites.includes(name);
+        const isFav = favoritesSet.has(name);
 
         const favBtn = document.createElement('button');
         favBtn.className = `popup-fav-btn ${isFav ? 'active' : ''}`;
