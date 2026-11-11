@@ -11,14 +11,11 @@ export function toggleMapTheme(theme) {
         currentMap.removeLayer(currentTileLayer);
     }
 
-    const url = theme === 'dark'
-        ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-        : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-
+    // Keep cartographic colours unchanged in both UI themes.
+    const url = 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
     currentTileLayer = L.tileLayer(url, {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | <a href="https://opentopomap.org/about">OpenTopoMap</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>',
+        subdomains: 'abc', maxZoom: 17
     }).addTo(currentMap);
 }
 
@@ -26,7 +23,7 @@ export function toggleMapTheme(theme) {
 export function initializeMap() {
     // Center on Croatia
     const map = L.map('map', {
-        zoomControl: false // We will add it manually to position it better if needed, or style the default one
+        maxZoom:17, zoomAnimation:false, markerZoomAnimation:false, zoomControl: false // We will add it manually to position it better if needed, or style the default one
     }).setView([45.1, 15.2], 7);
 
     currentMap = map;
@@ -486,3 +483,6 @@ export function clearRoute() {
         routeMarkerGroup = null;
     }
 }
+
+export function resetMap() { if(currentMap) { currentMap.stop(); currentMap.closePopup(); currentMap.setView([45.1,15.2],7,{animate:false,reset:true}); } }
+export function getMap() {return currentMap;}

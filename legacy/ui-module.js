@@ -1,0 +1,2887 @@
+// This module will handle UI-related functionalities.
+
+export function getFavorites() {
+    try {
+        const favorites = localStorage.getItem('croatia_favorites');
+        return favorites ? JSON.parse(favorites) : [];
+    } catch (e) {
+        console.error("Error reading favorites", e);
+        return [];
+    }
+}
+
+export function toggleFavorite(name, callback) {
+    const favorites = getFavorites();
+    const index = favorites.indexOf(name);
+    if (index === -1) {
+        favorites.push(name);
+    } else {
+        favorites.splice(index, 1);
+    }
+    localStorage.setItem('croatia_favorites', JSON.stringify(favorites));
+    if (callback) callback();
+}
+
+export function getVisited() {
+    try {
+        const visited = localStorage.getItem('croatia_visited');
+        return visited ? JSON.parse(visited) : [];
+    } catch (e) {
+        console.error("Error reading visited", e);
+        return [];
+    }
+}
+
+export function toggleVisited(name, callback) {
+    const visited = getVisited();
+    const index = visited.indexOf(name);
+    if (index === -1) {
+        visited.push(name);
+    } else {
+        visited.splice(index, 1);
+    }
+    localStorage.setItem('croatia_visited', JSON.stringify(visited));
+    if (callback) callback();
+}
+
+export function getNotes(name) {
+    try {
+        const notes = localStorage.getItem('croatia_notes');
+        const parsed = notes ? JSON.parse(notes) : {};
+        return parsed[name] || '';
+    } catch (e) {
+        console.error("Error reading notes", e);
+        return '';
+    }
+}
+
+export function saveNote(name, text) {
+    try {
+        const notes = localStorage.getItem('croatia_notes');
+        const parsed = notes ? JSON.parse(notes) : {};
+        parsed[name] = text;
+        localStorage.setItem('croatia_notes', JSON.stringify(parsed));
+    } catch (e) {
+        console.error("Error saving note", e);
+    }
+}
+
+const categoryIcons = {
+    // Cleaner, more geometric icons (Stripe-inspired simplicity)
+    "historical": `<path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5 9.5 9.75 12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/>`,
+    "natural": `<path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34 3.32 22.58 4.75 23.5 6 23.5c4 0 9.17-2.17 11.17-4.17S21 14 21 14s-3.17 1.83-4 6C16 11 15 8 15 8s-3-3-2-5c1 2 4 5 4 5zM8 12c-1 0-1-2 0-2 1 0 1 2 0 2z"/>`,
+    "cultural": `<path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2ZM11 19.93A8 8 0 0 1 4.07 13H11ZM11 11H4.07A8 8 0 0 1 11 4.07ZM13 4.07A8 8 0 0 1 19.93 11H13ZM13 13H19.93A8 8 0 0 1 13 19.93Z"/>`,
+    "coastal": `<path fill="currentColor" d="M21 15.61a12.65 12.65 0 0 1-5.14-1.17c-.45-.19-1.29-.19-1.8 0a12.65 12.65 0 0 0-4.12 1.17 12.65 12.65 0 0 1-4.12 1.17c-1.32 0-2.55-.38-3.82-1.17v-8a12.65 12.65 0 0 1 3.82 1.17c.45.19 1.29.19 1.8 0a12.65 12.65 0 0 0 4.12-1.17 12.65 12.65 0 0 1 4.12-1.17c.45-.19 1.29-.19 1.8 0a12.65 12.65 0 0 0 3.34 1.17V15.61zM12 2a3 3 0 0 0-3 3v2h6V5a3 3 0 0 0-3-3z"/>`,
+    "gastronomy": `<path fill="currentColor" d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V22.99zM7.5 12c1.93 0 3.5-1.57 3.5-3.5V2H4v6.5C4 10.43 5.57 12 7.5 12zm0-8.5h1v4h-1v-4zm-2.5 0h1v4H5v-4zM11 20H4v2h7v-2zm.48-5.32l.74 7.32h1.63l-.74-7.32c-.08-.82-.77-1.46-1.63-1.46z"/>`,
+    "adventure": `<path fill="currentColor" d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V12h2V8.9z"/>`,
+    "default": `<path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5 2.5z"/>`
+};
+
+export function createCategoryFilters(categories, filterCallback) {
+    const filtersContainer = document.getElementById('category-filters');
+    filtersContainer.innerHTML = '<h4>Filter by Category:</h4>'; // Reset and add header
+    const filtersList = document.createElement('div');
+    filtersList.className = 'filters-list';
+
+    // Context Filters (Season & Duration) - Added at the top for visibility or bottom?
+    // Let's add them AFTER categories to keep the flow
+
+    // Favorites Filter
+    const favChip = document.createElement('button');
+    favChip.className = 'filter-chip favorites-filter';
+    favChip.type = 'button';
+    favChip.dataset.value = 'favorites';
+    favChip.innerHTML = `
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: inherit;">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+        Favorites
+    `;
+    favChip.addEventListener('click', () => {
+        favChip.classList.toggle('active');
+        filterCallback();
+    });
+    filtersList.appendChild(favChip);
+
+    // Visited Filter
+    const visitedChip = document.createElement('button');
+    visitedChip.className = 'filter-chip visited-filter';
+    visitedChip.type = 'button';
+    visitedChip.dataset.value = 'visited';
+    visitedChip.innerHTML = `
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: inherit;">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        Visited
+    `;
+    visitedChip.addEventListener('click', () => {
+        visitedChip.classList.toggle('active');
+        filterCallback();
+    });
+    filtersList.appendChild(visitedChip);
+
+    categories.forEach(category => {
+        const chip = document.createElement('button');
+        chip.className = 'filter-chip';
+        chip.type = 'button';
+        chip.dataset.value = category.toLowerCase();
+
+        const catKey = category.toLowerCase();
+        const iconPath = categoryIcons[catKey] || categoryIcons['default'];
+
+        // Capitalize first letter and add icon
+        chip.innerHTML = `
+            <svg class="category-icon" viewBox="0 0 24 24">
+                ${iconPath}
+            </svg>
+            ${category.charAt(0).toUpperCase() + category.slice(1)}
+        `;
+
+        chip.addEventListener('click', () => {
+            chip.classList.toggle('active');
+            filterCallback();
+        });
+
+        filtersList.appendChild(chip);
+    });
+    filtersContainer.appendChild(filtersList);
+
+    // Add Context Filters (Season/Duration)
+    const contextHeader = document.createElement('h4');
+    contextHeader.style.marginTop = '16px';
+    contextHeader.textContent = 'Plan Your Visit:';
+    filtersContainer.appendChild(contextHeader);
+
+    const contextGrid = document.createElement('div');
+    contextGrid.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;';
+
+    contextGrid.innerHTML = `
+        <div class="select-wrapper" style="width:100%;">
+            <select id="season-filter" style="width:100%;">
+                <option value="">Any Season</option>
+                <option value="spring">Spring</option>
+                <option value="summer">Summer</option>
+                <option value="autumn">Autumn</option>
+                <option value="winter">Winter</option>
+            </select>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right:8px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="select-wrapper" style="width:100%;">
+            <select id="duration-filter" style="width:100%;">
+                <option value="">Any Duration</option>
+                <option value="quick">Quick (< 2h)</option>
+                <option value="half">Half Day (2-5h)</option>
+                <option value="full">Full Day (+5h)</option>
+            </select>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="right:8px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+    `;
+    filtersContainer.appendChild(contextGrid);
+
+    // Bind events
+    const sFilter = document.getElementById('season-filter');
+    const dFilter = document.getElementById('duration-filter');
+    if (sFilter) sFilter.addEventListener('change', filterCallback);
+    if (dFilter) dFilter.addEventListener('change', filterCallback);
+}
+
+export function updateSearchResults(map, features, highlightMarker, unhighlightMarker, allFeatures) {
+    const searchResultsContainer = document.getElementById('search-results');
+    if (!searchResultsContainer) return;
+    searchResultsContainer.innerHTML = ''; // Clear previous results
+
+    if (features.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.innerHTML = `
+            <div style="font-size:24px; margin-bottom:8px;">🏝️</div>
+            <div style="margin-bottom:12px; font-weight:600;">Looks like this spot is still a hidden gem!</div>
+            <div style="font-size:13px; color:var(--text-tertiary); margin-bottom:16px;">Try adjusting your filters.</div>
+
+            <button id="no-results-clear" class="action-btn" style="border:1px solid var(--border-color); background:white;">
+                Clear All Filters
+            </button>
+
+            <div style="font-size:12px; color:var(--text-tertiary); margin-top:20px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Or explore:</div>
+            <div style="display:flex; justify-content:center; gap:8px; margin-top:12px; flex-wrap:wrap;">
+                <button class="filter-chip no-result-chip" data-cat="natural">Natural</button>
+                <button class="filter-chip no-result-chip" data-cat="historical">Historical</button>
+                <button class="filter-chip no-result-chip" data-cat="coastal">Coastal</button>
+            </div>
+        `;
+
+        searchResultsContainer.appendChild(noResults);
+
+        // Add listener for clear button
+        const clearBtn = noResults.querySelector('#no-results-clear');
+        if(clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                document.getElementById('clear-filters').click();
+            });
+        }
+
+        // Add listeners
+        noResults.querySelectorAll('.no-result-chip').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const cat = btn.dataset.cat;
+                // Clear search
+                const searchInput = document.getElementById('search-input');
+                if (searchInput) searchInput.value = '';
+
+                // Clear current filters
+                document.querySelectorAll('#category-filters .filter-chip').forEach(c => c.classList.remove('active'));
+
+                // Activate selected
+                const targetChip = document.querySelector(`#category-filters .filter-chip[data-value="${cat}"]`);
+                if (targetChip) targetChip.click();
+            });
+        });
+        return;
+    }
+
+    // Featured Site of the Day (Only show if no search/filter is active and it's the full list)
+    // We determine "full list" by checking if 'features' length matches 'allFeatures' length,
+    // but 'allFeatures' is passed in.
+    const isDefaultView = allFeatures && features.length === allFeatures.length;
+
+    if (isDefaultView) {
+        // Pick a random top-rated site (deterministically based on date so it stays same for the day)
+        const topSites = features.filter(f => f.properties.rating >= 4.8);
+        if (topSites.length > 0) {
+            const today = new Date().getDate();
+            const featuredSite = topSites[today % topSites.length];
+
+            // Check if already rendered to avoid duplicate
+            const existingFeatured = document.querySelector('.featured-site-card');
+            if (!existingFeatured) {
+                const featuredCard = document.createElement('div');
+                featuredCard.className = 'featured-site-card animate-in';
+
+                const { name, description, image_url } = featuredSite.properties;
+
+                featuredCard.innerHTML = `
+                    <div style="height: 160px; position: relative;">
+                        <img src="${image_url}" style="width:100%; height:100%; object-fit:cover;">
+                        <div class="featured-label">
+                            Featured Site
+                        </div>
+                    </div>
+                    <div style="padding: 16px;">
+                        <h3 style="margin:0 0 6px; font-size:18px;">${name}</h3>
+                        <p style="margin:0; font-size:13px; color:var(--text-secondary); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${description}</p>
+                    </div>
+                `;
+
+                featuredCard.onclick = () => {
+                    const [lng, lat] = featuredSite.geometry.coordinates;
+                    const event = new CustomEvent('flyToSite', { detail: { lat, lng, name } });
+                    document.dispatchEvent(event);
+                };
+
+                searchResultsContainer.appendChild(featuredCard);
+            }
+        }
+    }
+
+    // ⚡ Bolt Optimization: Use Sets for O(1) lookups instead of O(N) Array.includes inside the rendering loop
+    const favoritesSet = new Set(getFavorites());
+    const visitedSet = new Set(getVisited());
+    const fragment = document.createDocumentFragment();
+
+    features.forEach((feature, index) => {
+        const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip } = feature.properties;
+        const [lng, lat] = feature.geometry.coordinates;
+
+        const resultItem = document.createElement('div');
+        resultItem.className = 'search-result-item animate-in';
+        resultItem.style.animationDelay = `${index * 0.05}s`;
+
+        // Highlight map marker on hover
+        resultItem.addEventListener('mouseenter', () => {
+            if (highlightMarker) highlightMarker(name);
+        });
+        resultItem.addEventListener('mouseleave', () => {
+            if (unhighlightMarker) unhighlightMarker(name);
+        });
+
+        // Must Visit Badge
+        if (rating && rating >= 4.8) {
+            const mustVisit = document.createElement('span');
+            mustVisit.className = 'must-visit-badge';
+            mustVisit.textContent = 'Must Visit';
+            resultItem.appendChild(mustVisit);
+        }
+
+        // Thumbnail
+        const thumbnailDiv = document.createElement('div');
+        thumbnailDiv.className = 'result-thumbnail';
+
+        if (image_url) {
+            const img = document.createElement('img');
+            img.src = image_url;
+            img.alt = name;
+            img.loading = "lazy";
+            img.onerror = () => {
+                img.style.display = 'none';
+                thumbnailDiv.style.background = '#e6ebf1'; // Fallback color
+                thumbnailDiv.innerHTML = `<span style="display:flex;justify-content:center;align-items:center;height:100%;color:#8792a2;font-weight:600;">${name.charAt(0)}</span>`;
+            };
+            thumbnailDiv.appendChild(img);
+        } else {
+             thumbnailDiv.style.background = '#e6ebf1';
+             thumbnailDiv.innerHTML = `<span style="display:flex;justify-content:center;align-items:center;height:100%;color:#8792a2;font-weight:600;">${name.charAt(0)}</span>`;
+        }
+        resultItem.appendChild(thumbnailDiv);
+
+        // Content Wrapper
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'result-content';
+
+        // Header (Title + Favorite)
+        const headerDiv = document.createElement('div');
+        headerDiv.style.display = 'flex';
+        headerDiv.style.justifyContent = 'space-between';
+        headerDiv.style.alignItems = 'flex-start';
+
+        // Add content
+        const titleWrapper = document.createElement('div');
+        titleWrapper.style.display = 'flex';
+        titleWrapper.style.alignItems = 'center';
+        titleWrapper.style.gap = '6px';
+        titleWrapper.style.flex = '1';
+
+        const title = document.createElement('div');
+        title.className = 'result-title';
+        title.textContent = name;
+        titleWrapper.appendChild(title);
+
+        if (visitedSet.has(name)) {
+            const visitedBadge = document.createElement('span');
+            visitedBadge.className = 'visited-indicator';
+            visitedBadge.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            visitedBadge.title = "Visited";
+            titleWrapper.appendChild(visitedBadge);
+        }
+        headerDiv.appendChild(titleWrapper);
+
+        // Favorite Button
+        const isFav = favoritesSet.has(name);
+        const favBtn = document.createElement('button');
+        favBtn.className = `favorite-btn ${isFav ? 'active' : ''}`;
+        favBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+        favBtn.title = isFav ? "Remove from Favorites" : "Add to Favorites";
+        favBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card click
+            toggleFavorite(name, () => {
+                const newFavs = getFavorites();
+                const nowFav = newFavs.includes(name);
+                favBtn.classList.toggle('active', nowFav);
+                favBtn.querySelector('svg').setAttribute('fill', nowFav ? 'currentColor' : 'none');
+
+                // Dispatch event so map.js or main controller can listen and refresh if needed
+                document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+            });
+        });
+        headerDiv.appendChild(favBtn);
+
+        contentDiv.appendChild(headerDiv);
+
+        const meta = document.createElement('div');
+        meta.className = 'result-meta';
+        meta.textContent = category;
+        contentDiv.appendChild(meta);
+
+        // Badge Container
+        const badgeContainer = document.createElement('div');
+        badgeContainer.style.display = 'flex';
+        badgeContainer.style.gap = '8px';
+        badgeContainer.style.marginBottom = '6px';
+        badgeContainer.style.flexWrap = 'wrap'; // Allow wrapping
+
+        if (price_level) {
+            const priceBadge = document.createElement('span');
+            priceBadge.className = 'info-badge price-badge';
+            priceBadge.textContent = '$'.repeat(price_level);
+            badgeContainer.appendChild(priceBadge);
+        }
+
+        if (best_time) {
+            const timeBadge = document.createElement('span');
+            timeBadge.className = 'info-badge time-badge';
+            timeBadge.textContent = best_time;
+            badgeContainer.appendChild(timeBadge);
+        }
+
+        // Duration Badge
+        if (duration) {
+            const durationBadge = document.createElement('span');
+            durationBadge.className = 'duration-badge';
+            durationBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ${duration}`;
+            badgeContainer.appendChild(durationBadge);
+        }
+
+        contentDiv.appendChild(badgeContainer);
+
+        // Description
+        if (description) {
+            const desc = document.createElement('div');
+            desc.className = 'result-desc';
+            desc.textContent = description;
+            contentDiv.appendChild(desc);
+        }
+
+        // Local Tip
+        if (local_tip) {
+            const tipDiv = document.createElement('div');
+            tipDiv.className = 'result-tip';
+            tipDiv.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="min-width:12px;"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2v1"></path><path d="M12 7v5"></path><path d="M12 13v.01"></path><path d="M18.36 6.64a9 9 0 0 1 1.63 7.64"></path><path d="M4.01 7.64a9 9 0 0 1 1.63-1"></path></svg> <span>${local_tip}</span>`;
+            contentDiv.appendChild(tipDiv);
+        }
+
+        // Tags
+        if (tags && tags.length > 0) {
+            const tagsDiv = document.createElement('div');
+            tagsDiv.className = 'result-tags';
+            tags.slice(0, 3).forEach(tag => { // Limit to 3 tags
+                const tagSpan = document.createElement('span');
+                tagSpan.className = 'tag-chip';
+                tagSpan.textContent = tag;
+                tagsDiv.appendChild(tagSpan);
+            });
+            contentDiv.appendChild(tagsDiv);
+        }
+
+        resultItem.appendChild(contentDiv);
+
+        resultItem.addEventListener('click', () => {
+            if (!isNaN(lat) && !isNaN(lng)) {
+                map.flyTo([lat, lng], 16, {
+                    animate: true,
+                    duration: 1.5
+                });
+
+                // Open Detail Panel
+                openDetailPanel(feature, allFeatures);
+
+                // Ensure sidebar is expanded on mobile to show the panel
+                if (window.innerWidth <= 768) {
+                    const sidebar = document.getElementById('sidebar');
+                    sidebar.classList.add('expanded');
+                }
+            }
+        });
+
+        fragment.appendChild(resultItem);
+    });
+
+    searchResultsContainer.appendChild(fragment);
+}
+
+export function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
+export function addSearchListener(filterCallback) {
+    const input = document.getElementById('search-input');
+    const clearBtn = document.getElementById('search-clear');
+
+    const debouncedFilter = debounce(filterCallback, 250);
+
+    input.addEventListener('input', (e) => {
+        if (clearBtn) {
+            if (e.target.value.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+        }
+        debouncedFilter();
+    });
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            clearBtn.classList.add('hidden');
+            filterCallback();
+            input.focus();
+        });
+    }
+}
+
+export function addClearFiltersListener(filterCallback) {
+    document.getElementById('clear-filters').addEventListener('click', () => {
+        document.getElementById('search-input').value = '';
+        const clearBtn = document.getElementById('search-clear');
+        if (clearBtn) clearBtn.classList.add('hidden');
+
+        const chips = document.querySelectorAll('.filter-chip');
+        chips.forEach(chip => {
+            chip.classList.remove('active');
+        });
+
+        // Clear collections too
+        const collectionChips = document.querySelectorAll('.collection-chip');
+        collectionChips.forEach(chip => chip.classList.remove('active'));
+
+        // Clear price filters
+        document.querySelectorAll('.price-btn').forEach(btn => btn.classList.remove('active'));
+
+        // Clear quick filters
+        document.querySelectorAll('.quick-filter-chip').forEach(btn => btn.classList.remove('active'));
+
+        // Clear context filters
+        const sFilter = document.getElementById('season-filter');
+        const dFilter = document.getElementById('duration-filter');
+        if (sFilter) sFilter.value = '';
+        if (dFilter) dFilter.value = '';
+
+        filterCallback();
+    });
+}
+
+export function setupMobileInteractions() {
+    const sidebar = document.getElementById('sidebar');
+    const handle = document.getElementById('mobile-handle-container');
+    const searchInput = document.getElementById('search-input');
+
+    if (!handle) return;
+
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+    let startTransform = 0;
+    let rafId = null;
+
+    // Helper to get current transform Y value
+    const getTranslateY = (element) => {
+        const style = window.getComputedStyle(element);
+        const matrix = new WebKitCSSMatrix(style.transform);
+        return matrix.m42;
+    };
+
+    handle.addEventListener('click', (e) => {
+        // Simple toggle if not dragging (logic handled by touch events mostly,
+        // but this catches mouse clicks or quick taps if touch logic misses)
+        // We rely on touch end for taps usually, but let's keep this as fallback/desktop
+        if (!isDragging) {
+             // Logic to determine if it was a drag is handled in touchend
+        }
+    });
+
+    handle.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY;
+        isDragging = true;
+        sidebar.classList.add('dragging'); // Removes transition
+        startTransform = getTranslateY(sidebar);
+
+        if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+        }
+    }, { passive: true });
+
+    handle.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+
+        currentY = e.touches[0].clientY;
+        const deltaY = currentY - startY;
+
+        // Calculate new position
+        let newTranslateY = startTransform + deltaY;
+
+        // Resistance logic
+        // If pulling up past 0 (expanded limit)
+        if (newTranslateY < 0) {
+             // Apply log resistance or square root resistance
+             newTranslateY = -1 * Math.sqrt(Math.abs(newTranslateY) * 5);
+        }
+
+        rafId = requestAnimationFrame(() => {
+            sidebar.style.transform = `translateY(${newTranslateY}px)`;
+        });
+    }, { passive: true });
+
+    handle.addEventListener('touchend', (e) => {
+        isDragging = false;
+        if (rafId) cancelAnimationFrame(rafId);
+
+        sidebar.classList.remove('dragging'); // Restores transition
+
+        const endY = e.changedTouches[0].clientY;
+        const deltaY = endY - startY;
+        const threshold = 50; // pixels to snap
+
+        // Determine if it was a tap (minimal movement)
+        if (Math.abs(deltaY) < 5) {
+            sidebar.classList.toggle('expanded');
+        } else {
+            // It was a drag
+            // Directional snap
+            if (deltaY < -threshold) {
+                // Dragged up
+                sidebar.classList.add('expanded');
+            } else if (deltaY > threshold) {
+                // Dragged down
+                sidebar.classList.remove('expanded');
+            } else {
+                // Snap to nearest
+                 const currentTransform = getTranslateY(sidebar);
+                 const windowHeight = window.innerHeight;
+                 // Expanded is 0, Collapsed is ~ windowHeight - 150
+                 const collapsedTransform = windowHeight - 150;
+
+                 if (currentTransform < collapsedTransform / 2) {
+                     sidebar.classList.add('expanded');
+                 } else {
+                     sidebar.classList.remove('expanded');
+                 }
+            }
+        }
+
+        // Clear inline style to let CSS class take over
+        // Since we removed .dragging, the transition is back.
+        // Changing from inline pixel value to CSS class value will trigger the transition.
+        sidebar.style.transform = '';
+    });
+
+    if (searchInput) {
+        searchInput.addEventListener('focus', () => {
+            // Auto expand when searching on mobile
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('expanded');
+            }
+        });
+    }
+}
+
+export function setupSurpriseMe(map, getFilteredFeatures, openPopupCallback) {
+    const btn = document.getElementById('surprise-me');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+        const features = getFilteredFeatures();
+        if (!features || features.length === 0) return;
+
+        const randomFeature = features[Math.floor(Math.random() * features.length)];
+        const { name } = randomFeature.properties;
+        const [lng, lat] = randomFeature.geometry.coordinates;
+
+        map.flyTo([lat, lng], 16, {
+            animate: true,
+            duration: 1.5
+        });
+
+        // Close sidebar on mobile
+        if (window.innerWidth <= 768) {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.remove('expanded');
+            sidebar.style.transform = '';
+        }
+
+        // Open popup after flight
+        if (openPopupCallback) {
+            openPopupCallback(name);
+        }
+    });
+}
+
+export function openDetailPanel(feature, allFeatures = []) {
+    const panel = document.getElementById('site-detail-panel');
+    if (!panel) return;
+
+    const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day, legend, gastronomy_highlight, hidden_secret, vibe, good_to_know, perfect_day } = feature.properties;
+
+    // Populate Data
+    const titleEl = document.getElementById('detail-title');
+    if (titleEl) {
+        titleEl.textContent = name;
+        // Make sure we don't duplicate play buttons if re-opening
+        const existingAudioBtn = titleEl.querySelector('.audio-guide-btn');
+        if (existingAudioBtn) existingAudioBtn.remove();
+
+        // Add Audio Guide Button
+        const audioBtn = document.createElement('button');
+        audioBtn.className = 'audio-guide-btn';
+        audioBtn.title = 'Listen to description';
+        audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+
+        // Audio Logic
+        let utterance = null;
+
+        const stopAudio = () => {
+             window.speechSynthesis.cancel();
+             audioBtn.classList.remove('playing');
+             audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+        };
+
+        audioBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (window.speechSynthesis.speaking && audioBtn.classList.contains('playing')) {
+                stopAudio();
+            } else {
+                // Stop any current
+                window.speechSynthesis.cancel();
+
+                utterance = new SpeechSynthesisUtterance(description);
+                utterance.lang = 'en-US';
+                utterance.onend = stopAudio;
+
+                window.speechSynthesis.speak(utterance);
+                audioBtn.classList.add('playing');
+                audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>`;
+            }
+        };
+
+        titleEl.style.display = 'flex';
+        titleEl.style.alignItems = 'center';
+        titleEl.style.justifyContent = 'space-between';
+        titleEl.appendChild(audioBtn);
+    }
+
+    const catEl = document.getElementById('detail-category');
+    if (catEl) catEl.textContent = category;
+
+    const rateEl = document.getElementById('detail-rating');
+    if (rateEl) rateEl.textContent = rating ? `★ ${rating}` : '';
+
+    const descEl = document.getElementById('detail-desc');
+    if (descEl) descEl.textContent = description;
+
+    const imgEl = document.getElementById('detail-image');
+    if (imgEl) {
+        imgEl.src = image_url || '';
+        imgEl.onerror = () => { imgEl.src = ''; imgEl.style.backgroundColor = '#e6ebf1'; };
+    }
+
+    // Badges
+    const badgeContainer = document.getElementById('detail-badges');
+    if (badgeContainer) {
+        badgeContainer.innerHTML = '';
+        if (price_level) {
+            const b = document.createElement('span');
+            b.className = 'info-badge price-badge';
+            b.textContent = '$'.repeat(price_level);
+            badgeContainer.appendChild(b);
+        }
+        if (best_time) {
+            const b = document.createElement('span');
+            b.className = 'info-badge time-badge';
+            b.textContent = best_time;
+            badgeContainer.appendChild(b);
+        }
+        if (duration) {
+            const b = document.createElement('span');
+            b.className = 'duration-badge';
+            b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;margin-right:4px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ${duration}`;
+            badgeContainer.appendChild(b);
+        }
+        if (accessibility) {
+            const b = document.createElement('span');
+            b.className = 'access-badge';
+            b.title = 'Accessibility Information';
+            b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> ${accessibility}`;
+            badgeContainer.appendChild(b);
+        }
+        if (transit_option) {
+            const t = document.createElement('span');
+            t.className = 'transit-badge';
+            t.title = 'Getting There';
+            let icon = '🚗';
+            if (transit_option === 'Boat') icon = '🚤';
+            if (transit_option === 'Walk') icon = '🚶';
+            if (transit_option === 'Hike') icon = '🥾';
+            t.innerHTML = `<span>${icon}</span> ${transit_option}`;
+            badgeContainer.appendChild(t);
+        }
+    }
+
+    // Weather Widget (Mock Data)
+    const weatherWidget = document.getElementById('detail-weather-widget');
+    if (weatherWidget) {
+        const isCoastal = category === 'coastal' || (tags && (tags.includes('Beach') || tags.includes('Island')));
+        const weatherIcon = isCoastal ? '☀️' : '⛅';
+        const weatherTemp = isCoastal ? '26°C' : '22°C';
+        const weatherDesc = isCoastal ? 'Sunny' : 'Partly Cloudy';
+
+        weatherWidget.style.display = 'flex';
+        weatherWidget.innerHTML = `
+            <div class="weather-icon">${weatherIcon}</div>
+            <div class="weather-info">
+                <h4>${weatherDesc} • ${weatherTemp}</h4>
+                <p>Best visit: ${best_time || 'Year-round'}</p>
+            </div>
+        `;
+    }
+
+    // === New Content Injection ===
+    const contentContainer = document.querySelector('.panel-content');
+
+    // Live Status & Vibe Injection
+    const injectedTitleEl = document.getElementById('detail-title');
+    if (injectedTitleEl) {
+        // Clear previous vibe/status containers if any
+        let existingVibe = injectedTitleEl.nextElementSibling;
+        while (existingVibe && (existingVibe.classList.contains('vibe-chips-container') || existingVibe.classList.contains('live-status-badge'))) {
+            const next = existingVibe.nextElementSibling;
+            existingVibe.remove();
+            existingVibe = next;
+        }
+
+        const injectAfterTitle = (el) => {
+            injectedTitleEl.parentNode.insertBefore(el, injectedTitleEl.nextSibling);
+        };
+
+        // Live Status Logic
+        const crowdData = getCrowdData(category, feature.properties.popularity_score || 75);
+        if (crowdData) {
+            const currentHour = new Date().getHours();
+            // crowdData maps index 0 to 8 AM. If hour < 8, use index 0. If hour > 20, use index 12.
+            const dataIndex = Math.max(0, Math.min(12, currentHour - 8));
+            const currentCrowd = crowdData[dataIndex];
+
+            let statusText = 'Quiet Now';
+            let dotClass = 'quiet';
+
+            if (currentCrowd >= 80) {
+                statusText = 'Busy Now';
+                dotClass = 'busy';
+            } else if (currentCrowd >= 50) {
+                statusText = 'Moderate Crowds';
+                dotClass = 'moderate';
+            }
+
+            const statusBadge = document.createElement('div');
+            statusBadge.className = 'live-status-badge';
+            statusBadge.innerHTML = `<span class="status-dot ${dotClass}"></span> ${statusText}`;
+            injectAfterTitle(statusBadge);
+        }
+
+        // Vibe Chips
+        if (vibe && Array.isArray(vibe)) {
+            const vibeContainer = document.createElement('div');
+            vibeContainer.className = 'vibe-chips-container';
+            vibeContainer.innerHTML = vibe.map(v => `<span class="vibe-chip">${v}</span>`).join('');
+            injectAfterTitle(vibeContainer);
+        }
+    }
+
+    // Remove old dynamic sections if any
+    const existingExtras = contentContainer.querySelectorAll('.dynamic-extra-section');
+    existingExtras.forEach(el => el.remove());
+
+    const insertAfter = (newNode, referenceNode) => {
+        if (referenceNode && referenceNode.parentNode) {
+            referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+        }
+    };
+
+    // Know Before You Go
+    if (good_to_know && Array.isArray(good_to_know)) {
+        const kbygBox = document.createElement('div');
+        kbygBox.className = 'kbyg-box dynamic-extra-section stagger-delay-1';
+        kbygBox.innerHTML = `
+            <div class="kbyg-header">📌 Know Before You Go</div>
+            <div class="kbyg-grid">
+                ${good_to_know.map(item => `
+                    <div class="kbyg-item">
+                        <span class="kbyg-label">${item.label}</span>
+                        <span class="kbyg-value">${item.value}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        const badgeContainer = document.getElementById('detail-badges');
+        if (badgeContainer) insertAfter(kbygBox, badgeContainer);
+    }
+
+    // Local's Perfect Day
+    if (perfect_day && Array.isArray(perfect_day)) {
+        const pdBox = document.createElement('div');
+        pdBox.className = 'timeline-box dynamic-extra-section stagger-delay-2';
+        pdBox.innerHTML = `
+            <div class="timeline-header">🧭 A Local's Perfect Day</div>
+            <div class="timeline-container">
+                ${perfect_day.map(item => `
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-time">${item.time}</div>
+                        <div class="timeline-content">${item.desc}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        const target = contentContainer.querySelector('.kbyg-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(pdBox, target);
+    }
+
+    // Fun Fact
+    if (fun_fact) {
+        const ffBox = document.createElement('div');
+        ffBox.className = 'fun-fact-box dynamic-extra-section';
+        ffBox.innerHTML = `
+            <div class="fun-fact-header">
+                <span style="font-size:14px;">💡</span> Did You Know?
+            </div>
+            <div class="fun-fact-content">${fun_fact}</div>
+        `;
+        const badgeContainer = document.getElementById('detail-badges');
+        if (badgeContainer) insertAfter(ffBox, badgeContainer);
+    }
+
+    // Legend (New)
+    if (legend) {
+        const legendBox = document.createElement('div');
+        legendBox.className = 'legend-box dynamic-extra-section';
+        legendBox.innerHTML = `
+            <div class="legend-header">Local Legend</div>
+            <div class="legend-content">${legend}</div>
+        `;
+        const target = contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(legendBox, target);
+    }
+
+    // Gastronomy Highlight (Enrichment)
+    if (gastronomy_highlight) {
+        const gastroBox = document.createElement('div');
+        gastroBox.className = 'dynamic-extra-section gastronomy-box';
+        gastroBox.innerHTML = `
+            <div class="enrichment-header">
+                <span style="font-size:14px;">🧑‍🍳</span> Chef's Recommendation
+            </div>
+            <div class="enrichment-content">
+                <div style="background: white; padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-color); font-style: italic; margin-top: 8px;">
+                    ${gastronomy_highlight}
+                </div>
+            </div>
+        `;
+        const target = contentContainer.querySelector('.legend-box') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(gastroBox, target);
+    }
+
+    // Hidden Secret (Enrichment)
+    if (hidden_secret) {
+        const secretBox = document.createElement('div');
+        secretBox.className = 'dynamic-extra-section secret-box';
+        secretBox.innerHTML = `
+            <div class="enrichment-header">
+                <span style="font-size:14px;">🤫</span> Insider Secret
+            </div>
+            <div class="enrichment-content">${hidden_secret}</div>
+        `;
+        const target = contentContainer.querySelector('.legend-box') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(secretBox, target);
+    }
+
+    // Photospot
+    if (photospot) {
+        const psBox = document.createElement('div');
+        psBox.className = 'photospot-box dynamic-extra-section';
+        psBox.innerHTML = `
+             <div class="photospot-header">
+                <span style="font-size:14px;">📸</span> Best Photo Spot
+            </div>
+            <div class="photospot-content">${photospot}</div>
+        `;
+        const target = contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-badges');
+        if (target) insertAfter(psBox, target);
+    }
+
+    // Best Time Visualizer (Mock logic for demo)
+    if (best_time) {
+        const btBox = document.createElement('div');
+        btBox.className = 'best-time-container dynamic-extra-section';
+
+        const months = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+        let active = [];
+        const low = best_time.toLowerCase();
+
+        if (low.includes('year')) active = [0,1,2,3,4,5,6,7,8,9,10,11];
+        else if (low.includes('jun') || low.includes('summer')) active = [5,6,7,8];
+        else if (low.includes('may') || low.includes('oct')) active = [4,5,6,7,8,9];
+        else active = [4,5,6,7,8]; // Default summer-ish
+
+        let bars = months.map((m, i) =>
+            `<div class="month-bar ${active.includes(i) ? 'active' : ''}" data-month="${m}"></div>`
+        ).join('');
+
+        btBox.innerHTML = `
+            <div class="best-time-header">
+                <span>Popularity by Month</span>
+                <span style="color:var(--accent-color);">${best_time}</span>
+            </div>
+            ${best_time_of_day ? `<div style="font-size:11px; color:var(--text-secondary); margin-bottom:8px; display:flex; align-items:center; gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg> Best time: <strong>${best_time_of_day}</strong></div>` : ''}
+            <div class="month-viz">${bars}</div>
+        `;
+
+        const target = contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(btBox, target);
+    }
+
+    // Crowd Forecast (New)
+    const crowdData = getCrowdData(category, feature.properties.popularity_score);
+    if (crowdData) {
+        const crowdBox = document.createElement('div');
+        crowdBox.className = 'crowd-box dynamic-extra-section';
+
+        let bars = crowdData.map((val, i) => {
+            const h = (i + 8); // Start at 8 AM
+            const label = h > 12 ? (h-12)+'PM' : h+'AM';
+            const height = val + '%';
+            // Simplified rendering: just bars
+            return `<div class="crowd-bar" style="height:${height}" title="${label}: ${val}% capacity"></div>`;
+        }).join('');
+
+        crowdBox.innerHTML = `
+            <div class="crowd-header">
+                <span>Typical Daily Crowds</span>
+            </div>
+            <div class="crowd-viz">
+                ${bars}
+            </div>
+            <div class="crowd-labels">
+                <span>8 AM</span>
+                <span>8 PM</span>
+            </div>
+        `;
+
+        const target = contentContainer.querySelector('.best-time-container') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(crowdBox, target);
+    }
+
+    // Instagrammability Score (New)
+    const instaScore = calculateInstaScore(feature.properties);
+    if (instaScore > 0) {
+        const instaBox = document.createElement('div');
+        instaBox.className = 'insta-box dynamic-extra-section';
+
+        let color = '#2dce89'; // Green
+        if (instaScore < 50) color = '#fb6340'; // Orange
+        if (instaScore >= 80) color = '#e1306c'; // Insta Pink
+
+        instaBox.innerHTML = `
+            <div class="insta-header">
+                <span>📸 Instagrammability</span>
+                <span style="color:${color}; font-weight:700;">${instaScore}/100</span>
+            </div>
+            <div class="insta-bar-bg">
+                <div class="insta-bar-fill" style="width:${instaScore}%; background:${color};"></div>
+            </div>
+            <p style="margin:4px 0 0; font-size:11px; color:var(--text-tertiary);">Based on views, uniqueness, and popularity.</p>
+        `;
+
+        const target = contentContainer.querySelector('.crowd-box') || contentContainer.querySelector('.best-time-container') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(instaBox, target);
+    }
+
+    // Packing List
+    const packingItems = getPackingList(category);
+    if (packingItems.length > 0) {
+        const packBox = document.createElement('div');
+        packBox.className = 'packing-box dynamic-extra-section';
+        packBox.style.marginBottom = '24px';
+        packBox.innerHTML = `
+            <div style="font-size:12px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                What to Pack
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                ${packingItems.map(item => `<span style="background:var(--bg-color); border:1px solid var(--border-color); padding:4px 8px; border-radius:4px; font-size:12px; color:var(--text-secondary);">${item}</span>`).join('')}
+            </div>
+        `;
+        // Insert after Best Time or Fun Fact
+        const target = contentContainer.querySelector('.best-time-container') || contentContainer.querySelector('.fun-fact-box') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(packBox, target);
+    }
+
+    // Getting There Detail
+    if (getting_there_detail) {
+        const gtBox = document.createElement('div');
+        gtBox.className = 'getting-there-box dynamic-extra-section';
+        gtBox.innerHTML = `
+            <div class="getting-there-header">
+               <span style="font-size:14px;">🧭</span> Getting There
+           </div>
+           <div class="getting-there-content">${getting_there_detail}</div>
+        `;
+        const target = contentContainer.querySelector('.packing-box') || contentContainer.querySelector('.best-time-container') || document.getElementById('detail-weather-widget');
+        if (target) insertAfter(gtBox, target);
+    }
+
+    // Notes Section
+    const notesBox = document.createElement('div');
+    notesBox.className = 'notes-box dynamic-extra-section';
+
+    const savedNote = getNotes(name);
+
+    notesBox.innerHTML = `
+        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px;">
+            📝 My Personal Notes
+        </div>
+        <textarea class="notes-textarea" placeholder="Add your notes here..."></textarea>
+        <button class="save-note-btn">Save Note</button>
+    `;
+
+    const textarea = notesBox.querySelector('.notes-textarea');
+    textarea.value = savedNote;
+    const saveNoteBtn = notesBox.querySelector('.save-note-btn');
+
+    saveNoteBtn.onclick = () => {
+        saveNote(name, textarea.value);
+        saveNoteBtn.textContent = 'Saved!';
+        saveNoteBtn.classList.add('saved');
+        setTimeout(() => {
+            saveNoteBtn.textContent = 'Save Note';
+            saveNoteBtn.classList.remove('saved');
+        }, 2000);
+    };
+
+    const footerAction = document.querySelector('.detail-footer-actions');
+    if (footerAction) footerAction.parentNode.insertBefore(notesBox, footerAction);
+
+    // Nearby Gems
+    if (allFeatures && allFeatures.length > 0) {
+        const [cLng, cLat] = feature.geometry.coordinates;
+
+        const others = allFeatures
+            .filter(f => f.properties.name !== name)
+            .map(f => {
+                const [lng, lat] = f.geometry.coordinates;
+                const d = getDistanceFromLatLonInKm(cLat, cLng, lat, lng);
+                return { ...f, dist: d };
+            })
+            .sort((a, b) => a.dist - b.dist)
+            .slice(0, 3);
+
+        if (others.length > 0) {
+            const nearby = document.createElement('div');
+            nearby.className = 'nearby-section dynamic-extra-section';
+            nearby.style.marginTop = '24px';
+            nearby.innerHTML = `<h3>Nearby Gems</h3>`;
+
+            const grid = document.createElement('div');
+            grid.className = 'nearby-grid';
+
+            others.forEach(o => {
+                const card = document.createElement('div');
+                card.className = 'nearby-card';
+                card.innerHTML = `
+                    <div class="nearby-thumb"><img src="${o.properties.image_url}" onerror="this.style.display='none'"></div>
+                    <div class="nearby-info">
+                        <div class="nearby-title">${o.properties.name}</div>
+                        <div class="nearby-dist">${o.dist.toFixed(1)} km</div>
+                    </div>
+                `;
+                card.onclick = () => {
+                   const [lng, lat] = o.geometry.coordinates;
+                   const event = new CustomEvent('flyToSite', { detail: { lat, lng, name: o.properties.name } });
+                   document.dispatchEvent(event);
+                };
+                grid.appendChild(card);
+            });
+
+            nearby.appendChild(grid);
+
+            const footer = document.querySelector('.detail-footer-actions');
+            if (footer) footer.parentNode.insertBefore(nearby, footer);
+        }
+
+        // Similar Vibe
+        const similar = findSimilarSites(feature, allFeatures);
+        if (similar.length > 0) {
+            const similarDiv = document.createElement('div');
+            similarDiv.className = 'similar-section dynamic-extra-section';
+            similarDiv.style.marginTop = '24px';
+            similarDiv.innerHTML = `<h3>You Might Also Like</h3>`;
+
+            const grid = document.createElement('div');
+            grid.className = 'nearby-grid'; // Reuse styles
+
+            similar.forEach(s => {
+                const card = document.createElement('div');
+                card.className = 'nearby-card';
+                card.innerHTML = `
+                    <div class="nearby-thumb"><img src="${s.properties.image_url}" onerror="this.style.display='none'"></div>
+                    <div class="nearby-info">
+                        <div class="nearby-title">${s.properties.name}</div>
+                        <div class="nearby-dist" style="color:var(--accent-color); font-weight:600;">${s.properties.category}</div>
+                    </div>
+                `;
+                card.onclick = () => {
+                   const [lng, lat] = s.geometry.coordinates;
+                   const event = new CustomEvent('flyToSite', { detail: { lat, lng, name: s.properties.name } });
+                   document.dispatchEvent(event);
+                   document.getElementById('site-detail-panel').scrollTop = 0;
+                };
+                grid.appendChild(card);
+            });
+
+            similarDiv.appendChild(grid);
+            const footer = document.querySelector('.detail-footer-actions');
+            if (footer) footer.parentNode.insertBefore(similarDiv, footer);
+        }
+    }
+
+    // Tip
+    const tipBox = document.getElementById('detail-tip-box');
+    const tipText = document.getElementById('detail-tip');
+    if (tipBox && tipText) {
+        if (local_tip) {
+            tipBox.style.display = 'block';
+            tipText.textContent = local_tip;
+        } else {
+            tipBox.style.display = 'none';
+        }
+    }
+
+    // Tags
+    const tagsContainer = document.getElementById('detail-tags');
+    if (tagsContainer) {
+        tagsContainer.innerHTML = '';
+        if (tags) {
+            tags.forEach(tag => {
+                const t = document.createElement('span');
+                t.className = 'tag-chip';
+                t.textContent = tag;
+                tagsContainer.appendChild(t);
+            });
+        }
+    }
+
+    // Website
+    const webBtn = document.getElementById('detail-website');
+    if (webBtn) {
+        if (website) {
+            webBtn.href = website;
+            webBtn.style.display = 'flex';
+        } else {
+            webBtn.style.display = 'none';
+        }
+    }
+
+    // Directions & Street View
+    const dirBtn = document.getElementById('detail-directions');
+    if (dirBtn) {
+        const [lng, lat] = feature.geometry.coordinates;
+        dirBtn.href = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+
+        // Add Street View Button if not exists
+        const footerActions = document.querySelector('.detail-footer-actions');
+        const existingSv = document.getElementById('detail-streetview');
+        if (existingSv) existingSv.remove();
+
+        const svBtn = document.createElement('a');
+        svBtn.id = 'detail-streetview';
+        svBtn.className = 'website-btn secondary-btn'; // Reusing secondary style
+        svBtn.target = '_blank';
+        svBtn.href = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lng}`;
+        svBtn.innerHTML = `
+            Street View
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        `;
+
+        // Insert between directions and website
+        const websiteButton = document.getElementById('detail-website');
+        if (footerActions && websiteButton) {
+            footerActions.insertBefore(svBtn, websiteButton);
+        }
+    }
+
+    // Local Lingo
+    const phraseBox = document.createElement('div');
+    phraseBox.className = 'phrase-box dynamic-extra-section local-lingo-box';
+    phraseBox.style.marginTop = '24px';
+
+    const lingoByCategory = {
+        'gastronomy': [
+            { hr: "Mogu li dobiti jelovnik?", en: "Can I have the menu?" },
+            { hr: "Račun, molim", en: "The bill, please" },
+            { hr: "Jako ukusno", en: "Very tasty" }
+        ],
+        'historical': [
+            { hr: "Jednu kartu, molim", en: "One ticket, please" },
+            { hr: "Gdje je muzej?", en: "Where is the museum?" },
+            { hr: "Smijem li slikati?", en: "May I take photos?" }
+        ],
+        'cultural': [
+            { hr: "Jednu kartu, molim", en: "One ticket, please" },
+            { hr: "Gdje je muzej?", en: "Where is the museum?" },
+            { hr: "Smijem li slikati?", en: "May I take photos?" }
+        ],
+        'coastal': [
+            { hr: "Gdje je plaža?", en: "Where is the beach?" },
+            { hr: "Trebam brod", en: "I need a boat" },
+            { hr: "Predivno", en: "Beautiful" }
+        ],
+        'natural': [
+            { hr: "Gdje je staza?", en: "Where is the trail?" },
+            { hr: "Predivno", en: "Beautiful" },
+            { hr: "Idemo!", en: "Let's go!" }
+        ],
+        'adventure': [
+            { hr: "Je li sigurno?", en: "Is it safe?" },
+            { hr: "Trebam pomoć", en: "I need help" },
+            { hr: "Idemo!", en: "Let's go!" }
+        ],
+        'default': [
+            { hr: "Hvala", en: "Thank you" },
+            { hr: "Koliko košta?", en: "How much?" },
+            { hr: "Dobar dan", en: "Good day" }
+        ]
+    };
+
+    const catKey = category ? category.toLowerCase() : 'default';
+    const phrases = lingoByCategory[catKey] || lingoByCategory['default'];
+
+    let phraseHtml = '';
+    phrases.forEach((p, i) => {
+        phraseHtml += `
+            <div class="lingo-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px; border-bottom: ${i < phrases.length - 1 ? '1px solid var(--border-color)' : 'none'};">
+                <div style="display:flex; flex-direction:column;">
+                    <span style="font-size:14px; font-weight:600; color:var(--text-primary);">${p.hr}</span>
+                    <span style="font-size:12px; color:var(--text-secondary);">${p.en}</span>
+                </div>
+                <button class="audio-play-btn lingo-audio-btn" data-phrase="${p.hr}" style="width:28px; height:28px;" title="Listen">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+            </div>
+        `;
+    });
+
+    phraseBox.innerHTML = `
+        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center;">
+            <span>🇭🇷 Local Lingo</span>
+        </div>
+        <div style="background:var(--surface-color); border:1px solid var(--border-color); border-radius:var(--radius-md); display:flex; flex-direction:column;">
+            ${phraseHtml}
+        </div>
+    `;
+
+    // Audio Logic for Phrases
+    phraseBox.querySelectorAll('.lingo-audio-btn').forEach(btn => {
+        btn.onclick = (e) => {
+            const hrText = e.currentTarget.getAttribute('data-phrase');
+            const u = new SpeechSynthesisUtterance(hrText);
+            u.lang = 'hr-HR';
+            window.speechSynthesis.speak(u);
+        };
+    });
+
+    // Insert near bottom
+    const similarSection = contentContainer.querySelector('.similar-section');
+    if (similarSection) insertAfter(phraseBox, similarSection);
+    else {
+        // Fallback
+        const footer = document.querySelector('.detail-footer-actions');
+        if (footer) footer.parentNode.insertBefore(phraseBox, footer);
+    }
+
+    // Favorites State
+    const favBtn = document.getElementById('detail-fav-btn');
+    if (favBtn) {
+        const updateFavState = () => {
+            const favorites = getFavorites();
+            const isFav = favorites.includes(name);
+            favBtn.classList.toggle('active', isFav);
+            favBtn.querySelector('svg').setAttribute('fill', isFav ? 'currentColor' : 'none');
+        };
+        updateFavState();
+
+        favBtn.onclick = () => {
+            toggleFavorite(name, () => {
+                updateFavState();
+                document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+            });
+        };
+    }
+
+    // Visited State (New Button injection)
+    // Remove old one if exists
+    const existingVisitBtn = document.getElementById('detail-visit-btn');
+    if (existingVisitBtn) existingVisitBtn.remove();
+
+    // Create Visit Button in Action Panel
+    const actionPanel = document.querySelector('.panel-actions');
+    if (actionPanel) {
+        const visitBtn = document.createElement('button');
+        visitBtn.id = 'detail-visit-btn';
+        visitBtn.className = 'action-icon-btn';
+        visitBtn.title = 'Mark as Visited';
+        visitBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+        const updateVisitState = () => {
+             const visited = getVisited();
+             const isVisited = visited.includes(name);
+             visitBtn.classList.toggle('active', isVisited);
+             // Maybe different style for visited
+             if (isVisited) {
+                 visitBtn.style.background = 'var(--accent-color)';
+                 visitBtn.style.color = 'white';
+             } else {
+                 visitBtn.style.background = '';
+                 visitBtn.style.color = '';
+             }
+        };
+        updateVisitState();
+
+        visitBtn.onclick = () => {
+            toggleVisited(name, () => {
+                updateVisitState();
+                document.dispatchEvent(new CustomEvent('favoritesUpdated')); // Reuse this event to trigger re-renders
+            });
+        };
+
+        // Insert before share button
+        const shareBtn = document.getElementById('detail-share-btn');
+        if (shareBtn) actionPanel.insertBefore(visitBtn, shareBtn);
+    }
+
+    // Postcard Btn (New)
+    const existingPostcardBtn = document.getElementById('detail-postcard-btn');
+    if (existingPostcardBtn) existingPostcardBtn.remove();
+
+    if (actionPanel) {
+        const postcardBtn = document.createElement('button');
+        postcardBtn.id = 'detail-postcard-btn';
+        postcardBtn.className = 'action-icon-btn';
+        postcardBtn.title = 'Create Postcard';
+        postcardBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`;
+
+        postcardBtn.onclick = () => {
+            createPostcardModal(feature);
+        };
+
+        // Insert before share button
+        const shareBtn = document.getElementById('detail-share-btn');
+        if (shareBtn) actionPanel.insertBefore(postcardBtn, shareBtn);
+    }
+
+    // Share Btn
+    const shareBtn = document.getElementById('detail-share-btn');
+    if (shareBtn) {
+        shareBtn.onclick = () => {
+             const url = new URL(window.location.origin + window.location.pathname);
+             url.searchParams.set('site', name);
+             navigator.clipboard.writeText(url.toString());
+
+             // Simple visual feedback
+             const originalColor = shareBtn.style.color;
+             shareBtn.style.color = 'var(--accent-color)';
+             setTimeout(() => shareBtn.style.color = originalColor, 500);
+        };
+    }
+
+    // Show Panel
+    panel.classList.remove('hidden');
+
+    // Handle Back
+    const backBtn = document.getElementById('detail-back-btn');
+    if (backBtn) {
+        backBtn.onclick = () => {
+            closeDetailPanel();
+            window.speechSynthesis.cancel(); // Stop audio on close
+        };
+    }
+}
+
+export function closeDetailPanel() {
+    const panel = document.getElementById('site-detail-panel');
+    if (panel) panel.classList.add('hidden');
+}
+
+export function setupShareTrip() {
+    const btn = document.getElementById('share-trip-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+        const favorites = getFavorites();
+        if (favorites.length === 0) {
+            alert("Add some sites to your favorites (My Trip) first!");
+            return;
+        }
+
+        const url = new URL(window.location.origin + window.location.pathname);
+        url.searchParams.set('trip', favorites.join(','));
+
+        navigator.clipboard.writeText(url.toString()).then(() => {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Copied!
+            `;
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        });
+    });
+}
+
+export function setupScrollEffects() {
+    const sidebarContent = document.querySelector('.sidebar-content');
+    if (sidebarContent) {
+        let ticking = false;
+        sidebarContent.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (sidebarContent.scrollTop > 10) {
+                        sidebarContent.classList.add('scrolled');
+                    } else {
+                        sidebarContent.classList.remove('scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+    }
+}
+
+export function renderCollections(collections, filterCallback) {
+    const container = document.getElementById('collections-container');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    const scrollContainer = document.createElement('div');
+    scrollContainer.className = 'collections-scroll';
+
+    collections.forEach(col => {
+        const btn = document.createElement('button');
+        btn.className = 'collection-chip';
+        btn.dataset.collection = col.tag;
+        // Clean, minimal structure
+        btn.innerHTML = `
+            <span class="collection-icon">${col.icon}</span>
+            <span class="collection-name">${col.name}</span>
+        `;
+
+        btn.addEventListener('click', () => {
+            const wasActive = btn.classList.contains('active');
+
+            // Deactivate all others
+            container.querySelectorAll('.collection-chip').forEach(c => c.classList.remove('active'));
+
+            if (!wasActive) {
+                btn.classList.add('active');
+            }
+
+            filterCallback();
+        });
+
+        scrollContainer.appendChild(btn);
+    });
+
+    container.appendChild(scrollContainer);
+}
+
+export function setupTravelTips() {
+    const btn = document.getElementById('travel-tips-btn');
+    const modal = document.getElementById('travel-tips-modal');
+    const closeBtn = modal ? modal.querySelector('.modal-close') : null;
+
+    if (!btn || !modal) return;
+
+    btn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        // Small delay to allow transition
+        setTimeout(() => {
+            modal.classList.add('visible');
+        }, 10);
+    });
+
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    };
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('visible')) {
+            closeModal();
+        }
+    });
+
+    // --- Dynamic Phrases with Audio ---
+    const phraseGrid = modal.querySelector('.phrase-grid');
+    if (phraseGrid) {
+        phraseGrid.innerHTML = ''; // Clear static content
+        const phrases = [
+            { hr: "Hvala", en: "Thank you" },
+            { hr: "Molim", en: "Please" },
+            { hr: "Bok", en: "Hi / Bye" },
+            { hr: "Pivo", en: "Beer" },
+            { hr: "Dobar dan", en: "Good day" },
+            { hr: "Koliko košta?", en: "How much?" }
+        ];
+
+        // Add Play All Button
+        const container = phraseGrid.parentElement;
+        const header = container.querySelector('h4');
+        if (header && !header.querySelector('.play-all-btn')) {
+             const playAllBtn = document.createElement('button');
+             playAllBtn.className = 'action-btn play-all-btn';
+             playAllBtn.style.cssText = 'font-size: 11px; margin-left: 8px; padding: 2px 8px; border: 1px solid var(--accent-color); border-radius: 12px;';
+             playAllBtn.innerHTML = '▶ Play All';
+
+             let isPlaying = false;
+
+             playAllBtn.onclick = () => {
+                 if (isPlaying) {
+                     window.speechSynthesis.cancel();
+                     isPlaying = false;
+                     playAllBtn.innerHTML = '▶ Play All';
+                     return;
+                 }
+
+                 // Cancel any ongoing speech
+                 window.speechSynthesis.cancel();
+                 isPlaying = true;
+                 playAllBtn.innerHTML = '⏹ Stop';
+
+                 let currentIndex = 0;
+
+                 const playNext = () => {
+                     if (!isPlaying || currentIndex >= phrases.length) {
+                         isPlaying = false;
+                         playAllBtn.innerHTML = '▶ Play All';
+                         return;
+                     }
+
+                     const p = phrases[currentIndex];
+                     const u = new SpeechSynthesisUtterance(p.hr);
+                     u.lang = 'hr-HR';
+
+                     u.onend = () => {
+                         currentIndex++;
+                         // Small pause between words
+                         setTimeout(playNext, 500);
+                     };
+
+                     u.onerror = () => {
+                         console.error('Speech synthesis error');
+                         isPlaying = false;
+                         playAllBtn.innerHTML = '▶ Play All';
+                     };
+
+                     window.speechSynthesis.speak(u);
+                 };
+
+                 playNext();
+             };
+
+             header.style.display = 'flex';
+             header.style.alignItems = 'center';
+             header.appendChild(playAllBtn);
+        }
+
+        phrases.forEach(p => {
+            const item = document.createElement('div');
+            item.className = 'phrase-item';
+
+            const btn = document.createElement('button');
+            btn.className = 'audio-play-btn';
+            btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+            btn.title = "Listen";
+            btn.onclick = () => {
+                const u = new SpeechSynthesisUtterance(p.hr);
+                u.lang = 'hr-HR'; // Ideally Croatian, falls back if not available
+                window.speechSynthesis.speak(u);
+            };
+
+            const textSpan = document.createElement('span');
+            textSpan.textContent = p.hr;
+            textSpan.style.fontWeight = '600';
+            textSpan.style.marginRight = '4px';
+
+            const transSpan = document.createElement('span');
+            transSpan.className = 'trans';
+            transSpan.textContent = p.en;
+
+            item.appendChild(btn);
+            item.appendChild(textSpan);
+            item.appendChild(transSpan);
+            phraseGrid.appendChild(item);
+        });
+    }
+}
+
+// --- My Trip / Itinerary Feature ---
+
+function parseDuration(durationStr) {
+    if (!durationStr) return 0;
+    const str = durationStr.toLowerCase();
+    let hours = 0;
+
+    if (str.includes('day')) {
+        if (str.includes('half')) hours = 4;
+        else if (str.includes('full')) hours = 8;
+        else {
+             const days = parseInt(str) || 1;
+             hours = days * 8; // Assume 8h touring day
+        }
+    } else if (str.includes('hour')) {
+        // "2-3 hours" -> take avg 2.5
+        const matches = str.match(/(\d+)/g);
+        if (matches) {
+            if (matches.length > 1) {
+                hours = (parseInt(matches[0]) + parseInt(matches[1])) / 2;
+            } else {
+                hours = parseInt(matches[0]);
+            }
+        }
+    } else if (str.includes('min')) {
+        const matches = str.match(/(\d+)/g);
+        if (matches) {
+            hours = parseInt(matches[0]) / 60;
+        }
+    }
+    return hours;
+}
+
+function renderMyTripList(features, container, durationEl) {
+    container.innerHTML = '';
+    let totalHours = 0;
+    let totalPricePoints = 0;
+    const categoryCounts = {};
+    const tripDays = getTripDays();
+
+    if (features.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div style="font-size: 40px; margin-bottom: 16px;">🗺️</div>
+                <p style="margin:0; font-weight:600; color:var(--text-primary);">Your trip is empty</p>
+                <p style="margin-top:8px;">Start exploring the map and click the heart icon to add places to your itinerary.</p>
+                <button class="empty-state-action" style="margin-top:16px;">Start Exploring</button>
+            </div>
+        `;
+
+        const exploreBtn = container.querySelector('.empty-state-action');
+        if (exploreBtn) {
+            exploreBtn.onclick = () => {
+                const modal = document.getElementById('my-trip-modal');
+                if (modal) {
+                     const close = modal.querySelector('.modal-close');
+                     if (close) close.click();
+                }
+                const search = document.getElementById('search-input');
+                if (search) search.focus();
+            };
+        }
+
+        if (durationEl) durationEl.textContent = '0h';
+        return;
+    }
+
+    // Calculate breakdown
+    features.forEach(f => {
+        const cat = f.properties.category || 'other';
+        categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+    });
+
+    // Render Breakdown Bar
+    if (features.length > 0) {
+        const breakdownDiv = document.createElement('div');
+        breakdownDiv.style.cssText = 'padding: 16px 24px; border-bottom: 1px solid var(--divider-color); display: flex; gap: 8px; overflow-x: auto; background: var(--bg-color);';
+
+        Object.entries(categoryCounts).forEach(([cat, count]) => {
+            const chip = document.createElement('div');
+            chip.style.cssText = 'font-size: 11px; padding: 4px 8px; background: var(--surface-color); border-radius: 12px; border: 1px solid var(--border-color); white-space: nowrap; color: var(--text-secondary); display: flex; align-items: center; gap: 4px;';
+            chip.innerHTML = `<span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color);"></span> <strong>${count}</strong> ${cat.charAt(0).toUpperCase() + cat.slice(1)}`;
+            breakdownDiv.appendChild(chip);
+        });
+        container.appendChild(breakdownDiv);
+    }
+
+    // Grouping Logic: By Day
+    const grouped = {};
+    features.forEach(f => {
+        const name = f.properties.name;
+        const day = tripDays[name] || 0; // 0 = Unassigned
+        const key = day === 0 ? "Unassigned" : `Day ${day}`;
+        if (!grouped[key]) grouped[key] = [];
+        grouped[key].push(f);
+    });
+
+    // Sort Keys
+    const keys = Object.keys(grouped).sort((a, b) => {
+        if (a === "Unassigned") return 1; // Unassigned at bottom
+        if (b === "Unassigned") return -1;
+        const da = parseInt(a.replace("Day ", ""));
+        const db = parseInt(b.replace("Day ", ""));
+        return da - db;
+    });
+
+    keys.forEach(groupKey => {
+        const header = document.createElement('div');
+        header.className = 'group-header';
+        header.style.cssText = 'padding: 12px 24px 4px; font-size: 11px; font-weight: 800; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; background: var(--bg-color); position: sticky; top: 0; z-index: 5; border-bottom: 1px solid var(--divider-color); display:flex; justify-content:space-between; align-items:center;';
+
+        // Calculate Day Stats
+        let dayDuration = 0;
+        grouped[groupKey].forEach(f => {
+             dayDuration += parseDuration(f.properties.duration);
+        });
+
+        header.innerHTML = `
+            <span>${groupKey}</span>
+            <span style="font-weight:400; color:var(--text-tertiary);">${dayDuration > 0 ? dayDuration + 'h' : ''}</span>
+        `;
+        container.appendChild(header);
+
+        grouped[groupKey].forEach(feature => {
+            const { name, category, duration, image_url, price_level } = feature.properties;
+            totalHours += parseDuration(duration);
+            totalPricePoints += (price_level || 1);
+
+            const item = document.createElement('div');
+            item.className = 'trip-item';
+
+            // Thumb
+            const thumb = document.createElement('img');
+            thumb.className = 'trip-item-thumb';
+            thumb.src = image_url || '';
+            thumb.onerror = () => { thumb.src = ''; thumb.style.background = '#e6ebf1'; };
+            item.appendChild(thumb);
+
+            // Info
+            const info = document.createElement('div');
+            info.className = 'trip-item-info';
+
+            const title = document.createElement('div');
+            title.className = 'trip-item-title';
+            title.textContent = name;
+            info.appendChild(title);
+
+            const meta = document.createElement('div');
+            meta.className = 'trip-item-meta';
+            meta.innerHTML = `<span style="color:var(--accent-color); font-weight:600; text-transform:uppercase; font-size:10px;">${category}</span> • ${duration || 'N/A'}`;
+            info.appendChild(meta);
+
+            item.appendChild(info);
+
+            // Day Selector (New)
+            const daySelect = document.createElement('select');
+            daySelect.className = 'day-selector';
+            daySelect.style.cssText = 'margin-right: 12px; font-size: 11px; padding: 4px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-color); cursor:pointer; color:var(--text-secondary); max-width: 80px;';
+            daySelect.onclick = (e) => e.stopPropagation();
+
+            const currentDay = tripDays[name] || 0;
+            let opts = `<option value="0" ${currentDay === 0 ? 'selected' : ''}>--</option>`;
+            for(let d=1; d<=7; d++) {
+                opts += `<option value="${d}" ${currentDay === d ? 'selected' : ''}>Day ${d}</option>`;
+            }
+            daySelect.innerHTML = opts;
+
+            daySelect.onchange = (e) => {
+                setTripDay(name, e.target.value);
+            };
+            item.appendChild(daySelect);
+
+            // Remove Btn
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'trip-remove-btn';
+            removeBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+            removeBtn.title = "Remove from Trip";
+            removeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleFavorite(name, () => {
+                    // Refresh handled by event listener in setupMyTripModal
+                    setTripDay(name, 0); // Cleanup day assignment
+                });
+            });
+            item.appendChild(removeBtn);
+
+            // Click to fly to
+            item.addEventListener('click', (e) => {
+                 if (e.target !== removeBtn && !removeBtn.contains(e.target) && e.target !== daySelect) {
+                     const [lng, lat] = feature.geometry.coordinates;
+                     const event = new CustomEvent('flyToSite', { detail: { lat, lng, name } });
+                     document.dispatchEvent(event);
+                     document.querySelector('#my-trip-modal .modal-close').click();
+                 }
+            });
+
+            container.appendChild(item);
+        });
+    });
+
+    if (durationEl) {
+        // Format nicely
+        let displayTime = totalHours + 'h';
+        if (totalHours > 8) {
+             const days = (totalHours / 8).toFixed(1);
+             displayTime = `${days} days (${totalHours}h)`;
+        }
+
+        durationEl.textContent = displayTime;
+
+        // Budget
+        const estCost = totalPricePoints * 35; // Approx 35 EUR per point
+        let budgetEl = document.getElementById('trip-budget');
+        if (!budgetEl) {
+            budgetEl = document.createElement('div');
+            budgetEl.id = 'trip-budget';
+            budgetEl.className = 'trip-budget-display';
+            durationEl.parentNode.appendChild(budgetEl);
+        }
+        budgetEl.innerHTML = `<span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase; font-weight:700;">Est. Cost:</span> <strong style="font-size:18px; color:var(--accent-color);">~€${estCost}</strong>`;
+        // Handle empty state
+        if (features.length === 0) budgetEl.innerHTML = '';
+    }
+}
+
+export function setupMyTripModal(allFeatures) {
+    const btn = document.getElementById('my-trip-btn');
+    const modal = document.getElementById('my-trip-modal');
+    const closeBtn = modal ? modal.querySelector('.modal-close') : null;
+    const listContainer = document.getElementById('my-trip-list');
+    const durationEl = document.getElementById('trip-duration');
+    const startBtn = document.getElementById('trip-start-action');
+    const shareBtn = document.getElementById('trip-share-action');
+
+    if (!btn || !modal) return;
+
+    // Add Show Route Toggle
+    const footer = modal.querySelector('.modal-footer');
+    let routeToggleContainer = modal.querySelector('.trip-actions-extended');
+    if (!routeToggleContainer) {
+        routeToggleContainer = document.createElement('div');
+        routeToggleContainer.className = 'trip-actions-extended';
+        routeToggleContainer.innerHTML = `
+            <label class="show-route-toggle">
+                <input type="checkbox" id="show-trip-route-cb" style="display:none;">
+                <div class="toggle-switch"></div>
+                <span>Show Route on Map</span>
+            </label>
+        `;
+        footer.insertBefore(routeToggleContainer, footer.firstChild);
+
+        const cb = document.getElementById('show-trip-route-cb');
+        cb.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                const favorites = getFavorites();
+                const tripFeatures = favorites.map(name => allFeatures.find(f => f.properties.name === name)).filter(f => f);
+                document.dispatchEvent(new CustomEvent('showTripRoute', { detail: { features: tripFeatures } }));
+            } else {
+                document.dispatchEvent(new CustomEvent('hideTripRoute'));
+            }
+        });
+    }
+
+    const openModal = () => {
+        const favorites = getFavorites();
+        const favFeatures = allFeatures.filter(f => favorites.includes(f.properties.name));
+        renderMyTripList(favFeatures, listContainer, durationEl);
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.add('visible'), 10);
+    };
+
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+        // Uncheck the toggle if they close
+        const cb = document.getElementById('show-trip-route-cb');
+        if (cb && cb.checked && window.innerWidth > 768) { // Keep route on mobile when closing modal
+             // Wait, if they check it on mobile they want to see the map.
+             // Maybe don't uncheck it automatically on desktop either until they clear filters.
+        }
+    };
+
+    btn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Print Action
+    const printBtn = document.getElementById('trip-print-action');
+    if (printBtn) {
+        // Optimize Action
+        const optimizeBtn = document.createElement('button');
+        optimizeBtn.className = 'action-btn';
+        optimizeBtn.style.marginRight = 'auto'; // Push others to right if flex
+        optimizeBtn.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+            Optimize
+        `;
+
+        if (!printBtn.parentElement.querySelector('.optimize-inserted')) {
+             printBtn.parentElement.insertBefore(optimizeBtn, printBtn);
+             optimizeBtn.classList.add('optimize-inserted');
+        }
+
+        optimizeBtn.onclick = () => {
+            const favorites = getFavorites();
+            if (favorites.length < 2) return;
+
+            const tripFeatures = allFeatures.filter(f => favorites.includes(f.properties.name));
+
+            // Simple Sort: North to South (Latitude Descending)
+            tripFeatures.sort((a, b) => b.geometry.coordinates[1] - a.geometry.coordinates[1]);
+
+            const newOrder = tripFeatures.map(f => f.properties.name);
+            localStorage.setItem('croatia_favorites', JSON.stringify(newOrder));
+            document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+
+            renderMyTripList(tripFeatures, listContainer, durationEl);
+        };
+
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    }
+
+    // Copy as Text Action
+    const copyTextBtn = document.createElement('button');
+    copyTextBtn.className = 'action-btn';
+    copyTextBtn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        Copy Text
+    `;
+    if (shareBtn && shareBtn.parentNode) {
+        shareBtn.parentNode.insertBefore(copyTextBtn, shareBtn);
+    }
+
+    copyTextBtn.onclick = () => {
+        const favorites = getFavorites();
+        if (favorites.length === 0) return;
+
+        // Get features in order
+        const tripFeatures = favorites.map(name => allFeatures.find(f => f.properties.name === name)).filter(f => f);
+
+        let text = "🇭🇷 My Croatia Itinerary\n\n";
+        tripFeatures.forEach((f, i) => {
+            text += `${i + 1}. ${f.properties.name}\n   ⏱ ${f.properties.duration || 'N/A'} • ${f.properties.category}\n\n`;
+        });
+
+        const totalDuration = document.getElementById('trip-duration').textContent;
+        const totalBudget = document.getElementById('trip-budget') ? document.getElementById('trip-budget').innerText.replace('Est. Cost:', '').trim() : '';
+
+        text += `Total Duration: ${totalDuration}\n`;
+        if (totalBudget) text += `Estimated Budget: ${totalBudget}\n`;
+        text += `\nShared via Croatia Guide`;
+
+        navigator.clipboard.writeText(text).then(() => {
+            const original = copyTextBtn.innerHTML;
+            copyTextBtn.textContent = 'Copied!';
+            setTimeout(() => copyTextBtn.innerHTML = original, 2000);
+        });
+    };
+
+    // Share Action
+    if (shareBtn) {
+        shareBtn.addEventListener('click', () => {
+             const favorites = getFavorites();
+             if (favorites.length === 0) return;
+             const url = new URL(window.location.origin + window.location.pathname);
+             url.searchParams.set('trip', favorites.join(','));
+             navigator.clipboard.writeText(url.toString()).then(() => {
+                const original = shareBtn.textContent;
+                shareBtn.textContent = 'Copied!';
+                setTimeout(() => shareBtn.textContent = original, 2000);
+             });
+        });
+    }
+
+    // Start Route Action (Get directions to first item)
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            const favorites = getFavorites();
+             if (favorites.length === 0) return;
+
+             // Get features in order
+             const tripFeatures = favorites.map(name => allFeatures.find(f => f.properties.name === name)).filter(f => f);
+
+             if (tripFeatures.length > 0) {
+                 const last = tripFeatures[tripFeatures.length - 1];
+                 const [destLng, destLat] = last.geometry.coordinates;
+
+                 let url = `https://www.google.com/maps/dir/?api=1&destination=${destLat},${destLng}`;
+
+                 if (tripFeatures.length > 1) {
+                     const waypoints = tripFeatures.slice(0, tripFeatures.length - 1)
+                        .map(f => {
+                            const [lng, lat] = f.geometry.coordinates;
+                            return `${lat},${lng}`;
+                        })
+                        .join('|');
+                     url += `&waypoints=${waypoints}`;
+                 }
+
+                 window.open(url, '_blank');
+             }
+        });
+    }
+}
+
+export function setupSuggestedRoutes(allFeatures) {
+    const btn = document.getElementById('routes-btn');
+    const modal = document.getElementById('routes-modal');
+    const closeBtn = modal ? modal.querySelector('.modal-close') : null;
+    const container = document.getElementById('routes-container');
+
+    if (!btn || !modal) return;
+
+    // Define Routes
+    const routes = [
+        {
+            name: "Game of Thrones Tour",
+            sites: ["Dubrovnik City Walls", "Lovrijenac Fortress", "Diocletian's Palace", "Klis Fortress", "Trsteno Arboretum"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Dubrovnik_-_Lovrijenac.jpg/800px-Dubrovnik_-_Lovrijenac.jpg",
+            desc: "Walk in the footsteps of your favorite characters in Dubrovnik (King's Landing) and Split."
+        },
+        {
+            name: "Istrian Gastronomy",
+            sites: ["Rovinj Old Town", "Truffle Hunting (Motovun)", "Hum", "Pula Arena", "Euphrasian Basilica"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Motovun_Istria_Croatia.jpg/800px-Motovun_Istria_Croatia.jpg",
+            desc: "A culinary journey through Istria's truffles, wines, and ancient Roman history."
+        },
+        {
+            name: "Dalmatian Highlights",
+            sites: ["Zadar Sea Organ", "Krka National Park", "Trogir Old Town", "Split Diocletian's Palace"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Sea_organ_Zadar.jpg/800px-Sea_organ_Zadar.jpg",
+            desc: "The essential coastal route from Zadar to Split, featuring waterfalls and UNESCO sites."
+        },
+        {
+            name: "Slavonia & Danube",
+            sites: ["Osijek Tvr\u0111a", "Kopa\u010dki Rit", "Vu\u010dedol Culture Museum"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Osijek_Tvrdja.jpg/800px-Osijek_Tvrdja.jpg",
+            desc: "Discover the hidden gems of Eastern Croatia, from baroque fortresses to wetlands."
+        },
+        {
+            name: "Island Hopping Adventure",
+            sites: ["Hvar Town", "Korčula Old Town", "Stiniva Cove (Vis)", "Blue Cave (Biševo)", "Mljet National Park"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Hvar_Town_Harbour.jpg/800px-Hvar_Town_Harbour.jpg",
+            desc: "Sail through the most beautiful islands of the Adriatic, exploring hidden coves and historic towns."
+        },
+        {
+            name: "Nature Lover's Paradise",
+            sites: ["Plitvice Lakes National Park", "Krka National Park", "Risnjak National Park", "Paklenica National Park", "Telašćica Nature Park"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Plitvice_Lakes_National_Park_%282%29.jpg/800px-Plitvice_Lakes_National_Park_%282%29.jpg",
+            desc: "Immerse yourself in Croatia's stunning natural beauty, from waterfalls to mountain peaks."
+        }
+    ];
+
+    const openModal = () => {
+        container.innerHTML = '';
+        routes.forEach(route => {
+            // Check availability of sites in current data
+            const availableSites = route.sites.filter(name => allFeatures.some(f => f.properties.name === name));
+            const count = availableSites.length;
+
+            const card = document.createElement('div');
+            card.className = 'route-card';
+            card.innerHTML = `
+                <div class="route-card-image">
+                    <img src="${route.image}" alt="${route.name}" loading="lazy">
+                </div>
+                <div class="route-info">
+                    <h4>${route.name}</h4>
+                    <p>${route.desc}</p>
+                    <div class="route-meta">
+                        <span>${count} Stops</span>
+                        <span class="route-count">Load Route</span>
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener('click', () => {
+                if (count === 0) {
+                    alert("Sites for this route not found in current data.");
+                    return;
+                }
+
+                // Confirm replacement
+                if (getFavorites().length > 0) {
+                     if (!confirm("This will replace your current trip. Continue?")) return;
+                }
+
+                localStorage.setItem('croatia_favorites', JSON.stringify(availableSites));
+                document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+
+                closeModal();
+
+                // Open My Trip to show result
+                setTimeout(() => {
+                    const myTripBtn = document.getElementById('my-trip-btn');
+                    if (myTripBtn) myTripBtn.click();
+                }, 300);
+            });
+
+            container.appendChild(card);
+        });
+
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.add('visible'), 10);
+    };
+
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+        // Uncheck the toggle if they close
+        const cb = document.getElementById('show-trip-route-cb');
+        if (cb && cb.checked && window.innerWidth > 768) { // Keep route on mobile when closing modal
+             // Wait, if they check it on mobile they want to see the map.
+             // Maybe don't uncheck it automatically on desktop either until they clear filters.
+        }
+    };
+
+    btn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+}
+
+// === New Enhancements: Helpers & Onboarding ===
+
+export function getPackingList(category) {
+    const common = ["Comfortable shoes", "Water bottle", "Camera/Phone"];
+    const specifics = {
+        "coastal": ["Swimsuit & Towel", "Sunscreen & Hat", "Sunglasses", "Sandals"],
+        "natural": ["Hiking boots", "Insect repellent", "Light jacket", "Backpack"],
+        "adventure": ["Sportswear", "GoPro/Action Cam", "Energy snacks", "Change of clothes"],
+        "historical": ["Walking shoes", "Hat for sun", "Power bank", "Guidebook"],
+        "cultural": ["Modest clothing (churches)", "Small change", "Notebook", "Curiosity"],
+        "gastronomy": ["Appetite!", "Smart casual outfit", "Cash for tips", "Water"],
+        "default": ["Map/Navigation", "ID/Passport", "Power bank"]
+    };
+
+    const catKey = category ? category.toLowerCase() : 'default';
+    const items = specifics[catKey] || specifics['default'];
+    return [...new Set([...common, ...items])]; // Unique items
+}
+
+// Mock Crowd Data (8am to 8pm)
+export function getCrowdData(category, popularityScore = 75) {
+    if (!category) return null;
+    const cat = category.toLowerCase();
+
+    // Scale factor (0.5 to 1.0 based on popularity 0-100)
+    const scale = 0.5 + (popularityScore / 200);
+
+    let baseData = [];
+
+    // 13 points (8am - 8pm)
+    if (cat === 'historical' || cat === 'cultural') {
+        // Peak mid-day
+        baseData = [10, 30, 60, 80, 90, 85, 80, 70, 60, 40, 30, 20, 10];
+    } else if (cat === 'coastal') {
+        // Peak afternoon
+        baseData = [5, 15, 40, 70, 90, 95, 95, 85, 60, 40, 30, 20, 10];
+    } else if (cat === 'gastronomy') {
+        // Lunch and Dinner peaks
+        baseData = [0, 5, 10, 20, 80, 90, 50, 20, 40, 80, 95, 80, 40];
+    } else if (cat === 'adventure') {
+        // Morning peak
+        baseData = [20, 60, 80, 90, 70, 60, 50, 40, 30, 20, 10, 5, 0];
+    } else {
+        // Default
+        baseData = [10, 20, 40, 60, 70, 70, 60, 50, 40, 30, 20, 10, 5];
+    }
+
+    return baseData.map(val => Math.min(100, Math.round(val * scale)));
+}
+
+export function calculateInstaScore(properties) {
+    if (!properties) return 0;
+
+    let score = 30; // Base score
+
+    const { photospot, tags, rating, best_time } = properties;
+
+    if (photospot) score += 20;
+    if (rating && rating >= 4.7) score += 15;
+
+    if (tags) {
+        if (tags.includes('Views') || tags.includes('Sunset')) score += 15;
+        if (tags.includes('Hidden Gem')) score += 10;
+        if (tags.includes('UNESCO')) score += 10;
+        if (tags.includes('Nature') || tags.includes('Beach')) score += 5;
+    }
+
+    if (best_time && best_time.toLowerCase().includes('sunset')) score += 10;
+
+    return Math.min(score, 100);
+}
+
+export function findSimilarSites(currentFeature, allFeatures) {
+    if (!currentFeature || !allFeatures) return [];
+
+    const { name, tags, category } = currentFeature.properties;
+    const currentTags = tags || [];
+
+    return allFeatures
+        .filter(f => f.properties.name !== name) // Exclude self
+        .map(f => {
+            const fTags = f.properties.tags || [];
+            let score = 0;
+
+            // Same category points
+            if (f.properties.category === category) score += 2;
+
+            // Tag overlap points
+            const overlap = fTags.filter(t => currentTags.includes(t));
+            score += overlap.length * 3;
+
+            return { feature: f, score };
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3) // Top 3
+        .map(item => item.feature);
+}
+
+
+export function setupThemeToggle(updateMapTheme) {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    const setTheme = (theme) => {
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem('theme', theme);
+        updateMapTheme(theme);
+
+        // Update Icon
+        if (theme === 'dark') {
+            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+        } else {
+            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+        }
+    };
+
+    // Init
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+
+    btn.addEventListener('click', () => {
+        const current = document.documentElement.dataset.theme;
+        const next = current === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+    });
+}
+
+export function setupDynamicGreeting(filterCallback) {
+    const container = document.getElementById('dynamic-greeting-container');
+    if (!container) return;
+
+    const hour = new Date().getHours();
+    let greeting = "";
+    let suggestion = "";
+    let suggestionTag = "";
+
+    if (hour >= 5 && hour < 12) {
+        greeting = "Dobro jutro ☀️"; // Good morning
+        suggestion = "Coffee Spots";
+        suggestionTag = "chill"; // Needs a map to a filter
+    } else if (hour >= 12 && hour < 18) {
+        greeting = "Dobar dan 🌤️"; // Good afternoon
+        suggestion = "Find Lunch";
+        suggestionTag = "gastronomy";
+    } else {
+        greeting = "Dobra večer 🌙"; // Good evening
+        suggestion = "Sunset Views";
+        suggestionTag = "Sunset"; // Collection tag
+    }
+
+    container.innerHTML = `
+        <div class="dynamic-greeting">
+            <span class="greeting-text">${greeting}</span>
+            <button class="greeting-suggestion" data-tag="${suggestionTag}">${suggestion}</button>
+        </div>
+    `;
+
+    const btn = container.querySelector('.greeting-suggestion');
+    btn.onclick = () => {
+        // Clear existing filters
+        document.getElementById('clear-filters').click();
+
+        const tag = btn.dataset.tag;
+
+        // Try to find category first
+        const catChip = document.querySelector(`.filter-chip[data-value="${tag.toLowerCase()}"]`);
+        if (catChip) {
+            catChip.click();
+            return;
+        }
+
+        // Try to find collection
+        const colChip = document.querySelector(`.collection-chip[data-collection="${tag}"]`);
+        if (colChip) {
+            colChip.click();
+            return;
+        }
+
+        // If 'chill' isn't mapped, default to coastal/nature or search
+        if (tag === 'chill') {
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.value = 'coffee';
+                const inputEvent = new Event('input', { bubbles: true });
+                searchInput.dispatchEvent(inputEvent);
+            }
+        }
+    };
+}
+
+export function setupOnboarding() {
+    // Check if seen
+    if (localStorage.getItem('seen_onboarding')) return;
+
+    // Create Toast
+    const toast = document.createElement('div');
+    toast.className = 'onboarding-toast';
+    toast.innerHTML = `
+        <div class="toast-icon">👋</div>
+        <div class="toast-content">
+            <h4>Welcome to Croatia Guide!</h4>
+            <p>Start by clicking a marker on the map or use the search bar to find your next adventure.</p>
+        </div>
+        <button class="toast-close">Got it</button>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Animate In
+    requestAnimationFrame(() => {
+        toast.classList.add('visible');
+    });
+
+    // Dismiss Logic
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.addEventListener('click', () => {
+        toast.classList.remove('visible');
+        localStorage.setItem('seen_onboarding', 'true');
+        setTimeout(() => toast.remove(), 500);
+    });
+
+    // Auto dismiss after 8 seconds
+    setTimeout(() => {
+        if (document.body.contains(toast)) {
+            toast.classList.remove('visible');
+            localStorage.setItem('seen_onboarding', 'true');
+            setTimeout(() => toast.remove(), 500);
+        }
+    }, 8000);
+}
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1);
+  var a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
+// === Gamification: Traveler Badges ===
+
+export function calculateBadges(visitedSites, allFeatures) {
+    if (!visitedSites || !allFeatures) return [];
+
+    const badges = [];
+    const visitedFeatures = allFeatures.filter(f => visitedSites.includes(f.properties.name));
+
+    // 1. Explorer (Total Count)
+    if (visitedSites.length >= 5) badges.push({ id: 'explorer_bronze', name: 'Explorer', level: 'Bronze', icon: '🥉', desc: 'Visited 5+ sites' });
+    if (visitedSites.length >= 10) badges.push({ id: 'explorer_silver', name: 'Explorer', level: 'Silver', icon: '🥈', desc: 'Visited 10+ sites' });
+    if (visitedSites.length >= 20) badges.push({ id: 'explorer_gold', name: 'Explorer', level: 'Gold', icon: '🥇', desc: 'Visited 20+ sites' });
+
+    // 2. Island Hopper
+    const islands = visitedFeatures.filter(f => {
+        const p = f.properties;
+        const tags = p.tags || [];
+        const isIslandCat = p.category && p.category.toLowerCase().includes('island');
+        const isIslandName = p.name && p.name.toLowerCase().includes('island');
+        const isIslandDesc = p.description && p.description.toLowerCase().includes('island');
+        const hasIslandTag = tags.some(t => t.toLowerCase().includes('island'));
+        return hasIslandTag || isIslandName || isIslandDesc || isIslandCat;
+    });
+    if (islands.length >= 3) badges.push({ id: 'island_hopper', name: 'Island Hopper', level: 'Special', icon: '🏝️', desc: 'Visited 3+ islands' });
+
+    // 3. History Buff
+    const history = visitedFeatures.filter(f => f.properties.category === 'historical');
+    if (history.length >= 3) badges.push({ id: 'history_buff', name: 'History Buff', level: 'Special', icon: '🏛️', desc: 'Visited 3+ historical sites' });
+
+    // 4. Nature Lover
+    const nature = visitedFeatures.filter(f => f.properties.category === 'natural');
+    if (nature.length >= 3) badges.push({ id: 'nature_lover', name: 'Nature Lover', level: 'Special', icon: '🌲', desc: 'Visited 3+ natural sites' });
+
+    // 5. Hidden Gem Hunter
+    const gems = visitedFeatures.filter(f => f.properties.tags && f.properties.tags.includes('Hidden Gem'));
+    if (gems.length >= 3) badges.push({ id: 'gem_hunter', name: 'Gem Hunter', level: 'Special', icon: '💎', desc: 'Discovered 3+ hidden gems' });
+
+    return badges;
+}
+
+export function renderBadges(badges) {
+    const modal = document.getElementById('badges-modal');
+    if (!modal) return;
+
+    const container = document.getElementById('badges-grid');
+    container.innerHTML = '';
+
+    if (badges.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-secondary);">
+                <div style="font-size: 40px; margin-bottom: 16px; opacity: 0.5;">🔒</div>
+                <p>No badges yet.</p>
+                <p style="font-size: 13px;">Mark places as "Visited" to earn badges!</p>
+            </div>
+        `;
+    } else {
+        badges.forEach(badge => {
+            const el = document.createElement('div');
+            el.className = 'badge-card animate-in';
+            el.innerHTML = `
+                <div class="badge-icon">${badge.icon}</div>
+                <div class="badge-info">
+                    <h4>${badge.name}</h4>
+                    <span class="badge-level">${badge.level}</span>
+                    <p>${badge.desc}</p>
+                </div>
+            `;
+            container.appendChild(el);
+        });
+    }
+
+    modal.classList.remove('hidden');
+    setTimeout(() => modal.classList.add('visible'), 10);
+
+    // Close logic
+    const closeBtn = modal.querySelector('.modal-close');
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+        // Uncheck the toggle if they close
+        const cb = document.getElementById('show-trip-route-cb');
+        if (cb && cb.checked && window.innerWidth > 768) { // Keep route on mobile when closing modal
+             // Wait, if they check it on mobile they want to see the map.
+             // Maybe don't uncheck it automatically on desktop either until they clear filters.
+        }
+    };
+    if (closeBtn) closeBtn.onclick = closeModal;
+    modal.onclick = (e) => {
+        if (e.target === modal) closeModal();
+    };
+}
+
+export function setupBadges(allFeatures) {
+    const btn = document.getElementById('badges-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+        const visited = getVisited();
+        const badges = calculateBadges(visited, allFeatures);
+        renderBadges(badges);
+    });
+}
+
+export function createPostcardModal(feature) {
+    const { name, category, image_url, description } = feature.properties;
+
+    // Create modal if not exists
+    let modal = document.getElementById('postcard-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'postcard-modal';
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `
+            <div class="modal-content postcard-content">
+                <button class="modal-close">&times;</button>
+                <div class="postcard-preview" id="postcard-target">
+                    <!-- Postcard content -->
+                </div>
+                <div class="modal-footer" style="justify-content: center; flex-direction: column; align-items: center; gap: 16px;">
+                    <div class="postcard-filters" style="display: flex; gap: 8px;">
+                        <button class="action-btn filter-btn" data-filter="none">Original</button>
+                        <button class="action-btn filter-btn" data-filter="sepia(0.6) contrast(1.1)">Vintage</button>
+                        <button class="action-btn filter-btn" data-filter="grayscale(1) contrast(1.2)">Noir</button>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-tertiary); font-weight: 600;">Tip: Take a screenshot to share! 📸</span>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        modal.querySelector('.modal-close').onclick = () => {
+            modal.classList.remove('visible');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        };
+
+        modal.onclick = (e) => {
+            if (e.target === modal) modal.querySelector('.modal-close').click();
+        };
+    }
+
+    const preview = modal.querySelector('.postcard-preview');
+    preview.innerHTML = `
+        <div class="postcard-frame">
+            <div class="postcard-image" style="background-image: url('${image_url}');">
+                <div class="postcard-overlay">
+                    <h1>Greetings from</h1>
+                    <h2>${name}</h2>
+                </div>
+            </div>
+            <div class="postcard-text">
+                <p>${description}</p>
+                <div class="postcard-stamp">
+                    <span>🇭🇷</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    modal.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.onclick = (e) => {
+            const filter = e.target.dataset.filter;
+            const img = modal.querySelector('.postcard-image');
+            if (img) img.style.filter = filter;
+        };
+    });
+
+    modal.classList.remove('hidden');
+    setTimeout(() => modal.classList.add('visible'), 10);
+}
+
+// === Quest System ===
+
+const quests = [
+    {
+        id: 'roman_empire',
+        name: 'The Roman Path',
+        icon: '🏛️',
+        desc: 'Visit 3 major Roman sites to earn the Centurion Badge.',
+        targets: ['Pula Arena', 'Diocletian\'s Palace', 'Salona Ruins', 'Euphrasian Basilica'],
+        required: 3,
+        reward: 'Centurion'
+    },
+    {
+        id: 'game_of_thrones',
+        name: 'Game of Thrones Hunt',
+        icon: '🐉',
+        desc: 'Find 3 filming locations from King\'s Landing and Meereen.',
+        targets: ['Dubrovnik City Walls', 'Lovrijenac Fortress', 'Klis Fortress', 'Trsteno Arboretum', 'Diocletian\'s Palace'],
+        required: 3,
+        reward: 'Hand of the King'
+    },
+    {
+        id: 'island_explorer',
+        name: 'Ultimate Island Hopper',
+        icon: '🏝️',
+        desc: 'Visit 4 different islands.',
+        targets: ['Hvar Town', 'Korčula Old Town', 'Stiniva Cove (Vis)', 'Mljet National Park', 'Galešnjak Island', 'Blue Cave (Biševo)', 'Sakarun Beach', 'Lastovo Nature Park'],
+        required: 4,
+        reward: 'Sea Wolf'
+    }
+];
+
+let activeQuestId = null;
+
+export function setupQuestSystem(allFeatures, filterCallback) {
+    const btn = document.getElementById('quests-btn');
+    const modal = document.getElementById('quests-modal');
+    if (!btn || !modal) return;
+
+    // Render Quests
+    const render = () => {
+        const container = document.getElementById('quests-grid');
+        container.innerHTML = '';
+        const visited = getVisited();
+
+        quests.forEach(q => {
+            // Calc progress
+            const progress = q.targets.filter(t => visited.includes(t)).length;
+            const percent = Math.min(100, (progress / q.required) * 100);
+            const isComplete = progress >= q.required;
+            const isActive = activeQuestId === q.id;
+
+            const card = document.createElement('div');
+            card.className = `quest-card ${isComplete ? 'completed' : ''}`;
+            card.innerHTML = `
+                <div class="quest-header">
+                    <div class="quest-icon">${q.icon}</div>
+                    <div class="quest-info">
+                        <h4>${q.name}</h4>
+                        <p>${q.desc}</p>
+                    </div>
+                </div>
+                <div class="quest-progress-container">
+                    <div class="quest-progress-bar" style="width: ${percent}%"></div>
+                </div>
+                <div class="quest-footer">
+                    <span>${progress}/${q.required} visited</span>
+                    ${!isComplete ? `
+                        <button class="quest-btn ${isActive ? 'active' : 'start'}" data-id="${q.id}">
+                            ${isActive ? 'Stop Quest' : 'Start Quest'}
+                        </button>
+                    ` : '<span style="color:#d4af37; font-weight:700;">Completed!</span>'}
+                </div>
+            `;
+
+            const actionBtn = card.querySelector('.quest-btn');
+            if (actionBtn) {
+                actionBtn.onclick = () => {
+                    if (isActive) {
+                        stopQuest(filterCallback);
+                    } else {
+                        startQuest(q.id, filterCallback);
+                        modal.classList.remove('visible');
+                        setTimeout(() => modal.classList.add('hidden'), 300);
+                    }
+                    render(); // Re-render to update buttons
+                };
+            }
+
+            container.appendChild(card);
+        });
+    };
+
+    btn.addEventListener('click', () => {
+        render();
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.add('visible'), 10);
+    });
+
+    // Close logic
+    const closeBtn = modal.querySelector('.modal-close');
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+        // Uncheck the toggle if they close
+        const cb = document.getElementById('show-trip-route-cb');
+        if (cb && cb.checked && window.innerWidth > 768) { // Keep route on mobile when closing modal
+             // Wait, if they check it on mobile they want to see the map.
+             // Maybe don't uncheck it automatically on desktop either until they clear filters.
+        }
+    };
+    if (closeBtn) closeBtn.onclick = closeModal;
+    modal.onclick = (e) => {
+        if (e.target === modal) closeModal();
+    };
+
+    // Listen for visited updates to check progress
+    document.addEventListener('favoritesUpdated', () => {
+        if (activeQuestId) {
+            updateQuestHUD();
+        }
+    });
+}
+
+function startQuest(id, filterCallback) {
+    activeQuestId = id;
+    document.body.classList.add('quest-active');
+
+    createQuestHUD(id, filterCallback);
+    filterCallback();
+}
+
+function stopQuest(filterCallback) {
+    activeQuestId = null;
+    document.body.classList.remove('quest-active');
+    const hud = document.getElementById('active-quest-hud');
+    if (hud) hud.remove();
+    filterCallback();
+}
+
+function createQuestHUD(id, filterCallback) {
+    const quest = quests.find(q => q.id === id);
+    if (!quest) return;
+
+    const visited = getVisited();
+    const progress = quest.targets.filter(t => visited.includes(t)).length;
+
+    let hud = document.getElementById('active-quest-hud');
+    if (!hud) {
+        hud = document.createElement('div');
+        hud.id = 'active-quest-hud';
+        document.body.appendChild(hud);
+    }
+
+    hud.innerHTML = `
+        <div style="font-size:24px;">${quest.icon}</div>
+        <div class="quest-status">
+            <h5>Current Quest</h5>
+            <span>${quest.name}: ${progress}/${quest.required}</span>
+        </div>
+        <button class="close-quest" title="Stop Quest">&times;</button>
+    `;
+
+    hud.querySelector('.close-quest').onclick = () => stopQuest(filterCallback);
+}
+
+function updateQuestHUD() {
+    if (!activeQuestId) return;
+
+    const quest = quests.find(q => q.id === activeQuestId);
+    const visited = getVisited();
+    const progress = quest.targets.filter(t => visited.includes(t)).length;
+
+    const hud = document.getElementById('active-quest-hud');
+    if (hud) {
+        hud.querySelector('.quest-status span').textContent = `${quest.name}: ${progress}/${quest.required}`;
+
+        if (progress >= quest.required) {
+            // Simple alert for now, could be a fancy modal
+            setTimeout(() => {
+                 alert(`🎉 Quest Complete: ${quest.name}!\nYou've earned the ${quest.reward} title.`);
+                 stopQuest(() => document.dispatchEvent(new CustomEvent('favoritesUpdated')));
+            }, 500);
+        }
+    }
+}
+
+export function getActiveQuestTargets() {
+    if (!activeQuestId) return null;
+    const quest = quests.find(q => q.id === activeQuestId);
+    return quest ? quest.targets : null;
+}
+
+// === Day Planner Logic ===
+
+export function getTripDays() {
+    try {
+        const days = localStorage.getItem('croatia_itinerary_days');
+        return days ? JSON.parse(days) : {};
+    } catch (e) { return {}; }
+}
+
+export function setTripDay(name, day) {
+    const days = getTripDays();
+    if (day === 0 || day === '0' || day === '') {
+        delete days[name];
+    } else {
+        days[name] = parseInt(day);
+    }
+    localStorage.setItem('croatia_itinerary_days', JSON.stringify(days));
+    // Trigger update
+    document.dispatchEvent(new CustomEvent('favoritesUpdated'));
+}
+
+export { setupVibeMatcher } from './vibe-matcher.js';

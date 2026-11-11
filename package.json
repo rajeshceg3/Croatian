@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "playwright": "^1.58.2"
-  }
+  "name":"croatia-place-collection","version":"1.0.0","private":true,
+  "scripts":{"build":"node build.cjs","test":"node --test tests/unit.cjs","test:e2e":"playwright test","verify:visual":"node verification/check.cjs"},
+  "devDependencies":{"@playwright/test":"^1.65.0","playwright":"^1.65.0","puppeteer-core":"^25.17.0"}
 }

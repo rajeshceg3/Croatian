@@ -295,6 +295,7 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
 
         const resultItem = document.createElement('div');
         resultItem.className = 'search-result-item animate-in';
+        resultItem.tabIndex=0; resultItem.setAttribute('role','button'); resultItem.setAttribute('aria-label','Open '+name); resultItem.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){if(e.target!==resultItem)return;e.preventDefault();resultItem.click();}});
         resultItem.style.animationDelay = `${index * 0.05}s`;
 
         // Highlight map marker on hover
@@ -694,9 +695,11 @@ export function setupSurpriseMe(map, getFilteredFeatures, openPopupCallback) {
 export function openDetailPanel(feature, allFeatures = []) {
     const panel = document.getElementById('site-detail-panel');
     if (!panel) return;
+    document.body.classList.add('browse-open');
 
     const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day, legend, gastronomy_highlight, hidden_secret, vibe, good_to_know, perfect_day } = feature.properties;
 
+    panel.querySelectorAll('.more-details').forEach(e=>e.remove());
     // Populate Data
     const titleEl = document.getElementById('detail-title');
     if (titleEl) {
@@ -707,6 +710,7 @@ export function openDetailPanel(feature, allFeatures = []) {
 
         // Add Audio Guide Button
         const audioBtn = document.createElement('button');
+        audioBtn.setAttribute('aria-label','Read inherited description aloud');
         audioBtn.className = 'audio-guide-btn';
         audioBtn.title = 'Listen to description';
         audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
@@ -715,19 +719,20 @@ export function openDetailPanel(feature, allFeatures = []) {
         let utterance = null;
 
         const stopAudio = () => {
-             window.speechSynthesis.cancel();
+             window.speechSynthesis?.cancel();
              audioBtn.classList.remove('playing');
              audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
         };
 
         audioBtn.onclick = (e) => {
             e.stopPropagation();
-            if (window.speechSynthesis.speaking && audioBtn.classList.contains('playing')) {
+            if (window.speechSynthesis?.speaking && audioBtn.classList.contains('playing')) {
                 stopAudio();
             } else {
                 // Stop any current
-                window.speechSynthesis.cancel();
+                window.speechSynthesis?.cancel();
 
+                if(!window.speechSynthesis || typeof SpeechSynthesisUtterance==='undefined'){audioBtn.textContent='Voice unavailable';return;}
                 utterance = new SpeechSynthesisUtterance(description);
                 utterance.lang = 'en-US';
                 utterance.onend = stopAudio;
@@ -756,7 +761,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     const imgEl = document.getElementById('detail-image');
     if (imgEl) {
         imgEl.src = image_url || '';
-        imgEl.onerror = () => { imgEl.src = ''; imgEl.style.backgroundColor = '#e6ebf1'; };
+        imgEl.alt = name + ' (inherited image; credit unverified)'; imgEl.hidden = !image_url; imgEl.onerror = () => { imgEl.hidden = true; };
     }
 
     // Badges
@@ -813,8 +818,8 @@ export function openDetailPanel(feature, allFeatures = []) {
         weatherWidget.innerHTML = `
             <div class="weather-icon">${weatherIcon}</div>
             <div class="weather-info">
-                <h4>${weatherDesc} • ${weatherTemp}</h4>
-                <p>Best visit: ${best_time || 'Year-round'}</p>
+                <h4>Illustrative weather only</h4>
+                <p>Not a forecast. Inherited season: ${best_time || 'Year-round'}</p>
             </div>
         `;
     }
@@ -822,7 +827,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     // === New Content Injection ===
     const contentContainer = document.querySelector('.panel-content');
 
-    // Live Status & Vibe Injection
+    // Illustrative Status & Vibe Injection
     const injectedTitleEl = document.getElementById('detail-title');
     if (injectedTitleEl) {
         // Clear previous vibe/status containers if any
@@ -837,7 +842,7 @@ export function openDetailPanel(feature, allFeatures = []) {
             injectedTitleEl.parentNode.insertBefore(el, injectedTitleEl.nextSibling);
         };
 
-        // Live Status Logic
+        // Illustrative Status Logic
         const crowdData = getCrowdData(category, feature.properties.popularity_score || 75);
         if (crowdData) {
             const currentHour = new Date().getHours();
@@ -845,14 +850,14 @@ export function openDetailPanel(feature, allFeatures = []) {
             const dataIndex = Math.max(0, Math.min(12, currentHour - 8));
             const currentCrowd = crowdData[dataIndex];
 
-            let statusText = 'Quiet Now';
+            let statusText = 'Crowd example: quiet';
             let dotClass = 'quiet';
 
             if (currentCrowd >= 80) {
-                statusText = 'Busy Now';
+                statusText = 'Crowd example: busy';
                 dotClass = 'busy';
             } else if (currentCrowd >= 50) {
-                statusText = 'Moderate Crowds';
+                statusText = 'Crowd example: moderate';
                 dotClass = 'moderate';
             }
 
@@ -1012,7 +1017,7 @@ export function openDetailPanel(feature, allFeatures = []) {
 
         btBox.innerHTML = `
             <div class="best-time-header">
-                <span>Popularity by Month</span>
+                <span>Illustrative season pattern</span>
                 <span style="color:var(--accent-color);">${best_time}</span>
             </div>
             ${best_time_of_day ? `<div style="font-size:11px; color:var(--text-secondary); margin-bottom:8px; display:flex; align-items:center; gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg> Best time: <strong>${best_time_of_day}</strong></div>` : ''}
@@ -1023,7 +1028,7 @@ export function openDetailPanel(feature, allFeatures = []) {
         if (target) insertAfter(btBox, target);
     }
 
-    // Crowd Forecast (New)
+    // Illustrative crowd pattern (New)
     const crowdData = getCrowdData(category, feature.properties.popularity_score);
     if (crowdData) {
         const crowdBox = document.createElement('div');
@@ -1039,7 +1044,7 @@ export function openDetailPanel(feature, allFeatures = []) {
 
         crowdBox.innerHTML = `
             <div class="crowd-header">
-                <span>Typical Daily Crowds</span>
+                <span>Illustrative crowd pattern</span>
             </div>
             <div class="crowd-viz">
                 ${bars}
@@ -1066,13 +1071,13 @@ export function openDetailPanel(feature, allFeatures = []) {
 
         instaBox.innerHTML = `
             <div class="insta-header">
-                <span>📸 Instagrammability</span>
+                <span>Collection photo score</span>
                 <span style="color:${color}; font-weight:700;">${instaScore}/100</span>
             </div>
             <div class="insta-bar-bg">
                 <div class="insta-bar-fill" style="width:${instaScore}%; background:${color};"></div>
             </div>
-            <p style="margin:4px 0 0; font-size:11px; color:var(--text-tertiary);">Based on views, uniqueness, and popularity.</p>
+            <p style="margin:4px 0 0; font-size:11px; color:var(--text-tertiary);">Rule-based collection score, not a measured popularity rating.</p>
         `;
 
         const target = contentContainer.querySelector('.crowd-box') || contentContainer.querySelector('.best-time-container') || document.getElementById('detail-weather-widget');
@@ -1476,6 +1481,16 @@ export function openDetailPanel(feature, allFeatures = []) {
         };
     }
 
+    // Lead with the inherited overview. Keep deep extras behind one quiet disclosure.
+    const content=panel.querySelector('.panel-content');
+    const overview=content.querySelector('.detail-section');
+    content.insertBefore(overview,content.querySelector('#detail-badges'));
+    const extras=[...content.querySelectorAll('.dynamic-extra-section')];
+    const disclosure=document.createElement('details'); disclosure.className='more-details';
+    const summary=document.createElement('summary'); summary.textContent='Stories, visit notes and nearby places'; disclosure.appendChild(summary);
+    extras.forEach(e=>disclosure.appendChild(e));
+    content.insertBefore(disclosure,content.querySelector('.detail-footer-actions'));
+    panel.scrollTop=0;
     // Show Panel
     panel.classList.remove('hidden');
 
@@ -1484,7 +1499,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     if (backBtn) {
         backBtn.onclick = () => {
             closeDetailPanel();
-            window.speechSynthesis.cancel(); // Stop audio on close
+            window.speechSynthesis?.cancel(); // Stop audio on close
         };
     }
 }
@@ -1644,14 +1659,14 @@ export function setupTravelTips() {
 
              playAllBtn.onclick = () => {
                  if (isPlaying) {
-                     window.speechSynthesis.cancel();
+                     window.speechSynthesis?.cancel();
                      isPlaying = false;
                      playAllBtn.innerHTML = '▶ Play All';
                      return;
                  }
 
                  // Cancel any ongoing speech
-                 window.speechSynthesis.cancel();
+                 window.speechSynthesis?.cancel();
                  isPlaying = true;
                  playAllBtn.innerHTML = '⏹ Stop';
 
@@ -1786,6 +1801,7 @@ function renderMyTripList(features, container, durationEl) {
         }
 
         if (durationEl) durationEl.textContent = '0h';
+        const oldBudget=document.getElementById('trip-budget');if(oldBudget)oldBudget.textContent='';
         return;
     }
 
@@ -1941,7 +1957,7 @@ function renderMyTripList(features, container, durationEl) {
             budgetEl.className = 'trip-budget-display';
             durationEl.parentNode.appendChild(budgetEl);
         }
-        budgetEl.innerHTML = `<span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase; font-weight:700;">Est. Cost:</span> <strong style="font-size:18px; color:var(--accent-color);">~€${estCost}</strong>`;
+        budgetEl.innerHTML = `<span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase; font-weight:700;">Illustrative cost:</span> <strong style="font-size:18px; color:var(--accent-color);">~€${estCost}</strong>`;
         // Handle empty state
         if (features.length === 0) budgetEl.innerHTML = '';
     }
@@ -2072,10 +2088,10 @@ export function setupMyTripModal(allFeatures) {
         });
 
         const totalDuration = document.getElementById('trip-duration').textContent;
-        const totalBudget = document.getElementById('trip-budget') ? document.getElementById('trip-budget').innerText.replace('Est. Cost:', '').trim() : '';
+        const totalBudget = document.getElementById('trip-budget') ? document.getElementById('trip-budget').innerText.replace('Illustrative cost:', '').trim() : '';
 
         text += `Total Duration: ${totalDuration}\n`;
-        if (totalBudget) text += `Estimated Budget: ${totalBudget}\n`;
+        if (totalBudget) text += `Illustrative budget: ${totalBudget}\n`;
         text += `\nShared via Croatia Guide`;
 
         navigator.clipboard.writeText(text).then(() => {
@@ -2155,7 +2171,7 @@ export function setupSuggestedRoutes(allFeatures) {
         },
         {
             name: "Dalmatian Highlights",
-            sites: ["Zadar Sea Organ", "Krka National Park", "Trogir Old Town", "Split Diocletian's Palace"],
+            sites: ["Sea Organ (Zadar)", "Krka National Park", "Trogir Old Town", "Diocletian's Palace"],
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Sea_organ_Zadar.jpg/800px-Sea_organ_Zadar.jpg",
             desc: "The essential coastal route from Zadar to Split, featuring waterfalls and UNESCO sites."
         },
@@ -2827,7 +2843,7 @@ function createQuestHUD(id, filterCallback) {
     hud.innerHTML = `
         <div style="font-size:24px;">${quest.icon}</div>
         <div class="quest-status">
-            <h5>Current Quest</h5>
+            <h5>Your quest</h5>
             <span>${quest.name}: ${progress}/${quest.required}</span>
         </div>
         <button class="close-quest" title="Stop Quest">&times;</button>

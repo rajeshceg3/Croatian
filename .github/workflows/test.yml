@@ -1,0 +1,33 @@
+name: Map quality checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox
+      - run: npm test
+      - run: npm run test:e2e
+      - run: npm run build
+      - name: All-place phone and desktop behavior
+        run: |
+          SHOTS=test-results/visual WIDTH=320 npm run verify:visual
+          SHOTS=test-results/visual WIDTH=390 npm run verify:visual
+          SHOTS=test-results/visual WIDTH=1440 npm run verify:visual
+      - run: npm audit --audit-level=high
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: visual-proof
+          path: |
+            verification/output/
+            test-results/

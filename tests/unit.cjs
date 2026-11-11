@@ -1,0 +1,12 @@
+const {test,before}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');let ui;
+before(async()=>{const data=new Map();global.document={dispatchEvent:()=>{}};global.CustomEvent=class{constructor(t){this.type=t}};global.localStorage={getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v)};ui=await import('../ui-module.js')});
+test('all73 source places retained byte-for-byte',()=>{assert.equal(fs.readFileSync('data.geojson','utf8'),fs.readFileSync('legacy/data.geojson','utf8'));const fsx=JSON.parse(fs.readFileSync('data.geojson')).features;assert.equal(fsx.length,73);assert.equal(new Set(fsx.map(f=>f.properties.name)).size,73);assert.ok(fsx.every(f=>f.geometry.coordinates.every(Number.isFinite)))});
+test('favorites toggle and persistence',()=>{ui.toggleFavorite('Pula Arena');assert.deepEqual(ui.getFavorites(),['Pula Arena']);ui.toggleFavorite('Pula Arena');assert.deepEqual(ui.getFavorites(),[])});
+test('visited toggle',()=>{ui.toggleVisited('Pula Arena');assert.deepEqual(ui.getVisited(),['Pula Arena']);ui.toggleVisited('Pula Arena');assert.deepEqual(ui.getVisited(),[])});
+test('notes store exact text per place',()=>{ui.saveNote('Pula Arena','Quiet path <test>');assert.equal(ui.getNotes('Pula Arena'),'Quiet path <test>');assert.equal(ui.getNotes('Other'),'')});
+test('trip day assignment preserved',()=>{ui.setTripDay('Pula Arena',3);assert.equal(ui.getTripDays()['Pula Arena'],3)});
+test('packing suggestions contain shared essentials',()=>{assert.ok(ui.getPackingList('coastal').includes('Water bottle'));assert.ok(ui.getPackingList('coastal').includes('Swimsuit & Towel'))});
+test('crowd generator explicitly bounded mock values',()=>{for(const c of ['natural','historical','coastal','adventure','cultural','gastronomy']){const a=ui.getCrowdData(c);assert.equal(a.length,13);assert.ok(a.every(v=>v>=0&&v<=100))}});
+test('similar places excludes selected place',()=>{const a=JSON.parse(fs.readFileSync('data.geojson')).features;assert.ok(ui.findSimilarSites(a[0],a).every(f=>f.properties.name!==a[0].properties.name))});
+test('tile URL has no paid provider key',()=>{const s=fs.readFileSync('map-module.js','utf8');assert.ok(s.includes('tile.opentopomap.org'));assert.ok(!s.includes('cartocdn.com'));assert.ok(s.includes('CC BY-SA'))});
+test('private source backup is excluded from production',()=>{const s=fs.readFileSync('build.cjs','utf8');assert.ok(!s.includes("['legacy'"));assert.ok(fs.readFileSync('readable-map.css','utf8').includes('.animate-in,.dynamic-extra-section{opacity:1'))});
