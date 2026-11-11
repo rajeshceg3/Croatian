@@ -1,3 +1,11 @@
+// Short excerpts only; original descriptions stay unchanged in the detail disclosure.
+export function visualCaption(description) {
+    const first=String(description||'').split(/(?<=[.!?])\s/)[0];
+    const clause=first.split(/[,;:]\s/)[0];
+    if(clause.trim().split(/\s+/).length>=4&&clause.trim().split(/\s+/).length<=10)return clause.replace(/[.!?]$/,'')+'.';
+    const words=first.trim().split(/\s+/);
+    return words.length>10 ? words.slice(0,10).join(' ').replace(/[,;:]$/,'')+'…' : first;
+}
 // This module will handle UI-related functionalities.
 
 export function getFavorites() {
@@ -428,7 +436,7 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
         if (description) {
             const desc = document.createElement('div');
             desc.className = 'result-desc';
-            desc.textContent = description;
+            desc.textContent = visualCaption(description);
             contentDiv.appendChild(desc);
         }
 
@@ -699,7 +707,10 @@ export function openDetailPanel(feature, allFeatures = []) {
 
     const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day, legend, gastronomy_highlight, hidden_secret, vibe, good_to_know, perfect_day } = feature.properties;
 
-    panel.querySelectorAll('.more-details').forEach(e=>e.remove());
+    // Restore static nodes before retiring the preceding place's extras.
+    panel.querySelectorAll('.more-details').forEach(d=>{for(const e of [...d.children])if(e.tagName!=='SUMMARY'&&!e.classList.contains('dynamic-extra-section'))d.parentElement.appendChild(e);d.remove();});
+    panel.querySelector('.visual-caption')?.remove();
+    panel.querySelectorAll('.vibe-chips-container,.live-status-badge').forEach(e=>e.remove());
     // Populate Data
     const titleEl = document.getElementById('detail-title');
     if (titleEl) {
@@ -1481,15 +1492,14 @@ export function openDetailPanel(feature, allFeatures = []) {
         };
     }
 
-    // Lead with the inherited overview. Keep deep extras behind one quiet disclosure.
+    // Lead with one short source excerpt; retain all long copy on demand.
     const content=panel.querySelector('.panel-content');
-    const overview=content.querySelector('.detail-section');
-    content.insertBefore(overview,content.querySelector('#detail-badges'));
-    const extras=[...content.querySelectorAll('.dynamic-extra-section')];
+    const caption=document.createElement('p');caption.className='visual-caption';caption.textContent=visualCaption(description);
     const disclosure=document.createElement('details'); disclosure.className='more-details';
-    const summary=document.createElement('summary'); summary.textContent='Stories, visit notes and nearby places'; disclosure.appendChild(summary);
-    extras.forEach(e=>disclosure.appendChild(e));
-    content.insertBefore(disclosure,content.querySelector('.detail-footer-actions'));
+    const summary=document.createElement('summary'); summary.textContent='Details and visit notes'; disclosure.appendChild(summary);
+    const warning=document.createElement('p');warning.className='dynamic-extra-section';warning.textContent='A saved place collection, not live travel advice. Ratings, prices, tips and images are inherited and unverified.';disclosure.appendChild(warning);
+    [...content.children].filter(e=>e.id!=='detail-title').forEach(e=>disclosure.appendChild(e));
+    content.appendChild(caption);content.appendChild(disclosure);
     panel.scrollTop=0;
     // Show Panel
     panel.classList.remove('hidden');

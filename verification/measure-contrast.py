@@ -4,7 +4,9 @@ root='/downloads/worlds-rank/croatia-contrast';out=[]
 def lum(a):
  a=np.array(a)/255.;v=np.where(a<=.04045,a/12.92,((a+.055)/1.055)**2.4);return v@np.array([.2126,.7152,.0722])
 import glob
-for row in [row for file in glob.glob(root+'/records-*.json') for row in json.load(open(file))]:
+# A rerun overwrites the same pixel prefix; use its matching final record.
+records={row['prefix']:row for file in glob.glob(root+'/records-*.json') for row in json.load(open(file))}
+for row in records.values():
  back=np.array(Image.open(row['prefix']+'-backdrop.png').convert('RGB'));bl=np.array(Image.open(row['prefix']+'-black.png').convert('RGB'));wh=np.array(Image.open(row['prefix']+'-white.png').convert('RGB'));h,w=back.shape[:2];scale=w/row['width'];mask=np.max(abs(wh.astype(float)-bl.astype(float)),axis=2)>200
  for e in row['els']:
   r=e['rect'];x=max(0,int(r['x']*scale));y=max(0,int(r['y']*scale));xx=min(w,int((r['x']+r['width'])*scale));yy=min(h,int((r['y']+r['height'])*scale));m=mask[y:yy,x:xx];bg=back[y:yy,x:xx][m]

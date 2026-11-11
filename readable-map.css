@@ -164,3 +164,35 @@ body :is(.fun-fact-content,.getting-there-header,.getting-there-icon,.getting-th
 body .dynamic-extra-section :is(div,p,span,label,h4,h5,li,small){color:inherit!important}
 body .dynamic-extra-section :is(div,p,span){text-shadow:none!important}
 body :is(.fun-fact-box::before,.legend-box::before,.secret-box::before,.photospot-box::before,.top-match-card::before){display:none!important}
+
+/* Visual-first: the collection and all long reading are intentional, on demand. */
+:root{--bar-height:118px}
+.source-note{height:38px;padding-top:7px;padding-bottom:7px}
+#map{left:0!important}
+#sidebar{display:none!important}
+body.browse-open #sidebar{display:block!important}
+#browse-map{display:block!important}
+#quick-filter-bar{left:16px!important;max-width:calc(100% - 150px)!important}
+body.browse-open #quick-filter-bar{display:none!important}
+body.browse-open #map{left:360px!important}
+.panel-content::before{display:none!important}
+.visual-caption{margin:12px 0!important;line-height:1.6}
+.more-details{margin:16px 0 0}
+.more-details>summary{font-weight:normal;font-size:14px}
+body :is(.result-tip,.result-tags,.result-meta,.result-content>.info-badges,.result-content>.badge-container,.popup-tip,.popup-badges,.popup-category,.popup-footer>.rating-badge){display:none!important}
+.result-desc{display:block!important;-webkit-line-clamp:unset!important;line-height:1.6!important;max-height:none!important}
+@media(min-width:901px){body:not(.browse-open) #active-quest-hud{left:16px!important}}
+@media(max-width:900px){:root{--bar-height:146px}.source-note{height:34px;padding:6px 16px;font-size:14px!important}body.browse-open #map{left:0!important}.world-bar{height:112px}}
+@media(max-width:350px){:root{--bar-height:166px}.source-note{height:54px}}
+
+#quick-filter-bar .quick-filter-chip>span{display:none!important}
+@media(min-width:901px){#site-detail-panel{bottom:auto!important;max-height:calc(100dvh - var(--bar-height) - 64px)!important}}
+@media(max-width:900px){
+body.browse-open:has(#site-detail-panel:not(.hidden)) #sidebar{background:transparent!important;pointer-events:none;border:0}
+body.browse-open:has(#site-detail-panel:not(.hidden)) #sidebar>:not(#site-detail-panel){visibility:hidden;pointer-events:none}
+#site-detail-panel{pointer-events:auto;top:auto!important;bottom:48px!important;height:auto!important;max-height:55dvh!important;border-radius:12px 12px 0 0!important}
+#site-detail-panel:has(.more-details[open]){top:var(--bar-height)!important;max-height:none!important}
+}
+
+.result-thumbnail span{color:var(--text-primary)!important}
+.route-number-marker>div{color:var(--text-on-accent)!important;border-color:var(--text-on-accent)!important;font-size:14px!important}

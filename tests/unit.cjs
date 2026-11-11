@@ -10,3 +10,5 @@ test('crowd generator explicitly bounded mock values',()=>{for(const c of ['natu
 test('similar places excludes selected place',()=>{const a=JSON.parse(fs.readFileSync('data.geojson')).features;assert.ok(ui.findSimilarSites(a[0],a).every(f=>f.properties.name!==a[0].properties.name))});
 test('tile URL has no paid provider key',()=>{const s=fs.readFileSync('map-module.js','utf8');assert.ok(s.includes('tile.opentopomap.org'));assert.ok(!s.includes('cartocdn.com'));assert.ok(s.includes('CC BY-SA'))});
 test('private source backup is excluded from production',()=>{const s=fs.readFileSync('build.cjs','utf8');assert.ok(!s.includes("['legacy'"));assert.ok(fs.readFileSync('readable-map.css','utf8').includes('.animate-in,.dynamic-extra-section{opacity:1'))});
+
+test('short visual excerpts retain source wording within ten words',()=>{const data=JSON.parse(fs.readFileSync('data.geojson')).features;for(const f of data){const c=ui.visualCaption(f.properties.description);assert.ok(c.split(/\s+/).length<=10);assert.ok(f.properties.description.startsWith(c.replace(/[.…]$/,'')))}});

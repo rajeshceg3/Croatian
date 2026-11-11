@@ -1,4 +1,4 @@
-import { getFavorites, toggleFavorite } from './ui-module.js';
+import { getFavorites, toggleFavorite, visualCaption } from './ui-module.js';
 
 let currentTileLayer = null;
 let currentMap = null;
@@ -24,7 +24,7 @@ export function initializeMap() {
     // Center on Croatia
     const map = L.map('map', {
         maxZoom:17, zoomAnimation:false, markerZoomAnimation:false, zoomControl: false // We will add it manually to position it better if needed, or style the default one
-    }).setView([45.1, 15.2], 7);
+    }).setView([44.45, 16.3], 6);
 
     currentMap = map;
 
@@ -305,7 +305,7 @@ export function updateMarkers(map, features, onViewDetails) {
 
         const desc = document.createElement('p');
         // Truncate description for popup
-        desc.textContent = description.length > 120 ? description.substring(0, 117) + '...' : description;
+        desc.textContent = visualCaption(description);
 
         const footer = document.createElement('div');
         footer.className = 'popup-footer';
@@ -484,5 +484,5 @@ export function clearRoute() {
     }
 }
 
-export function resetMap() { if(currentMap) { currentMap.stop(); currentMap.closePopup(); currentMap.setView([45.1,15.2],7,{animate:false,reset:true}); } }
+export function resetMap() { if(currentMap) { currentMap.stop(); currentMap.closePopup(); currentMap.setView([44.45,16.3],6,{animate:false,reset:true}); } }
 export function getMap() {return currentMap;}
