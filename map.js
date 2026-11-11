@@ -3,6 +3,8 @@ import { createCategoryFilters, updateSearchResults, addSearchListener, addClear
 import { fetchData } from './api-module.js';
 
 const map = initializeMap();
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const originalFlyTo=map.flyTo.bind(map); map.flyTo=(center,zoom,options={})=>reducedMotion?map.setView(center,zoom,{animate:false}):originalFlyTo(center,zoom,options);
 
 // Near Me Feature
 const nearMeBtn = document.getElementById('near-me-btn');

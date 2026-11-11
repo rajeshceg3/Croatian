@@ -1,0 +1,22 @@
+// Original ink sketches for this Adriatic field guide. No icon font or stock set.
+const paths={
+historical:'M3 21 3.4 8 6 5.5 9 8 9.4 21M10 21 10.2 8 13 5 16 8 16.4 21M17 21 17.2 8 20 5.7 22 8 21.7 21M2 21.4 23 21M4 12 8 12M11 12 15 12M18 12 21 12',
+natural:'M3 4Q8 3 11 5L11 10Q15 9 20 11M5 5 5.5 13Q9 12 13 14L13 19M8 6 8 16Q11 15 15 17M17 12 17.4 20M2 20Q6 18 10 21T22 20',
+cultural:'M3 20 3.5 10 7 8 7.5 20M9 20 9.2 6 13 3 16 6 16.5 20M18 20 18.2 11 21 9 22 20M2 21 23 21M11 10 14 10M11 14 14 14M5 13 6 13M19 14 20 14',
+coastal:'M3 16Q8 13 12 16T22 16M2 20Q7 17 11 20T22 20M7 12 18 12 16 15 9 15 7 12M13 2 13 12M12 3 6 10 12 10M14 4 19 10 14 10',
+gastronomy:'M4 21Q10 11 19 3M7 16Q2 16 3 11Q8 10 9 14M11 11Q7 8 10 5Q15 6 13 10M15 7Q14 2 19 2M11 15Q16 10 20 13Q19 18 14 17M18 20Q16 19 17 17Q20 16 21 19Q20 21 18 20',
+adventure:'M2 20 8 9 11 13 16 3 23 20M6 14 8 15 10 13M13 9 16 11 18 8M3 21Q9 18 13 21T23 20M12 20 15 16 14 14',
+default:'M3 4 9 2 15 4 22 2 21 20 15 22 9 20 2 22 3 4M9 3 9 19M15 5 15 21',
+reset:'M4 7Q9 1 16 4Q23 7 20 15Q18 22 10 21M4 3 3 9 9 9M10 17 14 12 17 17M12 17 12 20',
+theme:'M14 3Q7 4 7 11Q8 18 17 18Q14 22 8 19Q1 16 3 8Q6 1 14 3M18 4 18 8M16 6 21 6',
+sunset:'M2 19 22 19M4 22 20 22M6 16Q5 7 12 7Q19 7 18 16M12 2 12 5M3 6 6 8M19 8 22 6',
+camera:'M2 7 7 7 9 4 16 4 18 7 22 7 22 21 2 21 2 7M7 14Q7 8 13 9Q19 9 18 15Q17 20 12 19Q7 19 7 14',
+family:'M8 8Q3 8 4 4Q7 1 9 4Q11 7 8 8M17 9Q13 9 14 5Q17 2 19 5Q21 9 17 9M2 22 3 14Q7 9 11 14L12 22M12 22 13 15Q17 11 21 15L23 22',
+route:'M3 19Q6 12 11 16Q20 23 21 13Q21 5 13 8Q6 11 5 3M2 4 5 2 9 4M20 9 21 6 23 9',
+back:'M20 12 4 12M10 5 3 12 10 19',
+heart:'M12 21Q2 15 3 8Q5 2 12 7Q19 1 22 8Q23 14 12 21',
+share:'M6 12 18 5M7 13 18 20M5 9Q1 10 3 14Q7 17 9 12Q9 8 5 9M18 2Q14 3 16 7Q20 9 22 5Q22 1 18 2M18 17Q14 19 17 22Q22 23 22 19Q21 16 18 17',
+voice:'M3 10 7 10 12 5 12 20 7 15 3 15 3 10M16 8Q20 12 16 17M19 4Q26 12 19 21'
+};
+export const sketchPaths=Object.fromEntries(Object.entries(paths).map(([k,d])=>[k,`<path d="${d}" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>`]));
+export function sketch(name){return `<svg class="croatia-sketch" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${sketchPaths[name]||sketchPaths.default}</svg>`}

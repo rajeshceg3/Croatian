@@ -6,7 +6,7 @@ export function setupVibeMatcher(filterCallback) {
     if (!modal) {
         modal = document.createElement('div');
         modal.id = 'vibe-modal';
-        modal.className = 'modal-overlay';
+        modal.className = 'modal-overlay hidden';
         modal.innerHTML = `
             <div class="modal-content">
                 <button class="modal-close">&times;</button>
@@ -139,9 +139,9 @@ export function setupVibeMatcher(filterCallback) {
         // Mock logic: return a hardcoded name based on category
         if (filterTags.cat === 'historical') return "Diocletian's Palace";
         if (filterTags.cat === 'natural') return "Plitvice Lakes National Park";
-        if (filterTags.cat === 'adventure') return "Omis Zipline";
-        if (filterTags.cat === 'gastronomy') return "Pula Arena"; // Mock
-        if (filterTags.cat === 'cultural') return "Zagreb Upper Town";
+        if (filterTags.cat === 'adventure') return "Zipline Omiš";
+        if (filterTags.cat === 'gastronomy') return "Pellegrini";
+        if (filterTags.cat === 'cultural') return "Museum of Broken Relationships";
         return "Dubrovnik City Walls"; // Default for photo/others
     };
 
@@ -149,7 +149,7 @@ export function setupVibeMatcher(filterCallback) {
         // Simple heuristic
         if (s.history >= 3) return { title: "History Buff", icon: "🏛️", desc: "You love stories of the past and ancient stones.", filterTags: { cat: 'historical', tags: ['History', 'UNESCO'] } };
         if (s.nature >= 3) return { title: "Nature Lover", icon: "🌿", desc: "Fresh air and green landscapes are your fuel.", filterTags: { cat: 'natural', tags: ['Nature', 'Hiking'] } };
-        if (s.active >= 2) return { title: "Adventurer", icon: "⚡", desc: "You can't sit still—bring on the action!", filterTags: { cat: 'adventure', tags: ['Hiking', 'Water Sports'] } };
+        if (s.active >= 2) return { title: "Adventurer", icon: "⚡", desc: "You can't sit still, bring on the action!", filterTags: { cat: 'adventure', tags: ['Hiking', 'Water Sports'] } };
         if (s.luxury >= 2) return { title: "Bon Vivant", icon: "🍷", desc: "You appreciate the finer things in life.", filterTags: { cat: 'gastronomy', tags: ['Wine', 'Luxury', 'Fine Dining'] } };
         if (s.photo >= 2) return { title: "Influencer", icon: "📸", desc: "Doing it for the 'gram (and the memories).", filterTags: { tags: ['Photography', 'Views', 'Sunset'] } };
 

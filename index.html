@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Croatian Tourist Sites</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    <link rel="stylesheet" href="vendor/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="vendor/MarkerCluster.css" />
+    <link rel="stylesheet" href="vendor/MarkerCluster.Default.css" />
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="readable-map.css">
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
+    <header class="world-bar"><h1>Croatia, coast to karst</h1><nav aria-label="Map controls"><button id="reset-map">Reset map</button><button id="world-theme">Dark UI</button><button id="browse-map" aria-expanded="false" aria-controls="sidebar">Explore 73 places</button></nav></header>
+    <p class="source-note">Saved places. Details and images unverified.</p>
     <div id="loading-overlay">
         <div class="spinner"></div>
     </div>
@@ -23,7 +26,7 @@
         </div>
 
         <div class="sidebar-header">
-            <div id="dynamic-greeting-container"></div>
+            <h2 class="collection-title">Your Croatia collection</h2><div id="dynamic-greeting-container"></div>
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Search sites..." autocomplete="off">
                 <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -239,11 +242,12 @@
         </svg>
     </button>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    <script src="vendor/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="vendor/leaflet.markercluster.js"></script>
     <script type="module" src="map.js"></script>
+    <script type="module" src="readable-map.js"></script>
 
     <!-- My Trip Modal -->
     <div id="my-trip-modal" class="modal-overlay hidden">

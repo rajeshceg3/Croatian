@@ -1,3 +1,12 @@
+import {sketchPaths,sketch} from './croatia-icons.js';
+// Short excerpts only; original descriptions stay unchanged in the detail disclosure.
+export function visualCaption(description) {
+    const first=String(description||'').split(/(?<=[.!?])\s/)[0];
+    const clause=first.split(/[,;:]\s/)[0];
+    if(clause.trim().split(/\s+/).length>=4&&clause.trim().split(/\s+/).length<=10)return clause.replace(/[.!?]$/,'')+'.';
+    const words=first.trim().split(/\s+/);
+    return words.length>10 ? words.slice(0,10).join(' ').replace(/[,;:]$/,'')+'…' : first;
+}
 // This module will handle UI-related functionalities.
 
 export function getFavorites() {
@@ -66,16 +75,7 @@ export function saveNote(name, text) {
     }
 }
 
-const categoryIcons = {
-    // Cleaner, more geometric icons (Stripe-inspired simplicity)
-    "historical": `<path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5 9.5 9.75 12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/>`,
-    "natural": `<path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34 3.32 22.58 4.75 23.5 6 23.5c4 0 9.17-2.17 11.17-4.17S21 14 21 14s-3.17 1.83-4 6C16 11 15 8 15 8s-3-3-2-5c1 2 4 5 4 5zM8 12c-1 0-1-2 0-2 1 0 1 2 0 2z"/>`,
-    "cultural": `<path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2ZM11 19.93A8 8 0 0 1 4.07 13H11ZM11 11H4.07A8 8 0 0 1 11 4.07ZM13 4.07A8 8 0 0 1 19.93 11H13ZM13 13H19.93A8 8 0 0 1 13 19.93Z"/>`,
-    "coastal": `<path fill="currentColor" d="M21 15.61a12.65 12.65 0 0 1-5.14-1.17c-.45-.19-1.29-.19-1.8 0a12.65 12.65 0 0 0-4.12 1.17 12.65 12.65 0 0 1-4.12 1.17c-1.32 0-2.55-.38-3.82-1.17v-8a12.65 12.65 0 0 1 3.82 1.17c.45.19 1.29.19 1.8 0a12.65 12.65 0 0 0 4.12-1.17 12.65 12.65 0 0 1 4.12-1.17c.45-.19 1.29-.19 1.8 0a12.65 12.65 0 0 0 3.34 1.17V15.61zM12 2a3 3 0 0 0-3 3v2h6V5a3 3 0 0 0-3-3z"/>`,
-    "gastronomy": `<path fill="currentColor" d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V22.99zM7.5 12c1.93 0 3.5-1.57 3.5-3.5V2H4v6.5C4 10.43 5.57 12 7.5 12zm0-8.5h1v4h-1v-4zm-2.5 0h1v4H5v-4zM11 20H4v2h7v-2zm.48-5.32l.74 7.32h1.63l-.74-7.32c-.08-.82-.77-1.46-1.63-1.46z"/>`,
-    "adventure": `<path fill="currentColor" d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V12h2V8.9z"/>`,
-    "default": `<path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5 2.5z"/>`
-};
+const categoryIcons = sketchPaths;
 
 export function createCategoryFilters(categories, filterCallback) {
     const filtersContainer = document.getElementById('category-filters');
@@ -295,6 +295,7 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
 
         const resultItem = document.createElement('div');
         resultItem.className = 'search-result-item animate-in';
+        resultItem.tabIndex=0; resultItem.setAttribute('role','button'); resultItem.setAttribute('aria-label','Open '+name); resultItem.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){if(e.target!==resultItem)return;e.preventDefault();resultItem.click();}});
         resultItem.style.animationDelay = `${index * 0.05}s`;
 
         // Highlight map marker on hover
@@ -427,7 +428,7 @@ export function updateSearchResults(map, features, highlightMarker, unhighlightM
         if (description) {
             const desc = document.createElement('div');
             desc.className = 'result-desc';
-            desc.textContent = description;
+            desc.textContent = visualCaption(description);
             contentDiv.appendChild(desc);
         }
 
@@ -694,9 +695,14 @@ export function setupSurpriseMe(map, getFilteredFeatures, openPopupCallback) {
 export function openDetailPanel(feature, allFeatures = []) {
     const panel = document.getElementById('site-detail-panel');
     if (!panel) return;
+    document.body.classList.add('browse-open');
 
     const { name, category, description, image_url, price_level, best_time, rating, duration, tags, local_tip, website, accessibility, fun_fact, transit_option, photospot, getting_there_detail, best_time_of_day, legend, gastronomy_highlight, hidden_secret, vibe, good_to_know, perfect_day } = feature.properties;
 
+    // Restore static nodes before retiring the preceding place's extras.
+    panel.querySelectorAll('.more-details').forEach(d=>{for(const e of [...d.children])if(e.tagName!=='SUMMARY'&&!e.classList.contains('dynamic-extra-section'))d.parentElement.appendChild(e);d.remove();});
+    panel.querySelector('.visual-caption')?.remove();
+    panel.querySelectorAll('.vibe-chips-container,.live-status-badge').forEach(e=>e.remove());
     // Populate Data
     const titleEl = document.getElementById('detail-title');
     if (titleEl) {
@@ -707,6 +713,7 @@ export function openDetailPanel(feature, allFeatures = []) {
 
         // Add Audio Guide Button
         const audioBtn = document.createElement('button');
+        audioBtn.setAttribute('aria-label','Read inherited description aloud');
         audioBtn.className = 'audio-guide-btn';
         audioBtn.title = 'Listen to description';
         audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
@@ -715,19 +722,20 @@ export function openDetailPanel(feature, allFeatures = []) {
         let utterance = null;
 
         const stopAudio = () => {
-             window.speechSynthesis.cancel();
+             window.speechSynthesis?.cancel();
              audioBtn.classList.remove('playing');
              audioBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
         };
 
         audioBtn.onclick = (e) => {
             e.stopPropagation();
-            if (window.speechSynthesis.speaking && audioBtn.classList.contains('playing')) {
+            if (window.speechSynthesis?.speaking && audioBtn.classList.contains('playing')) {
                 stopAudio();
             } else {
                 // Stop any current
-                window.speechSynthesis.cancel();
+                window.speechSynthesis?.cancel();
 
+                if(!window.speechSynthesis || typeof SpeechSynthesisUtterance==='undefined'){audioBtn.textContent='Voice unavailable';return;}
                 utterance = new SpeechSynthesisUtterance(description);
                 utterance.lang = 'en-US';
                 utterance.onend = stopAudio;
@@ -741,6 +749,7 @@ export function openDetailPanel(feature, allFeatures = []) {
         titleEl.style.display = 'flex';
         titleEl.style.alignItems = 'center';
         titleEl.style.justifyContent = 'space-between';
+        audioBtn.innerHTML=sketch('voice');
         titleEl.appendChild(audioBtn);
     }
 
@@ -756,7 +765,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     const imgEl = document.getElementById('detail-image');
     if (imgEl) {
         imgEl.src = image_url || '';
-        imgEl.onerror = () => { imgEl.src = ''; imgEl.style.backgroundColor = '#e6ebf1'; };
+        imgEl.alt = name + ' (inherited image; credit unverified)'; imgEl.hidden = !image_url; imgEl.onerror = () => { imgEl.hidden = true; };
     }
 
     // Badges
@@ -813,8 +822,8 @@ export function openDetailPanel(feature, allFeatures = []) {
         weatherWidget.innerHTML = `
             <div class="weather-icon">${weatherIcon}</div>
             <div class="weather-info">
-                <h4>${weatherDesc} • ${weatherTemp}</h4>
-                <p>Best visit: ${best_time || 'Year-round'}</p>
+                <h4>Illustrative weather only</h4>
+                <p>Not a forecast. Inherited season: ${best_time || 'Year-round'}</p>
             </div>
         `;
     }
@@ -822,7 +831,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     // === New Content Injection ===
     const contentContainer = document.querySelector('.panel-content');
 
-    // Live Status & Vibe Injection
+    // Illustrative Status & Vibe Injection
     const injectedTitleEl = document.getElementById('detail-title');
     if (injectedTitleEl) {
         // Clear previous vibe/status containers if any
@@ -837,7 +846,7 @@ export function openDetailPanel(feature, allFeatures = []) {
             injectedTitleEl.parentNode.insertBefore(el, injectedTitleEl.nextSibling);
         };
 
-        // Live Status Logic
+        // Illustrative Status Logic
         const crowdData = getCrowdData(category, feature.properties.popularity_score || 75);
         if (crowdData) {
             const currentHour = new Date().getHours();
@@ -845,14 +854,14 @@ export function openDetailPanel(feature, allFeatures = []) {
             const dataIndex = Math.max(0, Math.min(12, currentHour - 8));
             const currentCrowd = crowdData[dataIndex];
 
-            let statusText = 'Quiet Now';
+            let statusText = 'Crowd example: quiet';
             let dotClass = 'quiet';
 
             if (currentCrowd >= 80) {
-                statusText = 'Busy Now';
+                statusText = 'Crowd example: busy';
                 dotClass = 'busy';
             } else if (currentCrowd >= 50) {
-                statusText = 'Moderate Crowds';
+                statusText = 'Crowd example: moderate';
                 dotClass = 'moderate';
             }
 
@@ -1012,7 +1021,7 @@ export function openDetailPanel(feature, allFeatures = []) {
 
         btBox.innerHTML = `
             <div class="best-time-header">
-                <span>Popularity by Month</span>
+                <span>Illustrative season pattern</span>
                 <span style="color:var(--accent-color);">${best_time}</span>
             </div>
             ${best_time_of_day ? `<div style="font-size:11px; color:var(--text-secondary); margin-bottom:8px; display:flex; align-items:center; gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg> Best time: <strong>${best_time_of_day}</strong></div>` : ''}
@@ -1023,7 +1032,7 @@ export function openDetailPanel(feature, allFeatures = []) {
         if (target) insertAfter(btBox, target);
     }
 
-    // Crowd Forecast (New)
+    // Illustrative crowd pattern (New)
     const crowdData = getCrowdData(category, feature.properties.popularity_score);
     if (crowdData) {
         const crowdBox = document.createElement('div');
@@ -1039,7 +1048,7 @@ export function openDetailPanel(feature, allFeatures = []) {
 
         crowdBox.innerHTML = `
             <div class="crowd-header">
-                <span>Typical Daily Crowds</span>
+                <span>Illustrative crowd pattern</span>
             </div>
             <div class="crowd-viz">
                 ${bars}
@@ -1066,13 +1075,13 @@ export function openDetailPanel(feature, allFeatures = []) {
 
         instaBox.innerHTML = `
             <div class="insta-header">
-                <span>📸 Instagrammability</span>
+                <span>Collection photo score</span>
                 <span style="color:${color}; font-weight:700;">${instaScore}/100</span>
             </div>
             <div class="insta-bar-bg">
                 <div class="insta-bar-fill" style="width:${instaScore}%; background:${color};"></div>
             </div>
-            <p style="margin:4px 0 0; font-size:11px; color:var(--text-tertiary);">Based on views, uniqueness, and popularity.</p>
+            <p style="margin:4px 0 0; font-size:11px; color:var(--text-tertiary);">Rule-based collection score, not a measured popularity rating.</p>
         `;
 
         const target = contentContainer.querySelector('.crowd-box') || contentContainer.querySelector('.best-time-container') || document.getElementById('detail-weather-widget');
@@ -1476,6 +1485,15 @@ export function openDetailPanel(feature, allFeatures = []) {
         };
     }
 
+    // Lead with one short source excerpt; retain all long copy on demand.
+    const content=panel.querySelector('.panel-content');
+    const caption=document.createElement('p');caption.className='visual-caption';caption.textContent=visualCaption(description);
+    const disclosure=document.createElement('details'); disclosure.className='more-details';
+    const summary=document.createElement('summary'); summary.textContent='Details and visit notes'; disclosure.appendChild(summary);
+    const warning=document.createElement('p');warning.className='dynamic-extra-section';warning.textContent='A saved place collection, not live travel advice. Ratings, prices, tips and images are inherited and unverified.';disclosure.appendChild(warning);
+    [...content.children].filter(e=>e.id!=='detail-title').forEach(e=>disclosure.appendChild(e));
+    content.appendChild(caption);content.appendChild(disclosure);
+    panel.scrollTop=0;
     // Show Panel
     panel.classList.remove('hidden');
 
@@ -1484,7 +1502,7 @@ export function openDetailPanel(feature, allFeatures = []) {
     if (backBtn) {
         backBtn.onclick = () => {
             closeDetailPanel();
-            window.speechSynthesis.cancel(); // Stop audio on close
+            window.speechSynthesis?.cancel(); // Stop audio on close
         };
     }
 }
@@ -1556,7 +1574,7 @@ export function renderCollections(collections, filterCallback) {
         btn.dataset.collection = col.tag;
         // Clean, minimal structure
         btn.innerHTML = `
-            <span class="collection-icon">${col.icon}</span>
+            <span class="collection-icon">${sketch(/UNESCO|Thrones/.test(col.name)?'historical':/Food/.test(col.name)?'gastronomy':/Sunsets/.test(col.name)?'sunset':/Photo/.test(col.name)?'camera':/Family/.test(col.name)?'family':/Islands/.test(col.name)?'coastal':/Hidden|Family/.test(col.name)?'natural':'default')}</span>
             <span class="collection-name">${col.name}</span>
         `;
 
@@ -1644,14 +1662,14 @@ export function setupTravelTips() {
 
              playAllBtn.onclick = () => {
                  if (isPlaying) {
-                     window.speechSynthesis.cancel();
+                     window.speechSynthesis?.cancel();
                      isPlaying = false;
                      playAllBtn.innerHTML = '▶ Play All';
                      return;
                  }
 
                  // Cancel any ongoing speech
-                 window.speechSynthesis.cancel();
+                 window.speechSynthesis?.cancel();
                  isPlaying = true;
                  playAllBtn.innerHTML = '⏹ Stop';
 
@@ -1786,6 +1804,7 @@ function renderMyTripList(features, container, durationEl) {
         }
 
         if (durationEl) durationEl.textContent = '0h';
+        const oldBudget=document.getElementById('trip-budget');if(oldBudget)oldBudget.textContent='';
         return;
     }
 
@@ -1941,7 +1960,7 @@ function renderMyTripList(features, container, durationEl) {
             budgetEl.className = 'trip-budget-display';
             durationEl.parentNode.appendChild(budgetEl);
         }
-        budgetEl.innerHTML = `<span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase; font-weight:700;">Est. Cost:</span> <strong style="font-size:18px; color:var(--accent-color);">~€${estCost}</strong>`;
+        budgetEl.innerHTML = `<span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase; font-weight:700;">Illustrative cost:</span> <strong style="font-size:18px; color:var(--accent-color);">~€${estCost}</strong>`;
         // Handle empty state
         if (features.length === 0) budgetEl.innerHTML = '';
     }
@@ -2072,10 +2091,10 @@ export function setupMyTripModal(allFeatures) {
         });
 
         const totalDuration = document.getElementById('trip-duration').textContent;
-        const totalBudget = document.getElementById('trip-budget') ? document.getElementById('trip-budget').innerText.replace('Est. Cost:', '').trim() : '';
+        const totalBudget = document.getElementById('trip-budget') ? document.getElementById('trip-budget').innerText.replace('Illustrative cost:', '').trim() : '';
 
         text += `Total Duration: ${totalDuration}\n`;
-        if (totalBudget) text += `Estimated Budget: ${totalBudget}\n`;
+        if (totalBudget) text += `Illustrative budget: ${totalBudget}\n`;
         text += `\nShared via Croatia Guide`;
 
         navigator.clipboard.writeText(text).then(() => {
@@ -2155,7 +2174,7 @@ export function setupSuggestedRoutes(allFeatures) {
         },
         {
             name: "Dalmatian Highlights",
-            sites: ["Zadar Sea Organ", "Krka National Park", "Trogir Old Town", "Split Diocletian's Palace"],
+            sites: ["Sea Organ (Zadar)", "Krka National Park", "Trogir Old Town", "Diocletian's Palace"],
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Sea_organ_Zadar.jpg/800px-Sea_organ_Zadar.jpg",
             desc: "The essential coastal route from Zadar to Split, featuring waterfalls and UNESCO sites."
         },
@@ -2827,7 +2846,7 @@ function createQuestHUD(id, filterCallback) {
     hud.innerHTML = `
         <div style="font-size:24px;">${quest.icon}</div>
         <div class="quest-status">
-            <h5>Current Quest</h5>
+            <h5>Your quest</h5>
             <span>${quest.name}: ${progress}/${quest.required}</span>
         </div>
         <button class="close-quest" title="Stop Quest">&times;</button>
