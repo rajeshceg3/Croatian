@@ -114,7 +114,8 @@ body .modal-content{max-height:calc(100dvh - 20px)!important;padding:16px!import
 body .modal-content :is(button,a){max-width:100%;white-space:normal}
 }
 @media(max-width:350px){:root{--bar-height:198px}.source-note{height:86px}.world-bar h1{font-size:24px!important}.world-bar button{padding:6px 5px}.world-bar nav{gap:5px}.quick-filters-container{max-width:calc(100% - 70px)!important}.filters-actions{grid-template-columns:1fr 1fr!important}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* Quiet is the default, even when the OS has no preference. */
+*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 .leaflet-bottom.leaflet-right{bottom:0!important}.leaflet-control-attribution{margin:0!important}
 #quick-filter-bar{position:fixed!important;left:380px!important;right:auto!important;top:calc(var(--bar-height) + 12px)!important;transform:none!important;background:var(--surface-color)!important;border:1px solid var(--border-color)!important;box-shadow:none!important;backdrop-filter:none!important;gap:6px!important;max-width:calc(100% - 520px)!important;z-index:900}
 body :is(.search-result-item,.featured-site-card,.result-tip,.result-thumbnail,.tag-chip,.must-visit-badge,.featured-label,.no-results,.result-meta,.result-desc,.result-title){background:var(--surface-color)!important;color:var(--text-primary)!important;opacity:1!important;box-shadow:none!important;border-color:var(--border-color)!important}
