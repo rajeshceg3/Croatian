@@ -24,7 +24,7 @@ export function toggleMapTheme(theme) {
 export function initializeMap() {
     // Center on Croatia
     const map = L.map('map', {
-        maxZoom:17, zoomAnimation:false, markerZoomAnimation:false, zoomControl: false // We will add it manually to position it better if needed, or style the default one
+        maxZoom:17, zoomAnimation:false, markerZoomAnimation:false, fadeAnimation:false, inertia:false, zoomControl: false // We will add it manually to position it better if needed, or style the default one
     }).setView([44.45, 16.3], 6);
 
     currentMap = map;
@@ -461,8 +461,7 @@ export function drawRoute(features) {
     currentMap.fitBounds(currentRouteLayer.getBounds(), {
         padding: [50, 50],
         maxZoom: 14,
-        animate: true,
-        duration: 1.5
+        animate: false
     });
 }
 
