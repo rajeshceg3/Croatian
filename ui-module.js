@@ -1,3 +1,4 @@
+import {sketchPaths,sketch} from './croatia-icons.js';
 // Short excerpts only; original descriptions stay unchanged in the detail disclosure.
 export function visualCaption(description) {
     const first=String(description||'').split(/(?<=[.!?])\s/)[0];
@@ -74,16 +75,7 @@ export function saveNote(name, text) {
     }
 }
 
-const categoryIcons = {
-    // Cleaner, more geometric icons (Stripe-inspired simplicity)
-    "historical": `<path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5 9.5 9.75 12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/>`,
-    "natural": `<path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34 3.32 22.58 4.75 23.5 6 23.5c4 0 9.17-2.17 11.17-4.17S21 14 21 14s-3.17 1.83-4 6C16 11 15 8 15 8s-3-3-2-5c1 2 4 5 4 5zM8 12c-1 0-1-2 0-2 1 0 1 2 0 2z"/>`,
-    "cultural": `<path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2ZM11 19.93A8 8 0 0 1 4.07 13H11ZM11 11H4.07A8 8 0 0 1 11 4.07ZM13 4.07A8 8 0 0 1 19.93 11H13ZM13 13H19.93A8 8 0 0 1 13 19.93Z"/>`,
-    "coastal": `<path fill="currentColor" d="M21 15.61a12.65 12.65 0 0 1-5.14-1.17c-.45-.19-1.29-.19-1.8 0a12.65 12.65 0 0 0-4.12 1.17 12.65 12.65 0 0 1-4.12 1.17c-1.32 0-2.55-.38-3.82-1.17v-8a12.65 12.65 0 0 1 3.82 1.17c.45.19 1.29.19 1.8 0a12.65 12.65 0 0 0 4.12-1.17 12.65 12.65 0 0 1 4.12-1.17c.45-.19 1.29-.19 1.8 0a12.65 12.65 0 0 0 3.34 1.17V15.61zM12 2a3 3 0 0 0-3 3v2h6V5a3 3 0 0 0-3-3z"/>`,
-    "gastronomy": `<path fill="currentColor" d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V22.99zM7.5 12c1.93 0 3.5-1.57 3.5-3.5V2H4v6.5C4 10.43 5.57 12 7.5 12zm0-8.5h1v4h-1v-4zm-2.5 0h1v4H5v-4zM11 20H4v2h7v-2zm.48-5.32l.74 7.32h1.63l-.74-7.32c-.08-.82-.77-1.46-1.63-1.46z"/>`,
-    "adventure": `<path fill="currentColor" d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V12h2V8.9z"/>`,
-    "default": `<path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5 2.5z"/>`
-};
+const categoryIcons = sketchPaths;
 
 export function createCategoryFilters(categories, filterCallback) {
     const filtersContainer = document.getElementById('category-filters');
@@ -757,6 +749,7 @@ export function openDetailPanel(feature, allFeatures = []) {
         titleEl.style.display = 'flex';
         titleEl.style.alignItems = 'center';
         titleEl.style.justifyContent = 'space-between';
+        audioBtn.innerHTML=sketch('voice');
         titleEl.appendChild(audioBtn);
     }
 
@@ -1581,7 +1574,7 @@ export function renderCollections(collections, filterCallback) {
         btn.dataset.collection = col.tag;
         // Clean, minimal structure
         btn.innerHTML = `
-            <span class="collection-icon">${col.icon}</span>
+            <span class="collection-icon">${sketch(/UNESCO|Thrones/.test(col.name)?'historical':/Food/.test(col.name)?'gastronomy':/Sunsets/.test(col.name)?'sunset':/Photo/.test(col.name)?'camera':/Family/.test(col.name)?'family':/Islands/.test(col.name)?'coastal':/Hidden|Family/.test(col.name)?'natural':'default')}</span>
             <span class="collection-name">${col.name}</span>
         `;
 

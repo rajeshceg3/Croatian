@@ -196,3 +196,20 @@ body.browse-open:has(#site-detail-panel:not(.hidden)) #sidebar>:not(#site-detail
 
 .result-thumbnail span{color:var(--text-primary)!important}
 .route-number-marker>div{color:var(--text-on-accent)!important;border-color:var(--text-on-accent)!important;font-size:14px!important}
+
+/* Adriatic field-book ink: Pula arches, karst cascades, a lateen boat and olive sprig. */
+.croatia-sketch{width:22px;height:22px;display:inline-block;vertical-align:middle;flex-shrink:0;color:inherit}
+.world-bar button{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+#browse-map{display:inline-flex!important}
+.world-bar button{border-radius:12px 9px 13px 8px!important}
+#quick-filter-bar{border-radius:14px 20px 16px 12px!important;gap:7px!important}
+.quick-filter-chip{display:inline-flex!important;align-items:center;gap:7px}
+.custom-marker-icon .marker-pin svg{fill:none!important;color:#fff9ed!important}
+@media(max-width:900px){.world-bar button .croatia-sketch{width:18px;height:18px}.world-bar button{gap:5px;padding:7px 6px!important}#quick-filter-bar{right:62px!important;left:12px!important}.quick-filter-chip{gap:4px;padding:5px!important}.quick-filter-chip .croatia-sketch{width:18px;height:18px}}
+@media(max-width:350px){.world-bar button .croatia-sketch{display:none}.quick-filter-chip .croatia-sketch{display:none}}
+@media(max-width:900px){#quick-filter-bar{max-width:none!important}.quick-filter-chip{white-space:normal!important;overflow:visible!important;min-width:0!important}.quick-filter-chip .croatia-sketch{flex-shrink:0}}
+#collections-container .collection-chip svg{display:block!important;width:22px;height:22px}
+
+.filters-actions button .croatia-sketch{display:inline-block!important;width:19px;height:19px;margin-right:6px}
+@media(max-width:350px){.quick-filter-chip .croatia-sketch{display:inline-block;width:14px;height:14px}}
+@media(max-width:350px){.quick-filter-chip{flex-direction:column;justify-content:center;gap:3px!important;flex:1!important}#quick-filter-bar{gap:5px!important}.quick-filter-chip .croatia-sketch{width:16px;height:16px}}
