@@ -11,13 +11,14 @@ export function toggleMapTheme(theme) {
         currentMap.removeLayer(currentTileLayer);
     }
 
-    const url = theme === 'dark'
-        ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-        : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-
-    currentTileLayer = L.tileLayer(url, {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
+    // Warm-paper basemap (worlds shared module): OpenFreeMap vector tiles via
+    // the MapLibre GL Leaflet bridge. Free public instance, no API key. One warm
+    // style serves both UI themes (the old dark_all/light_all raster pair is
+    // gone - Carto now watermarks keyless tiles).
+    maplibregl.setWorkerUrl('vendor/maplibre/maplibre-gl-csp-worker.js');
+    currentTileLayer = L.maplibreGL({
+        style: window.WARM_MAP_STYLE,
+        attribution: '<a href="https://openfreemap.org" target="_blank" rel="noopener noreferrer">OpenFreeMap</a> &copy; <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener noreferrer">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>',
         maxZoom: 20
     }).addTo(currentMap);
 }
@@ -26,7 +27,8 @@ export function toggleMapTheme(theme) {
 export function initializeMap() {
     // Center on Croatia
     const map = L.map('map', {
-        zoomControl: false // We will add it manually to position it better if needed, or style the default one
+        zoomControl: false, // We will add it manually to position it better if needed, or style the default one
+        maxZoom: 18 // explicit: markercluster + the MapLibre GL bridge need a finite map maxZoom
     }).setView([45.1, 15.2], 7);
 
     currentMap = map;
